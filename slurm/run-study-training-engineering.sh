@@ -16,4 +16,4 @@ export CUBLAS_WORKSPACE_CONFIG=:4096:8 TABPFN_ALLOW_CPU_LARGE_DATASET=1
 export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
 export TMPDIR="$PF_SCRATCH/work/study-training-engineering-$SLURM_JOB_ID"
 mkdir -p "$TMPDIR"
-exec "$engineering_python" "$engineering_repo/scripts/engineer-study-training.py" run --repo "$engineering_repo" --inputs "$engineering_inputs" --input-sha256 "$engineering_sha" --source-commit "$engineering_commit" --output "$engineering_output"
+exec "$engineering_python" "$engineering_repo/scripts/engineer-study-training.py" "${FTF_ENGINEERING_PHASE:-run}" --repo "$engineering_repo" --inputs "$engineering_inputs" --input-sha256 "$engineering_sha" --source-commit "$engineering_commit" --output "$engineering_output"
