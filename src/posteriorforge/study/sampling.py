@@ -1,4 +1,4 @@
-"""Complete-vector autoregressive posterior generation; CPU diagnostic only.
+"""Complete-vector autoregressive posterior generation with explicit qualification modes.
 
 Checkpoint files retain only complete microbatches, never partial parameter rows.
 They are recovery state, not qualified sample artifacts.
@@ -95,7 +95,7 @@ def _load(path, binding, spec, rngs):
 
 
 def sample_posterior(bank, observation, backend, *, seed, microbatch_size, identities,
-                     resume_path=None, diagnostic_cpu=False):
+                     resume_path=None, diagnostic_cpu=False, cuda_qualification=False):
     """Produce exactly 50,000 complete supported vectors and diagnostic metadata.
 
     backend.prepare(context_x, context_y) fits a conditional and backend.sample
@@ -103,10 +103,21 @@ def sample_posterior(bank, observation, backend, *, seed, microbatch_size, ident
     contains observations and generated predecessors only. An exception is a failed
     request; an existing recovery file remains explicitly incomplete and resumable.
     """
-    if diagnostic_cpu is not True:
-        raise ValueError('unqualified CPU diagnostic requires explicit diagnostic_cpu=True')
-    if os.environ.get('SLURM_JOB_ID'):
-        raise ValueError('posterior diagnostics are forbidden inside Slurm jobs')
+    if type(diagnostic_cpu) is not bool or type(cuda_qualification) is not bool or diagnostic_cpu == cuda_qualification:
+        raise ValueError('select exactly one explicit diagnostic_cpu or cuda_qualification mode')
+    if diagnostic_cpu:
+        if os.environ.get('SLURM_JOB_ID'):
+            raise ValueError('posterior diagnostics are forbidden inside Slurm jobs')
+    else:
+        if not os.environ.get('SLURM_JOB_ID'):
+            raise ValueError('CUDA qualification requires an accounted Slurm allocation')
+        if getattr(backend, 'backend_kind', None) != 'stock_tabpfn_cuda_qualification':
+            raise ValueError('CUDA qualification requires the authenticated CUDA backend')
+        import torch
+        if not torch.cuda.is_available() or torch.device(getattr(backend, 'device', 'cpu')).type != 'cuda':
+            raise ValueError('CUDA qualification requires an available CUDA device')
+        if torch.backends.cuda.matmul.allow_tf32 or torch.backends.cudnn.allow_tf32:
+            raise ValueError('FP32 qualification requires TF32 disabled')
     if not isinstance(bank, PairedBank): raise TypeError('paired bank required')
     spec = bank.spec
     y = np.asarray(observation, dtype=np.float64)

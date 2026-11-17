@@ -26,7 +26,7 @@ def _write(path,value):
     tmp.write_text(json.dumps(value,sort_keys=True,indent=2,allow_nan=False)+'\n');os.replace(tmp,path)
 
 def source_identity():
-    names=('campaign.py','episodes.py','model.py','training.py','updates.py','science.py','banks.py','ordering.py','spec.py','seeds.py')
+    names=('campaign.py','episodes.py','model.py','training.py','updates.py','science.py','banks.py','ordering.py','spec.py','seeds.py','cuda_training.py')
     return {name:sha256(Path(__file__).with_name(name).read_bytes()).hexdigest() for name in names}
 
 def quick_milestones(updates):

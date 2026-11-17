@@ -1,4 +1,4 @@
-"""Stage-wise CPU diagnostic updates; no campaign or GPU activation.
+"""Stage-wise CPU diagnostics and explicitly gated CUDA qualification updates.
 
 A realized query/measurement case is a training problem. Setup frequency follows
 catalogue sampling: an episode with Q queries has Q/total_Q of the batch weight,
@@ -15,16 +15,22 @@ from .training import PreparedTeacherForcedEpisode, TargetSupportMismatch, Train
 _ROLE_GROUP = {"population": 0, "batch": 0, "physical": 1, "noise": 2}
 
 
-def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualified_cpu_diagnostic):
+def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualified_cpu_diagnostic, device_type="cpu"):
     if not allow_unqualified_cpu_diagnostic:
-        raise ModelQualificationError("explicit unqualified CPU-diagnostic opt-in required; I07 does not authorize a campaign")
+        raise ModelQualificationError("explicit unqualified CPU-diagnostic opt-in required; I07 does not authorize a campaign" if device_type == "cpu" else "explicit CUDA qualification opt-in required; production is still I07-gated")
     if law not in (LEGACY_FINITE, CANONICAL_FULL_SUPPORT):
         raise ModelQualificationError("explicit implemented density law required; no finite fallback")
     if not math.isfinite(gradient_clip) or gradient_clip <= 0:
         raise ValueError("gradient_clip must be finite and positive")
     parameters = list(model.parameters())
-    if not parameters or any(value.device.type != "cpu" for value in parameters + list(model.buffers())):
-        raise ModelQualificationError("this unqualified diagnostic update is CPU-only")
+    if not parameters or any(value.device.type != device_type for value in parameters + list(model.buffers())):
+        raise ModelQualificationError("this unqualified diagnostic update is CPU-only" if device_type == "cpu" else "this qualification update is CUDA-only")
+    devices = {value.device for value in parameters + list(model.buffers())}
+    if len(devices) != 1:
+        raise ModelQualificationError("one local model device is required per qualification worker")
+    target_device = parameters[0].device
+    if device_type == "cuda" and any(p.is_floating_point() and p.dtype != torch.float32 for p in parameters):
+        raise ModelQualificationError("CUDA qualification uses FP32 neural parameters")
     trainable = [p for p in parameters if p.requires_grad]
     if not trainable:
         raise ModelQualificationError("no trainable transformer parameters")
@@ -57,11 +63,13 @@ def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualif
             if stage.index != j or stage.parameter_name != episode.parameter_order[j] or stage.role != episode.roles[j]:
                 raise ModelQualificationError("teacher-forced stage order/role mismatch")
             for value in (stage.targets, stage.decoder_log_jac):
-                if not isinstance(value, torch.Tensor) or value.device.type != "cpu" or value.shape != (episode.query_count,) or not bool(torch.isfinite(value).all()):
-                    raise ModelQualificationError("finite CPU target/Jacobian vectors required")
+                if not isinstance(value, torch.Tensor) or value.device != target_device or value.shape != (episode.query_count,) or not bool(torch.isfinite(value).all()):
+                    raise ModelQualificationError("finite CPU target/Jacobian vectors required" if device_type == "cpu" else "finite target/Jacobian vectors on the model CUDA device required")
+                if device_type == "cuda" and value.dtype != torch.float64:
+                    raise ModelQualificationError("CUDA probability targets and decoder Jacobians must remain FP64")
             for member in getattr(stage.ensemble, "members", ()):
-                if any(value.device.type != "cpu" for value in (member.context_x, member.context_y, member.query_x)):
-                    raise ModelQualificationError("prepared numerical inputs must remain on CPU")
+                if any(value.device != target_device for value in (member.context_x, member.context_y, member.query_x)):
+                    raise ModelQualificationError("prepared numerical inputs must remain on CPU" if device_type == "cpu" else "prepared numerical inputs must use the model CUDA device")
         counts.append(group_counts)
         total_cases += episode.query_count
     return trainable, counts, total_cases
@@ -74,10 +82,10 @@ def _require_finite_gradients(parameters):
         raise ModelQualificationError("nonfinite accumulated gradients; optimizer step refused")
 
 
-def stagewise_cpu_update(model: nn.Module, optimizer: torch.optim.Optimizer,
+def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                          episodes: Sequence[PreparedTeacherForcedEpisode], state: TrainingState,
                          *, law: str, gradient_clip: float = 1.0,
-                         allow_unqualified_cpu_diagnostic: bool = False) -> dict:
+                         allow_unqualified_cpu_diagnostic: bool = False, device_type: str = "cpu") -> dict:
     """Backward each conditional, then take one step for the entire batch.
 
     Each parameter/query contributes
@@ -90,14 +98,14 @@ def stagewise_cpu_update(model: nn.Module, optimizer: torch.optim.Optimizer,
     Preflight/forward/score/backward/gradient failures clear gradients, preserve
     counters and never call optimizer.step(). Failures inside optimizer.step()
     itself propagate; transactional rollback of a partially failed optimizer is
-    not claimed. This explicit CPU-only primitive authorizes no campaign.
+    not claimed. Neither qualification primitive authorizes a production campaign.
     """
     optimizer.zero_grad(set_to_none=True)
     try:
         episodes = tuple(episodes)
         parameters, group_counts, total_cases = _preflight(model, optimizer, episodes,
             law=law, gradient_clip=gradient_clip,
-            allow_unqualified_cpu_diagnostic=allow_unqualified_cpu_diagnostic)
+            allow_unqualified_cpu_diagnostic=allow_unqualified_cpu_diagnostic, device_type=device_type)
         if type(state.update) is not int or type(state.data_position) is not int or state.update < 0 or state.data_position < 0:
             raise ValueError("training counters must be nonnegative integers")
         scalar_losses = []
@@ -134,4 +142,47 @@ def stagewise_cpu_update(model: nn.Module, optimizer: torch.optim.Optimizer,
         "conditional_count": backward_calls, "backward_calls": backward_calls,
         "optimizer_steps": 1, "sampling_law": law,
         "query_weighting": "equal realized query cases; setup frequency follows catalogue sampling",
-        "execution_mode": "unqualified_cpu_diagnostic", "scientifically_qualified": False}
+        "execution_mode": "unqualified_cpu_diagnostic" if device_type == "cpu" else "unqualified_cuda_qualification", "scientifically_qualified": False}
+
+
+def stagewise_cpu_update(model: nn.Module, optimizer: torch.optim.Optimizer,
+                         episodes: Sequence[PreparedTeacherForcedEpisode], state: TrainingState,
+                         *, law: str, gradient_clip: float = 1.0,
+                         allow_unqualified_cpu_diagnostic: bool = False) -> dict:
+    """Preserve the explicit CPU-only diagnostic contract."""
+    return _stagewise_update(model, optimizer, episodes, state, law=law,
+        gradient_clip=gradient_clip, allow_unqualified_cpu_diagnostic=allow_unqualified_cpu_diagnostic)
+
+
+def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim.Optimizer,
+                         episodes: Sequence[PreparedTeacherForcedEpisode], state: TrainingState,
+                         *, law: str, gradient_clip: float = 1.0,
+                         allow_cuda_qualification: bool = False, expected_device=None) -> dict:
+    """One explicitly authorized engineering update; does not qualify a campaign.
+
+    Neural parameters remain FP32 and probability/Jacobian calculations FP64.
+    Every conditional is backpropagated before the next; there is exactly one
+    optimizer step for the complete effective batch. No autocast or scaler is used.
+    """
+    if allow_cuda_qualification is not True:
+        raise ModelQualificationError("explicit CUDA qualification opt-in required")
+    if law != CANONICAL_FULL_SUPPORT:
+        raise ModelQualificationError("CUDA qualification requires the agreed canonical full-support law")
+    if torch.is_autocast_enabled():
+        raise ModelQualificationError("AMP is not enabled by FP32 CUDA qualification")
+    parameters = list(model.parameters())
+    if not parameters or any(p.device.type != "cuda" for p in parameters):
+        raise ModelQualificationError("this qualification update is CUDA-only")
+    target = parameters[0].device
+    if expected_device is not None:
+        expected = torch.device(expected_device)
+        if expected.type != "cuda" or (expected.index is not None and target != expected):
+            raise ModelQualificationError("CUDA qualification device mismatch")
+    if not torch.cuda.is_available():
+        raise ModelQualificationError("CUDA qualification requires an available CUDA device")
+    torch.cuda.synchronize(target)
+    report = _stagewise_update(model, optimizer, episodes, state, law=law,
+        gradient_clip=gradient_clip, allow_unqualified_cpu_diagnostic=True, device_type="cuda")
+    torch.cuda.synchronize(target)
+    return dict(report, device=str(target), neural_precision="float32",
+                probability_precision="float64", mixed_precision=False)

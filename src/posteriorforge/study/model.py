@@ -29,6 +29,24 @@ class ModelQualificationError(RuntimeError):
     """A model, density, or cache identity is not valid for the requested use."""
 
 
+def resolve_inference_device(device: str | torch.device = "cpu") -> torch.device:
+    """Resolve an explicitly requested CPU or available CUDA qualification device."""
+    try:
+        target = torch.device(device)
+    except (TypeError, RuntimeError, ValueError) as exc:
+        raise ValueError("device must be cpu or an available cuda device") from exc
+    if target.type == "cpu" and target.index is None:
+        return target
+    if target.type != "cuda":
+        raise ValueError("device must be cpu or an available cuda device")
+    if not torch.cuda.is_available():
+        raise ModelQualificationError("explicit CUDA device requested but CUDA is unavailable")
+    index = torch.cuda.current_device() if target.index is None else target.index
+    if index < 0 or index >= torch.cuda.device_count():
+        raise ModelQualificationError("requested CUDA device is unavailable")
+    return torch.device("cuda", index)
+
+
 def _borders(value: torch.Tensor) -> torch.Tensor:
     if not isinstance(value, torch.Tensor) or value.ndim != 1 or len(value) < 2:
         raise ValueError("one finite increasing border vector is required")
@@ -398,6 +416,10 @@ class TabPFNBackbone(nn.Module):
         if torch.is_inference_mode_enabled():
             raise ModelQualificationError("gradient-enabled forward cannot run in inference_mode")
         member.validate()
+        parameter = next(self.backbone.parameters(), None)
+        if parameter is not None and any(x.device != parameter.device or x.dtype != torch.float32
+                                         for x in (member.context_x, member.context_y, member.query_x)):
+            raise ModelQualificationError("prepared FP32 inputs must match neural model device")
         configure_differentiable_forward(self.backbone)
         x = torch.cat((member.context_x, member.query_x), 0).unsqueeze(1)
         y = member.context_y.unsqueeze(1)

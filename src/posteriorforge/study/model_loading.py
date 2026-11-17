@@ -1,4 +1,4 @@
-"""Authenticated CPU-only loading of pinned or campaign inference weights.
+"""Authenticated diagnostic CPU/CUDA loading of pinned or campaign inference weights.
 
 Imports are intentionally lazy: request inspection does not require Torch.
 """
@@ -35,7 +35,7 @@ def _deployment(checkpoint, metadata, expected_model_sha256):
                'full_finetune': ('full_finetune', None, 'full_tabpfn_safetensors', 'full_model.safetensors')}
     wanted = allowed.get(value['campaign_method'])
     if (wanted is None or (value['training_method'], value['rank'], value['format'], value['path']) != wanted
-            or value['backend_kind'] != 'stock_tabpfn_cpu' or value['base_checkpoint_sha256'] != BASE_SHA256
+            or value['backend_kind'] not in ('stock_tabpfn_cpu', 'stock_tabpfn_cuda_qualification') or value['base_checkpoint_sha256'] != BASE_SHA256
             or value['weights_sha256'] != expected_model_sha256 or metadata.get('weights_sha256') != expected_model_sha256
             or value['sampling_law'] != LAW or value['source_policy'] != SOURCE_POLICY
             or value['scientifically_qualified'] is not False):
@@ -55,8 +55,8 @@ def _deployment(checkpoint, metadata, expected_model_sha256):
 
 
 def load_inference_model(base_checkpoint, *, expected_model_sha256, campaign_checkpoint=None,
-                         expected_checkpoint_manifest_sha256=None):
-    """Load authenticated current weights on CPU; no downloads or optimizer state."""
+                         expected_checkpoint_manifest_sha256=None, device='cpu'):
+    """Load authenticated weights on explicitly requested CPU/CUDA; never download."""
     start = time.perf_counter()
     if not _sha(expected_model_sha256):
         raise ValueError('explicit model SHA256 required')
@@ -79,8 +79,9 @@ def load_inference_model(base_checkpoint, *, expected_model_sha256, campaign_che
         metadata = read_campaign_checkpoint(root)
         deployment, artifact = _deployment(root, metadata, expected_model_sha256)
         checkpoint_identity = expected_checkpoint_manifest_sha256
-    from .model import TabPFNBackbone, weights_fingerprint
+    from .model import TabPFNBackbone, weights_fingerprint, resolve_inference_device
     import torch
+    target = resolve_inference_device(device)
     network = TabPFNBackbone.from_checkpoint(base)
     if deployment is not None:
         if deployment['format'] == 'peft_adapter':
@@ -98,7 +99,11 @@ def load_inference_model(base_checkpoint, *, expected_model_sha256, campaign_che
         raise ValueError('inference network must use FP32 CPU neural weights and buffers')
     if weights_fingerprint(network) != expected_model_sha256:
         raise ValueError('loaded model weight fingerprint mismatch')
-    return network, {'model_sha256': expected_model_sha256,
+    network.to(target)
+    if (any(p.device != target for p in network.parameters())
+            or any(b.device != target for b in network.buffers())):
+        raise ValueError('model did not move to the requested device')
+    return network, {'model_sha256': expected_model_sha256, 'device': str(target),
         'checkpoint_manifest_sha256': checkpoint_identity,
         'checkpoint_identity_format': 'base_checkpoint_file_sha256' if deployment is None else 'campaign_manifest_sha256',
         'base_checkpoint_sha256': BASE_SHA256, 'kind': 'frozen' if deployment is None else 'campaign_checkpoint',

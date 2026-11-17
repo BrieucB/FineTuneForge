@@ -175,9 +175,64 @@ def _hash(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
 
 
+def _model_device(model: nn.Module) -> torch.device:
+    values = list(model.parameters()) + list(model.buffers())
+    devices = {x.device for x in values}
+    if len(devices) != 1:
+        raise ModelQualificationError("checkpoint requires one local model device")
+    return next(iter(devices))
+
+
+def _cuda_execution_metadata(model: nn.Module) -> dict:
+    """Describe the numerical restart contract without changing process policy."""
+    device = _model_device(model)
+    if device.type != "cuda" or not torch.cuda.is_available():
+        raise ModelQualificationError("CUDA checkpoint requires an available CUDA model")
+    if any(p.is_floating_point() and p.dtype != torch.float32 for p in model.parameters()):
+        raise ModelQualificationError("CUDA checkpoint qualification uses FP32 neural parameters")
+    return {"device": str(device), "torch_version": str(torch.__version__),
+        "cuda_build": torch.version.cuda, "cudnn_version": torch.backends.cudnn.version(),
+        "visible_devices": [{"ordinal": i, "name": torch.cuda.get_device_name(i),
+            "capability": list(torch.cuda.get_device_capability(i))} for i in range(torch.cuda.device_count())],
+        "deterministic_algorithms": torch.are_deterministic_algorithms_enabled(),
+        "deterministic_warn_only": torch.is_deterministic_algorithms_warn_only_enabled(),
+        "float32_matmul_precision": torch.get_float32_matmul_precision(),
+        "matmul_allow_tf32": torch.backends.cuda.matmul.allow_tf32,
+        "cudnn_allow_tf32": torch.backends.cudnn.allow_tf32,
+        "cudnn_deterministic": torch.backends.cudnn.deterministic,
+        "cudnn_benchmark": torch.backends.cudnn.benchmark,
+        "flash_sdp": torch.backends.cuda.flash_sdp_enabled(),
+        "memory_efficient_sdp": torch.backends.cuda.mem_efficient_sdp_enabled(),
+        "math_sdp": torch.backends.cuda.math_sdp_enabled(),
+        "cublas_workspace_config": os.environ.get("CUBLAS_WORKSPACE_CONFIG"),
+        "autocast_enabled": torch.is_autocast_enabled(), "scaler": None}
+
+
+def _restore_optimizer_device_state(optimizer):
+    """AdamW moments follow parameters; noncapturable step counters stay on CPU."""
+    for group in optimizer.param_groups:
+        for parameter in group["params"]:
+            state = optimizer.state.get(parameter, {})
+            for name, value in state.items():
+                if isinstance(value, torch.Tensor):
+                    target = parameter.device
+                    if name == "step" and not (group.get("capturable", False) or group.get("fused", False)):
+                        target = torch.device("cpu")
+                    state[name] = value.to(target)
+
+
 def save_training_checkpoint(output: str | Path, model: nn.Module, optimizer: torch.optim.Optimizer, state: TrainingState, *, config: TrainingConfig, episode_rng: np.random.Generator | None = None) -> dict:
-    """Atomically save local optimizer/RNG continuation; public weights use safetensors."""
+    """Atomically save optimizer, numerical policy, module flags and RNG continuation.
+
+    CPU files retain the v1 contract. Explicit CUDA qualification files additionally
+    bind every visible CUDA RNG and the strict FP32 numerical execution policy.
+    Neither format is a scientific qualification receipt.
+    """
     config.validate()
+    device = _model_device(model)
+    if device.type not in ("cpu", "cuda"):
+        raise ModelQualificationError("only CPU or CUDA qualification checkpoints are supported")
+    execution = _cuda_execution_metadata(model) if device.type == "cuda" else None
     output = Path(output)
     if output.exists():
         raise FileExistsError(output)
@@ -188,8 +243,15 @@ def save_training_checkpoint(output: str | Path, model: nn.Module, optimizer: to
         numpy_state = np.random.get_state()
         rng = {"python": _jsonable(random.getstate()), "numpy_global": _jsonable(numpy_state), "episode_generator": None if episode_rng is None else _jsonable(episode_rng.bit_generator.state)}
         _write_json(temporary / "rng.json", rng)
-        torch.save({"model": model.state_dict(), "optimizer": optimizer.state_dict(), "torch_rng": torch.get_rng_state()}, temporary / "training.pt")
-        manifest = {"schema": "finetuneforge.training_checkpoint.v1", "state": asdict(state), "config": asdict(config), "trainable_parameter_names": [name for name, value in model.named_parameters() if value.requires_grad], "files": {"rng.json": _hash(temporary / "rng.json"), "training.pt": _hash(temporary / "training.pt")}, "scientifically_qualified": False}
+        payload = {"model": model.state_dict(), "optimizer": optimizer.state_dict(), "torch_rng": torch.get_rng_state()}
+        if execution is not None:
+            torch.cuda.synchronize(device)
+            payload["cuda_rng"] = torch.cuda.get_rng_state_all()
+            payload["module_training"] = {name: module.training for name, module in model.named_modules()}
+        torch.save(payload, temporary / "training.pt")
+        manifest = {"schema": "finetuneforge.training_checkpoint.v1" if execution is None else "finetuneforge.training_checkpoint.cuda_qualification.v1", "state": asdict(state), "config": asdict(config), "trainable_parameter_names": [name for name, value in model.named_parameters() if value.requires_grad], "files": {"rng.json": _hash(temporary / "rng.json"), "training.pt": _hash(temporary / "training.pt")}, "scientifically_qualified": False}
+        if execution is not None:
+            manifest["execution"] = execution
         _write_json(temporary / "manifest.json", manifest)
         os.replace(temporary, output)
         return manifest
@@ -199,12 +261,17 @@ def save_training_checkpoint(output: str | Path, model: nn.Module, optimizer: to
 
 
 def load_training_checkpoint(directory: str | Path, model: nn.Module, optimizer: torch.optim.Optimizer, *, config: TrainingConfig, expected_stream_id: str, episode_rng: np.random.Generator | None = None) -> TrainingState:
-    """Restore only a matching, checksummed local checkpoint with safe torch loading."""
+    """Restore matching local state, including every visible CUDA RNG when present."""
     config.validate()
     directory = Path(directory)
     manifest = json.loads((directory / "manifest.json").read_text())
-    if manifest.get("schema") != "finetuneforge.training_checkpoint.v1" or manifest.get("config") != asdict(config):
-        raise ModelQualificationError("checkpoint configuration mismatch")
+    device = _model_device(model)
+    cuda_checkpoint = manifest.get("schema") == "finetuneforge.training_checkpoint.cuda_qualification.v1"
+    schema_ok = cuda_checkpoint if device.type == "cuda" else manifest.get("schema") == "finetuneforge.training_checkpoint.v1"
+    if not schema_ok or manifest.get("config") != asdict(config):
+        raise ModelQualificationError("checkpoint configuration/device mismatch")
+    if manifest.get("scientifically_qualified") is not False:
+        raise ModelQualificationError("checkpoint cannot assert scientific qualification")
     if manifest["state"]["stream_id"] != expected_stream_id:
         raise ModelQualificationError("episode stream mismatch")
     names = [name for name, value in model.named_parameters() if value.requires_grad]
@@ -215,12 +282,27 @@ def load_training_checkpoint(directory: str | Path, model: nn.Module, optimizer:
     for name, checksum in manifest["files"].items():
         if name not in ("rng.json", "training.pt") or _hash(directory / name) != checksum:
             raise ModelQualificationError("training checkpoint checksum mismatch")
+    if cuda_checkpoint and manifest.get("execution") != _cuda_execution_metadata(model):
+        raise ModelQualificationError("CUDA checkpoint numerical policy/device inventory mismatch")
     rng = json.loads((directory / "rng.json").read_text())
     if rng["episode_generator"] is not None and episode_rng is None:
         raise ModelQualificationError("an explicit episode generator is required for this checkpoint")
     value = torch.load(directory / "training.pt", map_location="cpu", weights_only=True)
+    if cuda_checkpoint:
+        states = value.get("cuda_rng")
+        flags = value.get("module_training")
+        if (not isinstance(states, list) or len(states) != torch.cuda.device_count()
+                or any(not isinstance(x, torch.Tensor) or x.device.type != "cpu" or x.dtype != torch.uint8 or x.ndim != 1 for x in states)
+                or not isinstance(flags, dict) or set(flags) != {name for name, _ in model.named_modules()}
+                or any(type(flag) is not bool for flag in flags.values())):
+            raise ModelQualificationError("invalid CUDA RNG or module-training inventory")
     model.load_state_dict(value["model"], strict=True)
     optimizer.load_state_dict(value["optimizer"])
+    _restore_optimizer_device_state(optimizer)
+    if cuda_checkpoint:
+        for name, module in model.named_modules():
+            module.training = flags[name]
+        torch.cuda.set_rng_state_all(states)
     torch.set_rng_state(value["torch_rng"])
     random.setstate(_tuple_tree(rng["python"]))
     global_state = rng["numpy_global"]
