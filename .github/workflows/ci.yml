@@ -16,3 +16,38 @@ jobs:
       - run: python -m build
       - run: python -m pip install --force-reinstall --no-deps dist/*.whl
       - run: cd /tmp && posteriorforge --help
+
+  study-cpu:
+    name: Study CPU (${{ matrix.environment }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [study-training-cpu, study-reference-cpu]
+    env:
+      CUDA_VISIBLE_DEVICES: ''
+      JAX_PLATFORMS: cpu
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --require-hashes -r environments/bootstrap.lock
+      - name: Install a hashed CPU environment
+        run: |
+          uv venv .study-cpu --python python3.11
+          uv pip sync --python .study-cpu/bin/python --require-hashes \
+            --index https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match \
+            environments/${{ matrix.environment }}.lock
+          uv pip check --python .study-cpu/bin/python
+      - name: Run CPU tests without model downloads or Slurm
+        env:
+          FTF_CPU_PYTHON: .study-cpu/bin/python
+          HF_HUB_OFFLINE: '1'
+          TRANSFORMERS_OFFLINE: '1'
+        run: bash scripts/test-study-cpu.sh -q tests/test_study_*.py

@@ -1,0 +1,9 @@
+# Independent CPU reference software; no GPU qualification is implied.
+jax==0.8.3
+jaxlib==0.8.3
+numpy==2.2.6
+scipy==1.15.3
+numpyro>=0.19,<1
+pytest>=8,<9
+matplotlib>=3.9,<4
+build

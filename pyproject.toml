@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "posteriorforge"
 version = "0.1.0"
-description = "Reproducible frozen-transformer posterior inference and engineering evidence"
+description = "Foundation-model fine-tuning and reproducible scientific inference engineering"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
 license = {file = "LICENSE"}
@@ -18,10 +18,10 @@ reference = ["jax[cuda12]==0.8.3", "numpy==2.2.6", "scipy==1.15.3"]
 dev = ["pytest>=8,<9", "matplotlib>=3.9,<4", "build"]
 
 [project.scripts]
-posteriorforge = "posteriorforge.cli:main"
+posteriorforge = "posteriorforge.study.entrypoint:main"
 
 [project.urls]
-Repository = "https://github.com/BrieucB/PosteriorForge"
+Repository = "https://github.com/BrieucB/FineTuneForge"
 
 [tool.setuptools.packages.find]
 where = ["src"]

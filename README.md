@@ -1,17 +1,35 @@
-# PosteriorForge
+# FineTuneForge
+
+*Foundation-model fine-tuning and efficient GPU inference.*
 
 Built with PriorLabs-TabPFN.
+
+The variable-size hierarchical fine-tuning study is being implemented in a separate
+`posteriorforge study` namespace. The GitHub project is FineTuneForge; the Python package
+and CLI remain `posteriorforge`. The study scope and acceptance criteria are tracked in
+[issue #9](https://github.com/BrieucB/FineTuneForge/issues/9). This stage covers software
+and CPU checks only: there are no GPU jobs, production training, full 50,000-draw neural
+posterior runs, qualified production references, or claimed accuracy gains. CPU checks
+exercise components and wiring; they cannot establish GPU behavior, reference convergence,
+or scientific posterior accuracy.
+
+Before production training, the new study must qualify consistent full-tail scoring
+and sampling for both the original pretrained-weight baseline and LoRA/full-fine-tuning
+variants. Its CPU primitives and orchestration are still under implementation/qualification. The
+legacy finite-v3 path remains an isolated regression control, and the historical benchmark
+and its failed scientific result below remain unchanged. See [CPU-first study
+instructions](docs/hierarchical-ft-v1.md).
 
 Reproducible frozen-transformer inference engineering on a 21-parameter,
 33-observation analytical hierarchy with six inferred noise scales.
 
-PosteriorForge evaluates an unmodified, pinned NPE-PFN/TabPFN baseline before
+The original frozen-inference study evaluates an unmodified, pinned NPE-PFN/TabPFN baseline before
 attempting performance optimization. The same frozen regression checkpoint is
-reused through 21 autoregressive parameter stages. This project studies posterior
-sampling, memory, synchronization, and same-node independent sampling. It does
-not study text generation or distributed training.
+reused through 21 autoregressive parameter stages. That study covers posterior sampling, memory, synchronization and same-node
+independent sampling. The new study adds transformer fine-tuning; text generation
+remains outside the project.
 
-## Current accuracy phase
+## Historical benchmark accuracy phase
 
 The reviewed FP16 approximation provides the execution path for controlled accuracy work. Every end-to-end posterior request still returns **50,000 complete accepted physical vectors**. Further retained-context timing, compilation and multi-GPU scaling are deferred.
 

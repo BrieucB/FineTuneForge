@@ -1,0 +1,34 @@
+{
+  "bank_seeds": 2,
+  "cap_gpu_hours": 10000,
+  "cases_per_setup": 2,
+  "checkpoint_shortlist": 2,
+  "engineering_gpu_hours": 1000,
+  "evaluation_contexts": [
+    16,
+    64,
+    256,
+    1024,
+    4096
+  ],
+  "evaluation_gpu_hours": 4500,
+  "execution_mode": "cpu-only",
+  "master_seed": 20261117,
+  "posterior_draws": 50000,
+  "qualification_gpu_hours": 500,
+  "reserve_gpu_hours": 1000,
+  "sampling_law": "canonical_half_normal_full_support.v1",
+  "source_grid_policy": "cancelled_zero_width",
+  "study_id": "hierarchical-ft-v1",
+  "test_setups": 40,
+  "training_contexts": [
+    16,
+    64,
+    256,
+    1024
+  ],
+  "training_gpu_hours": 3000,
+  "training_replicas": 2,
+  "training_setups": 10000,
+  "validation_setups": 20
+}
