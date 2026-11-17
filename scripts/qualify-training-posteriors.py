@@ -33,31 +33,32 @@ def source(repo,commit):
         name:digest(repo/name) for name in ('scripts/qualify-training-posteriors.py','slurm/run-study-training-posteriors.sh','environments/study-training-gpu.lock')}
 
 
-def checkpoint(directory,protocol):
+def checkpoint(directory,protocol,rank=4):
     path=Path(directory);meta=json.loads((path/'campaign.json').read_text())
     spec=meta['identity']['spec']
     if (meta.get('schema')!='finetuneforge.campaign_checkpoint.v1' or meta['state']['update']!=2
-            or meta['state']['data_position']!=32 or spec['method']!='lora_r4'
+            or meta['state']['data_position']!=32 or spec['method']!=f'lora_r{rank}'
             or spec['effective_batch']!=16 or spec['protocol_sha256']!=protocol
-            or meta['deployment']['rank']!=4 or meta['deployment']['format']!='peft_adapter'):
-        raise ValueError('matched two-update rank4 checkpoint required')
+            or meta['deployment']['rank']!=rank or meta['deployment']['format']!='peft_adapter'):
+        raise ValueError('matched two-update LoRA checkpoint required')
     return {'campaign_checkpoint':str(path.resolve()),'checkpoint_manifest_sha256':digest(path/'manifest.json'),
         'campaign_metadata_sha256':digest(path/'campaign.json'),'model_sha256':meta['weights_sha256']}
 
 
-def prepare(template,stock_checkpoint,cached_checkpoint,output,repo,source_commit):
+def prepare(template,stock_checkpoint,cached_checkpoint,output,repo,source_commit,rank=4):
     if os.environ.get('SLURM_JOB_ID'):raise RuntimeError('prepare inputs outside GPU allocations')
+    if type(rank) is not int or rank not in (4,16):raise ValueError('approved LoRA rank required')
     old=json.loads(Path(template).read_text());out=Path(output);out.mkdir(parents=True,exist_ok=False)
     if type(old.get('posterior_draws')) is not int or old['posterior_draws']!=COUNT or old['small_bank']['worlds']!=256 or old['small_bank']['dimension']!=4:
         raise ValueError('fixed D4/C256/50,000 control required')
-    value={'schema':SCHEMA,'source_commit':source_commit,'source_files':source(repo,source_commit),
+    value={'schema':SCHEMA,'rank':rank,'source_commit':source_commit,'source_files':source(repo,source_commit),
         'template_path':str(Path(template).resolve()),'template_sha256':digest(template),'posterior_draws':COUNT,
         'protocol_sha256':old['protocol_sha256'],'base_checkpoint':old['base_checkpoint'],
         'base_checkpoint_sha256':old['base_checkpoint_sha256'],'frozen_model_sha256':old['frozen_model_sha256'],
         'small_bank':old['small_bank'],'observation':old['observation'],'observation_sha256':old['observation_sha256'],
         'microbatch_size':1024,'seed':20265117,'timing_repetitions':1,'mode':'merged_lora','attention_policy':'stock',
         'training_pilots_enabled':False,'new_forward_evaluations':0,'scientifically_qualified':False,
-        'checkpoints':{name:checkpoint(path,old['protocol_sha256']) for name,path in zip(VARIANTS,(stock_checkpoint,cached_checkpoint))}}
+        'checkpoints':{name:checkpoint(path,old['protocol_sha256'],rank) for name,path in zip(VARIANTS,(stock_checkpoint,cached_checkpoint))}}
     write(out/'manifest.json',value)
     return {'path':str(out/'manifest.json'),'sha256':digest(out/'manifest.json')}
 
@@ -69,6 +70,7 @@ def verify(inputs,input_sha256,repo,source_commit):
             or v.get('seed')!=20265117 or v.get('microbatch_size')!=1024
             or v.get('mode')!='merged_lora' or v.get('attention_policy')!='stock'
             or v.get('training_pilots_enabled') is not False or v['source_commit']!=source_commit
+            or type(v.get('rank')) is not int or v['rank'] not in (4,16)
             or set(v.get('checkpoints',{}))!=set(VARIANTS)):
         raise ValueError('posterior engineering contract changed')
     if source(repo,source_commit)!=v['source_files']:raise ValueError('source bytes changed')
@@ -76,7 +78,7 @@ def verify(inputs,input_sha256,repo,source_commit):
                            (v['observation'],v['observation_sha256'])):
         if digest(path)!=expected:raise ValueError('pinned input bytes changed')
     for d in v['checkpoints'].values():
-        if checkpoint(d['campaign_checkpoint'],v['protocol_sha256'])!=d:raise ValueError('checkpoint binding changed')
+        if checkpoint(d['campaign_checkpoint'],v['protocol_sha256'],v['rank'])!=d:raise ValueError('checkpoint binding changed')
     return v
 
 
@@ -85,13 +87,14 @@ def worker(variant,*,inputs,input_sha256,output,repo,source_commit):
     v=verify(inputs,input_sha256,repo,source_commit);configure()
     if variant not in VARIANTS:raise ValueError('unknown variant')
     out=Path(output);out.mkdir(parents=True,exist_ok=False)
-    v['models']={'lora_r4':v['checkpoints'][variant]}
+    method=f"lora_r{v['rank']}"
+    v['models']={method:v['checkpoints'][variant]}
     result={'schema':SCHEMA,'variant':variant,'status':'running','source_commit':source_commit,
         'input_manifest_sha256':input_sha256,'checkpoint':v['checkpoints'][variant],
         'posterior_draws':COUNT,'scientifically_qualified':False,'job_id':os.environ['SLURM_JOB_ID']}
     write(out/'result.json',result)
     try:
-        group=posterior(v,'lora_r4','merged_lora',False,v['small_bank'],out,repetitions=1)
+        group=posterior(v,method,'merged_lora',False,v['small_bank'],out,repetitions=1)
         if len(group['runs'])!=1 or group['runs'][0]['posterior_draws']!=COUNT:
             raise RuntimeError('incomplete fixed-size posterior request')
         result['status']='completed';result['posterior_result_sha256']=digest(out/'posterior-result.json')
@@ -132,6 +135,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);q=p.add_subparsers(dest='operation',required=True)
     a=q.add_parser('prepare')
     for name in ('template','stock-checkpoint','cached-checkpoint','output','repo','source-commit'):a.add_argument('--'+name,required=True)
+    a.add_argument('--rank',type=int,choices=(4,16),default=4)
     for operation in ('run','worker'):
         a=q.add_parser(operation)
         for name in ('inputs','input-sha256','output','repo','source-commit'):a.add_argument('--'+name,required=True)

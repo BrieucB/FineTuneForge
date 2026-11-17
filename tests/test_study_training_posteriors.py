@@ -53,3 +53,13 @@ def test_unallocated_launch_stops_without_subprocess_or_gpu(monkeypatch,tmp_path
     monkeypatch.setattr(p.subprocess,'Popen',lambda *a,**kw:(_ for _ in ()).throw(AssertionError('no children')))
     with pytest.raises(RuntimeError,match='accounted'):p.run(inputs='missing',input_sha256='x',output=tmp_path/'unused',repo=tmp_path,source_commit='x')
     assert not (tmp_path/'unused').exists()
+
+
+def test_rank16_has_distinct_method_and_supports_fixed_draws(posterior_fixture):
+    root,_=posterior_fixture
+    for name in p.VARIANTS:
+        f=root/name/'campaign.json';v=json.loads(f.read_text())
+        v['identity']['spec']['method']='lora_r16';v['deployment']['rank']=16;f.write_text(json.dumps(v))
+    r=p.prepare(root/'template.json',root/'stock',root/'cached',root/'inputs-r16',root,'d'*40,rank=16)
+    v=p.verify(r['path'],r['sha256'],root,'d'*40)
+    assert v['rank']==16 and v['posterior_draws']==50000
