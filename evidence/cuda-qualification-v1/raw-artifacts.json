@@ -1,0 +1,157 @@
+{
+  "files": {
+    "allocation-01/frozen/traceback.txt": {
+      "bytes": 801,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "b09d4f47a9de2fa93ee451b0c18adc3c85894acc3600c729cb1a011347367c70"
+    },
+    "allocation-01/full_finetune/after-one-update/deployment/full_model.safetensors": {
+      "bytes": 44378480,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "fc948a4f740ea58437f6ac66a17ad9e2d8ade6e973b4071fcbbcdfc1f1f8cbf7"
+    },
+    "allocation-01/full_finetune/after-one-update/training/training.pt": {
+      "bytes": 133145327,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "7e4962c3adb1db47c1dbf886237d2a5e9664a0c979c19d7f5b299273a11afbc2"
+    },
+    "allocation-01/full_finetune/traceback.txt": {
+      "bytes": 1495,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "eaeff35abfb436ef003034575be0ea2efbbc0b7a1fb31ad6311dad3aa1fbff0c"
+    },
+    "allocation-01/full_finetune/training-conditional-trace.json": {
+      "bytes": 192437421,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "745bd6466047d9fc73007dce1e698e3dfdb18db992957c963ba93d24aebb11e6"
+    },
+    "allocation-01/lora_r16/training-conditional-trace.json": {
+      "bytes": 320598699,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "8c4c9903261206f4c423e7df0136669bf58aa968afd268717dd947eb1a552fcb"
+    },
+    "allocation-01/lora_r4/training-conditional-trace.json": {
+      "bytes": 320454011,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "c7d536f4a032394d405d55809e24777d2eb0cbc0fff57173de8f308cd300248f"
+    },
+    "allocation-02/frozen/conditional-trace.json": {
+      "bytes": 63945468,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "1aab9c8177613236422397c333087992fbfe142aef3066864d826027635bdcb6"
+    },
+    "allocation-02/frozen/recovery.npz": {
+      "bytes": 1614666,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "f3d8e3bccd642e3c1a7341b5131a265bc910d88000ef4f8ad16b545136ffbfb7"
+    },
+    "allocation-02/frozen/samples.npz": {
+      "bytes": 1600268,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "5b40372891afbff7f868ab0f0a4b4d4bd99eb7fc09701163baf9c9c796b7802a"
+    },
+    "allocation-02/full_finetune/after-one-update/deployment/full_model.safetensors": {
+      "bytes": 44378480,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "0422d0c47c7bf4bdadf74a03d385ecbfec43483116fd3b0edf2b5ae506398d30"
+    },
+    "allocation-02/full_finetune/after-one-update/training/training.pt": {
+      "bytes": 133145327,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "9efc235e399239bf3b9db03c4aaa331582081df2ca703639b687b0d51bd1af80"
+    },
+    "allocation-02/full_finetune/after-two-updates/deployment/full_model.safetensors": {
+      "bytes": 44378480,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "4082347cde2841b6bbfd7ce17222e48455106829a66b89b3f5f2bc7b10c846a1"
+    },
+    "allocation-02/full_finetune/after-two-updates/training/training.pt": {
+      "bytes": 133145327,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "77d22822b57cec2961a21c71ab6d4d1ed5531dbbbd8a0bc3c712ff05b44dfbf8"
+    },
+    "allocation-02/full_finetune/traceback.txt": {
+      "bytes": 2002,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "b07837704dc7ac735e41b66cb107b76d9450d4dfc9d30d5cf4671f961c245698"
+    },
+    "allocation-02/full_finetune/training-conditional-trace.json": {
+      "bytes": 192492739,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "0c9a9aaa4945c54d0a6460cfce091bac34efbb8066fd8d5b54888852935ffdff"
+    },
+    "allocation-02/lora_r16/after-one-update/deployment/adapter/adapter_model.safetensors": {
+      "bytes": 4308232,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "96512d94891c8994a0bb29e504e2a74fb58eaa271e2f956b04302c32f827279b"
+    },
+    "allocation-02/lora_r16/after-one-update/training/training.pt": {
+      "bytes": 72130766,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "6a6201fe11fdeb64cd16d7afd93de06962ab473e4e6dd954d522c698de8629d7"
+    },
+    "allocation-02/lora_r16/after-two-updates/deployment/adapter/adapter_model.safetensors": {
+      "bytes": 4308232,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "2b57ac4eef9da4a64f4d5d08688727b5029163850a848c0327a2f4ab78300641"
+    },
+    "allocation-02/lora_r16/after-two-updates/training/training.pt": {
+      "bytes": 72130766,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "24efc4321d4cfc9c55475f7911385d43e3db72c037bf16ff11bbc2f3a2df47c9"
+    },
+    "allocation-02/lora_r16/traceback.txt": {
+      "bytes": 2032,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "6709762f3d48e0209e4e7cdf581b405101e31c4aa6f9dd7569b051a6345e4f29"
+    },
+    "allocation-02/lora_r16/training-conditional-trace.json": {
+      "bytes": 320660866,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "966525602aad7a883060e0c2feee87b3fed2fca89296ab4a84859c80ec738445"
+    },
+    "allocation-02/lora_r4/after-one-update/deployment/adapter/adapter_model.safetensors": {
+      "bytes": 1109280,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "afd15ef6f4173411b9873d71da292f11848803b2cfe9129c2c3f6863602a532e"
+    },
+    "allocation-02/lora_r4/after-one-update/training/training.pt": {
+      "bytes": 62535758,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "79a83f4e6ebb51ba2de373457d2cbe62d4846af0f50d42519b319d2ad928393e"
+    },
+    "allocation-02/lora_r4/after-two-updates/deployment/adapter/adapter_model.safetensors": {
+      "bytes": 1109280,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "f297b6a7fe3b93558bff4b17106fe485d06cfcbd4978f27d363756c7baac702d"
+    },
+    "allocation-02/lora_r4/after-two-updates/training/training.pt": {
+      "bytes": 62535758,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "73682e7e0361313d936cd6092a275be1a0a49d4f0d13b4361dca61851e44ef2b"
+    },
+    "allocation-02/lora_r4/conditional-trace.json": {
+      "bytes": 110020186,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "a61c7ed63aa7a769590a1aeb69d7d07892e443f9d991e4cf763cdd2fbe379f1b"
+    },
+    "allocation-02/lora_r4/recovery.npz": {
+      "bytes": 1614650,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "4309d94ad60aeb35591e92ce9ad7987f4332e2dc80337c96f3939ae8a8a76b65"
+    },
+    "allocation-02/lora_r4/samples.npz": {
+      "bytes": 1600268,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "54394760b645d975e3c53636622d6689266b379504d616f93634bcd9285b66f9"
+    },
+    "allocation-02/lora_r4/training-conditional-trace.json": {
+      "bytes": 320511939,
+      "location": "retained project scratch; not committed or model-published",
+      "sha256": "e3235e086614b80ee17c757b22d7ae16bd2754d73e2d7f3498b4a765b15dccef"
+    }
+  },
+  "raw_root": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117",
+  "reproduction": "Use the immutable source commits, hashed environment, pinned external base weights and prepare/run/probes entrypoints. Input manifests retain original seeds; no raw model checkpoint or optimizer state is publicly released.",
+  "schema": "finetuneforge.cuda_pilot_raw_artifacts.v1"
+}

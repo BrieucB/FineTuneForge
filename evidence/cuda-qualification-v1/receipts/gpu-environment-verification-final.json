@@ -1,0 +1,30 @@
+{
+  "cuda_initialized": false,
+  "cuda_runtime": "12.4",
+  "gpu_hardware_checked": false,
+  "gpu_jobs_submitted": 0,
+  "legacy_torch_ancestry": "Existing inference env torch/version.py reports2.6.0+cu124/CUDA12.4; actual device/driver compatibility is a compute-node qualification gate.",
+  "masked_imports": [
+    "torch",
+    "tabpfn",
+    "peft",
+    "transformers"
+  ],
+  "offline_fresh_install_matches": true,
+  "packages": 181,
+  "prior_receipt_note": "Earlier inventory used post-import discovery and included9 setuptools-vendored metadata distributions; retained as historical receipts. Final installed inventory is bound before model imports and exactly matches181 locked requirements.",
+  "receipts": {
+    "gpu-environment-cpu-tests-final.xml": "f6a7486f76569d7dcb584d6fe3caf38121d0d8fc2df90edbe47517183118acc7",
+    "gpu-environment-offline-reproduction-final.json": "0a988362fc17bd336a5cde5c9e6f650f501a9354d6bef4670d64bdeba046b16a",
+    "gpu-environment-preparation-final.json": "b69c40dd2db652ae1b570f1997a3f2856cb1d342aa9d1f9da1b8ef302b210bd8"
+  },
+  "schema": "finetuneforge.gpu_environment_cpu_verification.v1",
+  "source_files": {
+    "docs/study-gpu-environment.md": "33577aa233e823c793939c612aee4200564a72798e6c57164669793022941b5b",
+    "environments/study-training-gpu.in": "e743d73617c262d6dd95e3d58313573e213f24f43b3d48e163c84fe477efe721",
+    "environments/study-training-gpu.lock": "14dd5133971bf8f670117111efa67927d7fc8462695f6b1d65a24f7411aa743f",
+    "scripts/prepare-study-gpu-env.sh": "b624a0c12a0afa991faf1e93230a09a371f4b50d68821f4230fd11c84a31b493",
+    "tests/test_study_gpu_environment.py": "e3ee90e65dee3cf5054c6c5ab3d180d93cd2d8b023446e512f1eb39019ee968e"
+  },
+  "torch_build": "2.6.0+cu124"
+}

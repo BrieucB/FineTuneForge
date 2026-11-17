@@ -1,0 +1,27 @@
+{
+  "frozen-inference-conditional.txt": {
+    "normalization": "trailing whitespace only; original remains in raw allocation directory",
+    "original_sha256": "d1f802726fd6865f71fa64fd1e8a8da51ae61ad78c14257351aeb452bd89b8e3",
+    "published_sha256": "b264c61005e45ab4a930a80034fcf432f936706b730c780a8fa1db54e255b404"
+  },
+  "full_finetune-conditional.txt": {
+    "normalization": "trailing whitespace only; original remains in raw allocation directory",
+    "original_sha256": "a197a93029263b53d6d093e1aa7cc27d0125b372d13ddda0d045558e20b9c40f",
+    "published_sha256": "51b6f9e41bfa3a8c28ba86d2c7edd3dd423a1e9727dc208207670976c9bd7c2f"
+  },
+  "lora_r16-conditional.txt": {
+    "normalization": "trailing whitespace only; original remains in raw allocation directory",
+    "original_sha256": "3d1115b19762d669bb264cb3385504bc159d9115fc0722913db3ad643a3fecbc",
+    "published_sha256": "0efe0882123e477aa484f2081c2c3d6bd7c6322266e176da0ee94a68c33bd368"
+  },
+  "lora_r4-conditional.txt": {
+    "normalization": "trailing whitespace only; original remains in raw allocation directory",
+    "original_sha256": "93eebed0eead1b9eaf1690f153454a3fdbe5b43f623ec259dafa0c9f10e7caae",
+    "published_sha256": "a5c6d45bace2625d1b4df85bc9cdadcd5174983c84c02ffc1e3bcfd32da35503"
+  },
+  "lora_r4-inference-conditional.txt": {
+    "normalization": "trailing whitespace only; original remains in raw allocation directory",
+    "original_sha256": "6759a3973261932547dc21074cc1e9dcdde29350cc816fba59ce36c4644b70f3",
+    "published_sha256": "b44df741cf921f6dfec8b7461faf4d6a86643b2d13d6f28e12aa3aef72cf052d"
+  }
+}

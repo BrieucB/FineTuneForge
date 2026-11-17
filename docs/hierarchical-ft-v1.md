@@ -10,7 +10,8 @@ authorization to run jobs. Its ledger is separate from historical accounting, an
 `posteriorforge study submit` currently refuses execution. The current implementation
 includes file-backed CPU diagnostic orchestration for
 bounded training, complete-posterior sampling, evaluation, and selection sealing. There
-been CPU checks and an authorized first CUDA engineering launch. The separate
+been CPU checks and a completed first CUDA engineering pilot; its [partial qualification
+and retained limits](../evidence/cuda-qualification-v1/report.md) are public. The separate
 [CUDA qualification entrypoint](cuda-qualification-v1.md) has its own offline
 [GPU environment lock](study-gpu-environment.md). Production campaigns and full
 scientific qualification remain pending. CPU checks alone do not qualify GPU behavior.

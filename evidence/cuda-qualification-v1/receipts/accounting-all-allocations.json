@@ -1,0 +1,58 @@
+{
+  "actual_gpu_hours": 2.3666666666666667,
+  "allocations": [
+    {
+      "accounted_elapsed_seconds": 535,
+      "accounted_gpus": 4,
+      "accounting_record": {
+        "Account": "eu-26-17",
+        "AllocTRES": "billing=4,cpu=64,gres/gpu=4,mem=485G,node=1",
+        "ElapsedRaw": "535",
+        "JobIDRaw": "5448960",
+        "JobName": "pf-ftf-cuda-qual-01",
+        "Partition": "qgpu",
+        "State": "CANCELLED by 11515"
+      },
+      "actual_gpu_seconds": 2140,
+      "job_id": "5448960",
+      "reserved_gpu_seconds": 691200,
+      "slurm_state": "CANCELLED"
+    },
+    {
+      "accounted_elapsed_seconds": 1582,
+      "accounted_gpus": 4,
+      "accounting_record": {
+        "Account": "eu-26-17",
+        "AllocTRES": "billing=4,cpu=64,gres/gpu=4,mem=485G,node=1",
+        "ElapsedRaw": "1582",
+        "JobIDRaw": "5448973",
+        "JobName": "pf-ftf-cuda-qual-02",
+        "Partition": "qgpu",
+        "State": "FAILED"
+      },
+      "actual_gpu_seconds": 6328,
+      "job_id": "5448973",
+      "reserved_gpu_seconds": 691200,
+      "slurm_state": "FAILED"
+    },
+    {
+      "accounted_elapsed_seconds": 52,
+      "accounted_gpus": 1,
+      "accounting_record": {
+        "Account": "eu-26-17",
+        "AllocTRES": "billing=1,cpu=16,gres/gpu=1,mem=124160M,node=1",
+        "ElapsedRaw": "52",
+        "JobIDRaw": "5448997",
+        "JobName": "pf-ftf-cuda-probes-03",
+        "Partition": "qgpu",
+        "State": "COMPLETED"
+      },
+      "actual_gpu_seconds": 52,
+      "job_id": "5448997",
+      "reserved_gpu_seconds": 172800,
+      "slurm_state": "COMPLETED"
+    }
+  ],
+  "outstanding_reservations_gpu_hours": 0,
+  "total_actual_gpu_seconds": 8520
+}

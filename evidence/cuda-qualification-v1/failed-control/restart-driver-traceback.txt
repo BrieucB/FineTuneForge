@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/source-f13f8d37135c358daef10820b4bcb9a327d8ded8/src/posteriorforge/study/cuda_qualification.py", line 396, in worker
+    model,record['training']=_training(value,root,out,lane)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/source-f13f8d37135c358daef10820b4bcb9a327d8ded8/src/posteriorforge/study/cuda_qualification.py", line 309, in _training
+    resumed=fresh();restored,_=restore_campaign_checkpoint(checkpoint,resumed,expected_identity=identity)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/source-f13f8d37135c358daef10820b4bcb9a327d8ded8/src/posteriorforge/study/campaign.py", line 208, in restore_campaign_checkpoint
+    state=load_training_checkpoint(Path(directory)/'training',backend.model,backend.optimizer,config=backend.training_config,expected_stream_id=expected_identity['stream_id'],episode_rng=getattr(backend,'episode_rng',None))
+                                                                                                                                                ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'stream_id'

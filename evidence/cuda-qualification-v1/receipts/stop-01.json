@@ -1,0 +1,7 @@
+{
+  "job_id": "5448960",
+  "action": "cancel_known_failed_engineering_allocation",
+  "reason": "CPU/CUDA subspace vectors differ; fullFT also reached missing driver stream_id on restore. Preserve evidence; avoid remaining guaranteed failures before corrected rerun.",
+  "time_utc": "2026-11-17T17:43:06.596623+00:00",
+  "automatic_retry": false
+}
