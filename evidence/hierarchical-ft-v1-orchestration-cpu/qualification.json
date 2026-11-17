@@ -1,0 +1,261 @@
+{
+  "analytical_control": {
+    "backend": "exact_known_analytical_conditionals_not_transformer",
+    "figure": "analytical-control/posterior-control.png",
+    "metrics": "analytical-control/metrics.json",
+    "posterior_draws": 50000,
+    "receipt": "analytical-control/receipt.json",
+    "scientifically_qualified": false,
+    "throughput_claim": false
+  },
+  "audit_fixes": [
+    "Recompute verdicts from retained numerical gates and bound reference uncertainty before replay or sealing.",
+    "Bind independent bank labels to distinct authenticated physical banks and preserve matched sharing clusters.",
+    "Require actual cached model method, rank, replica, phase, protocol and completed update to match the planned model.",
+    "Anchor atomically published sample manifests outside the artifact and verify replay bytes.",
+    "Require canonical actual law, source policy and literal non-diagnostic training provenance for study records.",
+    "Use separate qualification/main budget envelopes; preserve master-seed and stream identity on restart."
+  ],
+  "execution_boundary": {
+    "actual_cpu_optimizer_unit_steps": 1,
+    "full_50000_draw_neural_posteriors": 0,
+    "gpu_hours_allocated": 0,
+    "gpu_jobs_submitted": 0,
+    "production_reference_calculations": 0,
+    "production_training_campaigns": 0,
+    "sealed_final_test_measurement_cases_generated": 0
+  },
+  "expected_skips": "Minimal public/reference environments omit Torch or plotting; training environment omits NumPyro; cached real-model checks are explicit opt-ins and separately retained.",
+  "gpu_execution_authorized": false,
+  "legacy_runtime": {
+    "legacy_suite_not_repeated_after_study_only_edits": true,
+    "source_comparison_commit": "9b0d3ab768d56e5e4f4ebbaf998f0419d238a735",
+    "unchanged_since_prior_cpu_source_commit": true
+  },
+  "posterior_contract": {
+    "complete_vectors": 50000,
+    "invalid_decode": "fail_and_preserve_evidence",
+    "no_clipping_or_replacement": true
+  },
+  "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+  "public_install": {
+    "private_dependencies": false,
+    "receipt": "public-wheel.json",
+    "runtime_python_files_byte_equal": 103,
+    "torch_or_model_download_required": false,
+    "wheel_sha256": "224409bfb7e7f15714e3e197ddc3d90fd3347c9cae23a01d5ef0d506dc37476e"
+  },
+  "raw_artifact_root": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-orchestration-cpu-20261117",
+  "real_cpu_optimizer_unit": {
+    "absolute_independent_loss_difference": 0.0,
+    "changed_trainable_tensors": 122,
+    "logging_note": "tee path typo retained in launcher_stdout_recovery.json; test succeeded once and was not rerun",
+    "optimizer_steps": 1,
+    "proof": "actual-cpu-optimizer-unit/proof_receipt.json",
+    "reload_max_cdf_difference": 0.0
+  },
+  "remaining_qualification": [
+    "I07 full-tail scientific and GPU qualification",
+    "Measured GPU training memory, runtime and mixed/distributed precision restart state",
+    "Actual production training campaigns and qualified independent scientific references",
+    "50,000-draw neural posterior evaluations and sealed transfer comparisons",
+    "Multi-GPU measurements and final model publication"
+  ],
+  "retained_receipt_policy": "Receipts retain the original source hashes from their run; source_files above describe the final source. Later metadata/guard changes do not retroactively change historical proof identity.",
+  "schema": "finetuneforge.orchestration_cpu_evidence.v1",
+  "scope": "CPU orchestration, recovery, integrity, and bounded real-checkpoint unit proofs; no production or scientific qualification",
+  "settled_policy": {
+    "effective_batch_cases": 16,
+    "execution": "cpu_diagnostic_only_no_slurm",
+    "invalid_decoded_vectors": "fail_request_preserve_evidence",
+    "learning_rate_policy": "one_per_method_tie_smaller",
+    "main_initialization": "restart_pretrained_fresh_adapter",
+    "main_update_candidates": [
+      1000,
+      3000,
+      10000
+    ],
+    "matched_streams": "same_replica_and_phase_across_all_methods",
+    "phase_streams": "pilot_and_main_disjoint",
+    "pilot_score": "mean_endpoint_score_across_both_replicas",
+    "pilot_updates": 200,
+    "pilot_updates_in_main_allowance": false,
+    "posterior_draws": 50000,
+    "quick_validation_bank_seeds": 2,
+    "quick_validation_cases": 40,
+    "quick_validation_contexts": [
+      16,
+      64,
+      256,
+      1024
+    ],
+    "quick_validation_data": "fixed_across_milestones_and_methods",
+    "quick_validation_milestones": 10,
+    "quick_validation_scores_per_check": 320,
+    "schema": "finetuneforge.orchestration_policy.v1",
+    "selection_with_no_qualified_primary": "freeze_diagnostic_inputs_without_claims",
+    "training_bank_policy": "fresh_per_visit",
+    "training_query_policy": "fresh_independent_one_case_per_episode"
+  },
+  "source_commit": "b70de32db5ac225178c78da98497bdcdf51f377d",
+  "source_files": {
+    "README.md": {
+      "bytes": 9727,
+      "sha256": "330779d7899d6d8246dd178b4e1d3dd1b716d928f5be7a17fe2c82c9e99962de"
+    },
+    "configs/examples/hierarchical-ft-v1/posterior-cpu-diagnostic.json": {
+      "bytes": 701,
+      "sha256": "50359f05ef53e268fb7b70288c1e11b9cc9499819cb50b150b28738e4562ab79"
+    },
+    "configs/examples/hierarchical-ft-v1/training-cpu-diagnostic.json": {
+      "bytes": 812,
+      "sha256": "f80231cc848fa42691f2b0496acd6b69f47dc83cf95b020c79ffc717f35ecc29"
+    },
+    "configs/studies/hierarchical-ft-v1-orchestration.json": {
+      "bytes": 2118,
+      "sha256": "013799269b20cdd9f2aef47c5f211955dd2963f853f4fcc90b80a7b811e518fe"
+    },
+    "docs/hierarchical-ft-v1.md": {
+      "bytes": 10618,
+      "sha256": "827afef01a19b0f3651449fabb34a0049f3dceb5c32b6b7b64b0be28b33e3789"
+    },
+    "scripts/check-study-orchestration-cpu.py": {
+      "bytes": 18733,
+      "sha256": "cb8d8a26db9ca618ad27e533d7d497f4d42883b4601271a33f6cfe37ec297ea9"
+    },
+    "src/posteriorforge/study/campaign.py": {
+      "bytes": 25427,
+      "sha256": "05655b6222849203e6e397ba7d70d6254970778ea793363318ead5ecec2616d6"
+    },
+    "src/posteriorforge/study/cli.py": {
+      "bytes": 9544,
+      "sha256": "91be3754abfcdf323d05962ab8e20004031635968989cf2b2441acc79f6996c0"
+    },
+    "src/posteriorforge/study/episodes.py": {
+      "bytes": 11991,
+      "sha256": "f6b5f49edcc0575b419bfc8bc5d4d745319c9c57bdb7f8a95aa03e3748ba43a6"
+    },
+    "src/posteriorforge/study/evaluation_campaign.py": {
+      "bytes": 64010,
+      "sha256": "15a9263ad1891762b8e1fc132ae0a81cba390d623664c1a4526f172ddda7b906"
+    },
+    "src/posteriorforge/study/model_loading.py": {
+      "bytes": 6820,
+      "sha256": "96215b02a99a8db5e0b97382a25cb668715570d220d48151b5f96fab39e4a9a7"
+    },
+    "src/posteriorforge/study/sampling.py": {
+      "bytes": 10794,
+      "sha256": "10949c033232f13825522c3add20800cd936474c75b33a056d5ffc17dd8f36ee"
+    },
+    "src/posteriorforge/study/sampling_backend.py": {
+      "bytes": 3797,
+      "sha256": "989fd0ff7ae22543563c11287dd859e3c956ce7fde3fd1ca81af469ce1ea3748"
+    },
+    "src/posteriorforge/study/workflows.py": {
+      "bytes": 38572,
+      "sha256": "b4e7c83c66e9333c77195079b9f7b1e80985248ff1e40bd6a2600a6e9f002dd0"
+    },
+    "tests/test_study_campaign.py": {
+      "bytes": 24139,
+      "sha256": "9e3cc1f61fa118ae62c2e68404d23737f85dceeeb7adaf84334fe602fcc00879"
+    },
+    "tests/test_study_cli_orchestration.py": {
+      "bytes": 5636,
+      "sha256": "d3844d7587e8c678537edcf74558402331e2588ba8d8c33b9b21f35e66ca68fd"
+    },
+    "tests/test_study_episodes.py": {
+      "bytes": 5446,
+      "sha256": "099f557e536dba220afdf475a4f48717771524e759cfeafa791713616ec89775"
+    },
+    "tests/test_study_evaluation_campaign.py": {
+      "bytes": 41783,
+      "sha256": "af1bd77dbf0deb67d575a12d1a4d216e0631432e48744a7a7d5ad24a93df65d4"
+    },
+    "tests/test_study_model_loading.py": {
+      "bytes": 6573,
+      "sha256": "f7326685f39539ef091861f83d406603f0e96b8edccacd1ef864d340659ad292"
+    },
+    "tests/test_study_orchestration_analytic.py": {
+      "bytes": 7535,
+      "sha256": "d76e2a0b99cbbef0013dd8a487ee308540100fd7e85370d421f9fad24b0def8b"
+    },
+    "tests/test_study_sampling.py": {
+      "bytes": 8176,
+      "sha256": "19867be30e4ac932658d30c987fb2c63be65d39348a757aa75043914e002f9d4"
+    },
+    "tests/test_study_sampling_backend.py": {
+      "bytes": 3707,
+      "sha256": "f347ea68bd3a89866f7fe88fe96f35ec31266de57df8b5785d67d0d056a2c501"
+    },
+    "tests/test_study_workflows.py": {
+      "bytes": 12002,
+      "sha256": "e092c06238a448f3010fecacb8d539ead136453605fd4a25bd52c1998fbf83e5"
+    },
+    "tests/test_study_workflows_training.py": {
+      "bytes": 4324,
+      "sha256": "96ac93d8ca2baa35b88977993b5bbbd3142c9e42ee88a518c527c50ed09f0dfb"
+    }
+  },
+  "tests": {
+    "legacy-integrated": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 2244,
+      "scope": "unchanged_legacy_runtime",
+      "seconds": 313.019,
+      "skipped": 3,
+      "tests": 2247,
+      "xml": "tests/legacy-integrated.xml"
+    },
+    "model-loading-current-real": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 3,
+      "scope": "opt_in_cached_real_model_loading",
+      "seconds": 11.312,
+      "skipped": 0,
+      "tests": 3,
+      "xml": "tests/model-loading-current-real.xml"
+    },
+    "public-wheel-final": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 214,
+      "scope": "installed_public_wheel_no_torch",
+      "seconds": 15.725,
+      "skipped": 10,
+      "tests": 224,
+      "xml": "tests/public-wheel-final.xml"
+    },
+    "reference-final": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 215,
+      "scope": "independent_reference_cpu",
+      "seconds": 26.056,
+      "skipped": 9,
+      "tests": 224,
+      "xml": "tests/reference-final.xml"
+    },
+    "sampling-law-real": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 4,
+      "scope": "opt_in_cached_real_conditional_backend",
+      "seconds": 12.662,
+      "skipped": 0,
+      "tests": 4,
+      "xml": "tests/sampling-law-real.xml"
+    },
+    "training-final": {
+      "errors": 0,
+      "failures": 0,
+      "passed": 277,
+      "scope": "study_training_cpu",
+      "seconds": 30.773,
+      "skipped": 14,
+      "tests": 291,
+      "xml": "tests/training-final.xml"
+    }
+  }
+}

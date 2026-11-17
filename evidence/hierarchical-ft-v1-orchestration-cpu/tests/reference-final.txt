@@ -1,0 +1,16 @@
+........................................................................ [ 33%]
+..................................................................ss.... [ 66%]
+....................s................................................... [ 99%]
+..                                                                       [100%]
+- generated xml file: /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-orchestration-cpu-20261117/reference-final.xml -
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_study_campaign.py:9: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_study_model.py:9: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_study_sampling_backend.py:2: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_study_training.py:6: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_study_updates.py:6: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_study_workflows_training.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_study_model_loading.py:52: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_study_model_loading.py:84: real checkpoint is opt-in and never downloaded
+SKIPPED [1] tests/test_study_reference.py:110: real optional NUTS test is exercised in the dedicated reference environment
+215 passed, 9 skipped in 26.06s

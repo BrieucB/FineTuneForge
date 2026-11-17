@@ -1,0 +1,175 @@
+{
+  "absolute_loss_difference": 0.0,
+  "actual_role_balanced_physical_nll": -1.3390451987661034,
+  "all_eight_members_retained": true,
+  "checkpoint_directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/orchestration/actual-one-update/unit-a65c26f546644b3f9fcba1d125ceab0a/unit-checkpoint",
+  "checkpoint_manifest_sha256": "8b05ba762ed5dae7f701b0453e7f120450fcbb3180c53d261562ba3f4df4f8cd",
+  "conditional_prediction_queries": 2,
+  "cpu_threads": 2,
+  "data": {
+    "context_cost": {
+      "call_unit": "one complete noiseless local curve or measurement vector",
+      "elapsed_seconds": 0.00037047918885946274,
+      "forward_evaluations": 16,
+      "noise_included": true,
+      "noise_values_generated": 16,
+      "per_family_forward_evaluations": {
+        "scalar": 16
+      },
+      "prefix_forward_evaluations": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "prefix_forward_evaluations_by_family": {
+        "scalar": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ]
+      },
+      "problem_fingerprint": "a1fee2e8330496023551c97ea673563857348ffd5b4dfb95c92d39737c63e674",
+      "requested_local_vectors": 16,
+      "reused_local_vectors": 0,
+      "schema": "finetuneforge.local-forward-cost.v1",
+      "worlds": 16
+    },
+    "context_manifest_sha256": "4ac3bb1ee633836b853b207cabb3a948e6304782dc981a019ebb79dcd2bbab28",
+    "context_worlds": 16,
+    "extra_prediction_query": "fixed observation-only perturbation for parity; no simulator evaluation or generating label used",
+    "independent_training_query_cases": 1,
+    "query_cost": {
+      "call_unit": "one complete noiseless local curve or measurement vector",
+      "elapsed_seconds": 0.00014339573681354523,
+      "forward_evaluations": 1,
+      "noise_included": true,
+      "noise_values_generated": 1,
+      "per_family_forward_evaluations": {
+        "scalar": 1
+      },
+      "prefix_forward_evaluations": [
+        0,
+        1
+      ],
+      "prefix_forward_evaluations_by_family": {
+        "scalar": [
+          0,
+          1
+        ]
+      },
+      "problem_fingerprint": "a1fee2e8330496023551c97ea673563857348ffd5b4dfb95c92d39737c63e674",
+      "requested_local_vectors": 1,
+      "reused_local_vectors": 0,
+      "schema": "finetuneforge.local-forward-cost.v1",
+      "worlds": 1
+    },
+    "query_manifest_sha256": "88f6256c4f35667fb2af2f6c59888cbb33c7c1bae69c07e414452a9fec369ef2",
+    "query_observations": {
+      "dtype": "<f8",
+      "sha256": "56458a861def6153de9786cc1e970a848d4495fc5d75e59a4527eccb62bdb7b8",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    "query_theta": {
+      "dtype": "<f8",
+      "sha256": "750b32127a841b7a7f2e0fb2e5d83ae939b1d03e9368bc2b9368f26fea183301",
+      "shape": [
+        1,
+        4
+      ]
+    },
+    "roles": [
+      "population",
+      "population",
+      "physical",
+      "noise"
+    ],
+    "scope": "direct_materialized_unit_fixture_not_episode_stream_campaign",
+    "unknowns": 4
+  },
+  "expected_role_balanced_physical_nll": -1.3390451987661034,
+  "gpu_jobs_submitted": 0,
+  "max_cdf_roundtrip_difference": 0.0,
+  "max_logit_roundtrip_difference": 0.0,
+  "maximum_trainable_parameter_change": 9.999999747378752e-05,
+  "posterior_draws": 0,
+  "prediction_parameter_stage": 0,
+  "production_training_run": false,
+  "reload": {
+    "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+    "checkpoint_identity_format": "campaign_manifest_sha256",
+    "checkpoint_manifest_sha256": "8b05ba762ed5dae7f701b0453e7f120450fcbb3180c53d261562ba3f4df4f8cd",
+    "kind": "campaign_checkpoint",
+    "load_seconds": 0.5074531976133585,
+    "method": "lora_r4",
+    "model_sha256": "3900f598020193965ae3cdcf76dadd1a57a9adf010e68aaf9668ae2c465dfdc7",
+    "rank": 4,
+    "scientifically_qualified": false
+  },
+  "report": {
+    "backward_calls": 4,
+    "conditional_count": 4,
+    "data_position": 1,
+    "episode_count": 1,
+    "execution_mode": "unqualified_cpu_diagnostic",
+    "gradient_norm_before_clip": 1.7786508798599243,
+    "loss": -1.3390451987661034,
+    "optimizer_steps": 1,
+    "preprocessing_seconds": 0.7571635348722339,
+    "query_case_count": 1,
+    "query_weighting": "equal realized query cases; setup frequency follows catalogue sampling",
+    "sampling_law": "canonical_half_normal_full_support.v1",
+    "scientifically_qualified": false,
+    "update": 1,
+    "update_seconds": 12.450188954360783
+  },
+  "schema": "finetuneforge.actual_one_optimizer_cpu_unit.v1",
+  "scientifically_qualified": false,
+  "scope": "one actual LoRA-r4 optimizer unit; no campaign, deployment upload or posterior generation",
+  "state": {
+    "data_position": 1,
+    "stream_id": "cb7386d830de09a614e2c7904926fab27b23cdb8303e2e4c8a51f5b26feec733",
+    "update": 1
+  },
+  "timings": {
+    "deployment_roundtrip_and_prediction_seconds": 2.979901496320963,
+    "expected_score_seconds": 4.760361920110881,
+    "optimizer_unit_seconds": 13.209915474057198,
+    "total_cpu_wall_seconds": 29.435820365324616
+  },
+  "torch_cuda_build": null,
+  "torch_version": "2.6.0+cpu",
+  "updated_trainable_tensors": 122,
+  "weights_after": "3900f598020193965ae3cdcf76dadd1a57a9adf010e68aaf9668ae2c465dfdc7",
+  "weights_before": "677825165622d5dccc6f3a31f545094e9dc8c6d9dbe234a1166d49a9ec43a5d4"
+}

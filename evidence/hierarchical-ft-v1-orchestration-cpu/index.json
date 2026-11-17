@@ -1,0 +1,126 @@
+{
+  "files": {
+    "actual-cpu-optimizer-unit/launcher_stdout_recovery.json": {
+      "bytes": 1369,
+      "sha256": "b614e437d27cf79d10f211d1cbe5befdcdcdbd0aeedfe92eba238c388f2f857b"
+    },
+    "actual-cpu-optimizer-unit/proof_receipt.json": {
+      "bytes": 2979,
+      "sha256": "00148b6437d6a02076015bf56b30ab25dd4631ed7811dbdd0610cb5703027720"
+    },
+    "actual-cpu-optimizer-unit/unit_cpu.xml": {
+      "bytes": 419,
+      "sha256": "8355001600a381a5256fbf4545ce8f46240734ab2cb097b0650a290fab0c8eca"
+    },
+    "actual-cpu-optimizer-unit/unit_receipt.json": {
+      "bytes": 5653,
+      "sha256": "4cd53c6d92b4f0a366ae1275ef424f521a3abb6596e8b461639e30070f80fac3"
+    },
+    "analytical-control/metrics.json": {
+      "bytes": 6156,
+      "sha256": "cf33071544318c2301122abf0b2c6359ac5b03f82b0324ecddd7056215ec8a15"
+    },
+    "analytical-control/posterior-control.png": {
+      "bytes": 330949,
+      "sha256": "b4bccc69937c016ea41f2728fdb8b303a6e7e61065560434350197878efc8db9"
+    },
+    "analytical-control/receipt.json": {
+      "bytes": 2890,
+      "sha256": "12cce45f9ac20ebbf8153ac924793d482da216b905dfd6c8313c2e121568565a"
+    },
+    "budget/correction_receipt.json": {
+      "bytes": 2799,
+      "sha256": "0bd1698db898bb752a26da9daca37a8fdf4248fb572fb91af84b714bc23153fb"
+    },
+    "budget/focused_with_seed_cpu.xml": {
+      "bytes": 3712,
+      "sha256": "af2a037a7aa399a541d276928e9ce1056b9dbffc95ce28f0da53ce3d54a1a460"
+    },
+    "evaluation-guards/inference.xml": {
+      "bytes": 6631,
+      "sha256": "1b7618fb49a0ee0566795d52b0ce38775d384ecbfb694eefd971a8633d1a21dd"
+    },
+    "evaluation-guards/receipt.json": {
+      "bytes": 1140,
+      "sha256": "4702540f71c6a98d48aac0a7b7a429d7a058c9fe22951952362ddca21470c81a"
+    },
+    "evaluation-guards/reference.xml": {
+      "bytes": 6631,
+      "sha256": "592d4da7c8fe74dffecd818b1a92bd299cd98d051f15dfad80bf96e8db7d8a8c"
+    },
+    "public-campaign-plan.json": {
+      "bytes": 9600,
+      "sha256": "cc6d9f1b24b68492f7ca8f2e1246b7bf114d07fdfe68d1322f215374215db121"
+    },
+    "public-wheel.json": {
+      "bytes": 505,
+      "sha256": "48ea692de1c6a28da00119adf718e13e872397645bd54317d1b920037d784cc3"
+    },
+    "qualification.json": {
+      "bytes": 10308,
+      "sha256": "8058c69cc19bcd7aac723587a8f35300d5454ffdd335b5b3e6a154897b222b3f"
+    },
+    "reproduction.json": {
+      "bytes": 1136,
+      "sha256": "3a083dbce6ff6c55ae040722db7ca2dc540308e0e4ed6e0abc36f51263d53569"
+    },
+    "tests/legacy-integrated.txt": {
+      "bytes": 3229,
+      "sha256": "4a96459c1aea71205a997ffb02d419763e9b9dba758992333ae8d91125eb9d0e"
+    },
+    "tests/legacy-integrated.xml": {
+      "bytes": 331695,
+      "sha256": "16c09274b8fceef22fe4ab72503fb3d638e9be0aaa5b8edc770449f5d9287b58"
+    },
+    "tests/model-loading-current-real.txt": {
+      "bytes": 259,
+      "sha256": "897447d301e09c88a0533055748a3c5b8fc06f9d4d63ab004b96e2e0b478877c"
+    },
+    "tests/model-loading-current-real.xml": {
+      "bytes": 638,
+      "sha256": "7fb096c02709d891feb1d238918e13628d14b09a66d6a2dba9927984335762b2"
+    },
+    "tests/public-wheel-final.txt": {
+      "bytes": 2262,
+      "sha256": "b9a6228151eff81dbe1df74317a5043a46bb1081764a4160cc0b62b52df4b57a"
+    },
+    "tests/public-wheel-final.xml": {
+      "bytes": 33060,
+      "sha256": "13e9856b9519f6c0bbd4acf07c133229a3b6f78fea37a832dab119a0d6ecb720"
+    },
+    "tests/reference-final.txt": {
+      "bytes": 1480,
+      "sha256": "faa7496cbbe7954389de4daa4b78b89771caf74f468f4191af714605ebda20ba"
+    },
+    "tests/reference-final.xml": {
+      "bytes": 32816,
+      "sha256": "9ad05603e95c822bfadd7d39f9f7d79aa8ab346de70ea78818022effcf4a41b2"
+    },
+    "tests/sampling-law-real.txt": {
+      "bytes": 345,
+      "sha256": "3477aee0ce48ec083b9ccfe23e790c0a47007bb1dc4744a362c30e64360f628d"
+    },
+    "tests/sampling-law-real.xml": {
+      "bytes": 782,
+      "sha256": "62b84f911d72c0ba404e87e68c120cf3e210d5a3d8ee29ba2737f7789695e8cd"
+    },
+    "tests/training-final.txt": {
+      "bytes": 1735,
+      "sha256": "7528fcb5df482254bc025f20bc762f5c6ec08756a56f34c17dfbbc68ca9c8641"
+    },
+    "tests/training-final.xml": {
+      "bytes": 44677,
+      "sha256": "89720fb10345b0260cb0a636ec3689c635c554ae21a65c034612db3e35b07099"
+    },
+    "training-restart/retained_cpu.xml": {
+      "bytes": 2123,
+      "sha256": "5bbca10cca662f77c7132fbde8acad9bcb71758014632d2e578e72478763663e"
+    },
+    "training-restart/retained_receipt.json": {
+      "bytes": 4724,
+      "sha256": "eaaf4d099c6551c208c59b82ff598cc653e939feabd146fbed2f6b44d86ddcba"
+    }
+  },
+  "schema": "finetuneforge.cpu_evidence_index.v1",
+  "source_commit": "b70de32db5ac225178c78da98497bdcdf51f377d"
+}

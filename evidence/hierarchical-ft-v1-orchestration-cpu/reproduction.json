@@ -1,0 +1,15 @@
+{
+  "analytical_control": "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 CUDA_VISIBLE_DEVICES= JAX_PLATFORMS=cpu PYTHONPATH=src /prepared/cpu/env/bin/python scripts/check-study-orchestration-cpu.py --output /fresh/output/path",
+  "cpu_tests": "FTF_CPU_PYTHON=/prepared/cpu/env/bin/python bash scripts/test-study-cpu.sh tests/test_study_*.py",
+  "guidance": "docs/hierarchical-ft-v1.md",
+  "large_raw_artifacts": "Raw arrays, model/optimizer states and recovery archives remain outside Git. The analytical-control receipt records their checksums; regenerate using the control script. Production neural results are unrun.",
+  "optional_real_unit": "Requires separately cached immutable pinned TabPFN weights; no weights or checkpoints are included here. Set FTF_CPU_CHECKPOINT and select the bounded opt-in fixtures.",
+  "public_inputs": [
+    "repository source at source_commit",
+    "environments/study-training-cpu.lock",
+    "environments/study-reference-cpu.lock",
+    "environments/study-public-cpu.lock"
+  ],
+  "schema": "finetuneforge.orchestration_cpu_reproduction.v1",
+  "source_commit": "b70de32db5ac225178c78da98497bdcdf51f377d"
+}

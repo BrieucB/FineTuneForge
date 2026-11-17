@@ -1,0 +1,18 @@
+......................sss..............s................................ [ 24%]
+........................................................................ [ 49%]
+................ss..........ss.s.................................s...... [ 74%]
+.......s.......................................sss...................... [ 98%]
+...                                                                      [100%]
+- generated xml file: /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-orchestration-cpu-20261117/training-final.xml -
+=========================== short test summary info ============================
+SKIPPED [3] tests/test_study_campaign.py:144: actual cached model constructor/export fixture is opt-in; no download
+SKIPPED [1] tests/test_study_campaign.py:234: one actual cached CPU optimizer unit is opt-in; no download or campaign
+SKIPPED [1] tests/test_study_model_loading.py:56: real checkpoint is opt-in and never downloaded
+SKIPPED [1] tests/test_study_model_loading.py:84: real checkpoint is opt-in and never downloaded
+SKIPPED [2] tests/test_study_model.py:136: real cached checkpoint qualification is explicitly opt-in; no CI download
+SKIPPED [1] tests/test_study_model.py:206: real checkpoint bridge qualification is opt-in and never downloads
+SKIPPED [1] tests/test_study_reference.py:129: could not import 'numpyro': No module named 'numpyro'
+SKIPPED [1] tests/test_study_sampling_backend.py:28: real checkpoint test is opt-in and never downloads
+SKIPPED [2] tests/test_study_training.py:141: real cached-checkpoint episode is opt-in, with no download
+SKIPPED [1] tests/test_study_training.py:180: real source-grid negative fixture is opt-in, with no download
+277 passed, 14 skipped in 30.78s

@@ -1,0 +1,194 @@
+{
+  "a_variance": {
+    "absolute_mc_tolerance": 0.035,
+    "analytic": 1.0425,
+    "sample": 1.040125085200056
+  },
+  "allocated_gpu_hours": 0,
+  "analytic_parameters": {
+    "a_variance": 1.0425,
+    "mu_a_covariance": 1.0,
+    "sigma_latent_posterior_mean": -2.9356037920852387,
+    "sigma_log_sd": 0.29356037920852385,
+    "sigma_posterior_log_mean": -3.207450903525095,
+    "sigma_posterior_mean": 0.04224108068956892,
+    "sigma_posterior_sd": 0.012672324206870676,
+    "sigma_prior_log_mean": -2.3456739411145717,
+    "tau_log_mean": -1.6397502233423178,
+    "tau_log_sd": 0.24622067706923975
+  },
+  "artifact_manifest_sha256": "b9241d10a842858a3f9d8cc1aa16888194e13f6e79bee3a2736cc2461e1aca30",
+  "backend_kind": "analytic_control",
+  "bank_cost": {
+    "call_unit": "one complete noiseless local curve or measurement vector",
+    "elapsed_seconds": 0.0015833741053938866,
+    "forward_evaluations": 16,
+    "noise_included": true,
+    "noise_values_generated": 160,
+    "per_family_forward_evaluations": {
+      "zero-sensor": 16
+    },
+    "prefix_forward_evaluations": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "prefix_forward_evaluations_by_family": {
+      "zero-sensor": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    "problem_fingerprint": "032641b29a79874304506e0bb36cbd98854fbda680f1ad5c6db35307d0aef4aa",
+    "requested_local_vectors": 16,
+    "reused_local_vectors": 0,
+    "schema": "finetuneforge.local-forward-cost.v1",
+    "worlds": 16
+  },
+  "bank_seed": 20261118,
+  "checks": {
+    "a_mean": true,
+    "a_variance": true,
+    "mu_a_covariance": true,
+    "mu_cdf": true,
+    "mu_mean": true,
+    "mu_sd": true,
+    "sigma_cdf": true,
+    "sigma_mean": true,
+    "sigma_sd": true,
+    "tau_cdf": true,
+    "tau_mean": true,
+    "tau_sd": true
+  },
+  "complete_vectors": true,
+  "context_size": 16,
+  "control_checks_passed": true,
+  "dimension": 4,
+  "elapsed_cpu_wall_seconds": 1.962695887312293,
+  "equations": {
+    "likelihood": "p(y=0|sigma) proportional to sigma^(-10)",
+    "observation": "y[0:10]=0; H[10,1]=0; y|a,sigma~Normal(H*a,sigma^2*I)",
+    "posterior": "log(sigma)|y~Normal(prior_log_mean-10*prior_log_sd^2,prior_log_sd^2); (mu,tau,a)|y retains its joint prior",
+    "prior": "mu~Normal(0,1); tau~Lognormal(physical mean=.2,sd=.05); a|mu,tau~Normal(mu,tau); sigma~Lognormal(physical mean=.1,sd=.03)",
+    "prior_z_conditionals": "z0,z1,z2 independent Normal(0,1); z3~Normal(-10*prior_log_sd,1)"
+  },
+  "figure": {
+    "file": "posterior-control.png",
+    "sha256": "b4bccc69937c016ea41f2728fdb8b303a6e7e61065560434350197878efc8db9"
+  },
+  "gpu_jobs_submitted": 0,
+  "marginals": {
+    "mu": {
+      "analytic_mean": 0.0,
+      "analytic_sd": 1.0,
+      "cdf_sup_error": 0.002503922085136223,
+      "mean_error_in_analytic_sd": 0.002794723867226566,
+      "sample_mean": -0.002794723867226566,
+      "sample_sd": 0.9993973174846469,
+      "sd_ratio": 0.9993973174846469
+    },
+    "sigma": {
+      "analytic_mean": 0.04224108068956894,
+      "analytic_sd": 0.012672324206870686,
+      "cdf_sup_error": 0.0044246113309210355,
+      "mean_error_in_analytic_sd": 0.008925880695263426,
+      "sample_mean": 0.04212796903556671,
+      "sample_sd": 0.012586235470051681,
+      "sd_ratio": 0.9932065550554389
+    },
+    "tau": {
+      "analytic_mean": 0.2,
+      "analytic_sd": 0.05,
+      "cdf_sup_error": 0.0061022577452042315,
+      "mean_error_in_analytic_sd": 0.009863667635493512,
+      "sample_mean": 0.19950681661822534,
+      "sample_sd": 0.05006796505921517,
+      "sd_ratio": 1.0013593011843034
+    }
+  },
+  "microbatch_size": 4096,
+  "model_sha256": "e051252826b057fbaab7b5a39b1955efb981e7f49ace6a6487db48134a5d4f6b",
+  "monte_carlo_tolerances": {
+    "cdf_sup_error": 0.012,
+    "mean_error_in_analytic_sd": 0.02,
+    "sd_ratio": [
+      0.98,
+      1.02
+    ]
+  },
+  "mu_a_covariance": {
+    "absolute_mc_tolerance": 0.035,
+    "analytic": 1.0,
+    "sample": 0.9979892959127791
+  },
+  "numerical_reference_claim": false,
+  "observation": "ten deliberately fixed zeros, independent of the context bank; no hidden query truth supplied",
+  "observation_generation_forward_evaluations": 0,
+  "parameter_order": [
+    "mu",
+    "tau",
+    "a",
+    "sigma"
+  ],
+  "posterior_draws": 50000,
+  "posterior_sampling_forward_evaluations": 0,
+  "prior_plot_count": 50000,
+  "prior_plot_forward_evaluations": 0,
+  "prior_plot_seed": 20261119,
+  "python": "3.11.13",
+  "request_sha256": "abde6bc6bca79481e3c249885dba2154bb61e6b71d7c19d40a718ff58dc20093",
+  "run_manifest_sha256": "596ace3bc12a59a6c9aacd730a06ab6ba584dc4db9bdd69099320a7a4fdaf44d",
+  "sample_count": 50000,
+  "sampling_law": "analytic_zero_sensor_posterior.v1",
+  "schema": "finetuneforge.analytic_orchestration_control.v1",
+  "scientifically_qualified": false,
+  "scope": "exact analytic control of conditioning, physical dependence, 50,000 complete vectors and file-backed orchestration; not TabPFN quality, transfer or performance qualification",
+  "seed": 20261117,
+  "source_policy": "analytic_control",
+  "source_sha256": {
+    "artifacts.py": "a1ab690422a0cb56a76b8e3021915067c1120231e078a09400d575ccf7c500f8",
+    "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+    "sampling.py": "10949c033232f13825522c3add20800cd936474c75b33a056d5ffc17dd8f36ee",
+    "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+    "script": "cb8d8a26db9ca618ad27e533d7d497f4d42883b4601271a33f6cfe37ec297ea9",
+    "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3",
+    "workflows.py": "bb6186283b01d917eaa90f247200a1dc7d78f8258dfad6388497d19e1e623647"
+  },
+  "status": "analytical_control_passed",
+  "title": "Analytical control \u00b7 CPU orchestration",
+  "transformer_evaluated": false,
+  "versions": {
+    "matplotlib": "3.11.2",
+    "numpy": "1.26.4",
+    "scipy": "1.12.0"
+  }
+}

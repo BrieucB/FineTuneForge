@@ -1,0 +1,31 @@
+{
+  "checks": {
+    "inference": {
+      "errors": 0,
+      "failures": 0,
+      "seconds": 7.738,
+      "sha256": "1b7618fb49a0ee0566795d52b0ce38775d384ecbfb694eefd971a8633d1a21dd",
+      "tests": 38
+    },
+    "reference": {
+      "errors": 0,
+      "failures": 0,
+      "seconds": 9.27,
+      "sha256": "592d4da7c8fe74dffecd818b1a92bd299cd98d051f15dfad80bf96e8db7d8a8c",
+      "tests": 38
+    }
+  },
+  "files": {
+    "src/posteriorforge/study/evaluation_campaign.py": "15a9263ad1891762b8e1fc132ae0a81cba390d623664c1a4526f172ddda7b906",
+    "tests/test_study_evaluation_campaign.py": "af1bd77dbf0deb67d575a12d1a4d216e0631432e48744a7a7d5ad24a93df65d4"
+  },
+  "gpu_jobs_submitted": 0,
+  "production_reference_runs": 0,
+  "regressions": [
+    "study_canonical_actual_sampling_law_and_source_policy",
+    "trained_study_artifact_literal_training_diagnostic_false",
+    "diagnostic_analytical_law_retained_without_study_admission",
+    "replay_provenance_bound_to_actual_artifact_manifest_sha256"
+  ],
+  "scope": "CPU toy artifacts and metadata guards; no neural model execution, study posterior, qualified reference, training or GPU claim"
+}
