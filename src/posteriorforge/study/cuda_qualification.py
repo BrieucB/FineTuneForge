@@ -272,7 +272,7 @@ def _training(value, root, output, method):
     rate=1e-5 if method=='full_finetune' else 1e-4
     spec=CampaignSpec(method,0,'pilot',rate,2,value['protocol_sha256'],effective_batch=16,diagnostic=True)
     stream_id=digest(value['episodes'])
-    identity={'spec':asdict(spec),'protocol_sha256':value['protocol_sha256'],'qualification_inputs_sha256':file_hash(Path(root)/'manifest.json'),'source_files':value['source_files']}
+    identity={'spec':asdict(spec),'stream_id':stream_id,'protocol_sha256':value['protocol_sha256'],'qualification_inputs_sha256':file_hash(Path(root)/'manifest.json'),'source_files':value['source_files']}
     batches=[]
     for start in (0,16):
         batches.append([SimpleNamespace(context=_load_bank(root,r['context']),query=_load_bank(root,r['query']),receipt=r) for r in value['episodes'][start:start+16]])
@@ -380,6 +380,12 @@ def worker(lane, *, inputs, input_sha256, output, repo):
         'versions':{},'scientifically_qualified':False,'posterior_draws_contract':DRAW_COUNT}
     write_json(out/'result.json',record)
     try:
+        if lane!='frozen':
+            gate=out.parent/'parity-gate.json'
+            while not gate.exists():time.sleep(.2)
+            result=json.loads(gate.read_text())
+            if result.get('input_manifest_sha256')!=input_sha256 or result.get('passed') is not True:
+                raise RuntimeError('CPU/CUDA parity prerequisite failed; training not started')
         configure_cuda_determinism();torch.set_num_threads(4)
         if torch.cuda.device_count()!=1:raise RuntimeError('one independent visible GPU per worker required')
         props=torch.cuda.get_device_properties(0)
@@ -390,6 +396,7 @@ def worker(lane, *, inputs, input_sha256, output, repo):
         write_json(out/'result.json',record)
         if lane=='frozen':
             record['parity']=_parity(value,root,out)
+            write_json(out.parent/'parity-gate.json',{'passed':True,'input_manifest_sha256':input_sha256})
             model=TabPFNBackbone.from_checkpoint(value['base_checkpoint']).to('cuda').eval()
             record['posterior']=_posterior(value,root,model,out,repo=repo,method=lane)
         else:
@@ -400,7 +407,10 @@ def worker(lane, *, inputs, input_sha256, output, repo):
         record['status']='engineering_checks_passed'
     except BaseException as exc:
         record.update(status='failed',failure={'type':type(exc).__name__,'message':str(exc)})
-        (out/'traceback.txt').write_text(traceback.format_exc());raise
+        (out/'traceback.txt').write_text(traceback.format_exc())
+        if lane=='frozen' and not (out.parent/'parity-gate.json').exists():
+            write_json(out.parent/'parity-gate.json',{'passed':False,'input_manifest_sha256':input_sha256})
+        raise
     finally:
         record['wall_seconds']=time.perf_counter()-started;write_json(out/'result.json',record)
     return record
@@ -421,7 +431,10 @@ def launch_workers(*, inputs,input_sha256,output,repo):
         processes.append((lane,subprocess.Popen(args,env=env,stdout=stream,stderr=subprocess.STDOUT),stream))
     codes={}
     try:
-        for lane,p,stream in processes:codes[lane]=p.wait();stream.close()
+        for lane,p,stream in processes:
+            codes[lane]=p.wait();stream.close()
+            if lane=='frozen' and not (root/'parity-gate.json').exists():
+                write_json(root/'parity-gate.json',{'passed':False,'input_manifest_sha256':input_sha256})
     finally:
         for lane,p,stream in processes:
             if p.poll() is None:p.terminate()

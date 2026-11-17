@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from .config import StudyConfig
-from .model import (BASE_CHECKPOINT_SHA256, CANONICAL_FULL_SUPPORT, ModelQualificationError,
+from .model import (BASE_CHECKPOINT_SHA256, CANONICAL_FULL_SUPPORT, FEATURE_EMBEDDING_POLICY, ModelQualificationError,
                     TabPFNBackbone, prepare_fitted_regressor_members, weights_fingerprint, resolve_inference_device)
 
 
@@ -57,7 +57,8 @@ class TabPFNConditionalBackend:
                              cuda_runtime=torch.version.cuda, matmul_tf32=torch.backends.cuda.matmul.allow_tf32,
                              cudnn_tf32=torch.backends.cudnn.allow_tf32)
         return {'type': 'TabPFNConditionalBackend', 'backend_kind': self.backend_kind,
-                'sampling_law': self.sampling_law, 'source_policy': self.source_policy, 'execution': execution,
+                'sampling_law': self.sampling_law, 'source_policy': self.source_policy,
+                'feature_embedding_policy': FEATURE_EMBEDDING_POLICY, 'execution': execution,
                 'base_checkpoint_sha256': BASE_CHECKPOINT_SHA256,
                 'model_sha256': self.model_sha256, 'tabpfn_version': version('tabpfn'),
                 'torch_version': version('torch'), 'numpy_version': version('numpy'),

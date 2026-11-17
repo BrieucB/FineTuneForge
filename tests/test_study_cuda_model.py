@@ -38,3 +38,32 @@ def test_prepared_member_rejects_wrong_precision_before_network():
 def test_cpu_default_is_still_explicit():
     assert TabPFNConditionalBackend.backend_kind == 'stock_tabpfn_cpu'
     assert TabPFNConditionalBackend.sampling_law == 'canonical_half_normal_full_support.v1'
+
+def test_cpu_subspace_basis_matches_stock_seed_and_preserves_rng():
+    from posteriorforge.study.model import _cpu_seeded_subspace
+    torch.manual_seed(100)
+    state = torch.get_rng_state().clone()
+    basis = _cpu_seeded_subspace((7, 48), torch.float32, 0, device='cpu')
+    assert torch.equal(state, torch.get_rng_state())
+    with torch.random.fork_rng():
+        torch.manual_seed(0)
+        native = torch.randn((7,48), dtype=torch.float32)
+    assert torch.equal(basis, native)
+    assert not torch.equal(basis, _cpu_seeded_subspace((7,48),torch.float32,1,device='cpu'))
+    layer = torch.nn.Linear(48,192)
+    layer(basis).sum().backward()
+    assert layer.weight.grad is not None and torch.isfinite(layer.weight.grad).all()
+
+
+def test_native_cpu_subspace_hook_is_transparent():
+    from posteriorforge.study.model import _canonical_subspace_pre_hook
+    module = torch.nn.Linear(48,192)
+    module._ftf_subspace_seed = 0
+    value = torch.randn(7,48)
+    before = module(value)
+    handle = module.register_forward_pre_hook(_canonical_subspace_pre_hook)
+    after = module(value)
+    handle.remove()
+    assert torch.equal(before,after)
+    with pytest.raises(Exception, match='projection input'):
+        _canonical_subspace_pre_hook(module, ())

@@ -21,6 +21,7 @@ LEGACY_FINITE = "legacy_finite_v3"
 PENDING_FULL_TAIL = "full_tail.pending_ensemble_choice.v1"
 CANONICAL_FULL_SUPPORT = "canonical_half_normal_full_support.v1"
 NATIVE_FULL_SUPPORT = "native_half_normal_full_support.v1"
+FEATURE_EMBEDDING_POLICY = "cpu_seeded_subspace.v1"
 BASE_CHECKPOINT_SHA256 = "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736"
 _HALF_NORMAL_MEDIAN = 0.6744897501960817
 
@@ -352,9 +353,38 @@ def merge_lora(model: nn.Module) -> nn.Module:
     return plain
 
 
+def _cpu_seeded_subspace(shape, dtype: torch.dtype, seed: int, *, device) -> torch.Tensor:
+    """Reproduce TabPFN's seeded CPU feature draws without touching global RNG."""
+    generator = torch.Generator(device="cpu").manual_seed(seed)
+    return torch.randn(shape, dtype=dtype, device="cpu", generator=generator).to(device)
+
+
+def _canonical_subspace_pre_hook(module: nn.Module, args: tuple):
+    # TabPFN 2.0.9 generates the subspace input on x.device. CPU and CUDA
+    # generators have different streams for the same seed; use its CPU stream
+    # as the canonical feature basis on CUDA. Projection stays on-device and
+    # remains in autograd. The native CPU forward is bit-for-bit unchanged.
+    if len(args) != 1 or not isinstance(args[0], torch.Tensor):
+        raise ModelQualificationError("unexpected subspace projection input")
+    value = args[0]
+    if value.device.type != "cuda":
+        return None
+    return (_cpu_seeded_subspace(value.shape, value.dtype, module._ftf_subspace_seed,
+                                 device=value.device),)
+
+
 def configure_differentiable_forward(model: nn.Module) -> None:
     """Disable inference-only caches/peak-memory mutation while retaining gradients."""
     base = model.get_base_model() if hasattr(model, "get_base_model") else model
+    if getattr(base, "feature_positional_embedding", None) == "subspace":
+        projection = base.feature_positional_embedding_embeddings
+        seed = base.seed
+        if type(seed) is not int:
+            raise ModelQualificationError("seeded subspace feature embedding required")
+        projection._ftf_subspace_seed = seed
+        if not getattr(projection, "_ftf_subspace_hook_registered", False):
+            projection.register_forward_pre_hook(_canonical_subspace_pre_hook)
+            projection._ftf_subspace_hook_registered = True
     if hasattr(base, "empty_trainset_representation_cache"):
         base.empty_trainset_representation_cache()
     if hasattr(base, "cache_trainset_representation"):
@@ -434,7 +464,7 @@ class TabPFNBackbone(nn.Module):
         return [self.forward_member(member) for member in members]
 
     def metadata(self) -> dict:
-        return {"checkpoint_sha256": self.checkpoint_sha256, "backbone": "TabPFN-v2-regressor", "source_version": "2.0.9", "gradient_enabled_path": True, "sampling_law_activated": False, "scientifically_qualified": False}
+        return {"checkpoint_sha256": self.checkpoint_sha256, "backbone": "TabPFN-v2-regressor", "source_version": "2.0.9", "gradient_enabled_path": True, "feature_embedding_policy": FEATURE_EMBEDDING_POLICY, "sampling_law_activated": False, "scientifically_qualified": False}
 
 
 @dataclass(frozen=True)
