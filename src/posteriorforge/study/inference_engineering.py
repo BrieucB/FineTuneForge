@@ -285,6 +285,8 @@ def compare_files(original,candidate):
     x,y=a['sampling']['binding'],b['sampling']['binding']
     for field in ('problem','query','theta','observations','seed','microbatch_size','uniform_law','law','source_policy'):
         if x[field]!=y[field]:raise ValueError('comparison request mismatch: '+field)
+    if x['identities']['protocol_sha256']!=y['identities']['protocol_sha256'] or x['source_sha256']!=y['source_sha256']:
+        raise ValueError('comparison protocol/core-source mismatch')
     for field in ('origin_model_sha256','checkpoint_manifest_sha256'):
         if x['backend']['deployment'][field]!=y['backend']['deployment'][field]:raise ValueError('comparison origin mismatch')
     if x['identities']['bank_manifest_sha256']!=y['identities']['bank_manifest_sha256']:raise ValueError('comparison bank mismatch')
