@@ -1,0 +1,11 @@
+{
+  "input_manifest_sha256": "f30862acafda90128f77145df4708326a0a0c75c7a1aa4c708d2325ab42cd8c0",
+  "posterior_draws_per_request": 50000,
+  "schema": "finetuneforge.training_posterior_qualification.v1",
+  "scientifically_qualified": false,
+  "source_commit": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a",
+  "worker_returncodes": {
+    "cached": 0,
+    "stock": 0
+  }
+}

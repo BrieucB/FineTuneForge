@@ -1,0 +1,15 @@
+Fusion retry 5449744: read-only rounding audit
+
+Evidence files (SHA256):
+84ebfee8c056e13f9880b30eeb33ae855edd1f8054bd7477a3aaf56c0c873703  /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/fusion-02/result.json
+1e21642a3a048c54af884b294088b7951e45e206a8d00f91c1078faeab820a9f  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449744/ac/cacjy2htgr3f3yagwdxeytttql6nz5jzmagsp7ufbadwjfodzs2m.py
+07ffd82d71c09a5e249e890e3abdd5dec913055bf89ffdd8393a591eeed6038d  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449744/kv/ckvygjkrq2llho6uc2aspygdcfmz4mjq4xvdadpnxvwwdoqxvo2t.py
+c172de732332e2aaaebbf4ee4a657da6040cbac08fc398783d9e64580a4bfe69  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449744/triton/0/af9fe-84pv3Z--G4cIQKbR1zxuUhV_smW0T-PMGwrVQ/triton_poi_fused_add_gelu_gelu_backward_mul_0.ptx
+175769bdb85602c0d84129d8e0cc7ed2f0d7b173fe46ec433d8a765e8890a4e8  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449744/triton/0/af9fe-84pv3Z--G4cIQKbR1zxuUhV_smW0T-PMGwrVQ/triton_poi_fused_add_gelu_gelu_backward_mul_0.json
+
+Observed: Dynamo compiled 5 graphs and aot_autograd 5, no graph breaks recorded.
+All four initial stages passed logits, CDF, quantile and loss checks but failed the named gradient tolerance atol 2e-7, rtol 2e-5; failed tensor counts 1, 5, 25, 3; worst absolute errors 4.92e-7, 7.74e-7, 1.57e-6, 3.86e-7. Nonzero checkpoint was not tested.
+The generated graph maps aten.mul, aten.add, aten.gelu and aten.gelu_backward to one pointwise Triton kernel, using libdevice.erf, tl_math.exp and arithmetic. The GPU kernel metadata says enable_fp_fusion=true. PTX lines 69-70 execute fma.rn.f32 for base plus 2 times adapter. Matrix multiplies in graph are extern_kernels.mm; backward graph also has extern_kernels.addmm.
+Hypothesis, not a proven causal result: changed operation contraction, special-function implementation and/or backward addmm fusion can alter FP32 rounding and propagate into gradients. No intermediate eager-vs-compiled localization was measured.
+Triton 3.2.0 backends/nvidia/compiler.py lines 156-157 reads TRITON_DEFAULT_FP_FUSION; lines 324 and 349 apply it to LLVM optimization and ptxas --fmad=false. A fresh-cache preflight with value 0 can test contraction, without changing tolerances, precision or objectives. This is not proof that parity will pass, nor does it prohibit explicitly fused library operations or change external kernels.
+The PyTorch Inductor CPP floating-point-contract setting applies to C++ kernels, not these Triton GPU kernels; epilogue_fusion controls template epilogues and does not establish removal of this pointwise fusion. No GPU run or package/source edits were made for this audit.

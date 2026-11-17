@@ -1,0 +1,17 @@
+{
+  "checkpoint": {
+    "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r4/after-two-update",
+    "campaign_metadata_sha256": "60b4bb9148cda666c3b5c25ab5d8fb227a584e55f0f2faee1ee8fb92f1de713f",
+    "checkpoint_manifest_sha256": "02bcb10453919cfe12a2b763493039706e7ccd5271f5854daec736c14b3f22d4",
+    "model_sha256": "3a33c3fddad9eb66c3eedc9ee4829ca8e5921c927b90888983c7bc241a619d0d"
+  },
+  "input_manifest_sha256": "f30862acafda90128f77145df4708326a0a0c75c7a1aa4c708d2325ab42cd8c0",
+  "job_id": "5449666",
+  "posterior_draws": 50000,
+  "posterior_result_sha256": "69389d39dfb0dade837780fe10751c06cf65033d598880614cbee9461a9717b6",
+  "schema": "finetuneforge.training_posterior_qualification.v1",
+  "scientifically_qualified": false,
+  "source_commit": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a",
+  "status": "completed",
+  "variant": "cached"
+}

@@ -1,0 +1,113 @@
+{
+  "acceptance": {
+    "cached_checkpoint_continuation": {
+      "atol": 0.0,
+      "rtol": 0.0
+    },
+    "every_trainable_gradient_required_finite_and_present": true,
+    "first_identical_weight_logits_full_grid_weights_loss": {
+      "atol": 0.0,
+      "rtol": 0.0
+    },
+    "gradient_and_adamw_state": {
+      "atol": 2e-07,
+      "rtol": 2e-05
+    },
+    "second_step_forward_after_small_parameter_differences": {
+      "atol": 2e-07,
+      "rtol": 2e-05
+    }
+  },
+  "baseline_commit": "c7c74fc6fd18878dc6d3d05bc5ec0e02ea9632bf",
+  "candidate_policy": "per_layer_forward_and_checkpoint_recompute.v1",
+  "coverage": {
+    "cached_real_checkpoint": "all8 members of pinned11,081,864-parameter base, ranks4/16, nonzero A/B gradients, full-grid full-tail density, no real optimizer step",
+    "context_tokens": 16,
+    "ensemble_members": 8,
+    "full_grid_density_law": "canonical_half_normal_full_support.v1",
+    "query_cases_per_fixture": 1,
+    "role_weights": [
+      0.16666666666666666,
+      0.16666666666666666,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "small_fixture": "actual TabPFN PerFeatureEncoderLayer/LayerStack, 2 layers, nonreentrant activation checkpoint, fullFT and LoRA ranks4/16",
+    "small_fixture_conditionals": 4,
+    "small_fixture_update_count": 2,
+    "tail_and_interior_targets": true
+  },
+  "created_utc": "2026-11-17T20:10:41.749031+00:00",
+  "invariants": {
+    "cuda_initialized": false,
+    "detach_merge_or_persistent_tensor_cache": false,
+    "model_downloaded": false,
+    "neural_dtype": "torch.float32",
+    "posterior_draws_contract": 50000,
+    "posterior_evaluation_performed": false,
+    "probability_dtype": "torch.float64",
+    "slurm_submitted": false,
+    "unchanged_activation_checkpoint_flags": true,
+    "unchanged_density_normalization_guards": true
+  },
+  "limits": [
+    "CPU numerical qualification only; no GPU performance claim",
+    "Small fixture updates do not qualify batch16 main training or global posterior calibration",
+    "Same-checkpoint arbitrary prepared members exercise real network/checkpoint behavior; scientific episode-level GPU qualification remains required"
+  ],
+  "passed": true,
+  "receipts": [
+    "parity-junit.xml",
+    "parity-pytest.txt",
+    "source-before.sha256"
+  ],
+  "rejected_prior_candidate_receipt": "../numerics-cpu-01/audit.json",
+  "schema": "finetuneforge.training_numerics_cpu.v1",
+  "source_sha256": {
+    "src/posteriorforge/study/training_execution.py": "8429997d492b26ea5dd5b3dffb3b4b3f1d16e7369e0b92684ae9a036554bb2d2",
+    "src/posteriorforge/study/training_numerics.py": "d95a05eb899108b294e83dfa31e5782809dbd670cade30b225bcb096d53f3d77",
+    "tests/test_study_training_numerics.py": "51a5c5970e723d30016ee98d320fb2af3b5cfc24bf3dc1f0cfb3a8be06fc8c47"
+  },
+  "tests": [
+    {
+      "name": "test_comparison_requires_all_names_finite_gradients_shapes_and_dtypes",
+      "passed": true,
+      "seconds": 0.017
+    },
+    {
+      "name": "test_all_eight_members_full_grid_loss_gradients_adamw_and_updated_weights_match[full_finetune]",
+      "passed": true,
+      "seconds": 4.501
+    },
+    {
+      "name": "test_all_eight_members_full_grid_loss_gradients_adamw_and_updated_weights_match[lora_r4]",
+      "passed": true,
+      "seconds": 5.637
+    },
+    {
+      "name": "test_all_eight_members_full_grid_loss_gradients_adamw_and_updated_weights_match[lora_r16]",
+      "passed": true,
+      "seconds": 1.995
+    },
+    {
+      "name": "test_cached_adamw_checkpoint_resume_is_exact_and_does_not_reuse_old_graph[4]",
+      "passed": true,
+      "seconds": 1.342
+    },
+    {
+      "name": "test_cached_adamw_checkpoint_resume_is_exact_and_does_not_reuse_old_graph[16]",
+      "passed": true,
+      "seconds": 1.514
+    },
+    {
+      "name": "test_cached_real_checkpoint_all_member_full_tail_loss_and_gradients_match[4]",
+      "passed": true,
+      "seconds": 6.088
+    },
+    {
+      "name": "test_cached_real_checkpoint_all_member_full_tail_loss_and_gradients_match[16]",
+      "passed": true,
+      "seconds": 5.916
+    }
+  ]
+}

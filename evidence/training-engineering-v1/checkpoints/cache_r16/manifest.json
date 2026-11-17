@@ -1,0 +1,13 @@
+{
+  "files": {
+    "campaign.json": "0eaf30868fcfe70dde4255d425c421d8d583429c01dda4a2354042dabd62e4c9",
+    "deployment/adapter/README.md": "9559dc07c27d4d0523ff0d3882dc389c94173b04eadebc9a8d4ae16dd7d4ff75",
+    "deployment/adapter/adapter_config.json": "9e02f91ef137de9a1e3ce8775cdb05dd8274482535129ddb3bf033605f53a30e",
+    "deployment/adapter/adapter_manifest.json": "6d9c812558be0d5ec8295f9b624317887e5780ed5f59e6653d0df21f89f6d9dc",
+    "deployment/adapter/adapter_model.safetensors": "beb7616594a36c794900eb6529efc35afea1bfc2a927963550128428e0af8652",
+    "training/manifest.json": "55b2387c779b7bf1e705ff7540a120a60915367d2b4000221630e18daa0993f1",
+    "training/rng.json": "ac3cce52f7c1000918309000e87dcd696ca95f2c4e00b8cb467a21fb1aa10493",
+    "training/training.pt": "dc38b717b138d82ebe56fcb89897fa7943fd74747cf54c26d0cf86dff5912567"
+  },
+  "schema": "finetuneforge.campaign_checkpoint.files.v1"
+}

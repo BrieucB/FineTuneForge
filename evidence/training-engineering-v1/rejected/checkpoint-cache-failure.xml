@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="15.248" timestamp="2026-11-17T21:00:44.054149+01:00" hostname="login4.karolina.it4i.cz"><testcase classname="tests.test_study_training_numerics" name="test_cached_real_checkpoint_all_member_full_tail_loss_and_gradients_match[4]" time="9.784"><failure message="torch.utils.checkpoint.CheckpointError: torch.utils.checkpoint: Recomputed values for the following tensors have different metadata than during the forward pass.&#10;tensor at position 0:&#10;saved metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 1:&#10;saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 2:&#10;saved metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 3:&#10;saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 4:&#10;saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 5:&#10;saved metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 6:&#10;saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 7:&#10;saved metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 8:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 9:&#10;saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 10:&#10;saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 11:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 12:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 13:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 14:&#10;saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 15:&#10;saved metadata: {'shape': torch.Size([1, 192, 64]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 16:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 17:&#10;saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 18:&#10;saved metadata: {'shape': torch.Size([18, 1, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 19:&#10;saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 20:&#10;saved metadata: {'shape': torch.Size([3, 1, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 21:&#10;saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 22:&#10;saved metadata: {'shape': torch.Size([18, 1, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 23:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 24:&#10;saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 25:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 26:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 27:&#10;saved metadata: {'shape': torch.Size([1, 192, 384]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 28:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 29:&#10;saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 30:&#10;saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 31:&#10;saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 32:&#10;saved metadata: {'shape': torch.Size([3, 16, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 33:&#10;saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 34:&#10;saved metadata: {'shape': torch.Size([18, 16, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 35:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 36:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 37:&#10;saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 38:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 39:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 40:&#10;saved metadata: {'shape': torch.Size([192, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 41:&#10;saved metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 43:&#10;saved metadata: {'shape': torch.Size([4, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 44:&#10;saved metadata: {'shape': torch.Size([51, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 45:&#10;saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 46:&#10;saved metadata: {'shape': torch.Size([768, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 47:&#10;saved metadata: {'shape': torch.Size([768, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 48:&#10;saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 50:&#10;saved metadata: {'shape': torch.Size([51, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 51:&#10;saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 52:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 53:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}">rank = 4
+
+    @pytest.mark.parametrize("rank", [4, 16])
+    def test_cached_real_checkpoint_all_member_full_tail_loss_and_gradients_match(rank):
+        checkpoint = os.environ.get("FTF_CPU_CHECKPOINT")
+        if not checkpoint:
+            pytest.skip("real cached checkpoint opt-in; no downloads")
+        from posteriorforge.study.model import PreparedMember, TabPFNBackbone
+        from posteriorforge.study.training_execution import conditional_forward_cache
+        torch.set_num_threads(2)
+        network = TabPFNBackbone.from_checkpoint(Path(checkpoint))
+        generator = torch.Generator().manual_seed(2026111705)
+        context = torch.randn(16, 3, generator=generator)
+        targets = torch.randn(16, generator=generator)
+        query = torch.randn(1, 3, generator=generator)
+        members = [PreparedMember(context[:, torch.roll(torch.arange(3), i % 3)], targets,
+            query[:, torch.roll(torch.arange(3), i % 3)]) for i in range(8)]
+        network.backbone = attach_lora(network.backbone, rank=rank)
+        with torch.no_grad():
+            for name, parameter in network.named_parameters():
+                if "lora_B" in name:
+                    parameter.normal_(mean=0., std=.001, generator=generator)
+        records = []
+        for cached in (False, True):
+            network.zero_grad(set_to_none=True)
+            with conditional_forward_cache(network, enabled=cached):
+                outputs = network(members)
+                density = canonical_full_support_mixture(outputs, [network.borders] * 8, network.borders)
+            loss = -density.log_prob(torch.tensor([.25], dtype=torch.float64), log_abs_det_decode=.17).sum()
+&gt;           loss.backward()
+
+tests/test_study_training_numerics.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/_tensor.py:626: in backward
+    torch.autograd.backward(
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/autograd/__init__.py:347: in backward
+    _engine_run_backward(
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/autograd/graph.py:823: in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/utils/checkpoint.py:1129: in unpack_hook
+    frame.check_recomputed_tensors_match(gid)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;torch.utils.checkpoint._CheckpointFrame object at 0x14dc2ddab8d0&gt;
+gid = 1
+
+    def check_recomputed_tensors_match(self, gid):
+        if self.ignore_saved_mismatch:
+            # TODO: we can probably make this check stricter by checking that
+            #       the metadata of the first tensors still match.
+            return
+        # NOTE [ Error handling for checkpoint ]
+        #
+        # At a high level, we need to check that the tensors saved
+        # during original forward matches tensors saved during recompute
+        # This means handling 3 cases:
+        #
+        # 1. During recompute, more tensors were saved.
+        #
+        #    Usually this is hidden due to the StopRecomputationError
+        #    but if early stop is not enabled, or we would have errored
+        #    anyway because there aren't enough weak_holders. But we
+        #    do want to have a nice error. See the _recomputation_hook
+        #    for details.
+        if not len(self.weak_holders) == self.recomp_counter[gid]:
+            # 2. During recompute, fewer tensors were saved
+            #
+            # We know that everytime we save something do original forward
+            # we append to weak_holder, and every time we save a tensor
+            # during recompute we increment recompute_counter.
+            raise CheckpointError(
+                "torch.utils.checkpoint: A different number of tensors was saved "
+                "during the original forward and recomputation.\n"
+                f"Number of tensors saved during forward: {len(self.weak_holders)}\n"
+                f"Number of tensors saved during recomputation: {self.recomp_counter[gid]}"
+            )
+    
+        # 3. During recompute, the same tensors were saved, but they
+        #    have different metadata
+        nb_meta_different = []
+        for idx, weak_holder in enumerate(self.weak_holders):
+            holder = weak_holder()
+            if holder is None:
+                continue
+            # We've seen all holders since we iterate over them in order
+            # For every holder that is still alive now, it must've been
+            # alive when we saw it during recompute, therefore, the
+            # gid must be set.
+            _internal_assert(gid in holder.handles)
+            # We know this is the first unpack, so it couldn't have been set
+            # to None yet.
+            _internal_assert(holder.handles[gid] is not None)
+            # We always set these together in the recomputation hook
+            _internal_assert(holder.handles[gid] in self.recomputed[gid])
+            # see pack hook, x_metadata is 1:1 with weak_holders.
+            x_meta = self.x_metadatas[idx]
+            recomputed_x = self.recomputed[gid][holder.handles[gid]]
+            if x_meta != self.metadata_fn(recomputed_x):
+                nb_meta_different.append((idx, x_meta, self.metadata_fn(recomputed_x)))
+    
+        if len(nb_meta_different) &gt; 0:
+            mismatched_tensors = ""
+            for idx, x_meta, recomputed_meta in nb_meta_different:
+                mismatched_tensors += (
+                    f"tensor at position {idx}:\n"
+                    f"saved metadata: {x_meta}\n"
+                    f"recomputed metadata: {recomputed_meta}\n"
+                )
+&gt;           raise CheckpointError(
+                "torch.utils.checkpoint: Recomputed values for the following tensors "
+                "have different metadata than during the forward pass.\n"
+                f"{mismatched_tensors}"
+            )
+E           torch.utils.checkpoint.CheckpointError: torch.utils.checkpoint: Recomputed values for the following tensors have different metadata than during the forward pass.
+E           tensor at position 0:
+E           saved metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 1:
+E           saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 2:
+E           saved metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 3:
+E           saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 4:
+E           saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 5:
+E           saved metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 6:
+E           saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 7:
+E           saved metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 8:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 9:
+E           saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 10:
+E           saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 11:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 12:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 13:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 14:
+E           saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 15:
+E           saved metadata: {'shape': torch.Size([1, 192, 64]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 16:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 17:
+E           saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 18:
+E           saved metadata: {'shape': torch.Size([18, 1, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 19:
+E           saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 20:
+E           saved metadata: {'shape': torch.Size([3, 1, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 21:
+E           saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 22:
+E           saved metadata: {'shape': torch.Size([18, 1, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 23:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 24:
+E           saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 25:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 26:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 27:
+E           saved metadata: {'shape': torch.Size([1, 192, 384]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 28:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 29:
+E           saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 30:
+E           saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 31:
+E           saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 32:
+E           saved metadata: {'shape': torch.Size([3, 16, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 33:
+E           saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 34:
+E           saved metadata: {'shape': torch.Size([18, 16, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 35:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 36:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 37:
+E           saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 38:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 39:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 40:
+E           saved metadata: {'shape': torch.Size([192, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 41:
+E           saved metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 43:
+E           saved metadata: {'shape': torch.Size([4, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 44:
+E           saved metadata: {'shape': torch.Size([51, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 45:
+E           saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 46:
+E           saved metadata: {'shape': torch.Size([768, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 47:
+E           saved metadata: {'shape': torch.Size([768, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 48:
+E           saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 50:
+E           saved metadata: {'shape': torch.Size([51, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 51:
+E           saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 52:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 4]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 53:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([4, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/utils/checkpoint.py:903: CheckpointError</failure></testcase><testcase classname="tests.test_study_training_numerics" name="test_cached_real_checkpoint_all_member_full_tail_loss_and_gradients_match[16]" time="4.001"><failure message="torch.utils.checkpoint.CheckpointError: torch.utils.checkpoint: Recomputed values for the following tensors have different metadata than during the forward pass.&#10;tensor at position 0:&#10;saved metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 1:&#10;saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 2:&#10;saved metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 3:&#10;saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 4:&#10;saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 5:&#10;saved metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 6:&#10;saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 7:&#10;saved metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 8:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 9:&#10;saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 10:&#10;saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 11:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 12:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 13:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 14:&#10;saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 15:&#10;saved metadata: {'shape': torch.Size([1, 192, 64]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 16:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 17:&#10;saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 18:&#10;saved metadata: {'shape': torch.Size([18, 1, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 19:&#10;saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 20:&#10;saved metadata: {'shape': torch.Size([3, 1, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 21:&#10;saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 22:&#10;saved metadata: {'shape': torch.Size([18, 1, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 23:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 24:&#10;saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 25:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 26:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 27:&#10;saved metadata: {'shape': torch.Size([1, 192, 384]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 28:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 29:&#10;saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 30:&#10;saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 31:&#10;saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 32:&#10;saved metadata: {'shape': torch.Size([3, 16, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 33:&#10;saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 34:&#10;saved metadata: {'shape': torch.Size([18, 16, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 35:&#10;saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 36:&#10;saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 37:&#10;saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 38:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 39:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 40:&#10;saved metadata: {'shape': torch.Size([192, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 41:&#10;saved metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 43:&#10;saved metadata: {'shape': torch.Size([16, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 44:&#10;saved metadata: {'shape': torch.Size([51, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 45:&#10;saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 46:&#10;saved metadata: {'shape': torch.Size([768, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 47:&#10;saved metadata: {'shape': torch.Size([768, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 48:&#10;saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 50:&#10;saved metadata: {'shape': torch.Size([51, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 51:&#10;saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 52:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;tensor at position 53:&#10;saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}&#10;recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}">rank = 16
+
+    @pytest.mark.parametrize("rank", [4, 16])
+    def test_cached_real_checkpoint_all_member_full_tail_loss_and_gradients_match(rank):
+        checkpoint = os.environ.get("FTF_CPU_CHECKPOINT")
+        if not checkpoint:
+            pytest.skip("real cached checkpoint opt-in; no downloads")
+        from posteriorforge.study.model import PreparedMember, TabPFNBackbone
+        from posteriorforge.study.training_execution import conditional_forward_cache
+        torch.set_num_threads(2)
+        network = TabPFNBackbone.from_checkpoint(Path(checkpoint))
+        generator = torch.Generator().manual_seed(2026111705)
+        context = torch.randn(16, 3, generator=generator)
+        targets = torch.randn(16, generator=generator)
+        query = torch.randn(1, 3, generator=generator)
+        members = [PreparedMember(context[:, torch.roll(torch.arange(3), i % 3)], targets,
+            query[:, torch.roll(torch.arange(3), i % 3)]) for i in range(8)]
+        network.backbone = attach_lora(network.backbone, rank=rank)
+        with torch.no_grad():
+            for name, parameter in network.named_parameters():
+                if "lora_B" in name:
+                    parameter.normal_(mean=0., std=.001, generator=generator)
+        records = []
+        for cached in (False, True):
+            network.zero_grad(set_to_none=True)
+            with conditional_forward_cache(network, enabled=cached):
+                outputs = network(members)
+                density = canonical_full_support_mixture(outputs, [network.borders] * 8, network.borders)
+            loss = -density.log_prob(torch.tensor([.25], dtype=torch.float64), log_abs_det_decode=.17).sum()
+&gt;           loss.backward()
+
+tests/test_study_training_numerics.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/_tensor.py:626: in backward
+    torch.autograd.backward(
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/autograd/__init__.py:347: in backward
+    _engine_run_backward(
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/autograd/graph.py:823: in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/utils/checkpoint.py:1129: in unpack_hook
+    frame.check_recomputed_tensors_match(gid)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;torch.utils.checkpoint._CheckpointFrame object at 0x14dc2d736e10&gt;
+gid = 3
+
+    def check_recomputed_tensors_match(self, gid):
+        if self.ignore_saved_mismatch:
+            # TODO: we can probably make this check stricter by checking that
+            #       the metadata of the first tensors still match.
+            return
+        # NOTE [ Error handling for checkpoint ]
+        #
+        # At a high level, we need to check that the tensors saved
+        # during original forward matches tensors saved during recompute
+        # This means handling 3 cases:
+        #
+        # 1. During recompute, more tensors were saved.
+        #
+        #    Usually this is hidden due to the StopRecomputationError
+        #    but if early stop is not enabled, or we would have errored
+        #    anyway because there aren't enough weak_holders. But we
+        #    do want to have a nice error. See the _recomputation_hook
+        #    for details.
+        if not len(self.weak_holders) == self.recomp_counter[gid]:
+            # 2. During recompute, fewer tensors were saved
+            #
+            # We know that everytime we save something do original forward
+            # we append to weak_holder, and every time we save a tensor
+            # during recompute we increment recompute_counter.
+            raise CheckpointError(
+                "torch.utils.checkpoint: A different number of tensors was saved "
+                "during the original forward and recomputation.\n"
+                f"Number of tensors saved during forward: {len(self.weak_holders)}\n"
+                f"Number of tensors saved during recomputation: {self.recomp_counter[gid]}"
+            )
+    
+        # 3. During recompute, the same tensors were saved, but they
+        #    have different metadata
+        nb_meta_different = []
+        for idx, weak_holder in enumerate(self.weak_holders):
+            holder = weak_holder()
+            if holder is None:
+                continue
+            # We've seen all holders since we iterate over them in order
+            # For every holder that is still alive now, it must've been
+            # alive when we saw it during recompute, therefore, the
+            # gid must be set.
+            _internal_assert(gid in holder.handles)
+            # We know this is the first unpack, so it couldn't have been set
+            # to None yet.
+            _internal_assert(holder.handles[gid] is not None)
+            # We always set these together in the recomputation hook
+            _internal_assert(holder.handles[gid] in self.recomputed[gid])
+            # see pack hook, x_metadata is 1:1 with weak_holders.
+            x_meta = self.x_metadatas[idx]
+            recomputed_x = self.recomputed[gid][holder.handles[gid]]
+            if x_meta != self.metadata_fn(recomputed_x):
+                nb_meta_different.append((idx, x_meta, self.metadata_fn(recomputed_x)))
+    
+        if len(nb_meta_different) &gt; 0:
+            mismatched_tensors = ""
+            for idx, x_meta, recomputed_meta in nb_meta_different:
+                mismatched_tensors += (
+                    f"tensor at position {idx}:\n"
+                    f"saved metadata: {x_meta}\n"
+                    f"recomputed metadata: {recomputed_meta}\n"
+                )
+&gt;           raise CheckpointError(
+                "torch.utils.checkpoint: Recomputed values for the following tensors "
+                "have different metadata than during the forward pass.\n"
+                f"{mismatched_tensors}"
+            )
+E           torch.utils.checkpoint.CheckpointError: torch.utils.checkpoint: Recomputed values for the following tensors have different metadata than during the forward pass.
+E           tensor at position 0:
+E           saved metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 1:
+E           saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 2:
+E           saved metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 3:
+E           saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 4:
+E           saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 5:
+E           saved metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 6:
+E           saved metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 7:
+E           saved metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 8:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 9:
+E           saved metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 10:
+E           saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 11:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 12:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 13:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 14:
+E           saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 15:
+E           saved metadata: {'shape': torch.Size([1, 192, 64]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 16:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 17:
+E           saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 18:
+E           saved metadata: {'shape': torch.Size([18, 1, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 19:
+E           saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 20:
+E           saved metadata: {'shape': torch.Size([3, 1, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 21:
+E           saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 22:
+E           saved metadata: {'shape': torch.Size([18, 1, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 23:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 24:
+E           saved metadata: {'shape': torch.Size([1, 3, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 25:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 26:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 27:
+E           saved metadata: {'shape': torch.Size([1, 192, 384]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 28:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 29:
+E           saved metadata: {'shape': torch.Size([18, 32, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 30:
+E           saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 192, 576]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 31:
+E           saved metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 32:
+E           saved metadata: {'shape': torch.Size([3, 16, 16, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 32, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 33:
+E           saved metadata: {'shape': torch.Size([18, 16, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 34:
+E           saved metadata: {'shape': torch.Size([18, 16, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 35:
+E           saved metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([17, 3, 3, 6]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 36:
+E           saved metadata: {'shape': torch.Size([1, 48, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 3, 32]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 37:
+E           saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([102, 3, 3]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 38:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 39:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 40:
+E           saved metadata: {'shape': torch.Size([192, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 192, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 41:
+E           saved metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([1, 51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 43:
+E           saved metadata: {'shape': torch.Size([16, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 44:
+E           saved metadata: {'shape': torch.Size([51, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 45:
+E           saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 46:
+E           saved metadata: {'shape': torch.Size([768, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 47:
+E           saved metadata: {'shape': torch.Size([768, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 48:
+E           saved metadata: {'shape': torch.Size([51, 768]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 50:
+E           saved metadata: {'shape': torch.Size([51, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 51:
+E           saved metadata: {'shape': torch.Size([51, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 52:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([192, 16]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           tensor at position 53:
+E           saved metadata: {'shape': torch.Size([51, 1]), 'dtype': torch.float32, 'device': device(type='cpu')}
+E           recomputed metadata: {'shape': torch.Size([16, 192]), 'dtype': torch.float32, 'device': device(type='cpu')}
+
+/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/lib64/python3.11/site-packages/torch/utils/checkpoint.py:903: CheckpointError</failure></testcase></testsuite></testsuites>

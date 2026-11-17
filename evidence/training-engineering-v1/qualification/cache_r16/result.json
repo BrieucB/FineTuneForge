@@ -1,0 +1,3577 @@
+{
+  "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+  "checkpoint_manifest_sha256": "155b8a0a150a2d8a3c0e1b0a80b81b827ac1c180a4f5812f8c63a8cc52cb3acc",
+  "final_model_sha256": "c5cbb002d784c88d69f0597b5a1bf5567bd237bb9d6c9bf6aa7356a3b74e0dae",
+  "hardware": {
+    "cuda_runtime": "12.4",
+    "memory_bytes": 42430300160,
+    "name": "NVIDIA A100-SXM4-40GB",
+    "uuid": "9f515ac2-472b-a22d-550d-b0fbe977d29c"
+  },
+  "hostname": "acn30.karolina.it4i.cz",
+  "input_manifest_sha256": "1fc2ad8891ded13a3b7e47398706b71782068fa0f4e9799d8acf04707eb05293",
+  "job_id": "5449591",
+  "lane": "cache_r16",
+  "parity": [
+    {
+      "episode_position": 0,
+      "gradient_comparison": {
+        "atol": 2e-07,
+        "failed": [],
+        "max_absolute_error": 2.9802322387695312e-08,
+        "missing": [],
+        "passed": true,
+        "rtol": 2e-05,
+        "tensor_count": 244,
+        "tensors": {
+          "backbone.base_model.model.decoder_dict.standard.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.decoder_dict.standard.0.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.decoder_dict.standard.2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.decoder_dict.standard.2.lora_B.default.weight": {
+            "elements": 80000,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.3096723705530167e-09,
+            "max_relative_error": 0.0012796516291684174,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.3283064365386963e-09,
+            "max_relative_error": 0.0006843315449468959,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.3283064365386963e-09,
+            "max_relative_error": 8.506570312879758e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.2177499532699585e-09,
+            "max_relative_error": 2.885063203491751e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.604264050722122e-10,
+            "max_relative_error": 0.000395335046451868,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.3283064365386963e-09,
+            "max_relative_error": 0.00013183116519051118,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.7939677238464355e-09,
+            "max_relative_error": 8.886186656689194e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.122274160385132e-09,
+            "max_relative_error": 8.215126786790076e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.450580596923828e-09,
+            "max_relative_error": 0.000591765998816468,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.450580596923828e-09,
+            "max_relative_error": 0.000734322220590395,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.7939677238464355e-09,
+            "max_relative_error": 6.825659017378128e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "max_relative_error": 1.0323195152778126e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0004929538892496928,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0016004097048844504,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 4.6566128730773926e-09,
+            "max_relative_error": 7.39316871211001e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-09,
+            "max_relative_error": 3.404023555843007e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.00018190512227938632,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.3969838619232178e-09,
+            "max_relative_error": 0.0005684302579798863,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 0.00028049179561497826,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.450580596923828e-09,
+            "max_relative_error": 1.6159447719044987e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.14321368932724e-09,
+            "max_relative_error": 0.0030535611124865893,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 0.009324373600041673,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.238689482212067e-10,
+            "max_relative_error": 1.6648353477841043e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 5.4728213610298634e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.122274160385132e-09,
+            "max_relative_error": 0.00018265581555821647,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 0.00010016056991364281,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.862645149230957e-09,
+            "max_relative_error": 0.0003030091135818008,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 4.6566128730773926e-09,
+            "max_relative_error": 2.005428025188176e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.587935447692871e-09,
+            "max_relative_error": 0.0003671439538066153,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.00014682131845543972,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 1.1497522654755728e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "max_relative_error": 2.071525637201286e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0001374318567043841,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0004640371229698376,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.1641532182693481e-09,
+            "max_relative_error": 0.00024715768660405336,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "max_relative_error": 1.1975054630642745e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 5.095232318330705e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.00019692087361260295,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.7939677238464355e-09,
+            "max_relative_error": 9.130098533455545e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "max_relative_error": 0.00010665691517727903,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.00014211927413111032,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 8.900360464598816e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 8.176392030743234e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4901161193847656e-08,
+            "max_relative_error": 8.11108948153916e-06,
+            "passed": true
+          }
+        },
+        "unexpected": []
+      },
+      "logits_density_loss_bitwise_equal": true,
+      "members": 8,
+      "parameter_name": "mu",
+      "passed": true,
+      "stage_index": 0
+    },
+    {
+      "episode_position": 0,
+      "gradient_comparison": {
+        "atol": 2e-07,
+        "failed": [],
+        "max_absolute_error": 2.2351741790771484e-08,
+        "missing": [],
+        "passed": true,
+        "rtol": 2e-05,
+        "tensor_count": 244,
+        "tensors": {
+          "backbone.base_model.model.decoder_dict.standard.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.decoder_dict.standard.0.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.decoder_dict.standard.2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.decoder_dict.standard.2.lora_B.default.weight": {
+            "elements": 80000,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 8.185452315956354e-12,
+            "max_relative_error": 0.00016629250852249106,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 0.010981912144702842,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.002220859751105e-12,
+            "max_relative_error": 0.00013645112177185372,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.862645149230957e-09,
+            "max_relative_error": 0.01498371335504886,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.7284841053187847e-12,
+            "max_relative_error": 8.495094083166971e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.7939677238464355e-09,
+            "max_relative_error": 0.0001866467576791809,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.1827872842550278e-11,
+            "max_relative_error": 0.0020855057351407717,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.0.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 4.6566128730773926e-09,
+            "max_relative_error": 9.051002398515636e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.865352482534945e-12,
+            "max_relative_error": 6.372877035337603e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.566995918750763e-10,
+            "max_relative_error": 0.0003635340197481061,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 8.185452315956354e-12,
+            "max_relative_error": 0.0007577931298327705,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.6775524020195007e-09,
+            "max_relative_error": 0.00010212987205912391,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.637978807091713e-12,
+            "max_relative_error": 0.002864508736751647,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.561137080192566e-09,
+            "max_relative_error": 2.671193124834568e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.546585164964199e-11,
+            "max_relative_error": 7.126130044501454e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 1.875149271751238e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.1827872842550278e-11,
+            "max_relative_error": 4.061273295729937e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.587935447692871e-09,
+            "max_relative_error": 6.795053201269476e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 8.731149137020111e-11,
+            "max_relative_error": 8.165650194433204e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.1175870895385742e-08,
+            "max_relative_error": 0.0004941739492301291,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4551915228366852e-11,
+            "max_relative_error": 0.0006198579961681506,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 5.539353850665537e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.3283064365386963e-10,
+            "max_relative_error": 0.0005400465270854104,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.10.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.6763806343078613e-08,
+            "max_relative_error": 1.0525654005822109e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.11.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.9103830456733704e-11,
+            "max_relative_error": 0.0018226653800793395,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0033165104542177363,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4551915228366852e-11,
+            "max_relative_error": 0.0005966587112171838,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 6.752088665962219e-09,
+            "max_relative_error": 9.534046467103425e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.275957614183426e-12,
+            "max_relative_error": 9.217593872813963e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0018743844712011946,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.9103830456733704e-11,
+            "max_relative_error": 0.00016586974105890423,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.1175870895385742e-08,
+            "max_relative_error": 1.2533684276493075e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.637978807091713e-11,
+            "max_relative_error": 0.00034087298148308636,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.450580596923828e-09,
+            "max_relative_error": 0.00011920371915603766,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.094947017729282e-12,
+            "max_relative_error": 8.305276405987466e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.3969838619232178e-09,
+            "max_relative_error": 0.00011617713845146436,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.275957614183426e-12,
+            "max_relative_error": 4.269356335970385e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.862645149230957e-09,
+            "max_relative_error": 1.7230585437857893e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.820766091346741e-11,
+            "max_relative_error": 4.9443757725587144e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.1175870895385742e-08,
+            "max_relative_error": 0.00010630979926208492,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.0913936421275139e-11,
+            "max_relative_error": 0.0010643150372510264,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.587935447692871e-09,
+            "max_relative_error": 8.244314367484424e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.275957614183426e-12,
+            "max_relative_error": 7.843342309602866e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 0.00019109903176490572,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.275957614183426e-12,
+            "max_relative_error": 0.001657979173873111,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.820766091346741e-10,
+            "max_relative_error": 0.016637856525496975,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.820766091346741e-11,
+            "max_relative_error": 3.79417148022156e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.4.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0005899082524807321,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4551915228366852e-11,
+            "max_relative_error": 8.938457279940949e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.00032107882485150104,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.0913936421275139e-11,
+            "max_relative_error": 0.00013209538895200113,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 0.0001173181639993476,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.094947017729282e-12,
+            "max_relative_error": 0.00021176020547570906,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.862645149230957e-09,
+            "max_relative_error": 0.00014587601864560746,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 8.731149137020111e-11,
+            "max_relative_error": 5.445096711434892e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.587935447692871e-09,
+            "max_relative_error": 0.00044921924429934453,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.9103830456733704e-11,
+            "max_relative_error": 9.431042154340214e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 8.381903171539307e-09,
+            "max_relative_error": 0.0007693921801776596,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.9103830456733704e-11,
+            "max_relative_error": 9.823512515030595e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.00027962641910407696,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.1827872842550278e-11,
+            "max_relative_error": 0.00011315874555447786,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.7939677238464355e-09,
+            "max_relative_error": 6.031026788000305e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.1641532182693481e-10,
+            "max_relative_error": 5.1078743777233814e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.6.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.2351741790771484e-08,
+            "max_relative_error": 5.271719484275214e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.9103830456733704e-11,
+            "max_relative_error": 0.00020525796888827574,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0020844189682126106,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4551915228366852e-11,
+            "max_relative_error": 0.0027376811810541713,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.7939677238464355e-09,
+            "max_relative_error": 0.00031788079470198677,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.275957614183426e-12,
+            "max_relative_error": 0.00019640963192834977,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.862645149230957e-09,
+            "max_relative_error": 9.925167388735723e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.820766091346741e-11,
+            "max_relative_error": 0.00012921432521695086,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.7.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.2351741790771484e-08,
+            "max_relative_error": 1.4270465274249801e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4551915228366852e-11,
+            "max_relative_error": 0.00019963675848334495,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.587935447692871e-09,
+            "max_relative_error": 0.0006454234695097172,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.1827872842550278e-11,
+            "max_relative_error": 0.0001258871107334498,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.587935447692871e-09,
+            "max_relative_error": 8.123288307106717e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.275957614183426e-12,
+            "max_relative_error": 0.00012300339137921945,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.862645149230957e-09,
+            "max_relative_error": 0.00022851919561243144,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.820766091346741e-11,
+            "max_relative_error": 6.70350730940124e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.8.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.2351741790771484e-08,
+            "max_relative_error": 1.9286938208710386e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear1.lora_B.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear2.lora_A.default.weight": {
+            "elements": 12288,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.mlp.linear2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": true,
+            "max_absolute_error": 0.0,
+            "max_relative_error": 0.0,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.4551915228366852e-11,
+            "max_relative_error": 0.00025456042289527276,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 5.587935447692871e-09,
+            "max_relative_error": 0.00034291592844487627,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.9103830456733704e-11,
+            "max_relative_error": 7.26261620185923e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 3.725290298461914e-09,
+            "max_relative_error": 0.0003560536867037169,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 7.275957614183426e-12,
+            "max_relative_error": 6.826337962240599e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.1.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 9.313225746154785e-10,
+            "max_relative_error": 0.0001327572754480558,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_A.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 1.7462298274040222e-10,
+            "max_relative_error": 2.875409497973332e-05,
+            "passed": true
+          },
+          "backbone.base_model.model.transformer_encoder.layers.9.self_attn_between_items.parametrizations._w_qkv.0.branches.2.lora_B.default.weight": {
+            "elements": 3072,
+            "exact": false,
+            "max_absolute_error": 2.2351741790771484e-08,
+            "max_relative_error": 1.2107607030125072e-05,
+            "passed": true
+          }
+        },
+        "unexpected": []
+      },
+      "logits_density_loss_bitwise_equal": true,
+      "members": 8,
+      "parameter_name": "mu",
+      "passed": true,
+      "stage_index": 0
+    }
+  ],
+  "peak_allocated_bytes": 208978944,
+  "peak_reserved_bytes": 213909504,
+  "posterior_draws_contract": 50000,
+  "posterior_requests": 0,
+  "restart": {
+    "deployment_bitwise_equal": true,
+    "future_all_rngs_equal": true,
+    "optimizer_bitwise_equal": true,
+    "passed": true,
+    "replay_update": {
+      "backward_calls": 64,
+      "conditional_count": 64,
+      "data_position": 32,
+      "device": "cuda:0",
+      "episode_count": 16,
+      "execution_mode": "unqualified_cuda_qualification",
+      "gradient_norm_before_clip": 1.3481566905975342,
+      "loss": -1.0892143441898654,
+      "mixed_precision": false,
+      "neural_precision": "float32",
+      "optimizer_steps": 1,
+      "parametrization_cache_policy": "per_layer_forward_and_checkpoint_recompute.v1",
+      "preprocessing_includes_host_to_device": true,
+      "preprocessing_seconds": 10.800216114992509,
+      "probability_precision": "float64",
+      "query_case_count": 16,
+      "query_weighting": "equal realized query cases; setup frequency follows catalogue sampling",
+      "sampling_law": "canonical_half_normal_full_support.v1",
+      "scientifically_qualified": false,
+      "update": 2,
+      "update_seconds": 151.5292384820059
+    },
+    "state_equal": true,
+    "weights_bitwise_equal": true
+  },
+  "schema": "finetuneforge.training_engineering_qualification.v1",
+  "scientifically_qualified": false,
+  "source_commit": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a",
+  "spec": {
+    "diagnostic": true,
+    "effective_batch": 16,
+    "learning_rate": 0.0001,
+    "master_seed": 20261117,
+    "method": "lora_r16",
+    "phase": "pilot",
+    "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+    "replica": 0,
+    "updates": 2
+  },
+  "status": "completed",
+  "timestamp_utc": "2026-11-17T20:30:07.036470+00:00",
+  "unprofiled_update_wall_seconds": [
+    161.20946156600257,
+    161.13228718600294
+  ],
+  "updates": [
+    {
+      "backward_calls": 64,
+      "conditional_count": 64,
+      "data_position": 16,
+      "device": "cuda:0",
+      "episode_count": 16,
+      "execution_mode": "unqualified_cuda_qualification",
+      "gradient_norm_before_clip": 1.8818418979644775,
+      "loss": -0.9748934416880902,
+      "mixed_precision": false,
+      "neural_precision": "float32",
+      "optimizer_steps": 1,
+      "parametrization_cache_policy": "per_layer_forward_and_checkpoint_recompute.v1",
+      "preprocessing_includes_host_to_device": true,
+      "preprocessing_seconds": 10.63574831900769,
+      "probability_precision": "float64",
+      "query_case_count": 16,
+      "query_weighting": "equal realized query cases; setup frequency follows catalogue sampling",
+      "sampling_law": "canonical_half_normal_full_support.v1",
+      "scientifically_qualified": false,
+      "update": 1,
+      "update_seconds": 150.57071131998964
+    },
+    {
+      "backward_calls": 64,
+      "conditional_count": 64,
+      "data_position": 32,
+      "device": "cuda:0",
+      "episode_count": 16,
+      "execution_mode": "unqualified_cuda_qualification",
+      "gradient_norm_before_clip": 1.3481566905975342,
+      "loss": -1.0892143441898654,
+      "mixed_precision": false,
+      "neural_precision": "float32",
+      "optimizer_steps": 1,
+      "parametrization_cache_policy": "per_layer_forward_and_checkpoint_recompute.v1",
+      "preprocessing_includes_host_to_device": true,
+      "preprocessing_seconds": 10.700932255989756,
+      "probability_precision": "float64",
+      "query_case_count": 16,
+      "query_weighting": "equal realized query cases; setup frequency follows catalogue sampling",
+      "sampling_law": "canonical_half_normal_full_support.v1",
+      "scientifically_qualified": false,
+      "update": 2,
+      "update_seconds": 150.42766017800022
+    }
+  ],
+  "worker_wall_seconds": 514.0673644460039
+}

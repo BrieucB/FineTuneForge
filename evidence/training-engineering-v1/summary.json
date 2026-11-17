@@ -1,0 +1,33 @@
+{
+  "accounting": "receipts/accounting-final.json",
+  "completed_posterior_requests": 4,
+  "draws_per_posterior_request": 50000,
+  "execution_cache_policy": "per_layer_forward_and_checkpoint_recompute.v1",
+  "fusion_status": "disabled; gradients fail unchanged strict gates on initial four-stage preflight; zero optimizer updates",
+  "latest_source_commit": "96c7804025bcdac498b96dbe09465c6531d0d879",
+  "lr_pilots_started": false,
+  "main_campaigns_started": false,
+  "new_forward_evaluations": 0,
+  "new_mirheo_calls": 0,
+  "production_cuda_campaign_runner": "not connected; must persist explicit execution-policy identity before later authorized training",
+  "rank16_report": "rank16/report.json",
+  "rank16_weight_diagnostic": "failed; retained separately from passing local posterior preservation",
+  "rank4_report": "report.json",
+  "rank4_wall_seconds": {
+    "cached": [
+      183.54403360499418,
+      176.57443247600168
+    ],
+    "stock": [
+      284.1024033720023,
+      277.45560889899207
+    ]
+  },
+  "reporter": {
+    "sha256": "ef62c6f16041cce38aa0ee8e9f07587e6eae9443de2e9a61986a77bf70984aa2",
+    "source_commit": "700773bb8d11959498d0f1b0833b84b4dea5b108"
+  },
+  "schema": "finetuneforge.training_engineering_summary.v1",
+  "scientifically_qualified": false,
+  "scope": "Bounded optimization and execution preservation; learning/transfer and production qualification remain pending."
+}
