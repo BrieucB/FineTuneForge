@@ -212,13 +212,17 @@ def launch(*, inputs, input_sha256, output, repo, source_commit):
 def main(argv=None):
     import argparse
     p=argparse.ArgumentParser(); sub=p.add_subparsers(dest='operation',required=True)
-    for name in ('run','worker','qualify','qualification-worker'):
+    for name in ('run','worker','qualify','qualification-worker','fusion-preflight'):
         q=sub.add_parser(name)
         for arg in ('inputs','input-sha256','output','repo','source-commit'): q.add_argument('--'+arg,required=True)
         if name=='worker': q.add_argument('--mode',choices=('profile','baseline'),required=True)
         if name=='qualification-worker': q.add_argument('--lane',choices=('cache_r4','cache_r16','full_finetune','stock_r4'),required=True)
+        if name=='fusion-preflight':
+            q.add_argument('--checkpoint',required=True)
+            q.add_argument('--checkpoint-sha256',required=True)
+            q.add_argument('--checkpoint-source-commit',required=True)
     args=vars(p.parse_args(argv)); op=args.pop('operation')
-    result={'run':launch,'worker':worker,'qualify':launch_qualification,'qualification-worker':qualification_worker}[op](**args)
+    result={'run':launch,'worker':worker,'qualify':launch_qualification,'qualification-worker':qualification_worker,'fusion-preflight':fusion_preflight}[op](**args)
     print(json.dumps(result,sort_keys=True,allow_nan=False))
 
 
@@ -409,3 +413,164 @@ def launch_qualification(*, inputs, input_sha256, output, repo, source_commit):
     write_json(out/'allocation.json',summary)
     if any(code!=0 for code in codes.values()): raise RuntimeError('qualification worker failed; inspect retained evidence')
     return summary
+
+
+def verify_fusion_checkpoint(checkpoint, checkpoint_sha256, checkpoint_source_commit, spec, stream_id, input_sha256):
+    """Check manifest, complete inventory and identity before restoring any payload."""
+    from .campaign import read_campaign_checkpoint
+    path=Path(checkpoint)
+    if path.is_symlink() or (path/'manifest.json').is_symlink() or file_hash(path/'manifest.json') != checkpoint_sha256:
+        raise ValueError('fusion checkpoint manifest checksum mismatch')
+    metadata=read_campaign_checkpoint(path)
+    identity=metadata['identity']
+    if (identity.get('spec')!=asdict(spec) or identity.get('stream_id')!=stream_id
+            or identity.get('source_commit')!=checkpoint_source_commit
+            or identity.get('qualification_inputs_sha256')!=input_sha256
+            or identity.get('cache_parametrizations') is not True
+            or metadata['state'].get('update')!=2 or metadata['state'].get('data_position')!=32
+            or metadata.get('deployment',{}).get('campaign_method')!='lora_r4'):
+        raise ValueError('fusion checkpoint identity mismatch')
+    return metadata
+
+
+def _fusion_stage(backend, stage):
+    import torch
+    from .model import CANONICAL_FULL_SUPPORT, configure_differentiable_forward
+    from .training_execution import conditional_forward_cache
+    from .training_numerics import trainable_gradient_snapshot
+    configure_differentiable_forward(backend.model)
+    backend.optimizer.zero_grad(set_to_none=True)
+    raw=[]; original=backend.model.forward_member
+    def capture(*args,**kwargs):
+        value=original(*args,**kwargs);raw.append(value.detach().cpu().clone());return value
+    object.__setattr__(backend.model,'forward_member',capture)
+    started=time.perf_counter()
+    try:
+        with conditional_forward_cache(backend.model,enabled=True):
+            density=stage.ensemble.density(backend.model,law=CANONICAL_FULL_SUPPORT)
+            score=-density.log_prob(stage.targets,log_abs_det_decode=stage.decoder_log_jac).sum()
+            grid=torch.unique(torch.cat((torch.linspace(-8.,8.,257,dtype=torch.float64,device='cuda:0'),density.borders)))
+            levels=torch.tensor([1e-9,1e-5,.01,.5,.99,1-1e-5,1-1e-9],dtype=torch.float64,device='cuda:0')
+            cdf=density.cdf(grid).detach().cpu();quantiles=density.icdf(levels).detach().cpu()
+            loss=score.detach().cpu().clone()
+            score.backward()
+        torch.cuda.synchronize(); elapsed=time.perf_counter()-started
+        return {'logits':raw,'cdf':cdf,'quantiles':quantiles,'loss':loss,
+                'gradients':trainable_gradient_snapshot(backend.model),'wall_seconds':elapsed}
+    finally:
+        object.__delattr__(backend.model,'forward_member')
+        backend.optimizer.zero_grad(set_to_none=True)
+
+
+def _fusion_compare(reference, candidate):
+    import torch
+    from .training_numerics import compare_named_tensors
+    logits=compare_named_tensors({str(i):x for i,x in enumerate(reference['logits'])},
+                                  {str(i):x for i,x in enumerate(candidate['logits'])},atol=1e-4,rtol=1e-3)
+    gradients=compare_named_tensors(reference['gradients'],candidate['gradients'],atol=2e-7,rtol=2e-5)
+    cdf_error=float((reference['cdf']-candidate['cdf']).abs().max())
+    quantile_error=float((reference['quantiles']-candidate['quantiles']).abs().max())
+    qpass=bool(torch.allclose(reference['quantiles'],candidate['quantiles'],atol=1e-3,rtol=1e-3))
+    loss_error=float((reference['loss']-candidate['loss']).abs().max())
+    loss_pass=bool(torch.allclose(reference['loss'],candidate['loss'],atol=1e-3,rtol=0))
+    result={'members':len(reference['logits']),'logits':logits,'gradients':gradients,
+            'cdf_max_absolute_error':cdf_error,'cdf_atol':1e-4,
+            'quantile_max_absolute_error':quantile_error,'quantile_passed':qpass,
+            'quantile_atol':1e-3,'quantile_rtol':1e-3,
+            'loss_max_absolute_error':loss_error,'loss_atol':1e-3,'loss_passed':loss_pass,
+            'eager_wall_seconds':reference['wall_seconds'],'compiled_wall_seconds':candidate['wall_seconds'],
+            'timing_scope':'conditional with instrumentation, CDF/quantiles, backward and synchronization; excludes preprocessing and gradient snapshot'}
+    result['passed']=(len(reference['logits'])==8 and len(candidate['logits'])==8 and logits['passed'] and
+                      gradients['passed'] and cdf_error<=1e-4 and qpass and loss_pass)
+    return result
+
+
+def fusion_preflight(*, inputs, input_sha256, output, repo, source_commit,
+                     checkpoint, checkpoint_sha256, checkpoint_source_commit):
+    import numpy as np
+    import torch
+    from .campaign import CampaignSpec, restore_campaign_checkpoint
+    from .cuda_training import QualificationTrainingBackend, configure_cuda_determinism
+    from .episodes import digest
+    from .model import weights_fingerprint
+    from .training_compilation import compiled_training_mlps
+    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT')!='eu-26-17':
+        raise RuntimeError('accounted eu-26-17 Slurm allocation required')
+    value=verify_bindings(inputs,input_sha256,repo,source_commit)
+    spec=CampaignSpec('lora_r4',0,'pilot',1e-4,2,value['protocol_sha256'],effective_batch=16,diagnostic=True)
+    stream_id=digest(value['episodes'])
+    checkpoint_metadata=verify_fusion_checkpoint(checkpoint,checkpoint_sha256,checkpoint_source_commit,spec,stream_id,input_sha256)
+    out=Path(output);out.mkdir(parents=True,exist_ok=False)
+    result={'schema':'finetuneforge.training_fusion_preflight.v1','status':'running',
+            'timestamp_utc':datetime.now(timezone.utc).isoformat(),'hostname':socket.gethostname(),
+            'job_id':os.environ['SLURM_JOB_ID'],'source_commit':source_commit,'input_manifest_sha256':input_sha256,
+            'checkpoint_manifest_sha256':checkpoint_sha256,'checkpoint_source_commit':checkpoint_source_commit,
+            'checkpoint_weights_sha256':checkpoint_metadata['weights_sha256'], 'optimizer_updates':0,'posterior_requests':0,
+            'scientifically_qualified':False,'policies':{'cache':'per_layer_forward_and_checkpoint_recompute.v1',
+            'neural':'fp32','probability':'fp64','tf32':False,'amp':False,'sdpa':'math','fullgraph':True,'dynamic':False},
+            'compile_cache_path':os.environ.get('TORCHINDUCTOR_CACHE_DIR')}
+    write_json(out/'result.json',result);started=time.perf_counter()
+    try:
+        configure_cuda_determinism();torch.set_num_threads(4)
+        if torch.cuda.device_count()!=1: raise RuntimeError('exactly one visible GPU required')
+        props=torch.cuda.get_device_properties(0)
+        if 'A100' not in props.name or props.total_memory<39*1024**3: raise RuntimeError('A100 40GB or larger required')
+        if not result['compile_cache_path']:raise RuntimeError('explicit TORCHINDUCTOR_CACHE_DIR required')
+        result['hardware']={'name':props.name,'memory_bytes':props.total_memory,'uuid':str(getattr(props,'uuid','unavailable'))}
+        backend=QualificationTrainingBackend(spec,value['base_checkpoint'],device='cuda:0',allow_cuda_qualification=True,cache_parametrizations=True)
+        backend.episode_rng=np.random.default_rng(SEED+5000)
+        torch.manual_seed(spec.initialization_seed);torch.cuda.manual_seed_all(spec.initialization_seed)
+        np.random.seed(SEED);random.seed(SEED)
+        root=Path(inputs).parent;row=value['episodes'][0]
+        item=SimpleNamespace(context=_load_bank(root,row['context']),query=_load_bank(root,row['query']),receipt=row)
+        prepared=backend.prepare(item)
+        if len(prepared.stages)!=4:raise RuntimeError('four teacher-forced conditional stages required')
+        rng=_rng_snapshot();initial={k:v.detach().cpu().clone() for k,v in backend.model.state_dict().items()}
+        initial_hash=weights_fingerprint(backend.model);result['initial_weights_sha256']=initial_hash
+        if initial_hash==checkpoint_metadata['weights_sha256']:raise RuntimeError('checkpoint did not change initial model weights')
+        def load_initial():
+            backend.model.load_state_dict(initial,strict=True);_rng_restore(rng)
+            if weights_fingerprint(backend.model)!=initial_hash:raise RuntimeError('initial weights restore failed')
+        def load_nonzero():
+            restored,_=restore_campaign_checkpoint(checkpoint,backend,expected_identity=checkpoint_metadata['identity'])
+            if restored.update!=2 or weights_fingerprint(backend.model)!=checkpoint_metadata['weights_sha256']:
+                raise RuntimeError('nonzero checkpoint restore failed')
+            _rng_restore(rng)
+        eager={}
+        for name,load in (('initial',load_initial),('nonzero',load_nonzero)):
+            load();eager[name]=[]
+            for stage in prepared.stages:
+                result['progress']={'phase':'eager_reference','weights':name,'stage':stage.index};write_json(out/'result.json',result)
+                _rng_restore(rng);eager[name].append(_fusion_stage(backend,stage))
+        from torch._dynamo.utils import counters
+        counters.clear();torch._dynamo.reset()
+        load_initial()
+        with compiled_training_mlps(backend.model,enabled=True,backend='inductor') as metadata:
+            result['compile_policy']=metadata;result['comparisons']={};result['warmup_wall_seconds']={}
+            for name,load in (('initial',load_initial),('nonzero',load_nonzero)):
+                load();t=time.perf_counter()
+                for stage in prepared.stages:
+                    result['progress']={'phase':'compiled_warmup','weights':name,'stage':stage.index};write_json(out/'result.json',result)
+                    _rng_restore(rng);_fusion_stage(backend,stage)
+                result['warmup_wall_seconds'][name]=time.perf_counter()-t
+                rows=[]
+                for stage,reference in zip(prepared.stages,eager[name]):
+                    result['progress']={'phase':'compiled_comparison','weights':name,'stage':stage.index};write_json(out/'result.json',result)
+                    _rng_restore(rng);candidate=_fusion_stage(backend,stage)
+                    comparison=_fusion_compare(reference,candidate)
+                    comparison.update(stage_index=stage.index,parameter_name=stage.parameter_name)
+                    rows.append(comparison)
+                result['comparisons'][name]=rows
+                result['dynamo_counters']={k:dict(v) for k,v in counters.items()}
+                write_json(out/'result.json',result)
+                if not all(x['passed'] for x in rows):raise RuntimeError(name+' compiled numerical parity failed')
+            result['dynamo_counters']={k:dict(v) for k,v in counters.items()}
+            if result['dynamo_counters'].get('graph_break'):raise RuntimeError('Dynamo graph break detected')
+            if result['dynamo_counters'].get('stats',{}).get('unique_graphs',0)<1:raise RuntimeError('no compiled Dynamo graphs recorded')
+        result.pop('progress',None);result['status']='preflight_passed'
+    except BaseException as exc:
+        result.update(status='failed',failure={'type':type(exc).__name__,'message':str(exc)})
+        (out/'traceback.txt').write_text(traceback.format_exc());raise
+    finally:
+        result['wall_seconds']=time.perf_counter()-started;write_json(out/'result.json',result)
+    return result

@@ -89,3 +89,35 @@ def test_conditional_parity_exercises_cache_and_restores(monkeypatch):
     result=eng._conditional_parity(backend,object())
     assert result['passed'] and result['gradient_comparison']['passed'] and active==[False,True]
     assert 'adjusted_logits' not in ensemble.__dict__ and backend.model.weight.grad is None
+
+
+def test_fusion_checkpoint_rejects_manifest_before_loading(tmp_path, monkeypatch):
+    from posteriorforge.study import campaign
+    p=tmp_path/'checkpoint';p.mkdir();(p/'manifest.json').write_text('{}')
+    monkeypatch.setattr(campaign,'read_campaign_checkpoint',lambda _: pytest.fail('must not load bad manifest'))
+    with pytest.raises(ValueError,match='checksum'):
+        eng.verify_fusion_checkpoint(p,'bad','source',None,'stream','inputs')
+
+
+def test_fusion_comparison_gates_outputs_and_gradients():
+    import torch
+    def result():
+        return {'logits':[torch.ones(2) for _ in range(8)],'cdf':torch.tensor([.5],dtype=torch.float64),
+                'quantiles':torch.tensor([1.],dtype=torch.float64),'loss':torch.tensor(1.,dtype=torch.float64),
+                'gradients':{'a':torch.ones(1)},'wall_seconds':1.}
+    left=result(); right=result()
+    assert eng._fusion_compare(left,right)['passed']
+    right['cdf']+=.01
+    assert not eng._fusion_compare(left,right)['passed']
+    right=result();right['gradients']['a']+=.1
+    assert not eng._fusion_compare(left,right)['passed']
+
+
+def test_fusion_cli_routes_arguments(monkeypatch,capsys):
+    calls=[]
+    monkeypatch.setattr(eng,'fusion_preflight',lambda **kwargs: calls.append(kwargs) or {'ok':True})
+    eng.main(['fusion-preflight','--inputs','a','--input-sha256','b','--output','c',
+              '--repo','d','--source-commit','e','--checkpoint','f','--checkpoint-sha256','g',
+              '--checkpoint-source-commit','h'])
+    assert calls[0]['checkpoint_source_commit']=='h'
+    assert json.loads(capsys.readouterr().out)=={'ok':True}
