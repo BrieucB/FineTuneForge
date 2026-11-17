@@ -49,3 +49,45 @@ retries. The old200-hour ledger remains untouched. No automatic scheduler requeu
 The whole I07 scientific/reference qualification, BF16 qualification,200-update
 learning-rate trials, production campaigns and final transfer comparisons remain
 separate work after this engineering pilot's actual evidence is reviewed.
+
+## Inference-only memory and adapter qualification
+
+The follow-up `scripts/engineer-study-inference.py` entrypoint fixes the exact
+75-unknown, 200-observation, 4,096-world conditional that failed in the first pilot.
+It also compares frozen, unmerged rank4 and merged rank4 deployments on the same
+four-unknown control, with exactly 50,000 complete vectors per request. Three
+repeated requests at 256 worlds support median/range timing; the four 4,096-world
+controls are single repetitions. These are engineering fixtures using the retained
+two-update adapter, not training pilots or a transfer experiment.
+
+Two changes are opt-in and leave the training path unchanged:
+
+- `study.cuda_attention.install_tiled_attention` preserves small calls on the stock
+  path and tiles large inference calls over batch and query rows. Each query still
+  attends to every key. Its default 512 MiB limit bounds one score tensor, not
+  total GPU memory. FP32 math attention, all eight members and the complete context
+  remain enabled; gradient-enabled calls use the original implementation.
+- `study.inference_deployment.load_frozen_deployment(mode="merged_lora")` starts
+  from an authenticated fresh checkpoint and calls Hugging Face PEFT's ordinary
+  merge operation, then resolves TabPFN's packed-weight compatibility layers into
+  ordinary weights. Model and checkpoint source identities remain separate from
+  the actual merged deployment hash. Original checkpoints are never overwritten.
+
+Run `prepare` on CPUs against a committed source snapshot and retain its manifest
+SHA256. `run --phase profile` launches four independent local GPU workers;
+`run --phase context4096` launches the four complete-posterior controls. Both must
+run within an accounted Slurm allocation submitted through the study ledger.
+`slurm/run-study-inference.sh` is the offline launcher. No optimizer updates,
+training-pilot launch or full 75-dimensional posterior is enabled by these phases.
+
+The CPU-only `scripts/report-inference-engineering.py --root RUN --output FRESH`
+authenticates complete samples and matching inputs before comparing distributions.
+It retains absolute analytical posterior errors, including failures, and reports
+preservation separately from scientific accuracy. Use `--partial` only for a report
+that explicitly marks unfinished 4,096-world controls as pending.
+
+PyTorch CPU/CUDA traces, setup/merge costs, per-stage timings, attention tile
+counters, completed arrays and source/model/input hashes remain in the raw run.
+Independent worker processes accelerate separate checks; their GPU memory is not
+pooled. Capacity probes and a conditional-cost forecast do not establish complete
+large-problem sampling latency or multi-GPU scaling.
