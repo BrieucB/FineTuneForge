@@ -1,4 +1,4 @@
-# Hierarchical fine-tuning: CPU software stage
+# Hierarchical fine-tuning: software and qualification
 
 Built with PriorLabs-TabPFN.
 
@@ -10,9 +10,10 @@ authorization to run jobs. Its ledger is separate from historical accounting, an
 `posteriorforge study submit` currently refuses execution. The current implementation
 includes file-backed CPU diagnostic orchestration for
 bounded training, complete-posterior sampling, evaluation, and selection sealing. There
-have been no GPU jobs, full training campaign, or actual 50,000-draw neural posterior
-run. Production GPU execution and scientific qualification remain pending. CPU checks
-do not qualify GPU behavior, scientific reference convergence, or posterior accuracy.
+been CPU checks and an authorized first CUDA engineering launch. The separate
+[CUDA qualification entrypoint](cuda-qualification-v1.md) has its own offline
+[GPU environment lock](study-gpu-environment.md). Production campaigns and full
+scientific qualification remain pending. CPU checks alone do not qualify GPU behavior.
 
 Each experiment/model is limited to P <= 6 local unknown parameters. This is not a cap on
 the union across families for a shared specimen: it may involve more than six distinct
@@ -114,9 +115,9 @@ forward calls. These are diagnostic samples, not a posterior pass. Bank counts a
 forward-call counts: actual distinct local evaluations, valid deterministic reuse, and
 cumulative prefix costs are recorded separately.
 
-Production qualification remains incomplete. There is no GPU engine qualification,
-full training campaign, actual 50,000-draw neural posterior run, qualified production
-reference, or final scientific outcome. Full-tail production qualification I07 remains
+Production qualification remains incomplete. GPU engineering qualification is in progress;
+full training campaigns, qualified production references and final scientific
+outcomes remain unrun. Full-tail production qualification I07 remains
 pending. CPU staging or toy sampler behavior does not establish model quality, GPU
 memory/runtime, reference convergence, or posterior accuracy. Legacy finite-v3
 behavior remains a separate regression control.
@@ -130,10 +131,10 @@ reservations belong to the coordinator. Dependent edits require an explicit
 handoff; workers never submit duplicate campaigns.
 
 [The study epic](https://github.com/BrieucB/FineTuneForge/issues/9) contains the
-complete scope and linked issue acceptance criteria. Physical/reference
-convergence, actual 50,000-draw neural requests, GPU memory/runtime, multi-GPU
-scaling, full training, sealed-test comparisons and model publication remain
-unrun. A personal Hugging Face account is needed only before model release.
+complete scope and linked issue acceptance criteria. Physical/reference convergence, full scientific qualification, multi-GPU scaling,
+full training, sealed-test comparisons and model publication remain pending.
+The first CUDA engineering allocation tests bounded updates, recovery and complete
+50,000-vector sampling; it does not activate those later campaigns. A personal Hugging Face account is needed only before model release.
 
 For a public wheel smoke reproduction, `environments/study-public-cpu.lock` pins
 only NumPy, SciPy and pytest plus their dependencies. This checks that the public

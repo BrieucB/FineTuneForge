@@ -9,10 +9,12 @@ The variable-size hierarchical fine-tuning study is implemented in a separate
 and CLI remain `posteriorforge`. The study scope and acceptance criteria are tracked in
 [issue #9](https://github.com/BrieucB/FineTuneForge/issues/9). File-backed CPU diagnostic
 orchestration now covers bounded training, complete-posterior sampling, evaluation, and
-selection records. No GPU jobs, full training campaign, or actual 50,000-draw neural
-posterior run has been made; production GPU execution and scientific qualification remain
-pending. CPU diagnostics cannot establish GPU behavior, reference convergence, or
-scientific posterior accuracy.
+selection records. A separately gated CUDA engineering pilot is now authorized and
+has been launched; numerical and checkpoint/restart qualification is in progress.
+Full training campaigns and scientific posterior qualification remain pending.
+See the [CUDA pilot contract](docs/cuda-qualification-v1.md) and
+[separate locked GPU environment](docs/study-gpu-environment.md). CPU diagnostics
+alone cannot establish GPU behavior or scientific posterior accuracy.
 
 Before production training, the study must qualify consistent full-tail scoring and
 sampling for the pretrained baseline and LoRA/full-fine-tuning variants (I07). The legacy
@@ -105,7 +107,8 @@ Model weights are cached externally and never committed.
 The original frozen-inference study uses account `eu-26-17` and `qgpu` A100 allocations. Its GPU jobs,
 including reference work and failures, are reserved and reconciled against the immutable
 **200 allocated GPU-hour** ledger. The new hierarchical study has a separate
-**10,000 allocated GPU-hour** planning ceiling; GPU execution is currently disabled.
+**10,000 allocated GPU-hour** ceiling; the separate qualification entrypoint is authorized,
+while production campaigns remain gated.
 See [budget policy](docs/budget.md).
 
 ## Original scientific stopping rule

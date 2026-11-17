@@ -325,6 +325,7 @@ def _training(value, root, output, method):
     from .model_loading import load_inference_model
     loaded,load_metadata=load_inference_model(value['base_checkpoint'],expected_model_sha256=actual_weights,
         campaign_checkpoint=final,expected_checkpoint_manifest_sha256=final_sha,device='cuda:0')
+    resumed.model.requires_grad_(False);resumed.model.eval()
     prepared=resumed.prepare(batches[0][0])
     with torch.no_grad():
         expected=resumed.model(prepared.stages[0].ensemble.members)
