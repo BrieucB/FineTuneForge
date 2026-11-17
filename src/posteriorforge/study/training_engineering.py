@@ -118,16 +118,16 @@ def _profile_conditional(backend, batch, out):
 
 
 def worker(mode, *, inputs, input_sha256, output, repo, source_commit):
+    if mode not in ('profile', 'baseline'):
+        raise ValueError('invalid worker mode')
+    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT') != 'eu-26-17':
+        raise RuntimeError('accounted eu-26-17 Slurm allocation required')
     import numpy as np
     import torch
     from .campaign import CampaignSpec
     from .cuda_training import QualificationTrainingBackend, configure_cuda_determinism
     from .episodes import digest
     from .training import TrainingState
-    if mode not in ('profile', 'baseline'):
-        raise ValueError('invalid worker mode')
-    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT') != 'eu-26-17':
-        raise RuntimeError('accounted eu-26-17 Slurm allocation required')
     value = verify_bindings(inputs, input_sha256, repo, source_commit)
     out = Path(output); out.mkdir(parents=True, exist_ok=False)
     result = {'schema':'finetuneforge.training_engineering.v1', 'mode':mode, 'status':'running',
@@ -285,6 +285,11 @@ def _conditional_parity(backend, item):
 
 
 def qualification_worker(lane, *, inputs, input_sha256, output, repo, source_commit):
+    lanes={'cache_r4':('lora_r4',True),'cache_r16':('lora_r16',True),
+           'full_finetune':('full_finetune',True),'stock_r4':('lora_r4',False)}
+    if lane not in lanes: raise ValueError('unknown qualification lane')
+    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT')!='eu-26-17':
+        raise RuntimeError('accounted eu-26-17 Slurm allocation required')
     import numpy as np
     import torch
     from .campaign import CampaignSpec, save_campaign_checkpoint, restore_campaign_checkpoint
@@ -293,11 +298,6 @@ def qualification_worker(lane, *, inputs, input_sha256, output, repo, source_com
     from .episodes import digest
     from .model import weights_fingerprint
     from .training import TrainingState
-    lanes={'cache_r4':('lora_r4',True),'cache_r16':('lora_r16',True),
-           'full_finetune':('full_finetune',True),'stock_r4':('lora_r4',False)}
-    if lane not in lanes: raise ValueError('unknown qualification lane')
-    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT')!='eu-26-17':
-        raise RuntimeError('accounted eu-26-17 Slurm allocation required')
     value=verify_bindings(inputs,input_sha256,repo,source_commit)
     out=Path(output); out.mkdir(parents=True,exist_ok=False); method,cached=lanes[lane]
     result={'schema':'finetuneforge.training_engineering_qualification.v1','lane':lane,'status':'running',
@@ -487,6 +487,8 @@ def _fusion_compare(reference, candidate):
 
 def fusion_preflight(*, inputs, input_sha256, output, repo, source_commit,
                      checkpoint, checkpoint_sha256, checkpoint_source_commit):
+    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT')!='eu-26-17':
+        raise RuntimeError('accounted eu-26-17 Slurm allocation required')
     import numpy as np
     import torch
     from .campaign import CampaignSpec, restore_campaign_checkpoint
@@ -494,8 +496,6 @@ def fusion_preflight(*, inputs, input_sha256, output, repo, source_commit,
     from .episodes import digest
     from .model import weights_fingerprint
     from .training_compilation import compiled_training_mlps
-    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT')!='eu-26-17':
-        raise RuntimeError('accounted eu-26-17 Slurm allocation required')
     value=verify_bindings(inputs,input_sha256,repo,source_commit)
     spec=CampaignSpec('lora_r4',0,'pilot',1e-4,2,value['protocol_sha256'],effective_batch=16,diagnostic=True)
     stream_id=digest(value['episodes'])

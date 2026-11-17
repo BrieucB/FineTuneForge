@@ -60,7 +60,7 @@ def test_qualification_cli_routes_worker(monkeypatch, capsys):
 
 
 def test_conditional_parity_exercises_cache_and_restores(monkeypatch):
-    import torch
+    torch = pytest.importorskip('torch')
     from contextlib import contextmanager
     from posteriorforge.study import model, training_execution
     monkeypatch.setattr(eng,'_rng_snapshot',lambda: 'rng')
@@ -100,7 +100,7 @@ def test_fusion_checkpoint_rejects_manifest_before_loading(tmp_path, monkeypatch
 
 
 def test_fusion_comparison_gates_outputs_and_gradients():
-    import torch
+    torch = pytest.importorskip('torch')
     def result():
         return {'logits':[torch.ones(2) for _ in range(8)],'cdf':torch.tensor([.5],dtype=torch.float64),
                 'quantiles':torch.tensor([1.],dtype=torch.float64),'loss':torch.tensor(1.,dtype=torch.float64),
