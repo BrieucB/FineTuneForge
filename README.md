@@ -4,20 +4,20 @@
 
 Built with PriorLabs-TabPFN.
 
-The variable-size hierarchical fine-tuning study is being implemented in a separate
+The variable-size hierarchical fine-tuning study is implemented in a separate
 `posteriorforge study` namespace. The GitHub project is FineTuneForge; the Python package
 and CLI remain `posteriorforge`. The study scope and acceptance criteria are tracked in
-[issue #9](https://github.com/BrieucB/FineTuneForge/issues/9). This stage covers software
-and CPU checks only: there are no GPU jobs, production training, full 50,000-draw neural
-posterior runs, qualified production references, or claimed accuracy gains. CPU checks
-exercise components and wiring; they cannot establish GPU behavior, reference convergence,
-or scientific posterior accuracy.
+[issue #9](https://github.com/BrieucB/FineTuneForge/issues/9). File-backed CPU diagnostic
+orchestration now covers bounded training, complete-posterior sampling, evaluation, and
+selection records. No GPU jobs, full training campaign, or actual 50,000-draw neural
+posterior run has been made; production GPU execution and scientific qualification remain
+pending. CPU diagnostics cannot establish GPU behavior, reference convergence, or
+scientific posterior accuracy.
 
-Before production training, the new study must qualify consistent full-tail scoring
-and sampling for both the original pretrained-weight baseline and LoRA/full-fine-tuning
-variants. Its CPU primitives and orchestration are still under implementation/qualification. The
-legacy finite-v3 path remains an isolated regression control, and the historical benchmark
-and its failed scientific result below remain unchanged. See [CPU-first study
+Before production training, the study must qualify consistent full-tail scoring and
+sampling for the pretrained baseline and LoRA/full-fine-tuning variants (I07). The legacy
+finite-v3 path remains an isolated regression control, and the historical benchmark and
+its failed scientific result below remain unchanged. See [CPU-first study
 instructions](docs/hierarchical-ft-v1.md).
 
 Reproducible frozen-transformer inference engineering on a 21-parameter,
@@ -102,9 +102,10 @@ For frozen inference and reference environments, use the complete hashed locks
 and preparation scripts described in [environment instructions](docs/environment.md).
 Model weights are cached externally and never committed.
 
-Karolina runs use account `eu-26-17` and `qgpu` A100 allocations. Every GPU job,
-including reference work and failed jobs, must be reserved and reconciled in a
-single ledger against the hard cumulative **200 allocated GPU-hour** cap.
+The original frozen-inference study uses account `eu-26-17` and `qgpu` A100 allocations. Its GPU jobs,
+including reference work and failures, are reserved and reconciled against the immutable
+**200 allocated GPU-hour** ledger. The new hierarchical study has a separate
+**10,000 allocated GPU-hour** planning ceiling; GPU execution is currently disabled.
 See [budget policy](docs/budget.md).
 
 ## Original scientific stopping rule

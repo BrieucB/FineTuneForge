@@ -1,0 +1,16 @@
+{
+  "bank_directory": "/path/to/context-bank",
+  "bank_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "context_size": 16,
+  "microbatch_size": 1024,
+  "model": {
+    "base_checkpoint": "/path/to/cached-tabpfn-v2-regressor.ckpt",
+    "model_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "observation_file": "/path/to/observed-vector.npy",
+  "observation_file_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "posterior_draws": 50000,
+  "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+  "schema": "finetuneforge.posterior_request.v1",
+  "seed": 20261117
+}

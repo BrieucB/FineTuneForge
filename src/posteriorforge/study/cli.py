@@ -32,6 +32,38 @@ def configure_parser(commands):
     budget = sub.add_parser("budget", help="inspect the separate 10,000-hour study ledger; never submit")
     budget.add_argument("--ledger", required=True)
     sub.add_parser("submit", help="disabled during CPU-only implementation")
+    train_plan = sub.add_parser("train-plan", help="show matched pilot/main plans or a declared CPU request")
+    train_plan.add_argument("--config")
+    train = sub.add_parser("train", help="execute a bounded, explicit CPU training diagnostic")
+    train.add_argument("--config", required=True)
+    train.add_argument("--output", required=True)
+    train.add_argument("--cpu-diagnostic", action="store_true")
+    train.add_argument("--resume-from")
+    train.add_argument("--stop-after-update", type=int)
+    posterior_plan = sub.add_parser("posterior-plan", help="validate a fixed50k posterior request without loading a model")
+    posterior_plan.add_argument("--config", required=True)
+    posterior = sub.add_parser("posterior", help="sample exactly50k complete vectors on CPU with recovery evidence")
+    posterior.add_argument("--config", required=True)
+    posterior.add_argument("--output", required=True)
+    posterior.add_argument("--cpu-diagnostic", action="store_true")
+    posterior.add_argument("--resume", action="store_true")
+    eval_plan = sub.add_parser("evaluation-plan", help="build a bound validation matrix or frozen test matrix")
+    eval_plan.add_argument("--config", required=True)
+    eval_plan.add_argument("--output", required=True)
+    evaluate = sub.add_parser("evaluate", help="consume a matrix using qualified references and CPU posterior diagnostics")
+    evaluate.add_argument("--config", required=True)
+    evaluate.add_argument("--output", required=True)
+    evaluate.add_argument("--cpu-diagnostic", action="store_true")
+    evaluate.add_argument("--resume", action="store_true")
+    seal = sub.add_parser("seal-selection", help="freeze validation-selected checkpoint identities before test access")
+    seal.add_argument("--records", required=True)
+    seal.add_argument("--manifest-sha256", required=True)
+    seal.add_argument("--plan-sha256", required=True)
+    seal.add_argument("--test-catalogue-sha256", required=True)
+    seal.add_argument("--output", required=True)
+    inspect_model = sub.add_parser("inspect-model", help="inspect cached base or trained weights on CPU; never download")
+    inspect_model.add_argument("--base-checkpoint", required=True)
+    inspect_model.add_argument("--campaign-checkpoint")
     return parser
 
 
@@ -82,6 +114,41 @@ def run(args):
         samples = draw_prior(spec, 50000, args["seed"])
         return save_samples(spec, samples, args["output"], kind="prior_control",
                             provenance={"forward_evaluations": 0, "seed": args["seed"]})
+    if operation in ("train-plan", "train", "posterior-plan", "posterior", "evaluation-plan", "evaluate"):
+        from . import workflows as w
+        config = args.get("config")
+        path = Path(config).resolve() if config else None
+        value = json.loads(path.read_text()) if path else None
+        base = path.parent if path else Path.cwd()
+        if operation == "train-plan":
+            return w.plan_campaigns() if value is None else w.TrainingRequest.from_dict(value).plan()
+        if operation == "train":
+            return w.execute_training_request(value, output=args["output"], base_directory=base,
+                allow_unqualified_cpu_diagnostic=args["cpu_diagnostic"],
+                resume_from=args["resume_from"], stop_after_update=args["stop_after_update"])
+        if operation == "posterior-plan":
+            return w.PosteriorRequest.from_dict(value).plan()
+        if operation == "posterior":
+            return w.execute_posterior_request(value, output=args["output"], base_directory=base,
+                allow_unqualified_cpu_diagnostic=args["cpu_diagnostic"], resume=args["resume"])
+        if operation == "evaluation-plan":
+            result = w.plan_evaluation_request(value, base_directory=base)
+            _write_json(args["output"], result)
+            return {"status": "planned_unqualified", "plan_sha256": result["plan_sha256"],
+                    "requests": len(result["requests"]), "output": args["output"], "gpu_jobs_submitted": 0}
+        return w.execute_evaluation_request(value, output=args["output"], base_directory=base,
+            allow_unqualified_cpu_diagnostic=args["cpu_diagnostic"], resume=args["resume"])
+    if operation == "seal-selection":
+        from .evaluation_campaign import load_evaluation_records, seal_selection
+        plan, records = load_evaluation_records(args["records"],
+            expected_manifest_sha256=args["manifest_sha256"], expected_plan_sha256=args["plan_sha256"])
+        lock = seal_selection(args["output"], validation_plan=plan, records=records,
+                              test_catalogue_sha256=args["test_catalogue_sha256"])
+        return {"status": "selection_inputs_frozen", "selection_lock_sha256": lock.sha256,
+                "output": args["output"], "gpu_jobs_submitted": 0, "scientifically_qualified": False}
+    if operation == "inspect-model":
+        from .workflows import inspect_model
+        return inspect_model(args["base_checkpoint"], campaign_checkpoint=args["campaign_checkpoint"])
     if operation == "budget":
         from .budget import StudyBudgetLedger
         return StudyBudgetLedger(args["ledger"]).summary()

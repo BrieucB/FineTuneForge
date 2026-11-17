@@ -7,11 +7,12 @@ FineTuneForge adds a variable-size study namespace while preserving the historic
 acceptance criteria live in [issue #9](https://github.com/BrieucB/FineTuneForge/issues/9).
 The new study has a separate 10,000 allocated GPU-hour planning ceiling; it is not
 authorization to run jobs. Its ledger is separate from historical accounting, and
-`posteriorforge study submit` currently refuses execution. The current phase is code and
-CPU checks: there are no GPU jobs, production training, complete 50,000-draw neural
-posterior runs, qualified production references, or claimed accuracy gains. CPU tests
-check implementation components; they do not qualify GPU behavior, scientific reference
-convergence, or posterior accuracy.
+`posteriorforge study submit` currently refuses execution. The current implementation
+includes file-backed CPU diagnostic orchestration for
+bounded training, complete-posterior sampling, evaluation, and selection sealing. There
+have been no GPU jobs, full training campaign, or actual 50,000-draw neural posterior
+run. Production GPU execution and scientific qualification remain pending. CPU checks
+do not qualify GPU behavior, scientific reference convergence, or posterior accuracy.
 
 Each experiment/model is limited to P <= 6 local unknown parameters. This is not a cap on
 the union across families for a shared specimen: it may involve more than six distinct
@@ -60,46 +61,65 @@ CPU gradient tests are not a training campaign or posterior-accuracy result.
 
 ## Implemented interfaces
 
-```bash
-PYTHONPATH=src "$PF_SCRATCH/envs/study-training-cpu/bin/python" -m posteriorforge.study plan \
-  --config configs/studies/hierarchical-ft-v1.json
-PYTHONPATH=src "$PF_SCRATCH/envs/study-training-cpu/bin/python" -m posteriorforge.study catalogue \
-  --split validation --count 2 --output /fresh/path/definitions.json
+The additive source entrypoint is `python -m posteriorforge.study`; the installed
+`posteriorforge study` namespace preserves the historical `python -m posteriorforge`
+entrypoint. Planning and request files are configuration-driven. The implemented
+commands and arguments are:
+
+```text
+train-plan [--config FILE]
+train --config FILE --output DIR --cpu-diagnostic [--resume-from CHECKPOINT] [--stop-after-update N]
+posterior-plan --config FILE
+posterior --config FILE --output DIR --cpu-diagnostic [--resume]
+evaluation-plan --config FILE --output FILE
+evaluate --config FILE --output DIR --cpu-diagnostic [--resume]
+seal-selection --records FILE --manifest-sha256 SHA --plan-sha256 SHA \
+  --test-catalogue-sha256 SHA --output FILE
+inspect-model --base-checkpoint FILE [--campaign-checkpoint DIR]
 ```
 
-After installation, the `posteriorforge study ...` console command uses this additive
-entrypoint. For source checkouts, invoke `python -m posteriorforge.study ...`
-as above. The historical `python -m posteriorforge` module entry remains unchanged.
+Training and posterior execution require explicit CPU-diagnostic opt-in. Training
+requests are file-backed `finetuneforge.training_request.v1` objects; posterior
+requests are `finetuneforge.posterior_request.v1`. Evaluation-plan and evaluation
+requests are also file-backed and bind their input files by SHA256. The schemas
+and execution policy are defined in `study/workflows.py`; evaluation records and
+selection locks bind the plan, model, bank, query, and catalogue identities. These
+commands do not submit scheduler jobs.
 
-Planning emits exact request counts and unknown measured costs without submitting
-work. The CLI also offers `inspect-spec`, `catalogue`, `prepare-bank`, `prior-check`,
-`budget`, and the disabled `submit` command. Catalogue generates definitions only, not
-observations or inference results. Each `ProblemSpec` records parameter priors and roles, experiment-family noise levels,
-controls, and specimen/sharing identities. Positive log-normal parameters use
-physical means and SDs. Parents precede descendants; parameter/observation order
-and all known units are included in the fingerprint. Populations are independent
-conditional on the declared hierarchy; posterior dependence is retained.
+Training orchestration uses fresh context banks and fresh independent one-case
+queries on every visit, with identical data streams per method for each seed and
+phase. Quick validation is fixed at 40 cases, two banks and four context sizes
+(320 scores, no posterior draws). The pilot is 200 updates and selects one learning
+rate per method from the mean endpoint score across both seeds. Main training restarts
+from pretrained weights with a fresh adapter; pilot updates and costs are separate.
+The bounded CPU diagnostic is limited to 10 updates. The gated plans contain
+12 pilot campaigns and six main campaigns. Main update-count candidates are
+1,000, 3,000 and 10,000; none of these full campaigns has run.
 
-`study prepare-bank` writes authenticated complete paired arrays from a spec.
-`study prior-check` writes exactly 50,000 prior vectors with zero forward calls;
-these are samples to assess against a reference, not a claimed posterior pass.
-Both commands reject final-test specs at this CPU stage. Final test remains
-sealed until the selection/backend protocol is locked. Bank counts are not
-forward-call counts: the generator retains actual distinct local evaluations,
-valid deterministic reuse, and cumulative prefix costs separately.
+The posterior path requires exactly 50,000 complete vectors. Invalid decoding fails
+the request without retry or clipping; recovery binds source, model, bank and query
+identities. Model loading accepts the pinned base checkpoint with a separately
+cached safetensors full-model deployment or PEFT adapter directory. Evaluation can
+seal diagnostic inputs when no qualified primary exists, without making qualification
+or accuracy claims. The historical `plan`, `catalogue`, `prepare-bank`, `prior-check`,
+`budget` and disabled `submit` commands remain available.
 
-Reference, evaluation, PEFT and training primitives are Python APIs under the
-study namespace. Some components have CPU checks, but the full orchestration and
-production qualification remain incomplete. There is no qualified production
-reference, training campaign, GPU engine, or final scientific outcome. Full-tail
-production qualification I07 remains pending. No component check, configuration
-flag, or old benchmark evidence substitutes for the required qualification.
+Each `ProblemSpec` records parameter priors and roles, experiment-family noise levels,
+controls, and specimen/sharing identities. Positive log-normal parameters use physical
+means and SDs. Parents precede descendants; parameter/observation order and all known
+units are included in the fingerprint. Populations are independent conditional on the
+declared hierarchy; posterior dependence is retained. `prepare-bank` writes authenticated
+complete paired arrays; `prior-check` writes exactly 50,000 prior vectors with zero
+forward calls. These are diagnostic samples, not a posterior pass. Bank counts are not
+forward-call counts: actual distinct local evaluations, valid deterministic reuse, and
+cumulative prefix costs are recorded separately.
 
-The full-tail policy must be applied consistently to scoring and sampling for the
-pretrained-weight baseline and both adaptation variants before production training.
-Legacy finite-v3 behavior remains available only as a separate regression control.
-Do not infer a settled distribution identifier from these instructions; use the
-identifier recorded by the implementation when it is finalized.
+Production qualification remains incomplete. There is no GPU engine qualification,
+full training campaign, actual 50,000-draw neural posterior run, qualified production
+reference, or final scientific outcome. Full-tail production qualification I07 remains
+pending. CPU staging or toy sampler behavior does not establish model quality, GPU
+memory/runtime, reference convergence, or posterior accuracy. Legacy finite-v3
+behavior remains a separate regression control.
 
 ## Ownership and remaining qualification
 
@@ -129,3 +149,28 @@ role-balanced full-graph calculation, including each coordinate's Jacobian.
 Every realized query case has equal weight; setup frequency follows catalogue
 sampling. This provides a tested accumulation path, not a production campaign
 or a measured GPU memory/runtime improvement.
+
+
+The examples in `configs/examples/hierarchical-ft-v1/` contain placeholder paths
+and checksums. Replace them with prepared files and identities from
+`study inspect-model`; JSON paths resolve relative to the request file.
+`configs/studies/hierarchical-ft-v1-orchestration.json` records the settled
+orchestration policy and its combined scientific/protocol fingerprint.
+
+Checkpoint registry `training_seed` labels identify replica 0/1. The actual model
+initialization and data-generation seeds are separately retained in checkpoint
+and stream receipts. A frozen model's checkpoint identity is the immutable base
+checkpoint-file SHA256; a trained model's identity is its campaign manifest SHA256.
+
+`scripts/check-study-orchestration-cpu.py --output /fresh/output/path` produces an
+exact analytical control with 50,000 complete vectors, inferred measurement noise,
+a PNG and JSON evidence. Run it with the CPU environment and `PYTHONPATH=src`.
+It uses an explicitly identified analytical backend, not transformer weights.
+Its numerical agreement tests orchestration; it cannot establish transformer
+accuracy, transfer, simulation savings or GPU throughput.
+
+For a frozen-model inference request, `model` contains only `base_checkpoint`
+and `model_sha256`. A trained request additionally supplies `campaign_checkpoint`
+and its `checkpoint_manifest_sha256`. Evaluation registries also record a frozen
+base's checkpoint identity, but that is distinct from supplying a campaign
+manifest to the inference loader.

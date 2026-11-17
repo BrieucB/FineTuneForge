@@ -1,0 +1,20 @@
+{
+  "base_checkpoint": "/path/to/cached-tabpfn-v2-regressor.ckpt",
+  "campaign": {
+    "diagnostic": true,
+    "effective_batch": 1,
+    "learning_rate": 0.0001,
+    "master_seed": 20261117,
+    "method": "lora_r4",
+    "phase": "main",
+    "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+    "replica": 0,
+    "updates": 1
+  },
+  "data_cache_directory": "/path/to/shared-episode-cache",
+  "schema": "finetuneforge.training_request.v1",
+  "training_catalogue_file": "/path/to/train-definitions.json",
+  "training_catalogue_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "validation_catalogue_file": "/path/to/validation-definitions.json",
+  "validation_catalogue_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+}
