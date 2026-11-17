@@ -8,13 +8,18 @@ The variable-size hierarchical fine-tuning study is implemented in a separate
 `posteriorforge study` namespace. The GitHub project is FineTuneForge; the Python package
 and CLI remain `posteriorforge`. The study scope and acceptance criteria are tracked in
 [issue #9](https://github.com/BrieucB/FineTuneForge/issues/9). File-backed CPU diagnostic
-orchestration now covers bounded training, complete-posterior sampling, evaluation, and
-selection records. The first gated CUDA engineering pilot is complete: all three
-trained methods passed bitwise GPU restart and deployment checks, and two full
-50,000-vector requests completed. [Retained CUDA evidence](evidence/cuda-qualification-v1/report.md)
-records 2.366667 allocated GPU-hours including failures, an unsupported large4096-world
-case, and persistent noise-posterior bias. Full training campaigns and scientific
+orchestration covers bounded training, complete-posterior sampling, evaluation, and
+selection records. All three trained methods passed bounded bitwise GPU restart and
+deployment checks in the [first CUDA pilot](evidence/cuda-qualification-v1/report.md).
+The [inference follow-up](evidence/inference-engineering-v1/report.md) fixes its exact
+75-unknown/200-observation/4,096-world conditional OOM with FP32 attention tiling,
+and qualifies merging Hugging Face PEFT adapters for inference. On the four-unknown,
+256-world control, median runtime for 50,000 complete vectors falls from 275.36 to
+112.96 seconds across three timing repetitions. These are engineering checks with a
+two-update adapter; noise-posterior bias remains, and training campaigns and scientific
 posterior qualification remain pending.
+
+![Matched 50,000-vector inference timing with an engineering-only adapter](evidence/inference-engineering-v1/latency-context256.png)
 See the [CUDA pilot contract](docs/cuda-qualification-v1.md) and
 [separate locked GPU environment](docs/study-gpu-environment.md). CPU diagnostics
 alone cannot establish GPU behavior or scientific posterior accuracy.

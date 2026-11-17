@@ -1,0 +1,3104 @@
+{
+  "accuracy_scope": "absolute scientific gates remain unqualified; relative execution preservation does not imply posterior accuracy or learning gain",
+  "c256": {
+    "frozen": {
+      "completed_updates": 0,
+      "container_sha256": "5e2784e0017020361f02150db8f16a80150ad84cdd954f8cd9cbbe5a9876b940",
+      "context_worlds": 256,
+      "identical_sample_bytes_across_timing_repeats": true,
+      "median_seconds": 112.50432274599734,
+      "method": "frozen",
+      "mode": "unmerged",
+      "range_seconds": [
+        112.4869972759916,
+        113.9254084599961
+      ],
+      "repetitions": 3,
+      "runs": [
+        {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9134334826128667
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": false,
+              "tau_mean": false,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.03426391844595933,
+                "mean_error_in_analytic_sd": 0.06634858594728958,
+                "sample_mean": -0.06634858594728958,
+                "sample_sd": 0.9347005277076508,
+                "sd_ratio": 0.9347005277076508
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.7350983336413477,
+                "mean_error_in_analytic_sd": 2.0578345743541386,
+                "sample_mean": 0.06831862757989232,
+                "sample_sd": 0.012397388387860206,
+                "sd_ratio": 0.9783042309743453
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.020005124912379636,
+                "mean_error_in_analytic_sd": 0.035143338949844005,
+                "sample_mean": 0.2017571669474922,
+                "sample_sd": 0.048468399149027765,
+                "sd_ratio": 0.9693679829805553
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.8725766828584568
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "9fd4c8b5-faa4-6136-e26c-fafd1edd282f",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+          "context_preparation_seconds": 0.8572661649959628,
+          "context_worlds": 256,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/frozen/repetition-0",
+          "metrics_sha256": "939ead4dc5e6b4eb33a9c17190e45058d98bb5fdd142a3d8d100e52bcf9b3c36",
+          "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "observations": 10,
+          "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "peak_allocated_bytes": 1088547840,
+          "peak_reserved_bytes": 1602224128,
+          "posterior_draws": 50000,
+          "samples_sha256": "5b40372891afbff7f868ab0f0a4b4d4bd99eb7fc09701163baf9c9c796b7802a",
+          "sampling_seconds": 113.9254084599961,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 113.06788128700282
+        },
+        {
+          "analytical_diagnostics": null,
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "9fd4c8b5-faa4-6136-e26c-fafd1edd282f",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+          "context_preparation_seconds": 0.8666744110087166,
+          "context_worlds": 256,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/frozen/repetition-1",
+          "metrics_sha256": "686c213674c35decb3c8449e31dee8993f06d50e0fa1bc5e28fd64d0bfac924d",
+          "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "observations": 10,
+          "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "peak_allocated_bytes": 1087179776,
+          "peak_reserved_bytes": 1602224128,
+          "posterior_draws": 50000,
+          "samples_sha256": "5b40372891afbff7f868ab0f0a4b4d4bd99eb7fc09701163baf9c9c796b7802a",
+          "sampling_seconds": 112.4869972759916,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 111.62009514799865
+        },
+        {
+          "analytical_diagnostics": null,
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "9fd4c8b5-faa4-6136-e26c-fafd1edd282f",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+          "context_preparation_seconds": 0.8627412110072328,
+          "context_worlds": 256,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/frozen/repetition-2",
+          "metrics_sha256": "263fbd8feff36671b93d8d4adcfb972486a1bf62d1aceeae2ef1b40d7b43b2f4",
+          "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "observations": 10,
+          "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "peak_allocated_bytes": 1087179776,
+          "peak_reserved_bytes": 1602224128,
+          "posterior_draws": 50000,
+          "samples_sha256": "5b40372891afbff7f868ab0f0a4b4d4bd99eb7fc09701163baf9c9c796b7802a",
+          "sampling_seconds": 112.50432274599734,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 111.64133360199048
+        }
+      ],
+      "scientifically_qualified": false,
+      "seconds": [
+        113.9254084599961,
+        112.4869972759916,
+        112.50432274599734
+      ],
+      "tiled": false
+    },
+    "merged": {
+      "completed_updates": 2,
+      "container_sha256": "a5fae9ebac20134f3784f0d51ac6d013eec82660fe27ae823ba9e118d1522293",
+      "context_worlds": 256,
+      "identical_sample_bytes_across_timing_repeats": true,
+      "median_seconds": 112.95686010899954,
+      "method": "lora_r4",
+      "mode": "merged_lora",
+      "range_seconds": [
+        112.86800107300223,
+        114.18974418399739
+      ],
+      "repetitions": 3,
+      "runs": [
+        {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9178080207640487
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": false,
+              "tau_mean": false,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.033724684546831196,
+                "mean_error_in_analytic_sd": 0.06737658315809789,
+                "sample_mean": -0.06737658315809789,
+                "sample_sd": 0.9369696328489463,
+                "sd_ratio": 0.9369696328489463
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.7323755253236272,
+                "mean_error_in_analytic_sd": 2.042179607207532,
+                "sample_mean": 0.06812024276076262,
+                "sample_sd": 0.012360624635565554,
+                "sd_ratio": 0.9754031252502099
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.019488145489571746,
+                "mean_error_in_analytic_sd": 0.03254979151474324,
+                "sample_mean": 0.20162748957573717,
+                "sample_sd": 0.04858596509230701,
+                "sd_ratio": 0.9717193018461402
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.8768280391399387
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "merged_lora",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "peft_fp32_linear_and_packed_merge.v1",
+                "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "9c03bbfd-2c9c-effe-7a1f-9b9090a47d19",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 0.87824954399548,
+          "context_worlds": 256,
+          "deployment_mode": "merged_lora",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/merged/repetition-0",
+          "metrics_sha256": "d27a04489e7643aafe5b24332ccf24a8df7fc3f06f5d4a7e046e1f7cb693dc44",
+          "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1086204928,
+          "peak_reserved_bytes": 1734344704,
+          "posterior_draws": 50000,
+          "samples_sha256": "0736c63f20a1e02b6a4f720a3b4b680feeb06e98b5750530886597c44315334f",
+          "sampling_seconds": 114.18974418399739,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 113.31123316100275
+        },
+        {
+          "analytical_diagnostics": null,
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "merged_lora",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "peft_fp32_linear_and_packed_merge.v1",
+                "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "9c03bbfd-2c9c-effe-7a1f-9b9090a47d19",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 0.8673482319863979,
+          "context_worlds": 256,
+          "deployment_mode": "merged_lora",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/merged/repetition-1",
+          "metrics_sha256": "0e02b43b7159203f1fd439ca26f734c0f68faecf9cace18a9a47de85f175e770",
+          "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1086204928,
+          "peak_reserved_bytes": 1734344704,
+          "posterior_draws": 50000,
+          "samples_sha256": "0736c63f20a1e02b6a4f720a3b4b680feeb06e98b5750530886597c44315334f",
+          "sampling_seconds": 112.86800107300223,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 112.00043632699817
+        },
+        {
+          "analytical_diagnostics": null,
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "merged_lora",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "peft_fp32_linear_and_packed_merge.v1",
+                "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "9c03bbfd-2c9c-effe-7a1f-9b9090a47d19",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 0.8523993410053663,
+          "context_worlds": 256,
+          "deployment_mode": "merged_lora",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/merged/repetition-2",
+          "metrics_sha256": "6c4930576641adcfb28c6a8b66ed4aa50358cbeef7f87ba7477bb92f945e2612",
+          "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1086204928,
+          "peak_reserved_bytes": 1734344704,
+          "posterior_draws": 50000,
+          "samples_sha256": "0736c63f20a1e02b6a4f720a3b4b680feeb06e98b5750530886597c44315334f",
+          "sampling_seconds": 112.95686010899954,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 112.10421923700778
+        }
+      ],
+      "scientifically_qualified": false,
+      "seconds": [
+        114.18974418399739,
+        112.86800107300223,
+        112.95686010899954
+      ],
+      "tiled": false
+    },
+    "unmerged": {
+      "completed_updates": 2,
+      "container_sha256": "59b700fc90c744e166e82dbf43399f34f4585399c9dc112703fe8537a48c5b00",
+      "context_worlds": 256,
+      "identical_sample_bytes_across_timing_repeats": true,
+      "median_seconds": 275.36142522699083,
+      "method": "lora_r4",
+      "mode": "unmerged",
+      "range_seconds": [
+        275.32996782699774,
+        276.0616805870086
+      ],
+      "repetitions": 3,
+      "runs": [
+        {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9178047728895401
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": false,
+              "tau_mean": false,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.033724695721577325,
+                "mean_error_in_analytic_sd": 0.06737663119881923,
+                "sample_mean": -0.06737663119881923,
+                "sample_sd": 0.9369696090892339,
+                "sd_ratio": 0.9369696090892339
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.732521312676453,
+                "mean_error_in_analytic_sd": 2.042149801947809,
+                "sample_mean": 0.06811986505884833,
+                "sample_sd": 0.01235982499469727,
+                "sd_ratio": 0.9753400238920666
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.019640707298652697,
+                "mean_error_in_analytic_sd": 0.032537481760987474,
+                "sample_mean": 0.20162687408804938,
+                "sample_sd": 0.04858209486963101,
+                "sd_ratio": 0.9716418973926202
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.8768286059048237
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "0ed05007-1868-5fa7-4cb6-5a521fc2b306",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 0.8647067100100685,
+          "context_worlds": 256,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/unmerged/repetition-0",
+          "metrics_sha256": "aa407486f13a72f98db8eea8f7808ff58c4674a2b83ee71c9a54e23f0e611b01",
+          "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1102287360,
+          "peak_reserved_bytes": 1543503872,
+          "posterior_draws": 50000,
+          "samples_sha256": "54394760b645d975e3c53636622d6689266b379504d616f93634bcd9285b66f9",
+          "sampling_seconds": 276.0616805870086,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 275.19669906099443
+        },
+        {
+          "analytical_diagnostics": null,
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "0ed05007-1868-5fa7-4cb6-5a521fc2b306",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 0.850012755006901,
+          "context_worlds": 256,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/unmerged/repetition-1",
+          "metrics_sha256": "5c40a62df60f6b7efafcd265203f82d7c28715d9b6bb76bb5c8e2c213cdf8fde",
+          "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1100857856,
+          "peak_reserved_bytes": 1543503872,
+          "posterior_draws": 50000,
+          "samples_sha256": "54394760b645d975e3c53636622d6689266b379504d616f93634bcd9285b66f9",
+          "sampling_seconds": 275.32996782699774,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 274.479717248003
+        },
+        {
+          "analytical_diagnostics": null,
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "0ed05007-1868-5fa7-4cb6-5a521fc2b306",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 0.8455365890113171,
+          "context_worlds": 256,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/unmerged/repetition-2",
+          "metrics_sha256": "9dfcd2e9f1a4e29a6cf3543e79524891722f8ccd73015632a03ae4951e38282e",
+          "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1100857856,
+          "peak_reserved_bytes": 1543503872,
+          "posterior_draws": 50000,
+          "samples_sha256": "54394760b645d975e3c53636622d6689266b379504d616f93634bcd9285b66f9",
+          "sampling_seconds": 275.36142522699083,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 274.5156542890036
+        }
+      ],
+      "scientifically_qualified": false,
+      "seconds": [
+        276.0616805870086,
+        275.32996782699774,
+        275.36142522699083
+      ],
+      "tiled": false
+    }
+  },
+  "c256_frozen_tiled": {
+    "completed_updates": 0,
+    "container_sha256": "78640d9a12981f6d2e3058c4501365d43a2281422c5948882ffdebdb3ce74bb6",
+    "context_worlds": 256,
+    "identical_sample_bytes_across_timing_repeats": true,
+    "median_seconds": 112.86173617899476,
+    "method": "frozen",
+    "mode": "unmerged",
+    "range_seconds": [
+      112.86173617899476,
+      112.86173617899476
+    ],
+    "repetitions": 1,
+    "runs": [
+      {
+        "analytical_diagnostics": {
+          "a_variance": {
+            "absolute_mc_tolerance": 0.035,
+            "analytic": 1.0425,
+            "sample": 0.9134334826128667
+          },
+          "checks": {
+            "a_mean": false,
+            "a_variance": false,
+            "mu_a_covariance": false,
+            "mu_cdf": false,
+            "mu_mean": false,
+            "mu_sd": false,
+            "sigma_cdf": false,
+            "sigma_mean": false,
+            "sigma_sd": false,
+            "tau_cdf": false,
+            "tau_mean": false,
+            "tau_sd": false
+          },
+          "complete_vectors": true,
+          "control_checks_passed": false,
+          "dimension": 4,
+          "marginals": {
+            "mu": {
+              "analytic_mean": 0.0,
+              "analytic_sd": 1.0,
+              "cdf_sup_error": 0.03426391844595933,
+              "mean_error_in_analytic_sd": 0.06634858594728958,
+              "sample_mean": -0.06634858594728958,
+              "sample_sd": 0.9347005277076508,
+              "sd_ratio": 0.9347005277076508
+            },
+            "sigma": {
+              "analytic_mean": 0.04224108068956894,
+              "analytic_sd": 0.012672324206870686,
+              "cdf_sup_error": 0.7350983336413477,
+              "mean_error_in_analytic_sd": 2.0578345743541386,
+              "sample_mean": 0.06831862757989232,
+              "sample_sd": 0.012397388387860206,
+              "sd_ratio": 0.9783042309743453
+            },
+            "tau": {
+              "analytic_mean": 0.2,
+              "analytic_sd": 0.05,
+              "cdf_sup_error": 0.020005124912379636,
+              "mean_error_in_analytic_sd": 0.035143338949844005,
+              "sample_mean": 0.2017571669474922,
+              "sample_sd": 0.048468399149027765,
+              "sd_ratio": 0.9693679829805553
+            }
+          },
+          "monte_carlo_tolerances": {
+            "cdf_sup_error": 0.012,
+            "mean_error_in_analytic_sd": 0.02,
+            "sd_ratio": [
+              0.98,
+              1.02
+            ]
+          },
+          "mu_a_covariance": {
+            "absolute_mc_tolerance": 0.035,
+            "analytic": 1.0,
+            "sample": 0.8725766828584568
+          },
+          "parameter_order": [
+            "mu",
+            "tau",
+            "a",
+            "sigma"
+          ],
+          "sample_count": 50000,
+          "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+        },
+        "attention": {
+          "attention_instances": 24,
+          "max_score_bytes": 536870912,
+          "policy": "tabpfn_fp32_math_sdpa_query_batch_tiled.v1",
+          "scientifically_qualified": false,
+          "source_sha256": "11790982864192c29dabd53b9443d0075b281197fd1cae129af2eb4411a4bf7a",
+          "training_path": "stock_unchanged"
+        },
+        "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+        "binding": {
+          "backend": {
+            "attention": {
+              "attention_instances": 24,
+              "max_score_bytes": 536870912,
+              "policy": "tabpfn_fp32_math_sdpa_query_batch_tiled.v1",
+              "scientifically_qualified": false,
+              "source_sha256": "11790982864192c29dabd53b9443d0075b281197fd1cae129af2eb4411a4bf7a",
+              "training_path": "stock_unchanged"
+            },
+            "backend_kind": "stock_tabpfn_cuda_qualification",
+            "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+            "deployment": {
+              "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment_mode": "unmerged",
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "merge_policy": "no_merge",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "source_files": {
+                "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+              }
+            },
+            "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+            "execution": {
+              "capability": [
+                8,
+                0
+              ],
+              "cuda_runtime": "12.4",
+              "cudnn_tf32": false,
+              "deterministic_algorithms": true,
+              "device": "cuda:0",
+              "device_name": "NVIDIA A100-SXM4-40GB",
+              "device_uuid": "9fd4c8b5-faa4-6136-e26c-fafd1edd282f",
+              "matmul_tf32": false
+            },
+            "feature_embedding_policy": "cpu_seeded_subspace.v1",
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "numpy_version": "1.26.4",
+            "sampling_law": "canonical_half_normal_full_support.v1",
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+              "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+            },
+            "tabpfn_version": "2.0.9",
+            "torch_version": "2.6.0",
+            "type": "TabPFNConditionalBackend"
+          },
+          "count": 50000,
+          "identities": {
+            "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+          },
+          "invalid_policy": "fail",
+          "law": "canonical_half_normal_full_support.v1",
+          "microbatch_size": 1024,
+          "observations": {
+            "dtype": "<f8",
+            "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+            "shape": [
+              256,
+              10
+            ]
+          },
+          "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+          "query": {
+            "dtype": "<f8",
+            "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+            "shape": [
+              10
+            ]
+          },
+          "requested_sampling_law": "canonical_half_normal_full_support.v1",
+          "seed": 20265117,
+          "source_policy": "cancelled_zero_width",
+          "source_sha256": {
+            "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+            "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+            "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+            "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+            "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+          },
+          "theta": {
+            "dtype": "<f8",
+            "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+            "shape": [
+              256,
+              4
+            ]
+          },
+          "uniform_law": "uint53-open.v1"
+        },
+        "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+        "context_preparation_seconds": 0.8469654420041479,
+        "context_worlds": 256,
+        "deployment_mode": "unmerged",
+        "dimension": 4,
+        "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01/frozen/tiled-control/repetition-0",
+        "metrics_sha256": "b611035bcd0408cfe3e095c57e65df59a7de6a2a515635a18091bb86ba2af359",
+        "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+        "observations": 10,
+        "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+        "peak_allocated_bytes": 1087179776,
+        "peak_reserved_bytes": 1602224128,
+        "posterior_draws": 50000,
+        "samples_sha256": "5b40372891afbff7f868ab0f0a4b4d4bd99eb7fc09701163baf9c9c796b7802a",
+        "sampling_seconds": 112.86173617899476,
+        "scientifically_qualified": false,
+        "warm_sampling_seconds": 112.01452445601171
+      }
+    ],
+    "scientifically_qualified": false,
+    "seconds": [
+      112.86173617899476
+    ],
+    "tiled": true
+  },
+  "c4096": {
+    "frozen_stock": {
+      "completed_updates": 0,
+      "container_sha256": "8372f848d3ffa8d786cb97d73287285f5cdb79699cf27936692c6eecb846b844",
+      "context_worlds": 4096,
+      "identical_sample_bytes_across_timing_repeats": true,
+      "median_seconds": 1140.567907094999,
+      "method": "frozen",
+      "mode": "unmerged",
+      "range_seconds": [
+        1140.567907094999,
+        1140.567907094999
+      ],
+      "repetitions": 1,
+      "runs": [
+        {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9608925285780144
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": true,
+              "tau_mean": true,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.022218450916383914,
+                "mean_error_in_analytic_sd": 0.03497920226845299,
+                "sample_mean": 0.03497920226845299,
+                "sample_sd": 0.9616224100665727,
+                "sd_ratio": 0.9616224100665727
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.48910929554003846,
+                "mean_error_in_analytic_sd": 1.02658453713905,
+                "sample_mean": 0.05525029276995526,
+                "sample_sd": 0.010598896040945773,
+                "sd_ratio": 0.8363813826037736
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.00809356984109147,
+                "mean_error_in_analytic_sd": 0.0010071552750628987,
+                "sample_mean": 0.19994964223624687,
+                "sample_sd": 0.04779649068738358,
+                "sd_ratio": 0.9559298137476715
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.9239343808857386
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "d68ec0c6-973a-0610-16e8-1d891bdd60a3",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "1adf68a7ba03260b0df3c7ee00bd5fa8a98ffa44a129189dc2f07f7d642774a0",
+              "shape": [
+                4096,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "ba112b06edd367e8e45e7953e16ac7e4c89e96ab69350fd78b64d4a3a53f9f8a",
+              "shape": [
+                4096,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+          "context_preparation_seconds": 2.381893823010614,
+          "context_worlds": 4096,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/context4096-01/c4k_frozen_stock/repetition-0",
+          "metrics_sha256": "9660d6494d3467fefdada3716e03d633912dd6e0dcef23e105f2c4ccac6e613f",
+          "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "observations": 10,
+          "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "peak_allocated_bytes": 16905108992,
+          "peak_reserved_bytes": 40445673472,
+          "posterior_draws": 50000,
+          "samples_sha256": "8a9faacefc485d9affe179738f1ba857b131c0244d58262a62dc2610b3c44f9e",
+          "sampling_seconds": 1140.567907094999,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 1138.1850564319902
+        }
+      ],
+      "scientifically_qualified": false,
+      "seconds": [
+        1140.567907094999
+      ],
+      "tiled": false
+    },
+    "frozen_tiled": {
+      "completed_updates": 0,
+      "container_sha256": "573f22b9f7f61a582d960ae1e969356bb21ef55658132bf2e6c8fff5bfaadc87",
+      "context_worlds": 4096,
+      "identical_sample_bytes_across_timing_repeats": true,
+      "median_seconds": 1207.7631372010073,
+      "method": "frozen",
+      "mode": "unmerged",
+      "range_seconds": [
+        1207.7631372010073,
+        1207.7631372010073
+      ],
+      "repetitions": 1,
+      "runs": [
+        {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9608925285780144
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": true,
+              "tau_mean": true,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.022218450916383914,
+                "mean_error_in_analytic_sd": 0.03497920226845299,
+                "sample_mean": 0.03497920226845299,
+                "sample_sd": 0.9616224100665727,
+                "sd_ratio": 0.9616224100665727
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.48910929554003846,
+                "mean_error_in_analytic_sd": 1.02658453713905,
+                "sample_mean": 0.05525029276995526,
+                "sample_sd": 0.010598896040945773,
+                "sd_ratio": 0.8363813826037736
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.00809356984109147,
+                "mean_error_in_analytic_sd": 0.0010071552750628987,
+                "sample_mean": 0.19994964223624687,
+                "sample_sd": 0.04779649068738358,
+                "sd_ratio": 0.9559298137476715
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.9239343808857386
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "attention_instances": 24,
+            "max_score_bytes": 536870912,
+            "policy": "tabpfn_fp32_math_sdpa_query_batch_tiled.v1",
+            "scientifically_qualified": false,
+            "source_sha256": "11790982864192c29dabd53b9443d0075b281197fd1cae129af2eb4411a4bf7a",
+            "training_path": "stock_unchanged"
+          },
+          "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+          "binding": {
+            "backend": {
+              "attention": {
+                "attention_instances": 24,
+                "max_score_bytes": 536870912,
+                "policy": "tabpfn_fp32_math_sdpa_query_batch_tiled.v1",
+                "scientifically_qualified": false,
+                "source_sha256": "11790982864192c29dabd53b9443d0075b281197fd1cae129af2eb4411a4bf7a",
+                "training_path": "stock_unchanged"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "dbf01941-322f-a747-96ac-91d5e997ccfd",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+              "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "1adf68a7ba03260b0df3c7ee00bd5fa8a98ffa44a129189dc2f07f7d642774a0",
+              "shape": [
+                4096,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "ba112b06edd367e8e45e7953e16ac7e4c89e96ab69350fd78b64d4a3a53f9f8a",
+              "shape": [
+                4096,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+          "context_preparation_seconds": 2.3995189029956236,
+          "context_worlds": 4096,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/context4096-01/c4k_frozen_tiled/repetition-0",
+          "metrics_sha256": "dae9428fc969a1fc3b011dce144985e31df67af1260d2b1de300231e09425e97",
+          "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "observations": 10,
+          "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+          "peak_allocated_bytes": 1541649920,
+          "peak_reserved_bytes": 2451570688,
+          "posterior_draws": 50000,
+          "samples_sha256": "8a9faacefc485d9affe179738f1ba857b131c0244d58262a62dc2610b3c44f9e",
+          "sampling_seconds": 1207.7631372010073,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 1205.362665143999
+        }
+      ],
+      "scientifically_qualified": false,
+      "seconds": [
+        1207.7631372010073
+      ],
+      "tiled": true
+    },
+    "r4_merged_tiled": {
+      "completed_updates": 2,
+      "container_sha256": "fc1eb3af95a75a1c8f454fec368f2d201217709652085fa285e3435bd2621dc7",
+      "context_worlds": 4096,
+      "identical_sample_bytes_across_timing_repeats": true,
+      "median_seconds": 1205.4734301200078,
+      "method": "lora_r4",
+      "mode": "merged_lora",
+      "range_seconds": [
+        1205.4734301200078,
+        1205.4734301200078
+      ],
+      "repetitions": 1,
+      "runs": [
+        {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9665323738488858
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": true,
+              "tau_mean": true,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.020456046463579736,
+                "mean_error_in_analytic_sd": 0.031783359645744996,
+                "sample_mean": 0.031783359645744996,
+                "sample_sd": 0.96445272078823,
+                "sd_ratio": 0.96445272078823
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.48799068164927256,
+                "mean_error_in_analytic_sd": 1.0240111030460495,
+                "sample_mean": 0.05521768137880374,
+                "sample_sd": 0.010611149070095843,
+                "sd_ratio": 0.8373482951408934
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.007239231405588534,
+                "mean_error_in_analytic_sd": 0.0036123615555022637,
+                "sample_mean": 0.1998193819222249,
+                "sample_sd": 0.047925509971205406,
+                "sd_ratio": 0.9585101994241081
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.9293838521924118
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "attention_instances": 24,
+            "max_score_bytes": 536870912,
+            "policy": "tabpfn_fp32_math_sdpa_query_batch_tiled.v1",
+            "scientifically_qualified": false,
+            "source_sha256": "11790982864192c29dabd53b9443d0075b281197fd1cae129af2eb4411a4bf7a",
+            "training_path": "stock_unchanged"
+          },
+          "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+          "binding": {
+            "backend": {
+              "attention": {
+                "attention_instances": 24,
+                "max_score_bytes": 536870912,
+                "policy": "tabpfn_fp32_math_sdpa_query_batch_tiled.v1",
+                "scientifically_qualified": false,
+                "source_sha256": "11790982864192c29dabd53b9443d0075b281197fd1cae129af2eb4411a4bf7a",
+                "training_path": "stock_unchanged"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "merged_lora",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "peft_fp32_linear_and_packed_merge.v1",
+                "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "3801801a-e522-a044-8a09-ca61829b6402",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "1adf68a7ba03260b0df3c7ee00bd5fa8a98ffa44a129189dc2f07f7d642774a0",
+              "shape": [
+                4096,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "ba112b06edd367e8e45e7953e16ac7e4c89e96ab69350fd78b64d4a3a53f9f8a",
+              "shape": [
+                4096,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 2.4102284620021237,
+          "context_worlds": 4096,
+          "deployment_mode": "merged_lora",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/context4096-01/c4k_r4_merged_tiled/repetition-0",
+          "metrics_sha256": "79ccc648fc536747ee4e915907b20bc7d8adbba610470cfc63c7b39cc0e7bad9",
+          "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1541649920,
+          "peak_reserved_bytes": 2464153600,
+          "posterior_draws": 50000,
+          "samples_sha256": "0d9e4872536343272af2a768b687dd230fba6958aad63ffaf56987b2559e350f",
+          "sampling_seconds": 1205.4734301200078,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 1203.0622453680116
+        }
+      ],
+      "scientifically_qualified": false,
+      "seconds": [
+        1205.4734301200078
+      ],
+      "tiled": true
+    },
+    "r4_unmerged": {
+      "completed_updates": 2,
+      "container_sha256": "bd95508403e03db41e8fafa34d45dbfe9d44dd547fc10657c0983685befb10de",
+      "context_worlds": 4096,
+      "identical_sample_bytes_across_timing_repeats": true,
+      "median_seconds": 1194.4958234670048,
+      "method": "lora_r4",
+      "mode": "unmerged",
+      "range_seconds": [
+        1194.4958234670048,
+        1194.4958234670048
+      ],
+      "repetitions": 1,
+      "runs": [
+        {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9665320534685276
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": true,
+              "tau_mean": true,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.020456024931440997,
+                "mean_error_in_analytic_sd": 0.03178327475112359,
+                "sample_mean": 0.03178327475112359,
+                "sample_sd": 0.9644526663176041,
+                "sd_ratio": 0.9644526663176041
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.4880907368762818,
+                "mean_error_in_analytic_sd": 1.0240268586093535,
+                "sample_mean": 0.055217881038409994,
+                "sample_sd": 0.01061176491098263,
+                "sd_ratio": 0.8373968924523837
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.007182653559617683,
+                "mean_error_in_analytic_sd": 0.0036202223998055283,
+                "sample_mean": 0.19981898888000973,
+                "sample_sd": 0.047924787650629755,
+                "sd_ratio": 0.958495753012595
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.9293837386693097
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+                "deployment_mode": "unmerged",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "no_merge",
+                "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "03607fe5-6d37-5279-641b-bf3ae8ca31dc",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "1adf68a7ba03260b0df3c7ee00bd5fa8a98ffa44a129189dc2f07f7d642774a0",
+              "shape": [
+                4096,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "ba112b06edd367e8e45e7953e16ac7e4c89e96ab69350fd78b64d4a3a53f9f8a",
+              "shape": [
+                4096,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+          "context_preparation_seconds": 2.3876109209959395,
+          "context_worlds": 4096,
+          "deployment_mode": "unmerged",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/context4096-01/c4k_r4_unmerged/repetition-0",
+          "metrics_sha256": "ea3886b492fe6789034dd7db4bc1c5ac779c21c2b40f0049e59f30f8a22f147e",
+          "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 16920331264,
+          "peak_reserved_bytes": 40460353536,
+          "posterior_draws": 50000,
+          "samples_sha256": "af5b264728c81b4af05c088598213e190b31aa6b58acec436261e82bc75c6f9d",
+          "sampling_seconds": 1194.4958234670048,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 1192.107246929998
+        }
+      ],
+      "scientifically_qualified": false,
+      "seconds": [
+        1194.4958234670048
+      ],
+      "tiled": false
+    }
+  },
+  "c4096_speedup_claim": false,
+  "conditional_merge_parity": [
+    {
+      "cdf_full_grid_points": 5258,
+      "cdf_max_abs": 1.4915092438894106e-07,
+      "limits": {
+        "cdf_atol": 0.0001,
+        "logits_atol": 0.0001,
+        "logits_rtol": 0.001,
+        "quantile_atol": 0.001,
+        "quantile_rtol": 0.001
+      },
+      "passed": true,
+      "quantile_max_abs": 4.6006124392761194e-05,
+      "queries": 32,
+      "raw_member_max_abs_logits": [
+        1.52587890625e-05,
+        1.621246337890625e-05,
+        1.239776611328125e-05,
+        6.67572021484375e-06,
+        1.049041748046875e-05,
+        9.5367431640625e-06,
+        1.33514404296875e-05,
+        8.58306884765625e-06
+      ],
+      "stage": 0,
+      "tail_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ]
+    },
+    {
+      "cdf_full_grid_points": 5258,
+      "cdf_max_abs": 4.680367693410403e-08,
+      "limits": {
+        "cdf_atol": 0.0001,
+        "logits_atol": 0.0001,
+        "logits_rtol": 0.001,
+        "quantile_atol": 0.001,
+        "quantile_rtol": 0.001
+      },
+      "passed": true,
+      "quantile_max_abs": 0.00012126574046078531,
+      "queries": 32,
+      "raw_member_max_abs_logits": [
+        8.58306884765625e-06,
+        1.0251998901367188e-05,
+        8.58306884765625e-06,
+        6.67572021484375e-06,
+        6.67572021484375e-06,
+        8.285045623779297e-06,
+        9.059906005859375e-06,
+        5.7220458984375e-06
+      ],
+      "stage": 1,
+      "tail_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ]
+    },
+    {
+      "cdf_full_grid_points": 5258,
+      "cdf_max_abs": 8.766744430399598e-08,
+      "limits": {
+        "cdf_atol": 0.0001,
+        "logits_atol": 0.0001,
+        "logits_rtol": 0.001,
+        "quantile_atol": 0.001,
+        "quantile_rtol": 0.001
+      },
+      "passed": true,
+      "quantile_max_abs": 5.736619425533718e-05,
+      "queries": 32,
+      "raw_member_max_abs_logits": [
+        7.62939453125e-06,
+        7.62939453125e-06,
+        7.62939453125e-06,
+        8.106231689453125e-06,
+        6.67572021484375e-06,
+        7.62939453125e-06,
+        7.62939453125e-06,
+        6.67572021484375e-06
+      ],
+      "stage": 2,
+      "tail_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ]
+    },
+    {
+      "cdf_full_grid_points": 5258,
+      "cdf_max_abs": 3.125623574962155e-07,
+      "limits": {
+        "cdf_atol": 0.0001,
+        "logits_atol": 0.0001,
+        "logits_rtol": 0.001,
+        "quantile_atol": 0.001,
+        "quantile_rtol": 0.001
+      },
+      "passed": true,
+      "quantile_max_abs": 0.00017653700909647796,
+      "queries": 32,
+      "raw_member_max_abs_logits": [
+        1.049041748046875e-05,
+        1.0967254638671875e-05,
+        1.33514404296875e-05,
+        1.8596649169921875e-05,
+        1.239776611328125e-05,
+        8.58306884765625e-06,
+        1.1920928955078125e-05,
+        1.239776611328125e-05
+      ],
+      "stage": 3,
+      "tail_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ]
+    }
+  ],
+  "figures": {
+    "latency-context256.png": {
+      "bytes": 93983,
+      "sha256": "a42acf575dd63fd4106f6c919e105bfec3732232c39b84a5ee5baad62a1fc419"
+    },
+    "memory-conditional-support.png": {
+      "bytes": 192430,
+      "sha256": "be465e5a060da632b4b2f868a19f86caf87c971dc6bb95695aa053aa0b4365b4"
+    },
+    "posterior-cdf-context256.png": {
+      "bytes": 286724,
+      "sha256": "532dd0f83c72820afb53a218cac1ebd29106a4093ee1a9881712bca0218e1a86"
+    },
+    "posterior-cdf-context4096.png": {
+      "bytes": 279503,
+      "sha256": "ccdbf62fd87cca81f10082845163033adc44d992b7514b56235e35888aa5c03f"
+    }
+  },
+  "gpu_jobs_submitted_by_report": 0,
+  "input_manifest_sha256": "0b2e98555d425d2f857a16d9bd0c938e5f41108c9b2aa79b3e82167bbde1d922",
+  "large_75d_full_posterior_executed": false,
+  "learning_gain_claim": false,
+  "memory": {
+    "comparison_scope": "capacity demonstration at one shape; stock requested allocation and successful measured peak are incomparable quantities; no reduction ratio",
+    "fitting_stock_tiled_conditional_parity": {
+      "cdf_full_grid_points": 5258,
+      "cdf_max_abs": 0.0,
+      "limits": {
+        "cdf_atol": 0.0001,
+        "logits_atol": 0.0001,
+        "logits_rtol": 0.001,
+        "quantile_atol": 0.001,
+        "quantile_rtol": 0.001
+      },
+      "passed": true,
+      "quantile_max_abs": 0.0,
+      "queries": 1,
+      "raw_member_max_abs_logits": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ]
+    },
+    "input_manifest_sha256": "0b2e98555d425d2f857a16d9bd0c938e5f41108c9b2aa79b3e82167bbde1d922",
+    "large_75d_conditional_proxy": {
+      "assumptions": "representative repeated-conditional costs; excludes extra initial preprocessing/IO; no context KV cache",
+      "estimated_sampler_seconds_range": [
+        344938.8608058733,
+        483078.81638884573
+      ],
+      "estimated_single_gpu_hours_range": [
+        95.81635022385369,
+        134.1885601080127
+      ],
+      "full_75d_run_enabled": false,
+      "measured_full_posterior": false,
+      "measured_stages": [
+        0,
+        37,
+        74
+      ],
+      "microbatches": 49,
+      "posterior_draws": 50000,
+      "scope": "conditional-cost proxy only; full 75D posterior not run; excludes initial preprocessing and IO",
+      "stages": 75
+    },
+    "memory_reduction_ratio": null,
+    "parent_receipt_sha256": "db477c634745aa4f5fd4a7a2dae9d2f6ca0db87ab3cd4c1d034f355dd951d4d5",
+    "producing_source_commit": "07f8909f0b862d68862ab46cf753b356879d4120",
+    "shape": {
+      "context_worlds": 4096,
+      "observations": 200,
+      "unknowns": 75
+    },
+    "source_files_sha256": {
+      "fitting-stock-tiled-parity.json": "5f83e521e2d9031c76f11e2741e9c14e04b9cef75685b3013dc4150aef99ba7c",
+      "large-forecast.json": "4c44524e794e0033fea4f769082036001b4f75407876aebc38a8114dda56109f",
+      "probe-0-1024.json": "ae659bbd2d8d78ecb8d147895576238f42e66ef258dea5fee2f1a5606c3b94a8",
+      "probe-37-1024.json": "bf60f036b4a911d38bb247a18b2e8b113f883453ca687a443bb5a07ad52a5d67",
+      "probe-74-1.json": "8e7c1db07514f17606351154e3f7f4ce6aaf9751f1f60cd82e3854d909bc5ae9",
+      "probe-74-1024.json": "a0d73ba29272008aac1ed8d4b6a34064b602f622ad770a7929709dec4bf01a80"
+    },
+    "stock_oom": {
+      "evidence_sha256": "6f6af1c2bf965f20b8985536b4c14e310f1155e79d5d33de7e14ffeff3036d73",
+      "recorded_peak_allocated_bytes": 31763671552,
+      "requested_allocation_gib": 129.0,
+      "scope": "failed allocation request; recorded peak precedes failure and is not required capacity",
+      "status": "out_of_memory"
+    },
+    "tiled_probes": [
+      {
+        "attention_stats": {
+          "max_batch_tile": 1157,
+          "max_estimated_score_bytes": 138512695296,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536772096,
+          "stock_fast_path": 96,
+          "stock_gradient_path": 0,
+          "tiled_inference": 192
+        },
+        "conditional_seconds": 103.66124729100557,
+        "finite": true,
+        "peak_allocated_bytes": 12062746112,
+        "peak_reserved_bytes": 18943574016,
+        "preparation_seconds": 8.814536217993009,
+        "queries": 1,
+        "stage": 74,
+        "status": "completed"
+      },
+      {
+        "attention_stats": {
+          "max_batch_tile": 2150,
+          "max_estimated_score_bytes": 101468602368,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536846400,
+          "stock_fast_path": 0,
+          "stock_gradient_path": 0,
+          "tiled_inference": 288
+        },
+        "conditional_seconds": 93.86091450499953,
+        "finite": true,
+        "peak_allocated_bytes": 11112943104,
+        "peak_reserved_bytes": 17670602752,
+        "preparation_seconds": 6.575027993996628,
+        "queries": 1024,
+        "stage": 0,
+        "status": "completed"
+      },
+      {
+        "attention_stats": {
+          "max_batch_tile": 1553,
+          "max_estimated_score_bytes": 119990648832,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536716800,
+          "stock_fast_path": 0,
+          "stock_gradient_path": 0,
+          "tiled_inference": 288
+        },
+        "conditional_seconds": 112.74297618700075,
+        "finite": true,
+        "peak_allocated_bytes": 13113033728,
+        "peak_reserved_bytes": 19314769920,
+        "preparation_seconds": 7.8251114250015235,
+        "queries": 1024,
+        "stage": 37,
+        "status": "completed"
+      },
+      {
+        "attention_stats": {
+          "max_batch_tile": 1157,
+          "max_estimated_score_bytes": 138512695296,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536772096,
+          "stock_fast_path": 0,
+          "stock_gradient_path": 0,
+          "tiled_inference": 288
+        },
+        "conditional_seconds": 131.45001806499204,
+        "finite": true,
+        "peak_allocated_bytes": 15114488320,
+        "peak_reserved_bytes": 22309502976,
+        "preparation_seconds": 9.086154574004468,
+        "queries": 1024,
+        "stage": 74,
+        "status": "completed"
+      }
+    ]
+  },
+  "parameters": [
+    "mu",
+    "tau",
+    "a",
+    "sigma"
+  ],
+  "pending_c4096": [],
+  "posterior_draws_per_request": 50000,
+  "producing_source_commit": "07f8909f0b862d68862ab46cf753b356879d4120",
+  "raw_root": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117",
+  "relative_distribution_comparisons": {
+    "c256_frozen_stock_vs_tiled": {
+      "axis_and32projection_cdf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "candidate_manifest_sha256": "b611035bcd0408cfe3e095c57e65df59a7de6a2a515635a18091bb86ba2af359",
+      "comparison_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+      "investigation_flag": false,
+      "limits": {
+        "cdf": 0.01,
+        "mean_reference_sd": 0.05,
+        "relative_sd": 0.05
+      },
+      "max_mean_shift_reference_sd": 0.0,
+      "max_pairwise_cdf": 0.0,
+      "max_relative_sd_change": 0.0,
+      "original_manifest_sha256": "939ead4dc5e6b4eb33a9c17190e45058d98bb5fdd142a3d8d100e52bcf9b3c36",
+      "samples_bitwise_equal": true,
+      "scientifically_qualified": false,
+      "scope": "relative execution preservation; absolute scientific accuracy is assessed separately and remains unqualified"
+    },
+    "c256_merged_vs_unmerged": [
+      {
+        "axis_and32projection_cdf": [
+          6.0000000000004494e-05,
+          0.0008199999999999319,
+          0.00038000000000004697,
+          0.0010600000000000054,
+          0.0006800000000000139,
+          0.0009399999999999964,
+          0.0008799999999999919,
+          0.0008000000000000229,
+          0.0007800000000000029,
+          0.0009399999999999409,
+          0.0010000000000000009,
+          0.0009600000000000164,
+          0.0005199999999999649,
+          0.0007400000000000739,
+          0.0009000000000000119,
+          0.0009600000000000164,
+          0.0009200000000000319,
+          0.0010600000000000054,
+          0.0008000000000000229,
+          0.0008400000000000629,
+          0.000980000000000092,
+          0.001060000000000061,
+          0.0009199999999999764,
+          0.0012400000000000189,
+          0.0009600000000000164,
+          0.0007400000000000184,
+          0.0009400000000000519,
+          0.0012800000000000034,
+          0.0010000000000000009,
+          0.0008600000000000274,
+          0.0009199999999999209,
+          0.0006599999999999939,
+          0.0006599999999999939,
+          0.0007400000000000184,
+          0.0007599999999999829,
+          0.0005600000000000049
+        ],
+        "candidate_manifest_sha256": "d27a04489e7643aafe5b24332ccf24a8df7fc3f06f5d4a7e046e1f7cb693dc44",
+        "comparison_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+        "investigation_flag": false,
+        "limits": {
+          "cdf": 0.01,
+          "mean_reference_sd": 0.05,
+          "relative_sd": 0.05
+        },
+        "max_mean_shift_reference_sd": 2.9805259654527266e-05,
+        "max_pairwise_cdf": 0.0012800000000000034,
+        "max_relative_sd_change": 7.966356095145954e-05,
+        "original_manifest_sha256": "aa407486f13a72f98db8eea8f7808ff58c4674a2b83ee71c9a54e23f0e611b01",
+        "samples_bitwise_equal": false,
+        "scientifically_qualified": false,
+        "scope": "relative execution preservation; absolute scientific accuracy is assessed separately and remains unqualified"
+      },
+      {
+        "axis_and32projection_cdf": [
+          6.0000000000004494e-05,
+          0.0008199999999999319,
+          0.00038000000000004697,
+          0.0010600000000000054,
+          0.0006800000000000139,
+          0.0009399999999999964,
+          0.0008799999999999919,
+          0.0008000000000000229,
+          0.0007800000000000029,
+          0.0009399999999999409,
+          0.0010000000000000009,
+          0.0009600000000000164,
+          0.0005199999999999649,
+          0.0007400000000000739,
+          0.0009000000000000119,
+          0.0009600000000000164,
+          0.0009200000000000319,
+          0.0010600000000000054,
+          0.0008000000000000229,
+          0.0008400000000000629,
+          0.000980000000000092,
+          0.001060000000000061,
+          0.0009199999999999764,
+          0.0012400000000000189,
+          0.0009600000000000164,
+          0.0007400000000000184,
+          0.0009400000000000519,
+          0.0012800000000000034,
+          0.0010000000000000009,
+          0.0008600000000000274,
+          0.0009199999999999209,
+          0.0006599999999999939,
+          0.0006599999999999939,
+          0.0007400000000000184,
+          0.0007599999999999829,
+          0.0005600000000000049
+        ],
+        "candidate_manifest_sha256": "0e02b43b7159203f1fd439ca26f734c0f68faecf9cace18a9a47de85f175e770",
+        "comparison_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+        "investigation_flag": false,
+        "limits": {
+          "cdf": 0.01,
+          "mean_reference_sd": 0.05,
+          "relative_sd": 0.05
+        },
+        "max_mean_shift_reference_sd": 2.9805259654527266e-05,
+        "max_pairwise_cdf": 0.0012800000000000034,
+        "max_relative_sd_change": 7.966356095145954e-05,
+        "original_manifest_sha256": "5c40a62df60f6b7efafcd265203f82d7c28715d9b6bb76bb5c8e2c213cdf8fde",
+        "samples_bitwise_equal": false,
+        "scientifically_qualified": false,
+        "scope": "relative execution preservation; absolute scientific accuracy is assessed separately and remains unqualified"
+      },
+      {
+        "axis_and32projection_cdf": [
+          6.0000000000004494e-05,
+          0.0008199999999999319,
+          0.00038000000000004697,
+          0.0010600000000000054,
+          0.0006800000000000139,
+          0.0009399999999999964,
+          0.0008799999999999919,
+          0.0008000000000000229,
+          0.0007800000000000029,
+          0.0009399999999999409,
+          0.0010000000000000009,
+          0.0009600000000000164,
+          0.0005199999999999649,
+          0.0007400000000000739,
+          0.0009000000000000119,
+          0.0009600000000000164,
+          0.0009200000000000319,
+          0.0010600000000000054,
+          0.0008000000000000229,
+          0.0008400000000000629,
+          0.000980000000000092,
+          0.001060000000000061,
+          0.0009199999999999764,
+          0.0012400000000000189,
+          0.0009600000000000164,
+          0.0007400000000000184,
+          0.0009400000000000519,
+          0.0012800000000000034,
+          0.0010000000000000009,
+          0.0008600000000000274,
+          0.0009199999999999209,
+          0.0006599999999999939,
+          0.0006599999999999939,
+          0.0007400000000000184,
+          0.0007599999999999829,
+          0.0005600000000000049
+        ],
+        "candidate_manifest_sha256": "6c4930576641adcfb28c6a8b66ed4aa50358cbeef7f87ba7477bb92f945e2612",
+        "comparison_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+        "investigation_flag": false,
+        "limits": {
+          "cdf": 0.01,
+          "mean_reference_sd": 0.05,
+          "relative_sd": 0.05
+        },
+        "max_mean_shift_reference_sd": 2.9805259654527266e-05,
+        "max_pairwise_cdf": 0.0012800000000000034,
+        "max_relative_sd_change": 7.966356095145954e-05,
+        "original_manifest_sha256": "9dfcd2e9f1a4e29a6cf3543e79524891722f8ccd73015632a03ae4951e38282e",
+        "samples_bitwise_equal": false,
+        "scientifically_qualified": false,
+        "scope": "relative execution preservation; absolute scientific accuracy is assessed separately and remains unqualified"
+      }
+    ],
+    "c4096_frozen_stock_vs_tiled": {
+      "axis_and32projection_cdf": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "candidate_manifest_sha256": "dae9428fc969a1fc3b011dce144985e31df67af1260d2b1de300231e09425e97",
+      "comparison_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+      "investigation_flag": false,
+      "limits": {
+        "cdf": 0.01,
+        "mean_reference_sd": 0.05,
+        "relative_sd": 0.05
+      },
+      "max_mean_shift_reference_sd": 0.0,
+      "max_pairwise_cdf": 0.0,
+      "max_relative_sd_change": 0.0,
+      "original_manifest_sha256": "9660d6494d3467fefdada3716e03d633912dd6e0dcef23e105f2c4ccac6e613f",
+      "samples_bitwise_equal": true,
+      "scientifically_qualified": false,
+      "scope": "relative execution preservation; absolute scientific accuracy is assessed separately and remains unqualified"
+    },
+    "c4096_r4_unmerged_vs_merged_tiled": {
+      "axis_and32projection_cdf": [
+        6.0000000000004494e-05,
+        0.00036000000000002697,
+        0.000160000000000049,
+        0.0008600000000000274,
+        0.00040000000000006697,
+        0.00048000000000003595,
+        0.00038000000000004697,
+        0.00048000000000003595,
+        0.00042000000000003146,
+        0.00048000000000003595,
+        0.0006599999999999939,
+        0.000300000000000078,
+        0.00036000000000002697,
+        0.00038000000000004697,
+        0.00048000000000003595,
+        0.0005199999999999649,
+        0.00040000000000006697,
+        0.0006000000000000449,
+        0.00048000000000003595,
+        0.00043999999999999595,
+        0.0005600000000000049,
+        0.0005000000000000004,
+        0.0006599999999999939,
+        0.0008000000000000229,
+        0.0006399999999999739,
+        0.00041999999999997595,
+        0.0007199999999999429,
+        0.0005799999999999139,
+        0.0006999999999999784,
+        0.0004999999999999449,
+        0.000540000000000096,
+        0.00036000000000002697,
+        0.00043999999999999595,
+        0.00034000000000000696,
+        0.00028000000000000247,
+        0.00035999999999997145
+      ],
+      "candidate_manifest_sha256": "79ccc648fc536747ee4e915907b20bc7d8adbba610470cfc63c7b39cc0e7bad9",
+      "comparison_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+      "investigation_flag": false,
+      "limits": {
+        "cdf": 0.01,
+        "mean_reference_sd": 0.05,
+        "relative_sd": 0.05
+      },
+      "max_mean_shift_reference_sd": 1.5755563245469092e-05,
+      "max_pairwise_cdf": 0.0008600000000000274,
+      "max_relative_sd_change": 5.8033785328093224e-05,
+      "original_manifest_sha256": "ea3886b492fe6789034dd7db4bc1c5ac779c21c2b40f0049e59f30f8a22f147e",
+      "samples_bitwise_equal": false,
+      "scientifically_qualified": false,
+      "scope": "relative execution preservation; absolute scientific accuracy is assessed separately and remains unqualified"
+    }
+  },
+  "report_source_sha256": "c2aab88657ec8f63eba11d322224593c55357b8c174108235ab69e62d9a0b10e",
+  "schema": "finetuneforge.inference_engineering_report.v1",
+  "scientifically_qualified": false,
+  "status": "complete_engineering_report",
+  "timing_scope": "C256: median and min/max of three same-request timing repetitions; C4096: one observation per control, no repeated speedup claim; excludes model loading and profiler/artifact output",
+  "two_engineering_updates_only": true
+}

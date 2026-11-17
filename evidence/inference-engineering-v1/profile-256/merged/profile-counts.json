@@ -1,0 +1,27 @@
+{
+  "aten::addmm": {
+    "count": 24,
+    "self_cpu_us": 2553.800000000003,
+    "self_device_us": 549.122999999985
+  },
+  "aten::bmm": {
+    "count": 1928,
+    "self_cpu_us": 130996.89400000134,
+    "self_device_us": 48149.55699999873
+  },
+  "aten::mm": {
+    "count": 200,
+    "self_cpu_us": 18914.532999999676,
+    "self_device_us": 15869.19000000014
+  },
+  "cudaLaunchKernel": {
+    "count": 13179,
+    "self_cpu_us": 85275.32499999789,
+    "self_device_us": 0
+  },
+  "cudaStreamSynchronize": {
+    "count": 342,
+    "self_cpu_us": 3596.3300000005634,
+    "self_device_us": 0
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "context": {
+    "dimension": 4,
+    "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/inputs-01/control-4096",
+    "manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+    "observations": 10,
+    "worlds": 4096
+  },
+  "deployment": {
+    "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+    "checkpoint_identity_format": "campaign_manifest_sha256",
+    "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+    "completed_updates": 2,
+    "deployment_mode": "unmerged",
+    "deployment_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+    "deployment_preparation_seconds": 8.01305393599614,
+    "device": "cuda:0",
+    "equivalence_status": "unmodified",
+    "feature_embedding_policy": "cpu_seeded_subspace.v1",
+    "inventory_after": {
+      "feature_basis_hook_seeds": [
+        0
+      ],
+      "lora_linear_modules": 122,
+      "packed_projection_modules": 48,
+      "parametrized_modules": 24
+    },
+    "inventory_before": {
+      "feature_basis_hook_seeds": [
+        0
+      ],
+      "lora_linear_modules": 122,
+      "packed_projection_modules": 48,
+      "parametrized_modules": 24
+    },
+    "kind": "campaign_checkpoint",
+    "load_seconds": 7.771169039988308,
+    "loader_source_sha256": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+    "merge_policy": "no_merge",
+    "merge_seconds": 0.0,
+    "method": "lora_r4",
+    "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+    "origin": {
+      "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+      "checkpoint_identity_format": "campaign_manifest_sha256",
+      "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+      "completed_updates": 2,
+      "device": "cuda:0",
+      "kind": "campaign_checkpoint",
+      "load_seconds": 7.771169039988308,
+      "loader_source_sha256": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+      "method": "lora_r4",
+      "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+      "rank": 4,
+      "scientifically_qualified": false,
+      "training_diagnostic": true,
+      "training_phase": "pilot",
+      "training_protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+      "training_replica": 0
+    },
+    "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+    "rank": 4,
+    "reversible_by": "fresh authenticated load of unchanged origin checkpoint",
+    "schema": "finetuneforge.frozen_inference_deployment.v1",
+    "scientifically_qualified": false,
+    "source_files": {
+      "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+      "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+      "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+      "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+    },
+    "trainable_parameter_count": 0,
+    "trainable_tensor_count": 0,
+    "training_diagnostic": true,
+    "training_phase": "pilot",
+    "training_protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+    "training_replica": 0
+  },
+  "median_seconds": 1194.4958234670048,
+  "method": "lora_r4",
+  "mode": "unmerged",
+  "range_seconds": [
+    1194.4958234670048,
+    1194.4958234670048
+  ],
+  "runs": [
+    {
+      "analytical_diagnostics": {
+        "a_variance": {
+          "absolute_mc_tolerance": 0.035,
+          "analytic": 1.0425,
+          "sample": 0.9665320534685276
+        },
+        "checks": {
+          "a_mean": false,
+          "a_variance": false,
+          "mu_a_covariance": false,
+          "mu_cdf": false,
+          "mu_mean": false,
+          "mu_sd": false,
+          "sigma_cdf": false,
+          "sigma_mean": false,
+          "sigma_sd": false,
+          "tau_cdf": true,
+          "tau_mean": true,
+          "tau_sd": false
+        },
+        "complete_vectors": true,
+        "control_checks_passed": false,
+        "dimension": 4,
+        "marginals": {
+          "mu": {
+            "analytic_mean": 0.0,
+            "analytic_sd": 1.0,
+            "cdf_sup_error": 0.020456024931440997,
+            "mean_error_in_analytic_sd": 0.03178327475112359,
+            "sample_mean": 0.03178327475112359,
+            "sample_sd": 0.9644526663176041,
+            "sd_ratio": 0.9644526663176041
+          },
+          "sigma": {
+            "analytic_mean": 0.04224108068956894,
+            "analytic_sd": 0.012672324206870686,
+            "cdf_sup_error": 0.4880907368762818,
+            "mean_error_in_analytic_sd": 1.0240268586093535,
+            "sample_mean": 0.055217881038409994,
+            "sample_sd": 0.01061176491098263,
+            "sd_ratio": 0.8373968924523837
+          },
+          "tau": {
+            "analytic_mean": 0.2,
+            "analytic_sd": 0.05,
+            "cdf_sup_error": 0.007182653559617683,
+            "mean_error_in_analytic_sd": 0.0036202223998055283,
+            "sample_mean": 0.19981898888000973,
+            "sample_sd": 0.047924787650629755,
+            "sd_ratio": 0.958495753012595
+          }
+        },
+        "monte_carlo_tolerances": {
+          "cdf_sup_error": 0.012,
+          "mean_error_in_analytic_sd": 0.02,
+          "sd_ratio": [
+            0.98,
+            1.02
+          ]
+        },
+        "mu_a_covariance": {
+          "absolute_mc_tolerance": 0.035,
+          "analytic": 1.0,
+          "sample": 0.9293837386693097
+        },
+        "parameter_order": [
+          "mu",
+          "tau",
+          "a",
+          "sigma"
+        ],
+        "sample_count": 50000,
+        "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+      },
+      "attention_stats": null,
+      "peak_allocated_bytes": 16920331264,
+      "peak_reserved_bytes": 40460353536,
+      "posterior_draws": 50000,
+      "sample_sha256": "af5b264728c81b4af05c088598213e190b31aa6b58acec436261e82bc75c6f9d",
+      "sampling": {
+        "binding": {
+          "backend": {
+            "attention": {
+              "policy": "stock"
+            },
+            "backend_kind": "stock_tabpfn_cuda_qualification",
+            "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+            "deployment": {
+              "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+              "deployment_mode": "unmerged",
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "merge_policy": "no_merge",
+              "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+              "source_files": {
+                "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+              }
+            },
+            "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+            "execution": {
+              "capability": [
+                8,
+                0
+              ],
+              "cuda_runtime": "12.4",
+              "cudnn_tf32": false,
+              "deterministic_algorithms": true,
+              "device": "cuda:0",
+              "device_name": "NVIDIA A100-SXM4-40GB",
+              "device_uuid": "03607fe5-6d37-5279-641b-bf3ae8ca31dc",
+              "matmul_tf32": false
+            },
+            "feature_embedding_policy": "cpu_seeded_subspace.v1",
+            "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+            "numpy_version": "1.26.4",
+            "sampling_law": "canonical_half_normal_full_support.v1",
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+              "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+            },
+            "tabpfn_version": "2.0.9",
+            "torch_version": "2.6.0",
+            "type": "TabPFNConditionalBackend"
+          },
+          "count": 50000,
+          "identities": {
+            "bank_manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+            "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+            "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+          },
+          "invalid_policy": "fail",
+          "law": "canonical_half_normal_full_support.v1",
+          "microbatch_size": 1024,
+          "observations": {
+            "dtype": "<f8",
+            "sha256": "1adf68a7ba03260b0df3c7ee00bd5fa8a98ffa44a129189dc2f07f7d642774a0",
+            "shape": [
+              4096,
+              10
+            ]
+          },
+          "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+          "query": {
+            "dtype": "<f8",
+            "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+            "shape": [
+              10
+            ]
+          },
+          "requested_sampling_law": "canonical_half_normal_full_support.v1",
+          "seed": 20265117,
+          "source_policy": "cancelled_zero_width",
+          "source_sha256": {
+            "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+            "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+            "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+            "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+            "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+          },
+          "theta": {
+            "dtype": "<f8",
+            "sha256": "ba112b06edd367e8e45e7953e16ac7e4c89e96ab69350fd78b64d4a3a53f9f8a",
+            "shape": [
+              4096,
+              4
+            ]
+          },
+          "uniform_law": "uint53-open.v1"
+        },
+        "cold_model_load_seconds": null,
+        "context_forward_evaluations": 4096,
+        "context_preparation_seconds_this_run": 2.3876109209959395,
+        "posterior_sampling_forward_evaluations": 0,
+        "sampling_seconds_this_run": 1192.107246929998,
+        "scientifically_qualified": false,
+        "shared_bank_generation_forward_evaluations": 4096,
+        "stage_seconds": [
+          269.99360886000795,
+          281.69365673704306,
+          316.1127883549925,
+          325.9465997299558
+        ],
+        "status": "samples_complete_unassessed",
+        "wall_seconds": 1194.4958234670048
+      },
+      "scientifically_qualified": false
+    }
+  ],
+  "scientifically_qualified": false,
+  "seconds": [
+    1194.4958234670048
+  ],
+  "tiled": false
+}

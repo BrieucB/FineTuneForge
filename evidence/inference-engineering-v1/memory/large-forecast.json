@@ -1,0 +1,16 @@
+{
+  "assumptions": "representative repeated-conditional costs; excludes extra initial preprocessing/IO; no context KV cache",
+  "estimated_sampler_seconds_range": [
+    344938.8608058733,
+    483078.81638884573
+  ],
+  "full_75d_run_enabled": false,
+  "measured_stages": [
+    0,
+    37,
+    74
+  ],
+  "microbatches": 49,
+  "posterior_draws": 50000,
+  "stages": 75
+}

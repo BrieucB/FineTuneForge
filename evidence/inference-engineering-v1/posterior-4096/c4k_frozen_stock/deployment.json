@@ -1,0 +1,70 @@
+{
+  "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+  "checkpoint_identity_format": "base_checkpoint_file_sha256",
+  "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+  "completed_updates": 0,
+  "deployment_mode": "unmerged",
+  "deployment_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+  "deployment_preparation_seconds": 3.717896724003367,
+  "device": "cuda:0",
+  "equivalence_status": "unmodified",
+  "feature_embedding_policy": "cpu_seeded_subspace.v1",
+  "inventory_after": {
+    "feature_basis_hook_seeds": [
+      0
+    ],
+    "lora_linear_modules": 0,
+    "packed_projection_modules": 0,
+    "parametrized_modules": 0
+  },
+  "inventory_before": {
+    "feature_basis_hook_seeds": [
+      0
+    ],
+    "lora_linear_modules": 0,
+    "packed_projection_modules": 0,
+    "parametrized_modules": 0
+  },
+  "kind": "frozen",
+  "load_seconds": 3.576569227006985,
+  "loader_source_sha256": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+  "merge_policy": "no_merge",
+  "merge_seconds": 0.0,
+  "method": "frozen",
+  "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+  "origin": {
+    "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+    "checkpoint_identity_format": "base_checkpoint_file_sha256",
+    "checkpoint_manifest_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+    "completed_updates": 0,
+    "device": "cuda:0",
+    "kind": "frozen",
+    "load_seconds": 3.576569227006985,
+    "loader_source_sha256": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+    "method": "frozen",
+    "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+    "rank": null,
+    "scientifically_qualified": false,
+    "training_diagnostic": null,
+    "training_phase": null,
+    "training_protocol_sha256": null,
+    "training_replica": null
+  },
+  "origin_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+  "rank": null,
+  "reversible_by": "fresh authenticated load of unchanged origin checkpoint",
+  "schema": "finetuneforge.frozen_inference_deployment.v1",
+  "scientifically_qualified": false,
+  "source_files": {
+    "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+    "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+    "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+    "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+  },
+  "trainable_parameter_count": 0,
+  "trainable_tensor_count": 0,
+  "training_diagnostic": null,
+  "training_phase": null,
+  "training_protocol_sha256": null,
+  "training_replica": null
+}
