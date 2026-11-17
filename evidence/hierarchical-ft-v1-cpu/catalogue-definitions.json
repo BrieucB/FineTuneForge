@@ -1,0 +1,35 @@
+{
+  "elapsed_seconds": 260.2738097254187,
+  "forward_evaluations": 0,
+  "gpu_jobs_submitted": 0,
+  "query_measurement_cases_generated": 0,
+  "schema": "finetuneforge.cpu_catalogue_check.v1",
+  "setups": {
+    "test": 40,
+    "train": 10000,
+    "validation": 20
+  },
+  "source_revision": "uncommitted_CPU_implementation",
+  "status": "definition_only_passed",
+  "test_groups": {
+    "combined": 8,
+    "familiar": 8,
+    "heldout_physics": 8,
+    "sharing": 8,
+    "upper_sizes": 8
+  },
+  "training_family_appearances": {
+    "decay": 5758,
+    "oscillation": 5758,
+    "quadratic": 5761,
+    "saturation": 5759,
+    "scalar": 5758,
+    "sensor": 5760
+  },
+  "training_fingerprint_digest": "7473a37df690ea6a7c859ff0bf84749a332f0aa32ae443c4d880fd67fc3b77b4",
+  "training_unknown_strata": {
+    "large": 3333,
+    "medium": 3333,
+    "small": 3334
+  }
+}

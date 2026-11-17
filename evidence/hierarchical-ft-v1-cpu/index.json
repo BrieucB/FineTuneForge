@@ -1,0 +1,21 @@
+{
+  "external_raw_results": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117",
+  "files_sha256": {
+    "catalogue-definitions.json": "3348b507edd8d480b3a54d5d53b50ddeecac3ca5e8fd6c24ef901216ff2fd5db",
+    "duplicate-borders.json": "49719cfbc8b8b281b8c166b8c3ad347d1a72423dee179902f424ca05af172766",
+    "junit/legacy-inference-final.xml": "2b5ce56ba90661350ea3e75e218457d020b9e412b5f4df1f188ff130f2e5a2b5",
+    "junit/model_training_canonical_math_cpu.xml": "7c0627991699a80e71644b5f2a854e4bd933be9b6f09093c28abb561b5fe47e8",
+    "junit/model_training_canonical_real_cpu.xml": "29fefe9eb2d60c1552e32b25fa2930caa5bbf1b87c26b88d5798466f6c7beee6",
+    "junit/model_training_stagewise_cpu.xml": "85d9d5c162753a15b5d14e54afb88082e64be226e90c965a758f9baca63cda7a",
+    "junit/public-wheel-final.xml": "fac1b506a15fbae8468f7ab9c54e05693df988e5d1514b74bc52f13a7023934d",
+    "junit/study-reference-integrated.xml": "3f9d426f9dc624c78f15463f4b0a52715f2de65d893f24ad7554dcb25e1390e8",
+    "junit/study-training-integrated.xml": "ae6cb9dcbe43abcb0968820740630719eaf88f6098ab46f0ba966d3ad99f85c0",
+    "model-training.json": "fca4344810397ef794e882fef98ccea1981e349deda8f78de0074dbfb20a5c6f",
+    "public-wheel.json": "94c4d9fa51344cebd8764cdc9509b1873ebdefdbba4e9eab8eec6d2f6cec4757",
+    "qualification.json": "945ea048dfca0c28bbd204e0ad03549d99ff0e2527fe4f41304d829159e41048"
+  },
+  "implementation_git_revision": "d6fbe6100eccc2b00d926c4fbef937bc1961d405",
+  "model_downloads_required_for_standard_ci": false,
+  "reproduction_guide": "docs/hierarchical-ft-v1.md",
+  "schema": "finetuneforge.cpu_evidence.index.v1"
+}

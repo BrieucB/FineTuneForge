@@ -1,0 +1,189 @@
+{
+  "all_d_features": "[observations, prior-z predecessors]; context labels=current prior-z; query current/future labels absent",
+  "gpu_jobs_submitted": 0,
+  "interfaces": {
+    "model": [
+      "TabPFNBackbone.from_checkpoint",
+      "PreparedMember",
+      "prepare_fitted_regressor_members",
+      "PreparedEnsemble.density",
+      "BarDensity.log_prob/pdf/cdf/sf/icdf/sample",
+      "full_support_cdf_grid",
+      "translate_full_support_logits",
+      "canonical_full_support_mixture",
+      "canonical_finite_mixture",
+      "attach_lora",
+      "merge_lora",
+      "CacheIdentity",
+      "sampling_law_metadata"
+    ],
+    "training": [
+      "TrainingConfig",
+      "balanced_problem_loss",
+      "conditional_nll",
+      "make_optimizer",
+      "configure_full_finetune",
+      "train_update",
+      "teacher_forced_inputs",
+      "prepare_teacher_forced_episode",
+      "score_teacher_forced_episode",
+      "train_teacher_forced_update",
+      "save_training_checkpoint",
+      "load_training_checkpoint",
+      "save_adapter",
+      "load_adapter",
+      "export_full_weights"
+    ],
+    "updates": [
+      "stagewise_cpu_update"
+    ]
+  },
+  "parameter_inventory": {
+    "16": {
+      "attention_rank_semantics": "one global rank per logical projection, not per head",
+      "base_checkpoint_parameters": 11081864,
+      "note": "training bridge includes frozen zero-base Linear placeholders for official PEFT branches; merge removes these placeholders",
+      "total_in_memory_parameter_elements": 15686920,
+      "trainable_parameters": 1066112
+    },
+    "4": {
+      "attention_rank_semantics": "one global rank per logical projection, not per head",
+      "base_checkpoint_parameters": 11081864,
+      "note": "training bridge includes frozen zero-base Linear placeholders for official PEFT branches; merge removes these placeholders",
+      "total_in_memory_parameter_elements": 14887336,
+      "trainable_parameters": 266528
+    }
+  },
+  "pending": [
+    "retained full scientific screen and reference precision qualification",
+    "GPU/autograd/mixed-precision qualification",
+    "GPU memory/throughput qualification of implemented CPU diagnostic stage-wise backward",
+    "production matched-stream training, checkpoint selection and evaluation campaign orchestration",
+    "scientific all-D posterior sampling orchestration and50k draw runs",
+    "GPU performance/profiling/multi-GPU measurements for new sampler law"
+  ],
+  "physical_density": "one causal-decoder log-Jacobian per parameter; fitted API borders already undo target normalization",
+  "posterior_requests_run": 0,
+  "production_guard": "TrainingConfig.require_production_qualification always refuses pending I07",
+  "production_training_run": false,
+  "sampling": {
+    "canonical_fitted_api_border_bits_preserved": true,
+    "member_interpretation": "native-shaped histogram in inverse-border coordinates; not exact nonlinear inverse-transform mixture",
+    "members": 8,
+    "neural_dtype": "torch.float32",
+    "outer_bins": "half-normal tails outside first/last inner border",
+    "physical_parameter_clipping": false,
+    "positive_mass_floor": false,
+    "probability_dtype": "torch.float64",
+    "production_gate": "I07",
+    "sampling_law": "canonical_half_normal_full_support.v1",
+    "scientifically_qualified": false,
+    "source_policy": "cancelled_zero_width",
+    "tail_scale": "corresponding outer finite border width / Phi^-1(0.75)",
+    "temperature_applications": 1,
+    "uniforms": "open FP64 k/2^53 with integer k in1..2^53-1; no clipping",
+    "weights": "member CDF at canonical inner borders; stable SF for last mass; average all8 raw masses then direct FP64 normalization"
+  },
+  "schema": "finetuneforge.model_training.final_cpu_receipt.v1",
+  "scientifically_qualified": false,
+  "source": {
+    "src/posteriorforge/study/model.py": {
+      "lines": 626,
+      "sha256": "366323f30008f6e2967563a1de7008fcb215f4bec8cd692f849f66106aeb3194"
+    },
+    "src/posteriorforge/study/training.py": {
+      "lines": 453,
+      "sha256": "c1e7ede58d3019ae2a2308018ff8b2db2d065c6da5c11070b6d944d47dd9156d"
+    },
+    "src/posteriorforge/study/updates.py": {
+      "lines": 137,
+      "sha256": "937e66d3c90e743da2415b3ab8679307d886bfecd5c7503e29a150d710a6c30e"
+    },
+    "tests/test_study_model.py": {
+      "lines": 346,
+      "sha256": "03c923b6fb1aef654c798970c2dd3d7bba48aca12fb5ea76843bc37692ac4c1b"
+    },
+    "tests/test_study_training.py": {
+      "lines": 231,
+      "sha256": "39a159888af152d7da3b7b9bde9690d3d0c99e5d2004eb13eea232fb14d6b88f"
+    },
+    "tests/test_study_updates.py": {
+      "lines": 148,
+      "sha256": "c6940d6bd37a8a981abfdb5c367764dc5ad338724a8bd52d49f88c5a57ea94ed"
+    }
+  },
+  "source_geometry": "cancelled zero-width source bins require exact-inf logits; preserve all8 members/border bits; reject positive mass at zero width/nonpositive outer-tail scales",
+  "split_guards": "no teacher-forced final test cases; optimizer-facing episode API rejects validation/test; diagnostic optimizer requires explicit CPU-only opt-in",
+  "stagewise_cpu_diagnostic": {
+    "api": "posteriorforge.study.updates.stagewise_cpu_update",
+    "backward": "one conditional backward before next stage; no retained all-D activation graph",
+    "gpu_memory_throughput_qualified": false,
+    "implemented": true,
+    "log_file": "model_training_stagewise_cpu.log",
+    "log_sha256": "d8d16f2a63f0358377d503b9ea8a2f02ae8b8deae1c09e7337c62b21d58c6d08",
+    "optimizer": "one step after complete effective batch; no changes between conditional forwards",
+    "original_four_unchanged": true,
+    "receipt_file": "model_training_stagewise_cpu_receipt.json",
+    "receipt_sha256": "e79ba51fa07fe887cc16d3cead5da85ad0d994b6cfdbf5b43baec995c66573c5",
+    "required_opt_in": "allow_unqualified_cpu_diagnostic=True",
+    "scientifically_qualified": false,
+    "weighting": "each realized query case equal; parameter/query NLL divided by total_queries*3*count_its_role_group; setup frequency determined by catalogue sampling"
+  },
+  "tests": {
+    "model_training_canonical_math_cpu.xml": {
+      "errors": "0",
+      "failures": "0",
+      "hostname": "login4.karolina.it4i.cz",
+      "name": "pytest",
+      "sha256": "7c0627991699a80e71644b5f2a854e4bd933be9b6f09093c28abb561b5fe47e8",
+      "skipped": "1",
+      "tests": "8",
+      "time": "14.550",
+      "timestamp": "2026-11-17T14:06:02.317328+01:00"
+    },
+    "model_training_canonical_real_cpu.xml": {
+      "errors": "0",
+      "failures": "0",
+      "hostname": "login4.karolina.it4i.cz",
+      "name": "pytest",
+      "sha256": "29fefe9eb2d60c1552e32b25fa2930caa5bbf1b87c26b88d5798466f6c7beee6",
+      "skipped": "0",
+      "tests": "3",
+      "time": "76.378",
+      "timestamp": "2026-11-17T14:06:50.933746+01:00"
+    },
+    "model_training_explicit_law_cpu.xml": {
+      "errors": "0",
+      "failures": "0",
+      "hostname": "login4.karolina.it4i.cz",
+      "name": "pytest",
+      "sha256": "a0b68709d58bd7a5c0e49ba6f9ca4a4283586baae71763249bf0f92ff332dc01",
+      "skipped": "0",
+      "tests": "8",
+      "time": "11.411",
+      "timestamp": "2026-11-17T14:00:48.507795+01:00"
+    },
+    "model_training_real_episode_cpu.xml": {
+      "errors": "0",
+      "failures": "0",
+      "hostname": "login4.karolina.it4i.cz",
+      "name": "pytest",
+      "sha256": "bbec5c62c681cd35756faa940afe1e53b23405a5d6a459ff766f0f0576755b66",
+      "skipped": "0",
+      "tests": "3",
+      "time": "16.420",
+      "timestamp": "2026-11-17T13:58:41.905229+01:00"
+    },
+    "model_training_stagewise_cpu.xml": {
+      "errors": "0",
+      "failures": "0",
+      "hostname": "login4.karolina.it4i.cz",
+      "name": "pytest",
+      "sha256": "85d9d5c162753a15b5d14e54afb88082e64be226e90c965a758f9baca63cda7a",
+      "skipped": "0",
+      "tests": "8",
+      "time": "7.048",
+      "timestamp": "2026-11-17T14:17:38.611661+01:00"
+    }
+  }
+}
