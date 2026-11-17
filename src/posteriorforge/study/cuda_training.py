@@ -37,9 +37,13 @@ class QualificationTrainingBackend(StockTrainingBackend):
     """One independent CUDA worker with full local model and unchanged scientific loss."""
     backend_kind = "stock_tabpfn_cuda_qualification"
 
-    def __init__(self, spec, checkpoint, *, device="cuda:0", allow_cuda_qualification=False):
+    def __init__(self, spec, checkpoint, *, device="cuda:0", allow_cuda_qualification=False,
+                 cache_parametrizations=False):
         if allow_cuda_qualification is not True:
             raise ModelQualificationError("explicit CUDA qualification opt-in required")
+        if type(cache_parametrizations) is not bool:
+            raise TypeError("cache_parametrizations must be an explicit boolean")
+        self.cache_parametrizations = cache_parametrizations
         requested = torch.device(device)
         if requested.type != "cuda":
             raise ModelQualificationError("CUDA qualification requires a CUDA device")
@@ -54,7 +58,8 @@ class QualificationTrainingBackend(StockTrainingBackend):
         self.optimizer = make_optimizer(self.model, self.training_config)
         self.identity.update(device=str(self.device), execution=_cuda_execution_metadata(self.model),
             source_files=source_identity(), cuda_training_source_sha256=sha256(Path(__file__).read_bytes()).hexdigest(),
-            qualification_only=True, scientifically_qualified=False)
+            qualification_only=True, scientifically_qualified=False,
+            parametrization_cache_policy="per_layer_forward_and_checkpoint_recompute.v1" if cache_parametrizations else "stock_uncached")
 
     def prepare(self, item):
         return prepare_teacher_forced_episode(item.context, item.query,
@@ -73,7 +78,8 @@ class QualificationTrainingBackend(StockTrainingBackend):
         preprocessing = time.perf_counter() - started
         report = stagewise_cuda_qualification_update(self.model, self.optimizer, prepared, state,
             law=CANONICAL_FULL_SUPPORT, gradient_clip=1.0,
-            allow_cuda_qualification=True, expected_device=self.device)
+            allow_cuda_qualification=True, expected_device=self.device,
+            cache_parametrizations=self.cache_parametrizations)
         torch.cuda.synchronize(self.device)
         return dict(report, preprocessing_seconds=preprocessing,
             preprocessing_includes_host_to_device=True,

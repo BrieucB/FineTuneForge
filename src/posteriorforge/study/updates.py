@@ -6,6 +6,7 @@ exactly as the existing full-graph wrapper. Production remains blocked by I07.
 """
 from __future__ import annotations
 import math
+from contextlib import nullcontext
 from typing import Sequence
 import torch
 from torch import nn
@@ -85,7 +86,8 @@ def _require_finite_gradients(parameters):
 def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                          episodes: Sequence[PreparedTeacherForcedEpisode], state: TrainingState,
                          *, law: str, gradient_clip: float = 1.0,
-                         allow_unqualified_cpu_diagnostic: bool = False, device_type: str = "cpu") -> dict:
+                         allow_unqualified_cpu_diagnostic: bool = False, device_type: str = "cpu",
+                         cache_parametrizations: bool = False) -> dict:
     """Backward each conditional, then take one step for the entire batch.
 
     Each parameter/query contributes
@@ -100,6 +102,8 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
     itself propagate; transactional rollback of a partially failed optimizer is
     not claimed. Neither qualification primitive authorizes a production campaign.
     """
+    if type(cache_parametrizations) is not bool:
+        raise TypeError("cache_parametrizations must be an explicit boolean")
     optimizer.zero_grad(set_to_none=True)
     try:
         episodes = tuple(episodes)
@@ -113,17 +117,25 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
         for episode, counts in zip(episodes, group_counts):
             for stage in episode.stages:
                 configure_differentiable_forward(model)
-                density = stage.ensemble.density(model, law=law)
-                losses = -density.log_prob(stage.targets, log_abs_det_decode=stage.decoder_log_jac)
-                if losses.shape != (episode.query_count,) or not bool(torch.isfinite(losses).all()):
-                    raise TargetSupportMismatch(f"{episode.problem_id}:{stage.parameter_name}: nonfinite/zero generating density; no repair")
-                contribution = losses.sum() / (total_cases * 3 * counts[_ROLE_GROUP[stage.role]])
-                if not contribution.requires_grad:
-                    raise ModelQualificationError("conditional score disconnected from transformer weights")
-                scalar_losses.append(float(contribution.detach()))
-                contribution.backward()
-                backward_calls += 1
-                del contribution, losses, density
+                if cache_parametrizations:
+                    from .training_execution import conditional_forward_cache
+                    context = conditional_forward_cache(model, enabled=True)
+                else:
+                    context = nullcontext()
+                # Method wrappers span backward so checkpoint recomputation uses
+                # the same per-layer cache scope as the original forward.
+                with context:
+                    density = stage.ensemble.density(model, law=law)
+                    losses = -density.log_prob(stage.targets, log_abs_det_decode=stage.decoder_log_jac)
+                    if losses.shape != (episode.query_count,) or not bool(torch.isfinite(losses).all()):
+                        raise TargetSupportMismatch(f"{episode.problem_id}:{stage.parameter_name}: nonfinite/zero generating density; no repair")
+                    contribution = losses.sum() / (total_cases * 3 * counts[_ROLE_GROUP[stage.role]])
+                    if not contribution.requires_grad:
+                        raise ModelQualificationError("conditional score disconnected from transformer weights")
+                    scalar_losses.append(float(contribution.detach()))
+                    contribution.backward()
+                    backward_calls += 1
+                    del contribution, losses, density
                 _require_finite_gradients(parameters)
         norm = torch.nn.utils.clip_grad_norm_(parameters, gradient_clip, error_if_nonfinite=True)
         _require_finite_gradients(parameters)
@@ -157,7 +169,8 @@ def stagewise_cpu_update(model: nn.Module, optimizer: torch.optim.Optimizer,
 def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                          episodes: Sequence[PreparedTeacherForcedEpisode], state: TrainingState,
                          *, law: str, gradient_clip: float = 1.0,
-                         allow_cuda_qualification: bool = False, expected_device=None) -> dict:
+                         allow_cuda_qualification: bool = False, expected_device=None,
+                         cache_parametrizations: bool = False) -> dict:
     """One explicitly authorized engineering update; does not qualify a campaign.
 
     Neural parameters remain FP32 and probability/Jacobian calculations FP64.
@@ -182,7 +195,9 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
         raise ModelQualificationError("CUDA qualification requires an available CUDA device")
     torch.cuda.synchronize(target)
     report = _stagewise_update(model, optimizer, episodes, state, law=law,
-        gradient_clip=gradient_clip, allow_unqualified_cpu_diagnostic=True, device_type="cuda")
+        gradient_clip=gradient_clip, allow_unqualified_cpu_diagnostic=True, device_type="cuda",
+        cache_parametrizations=cache_parametrizations)
     torch.cuda.synchronize(target)
     return dict(report, device=str(target), neural_precision="float32",
-                probability_precision="float64", mixed_precision=False)
+                probability_precision="float64", mixed_precision=False,
+                parametrization_cache_policy="per_layer_forward_and_checkpoint_recompute.v1" if cache_parametrizations else "stock_uncached")
