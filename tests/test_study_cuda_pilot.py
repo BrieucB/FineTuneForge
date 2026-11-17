@@ -48,3 +48,13 @@ def test_manifest_binds_sources_query_and_exact_draw_count(monkeypatch,tmp_path)
     v['posterior_draws']=49999;q.write_json(p,v)
     with pytest.raises(ValueError,match='contract'):
         q.verify_inputs(p,q.file_hash(p),tmp_path)
+
+
+def test_probe_requires_accounted_slurm_before_outputs(monkeypatch,tmp_path):
+    pytest.importorskip('torch')
+    from posteriorforge.study.cuda_qualification import run_probes
+    monkeypatch.delenv('SLURM_JOB_ID',raising=False)
+    with pytest.raises(RuntimeError,match='Slurm'):
+        run_probes(inputs=tmp_path/'input',input_sha256='a'*64,output=tmp_path/'output',repo=tmp_path,
+                   campaign_checkpoint=tmp_path/'checkpoint',checkpoint_manifest_sha256='b'*64)
+    assert not (tmp_path/'output').exists()

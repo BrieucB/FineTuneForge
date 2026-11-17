@@ -37,7 +37,8 @@ def source_files(repo):
     repo = Path(repo)
     names = sorted((repo / 'src/posteriorforge/study').glob('*.py'))
     names += [repo / 'scripts/qualify-study-cuda.py', repo / 'environments/study-training-gpu.lock',
-              repo / 'scripts/check-study-orchestration-cpu.py', repo / 'slurm/run-study-qualification.sh']
+              repo / 'scripts/check-study-orchestration-cpu.py', repo / 'slurm/run-study-qualification.sh',
+              repo / 'slurm/run-study-probes.sh']
     return {p.relative_to(repo).as_posix(): file_hash(p) for p in names}
 
 
@@ -361,6 +362,8 @@ def _memory_probes(value, root, model, output, *, selected):
             del stage,backend
         except torch.cuda.OutOfMemoryError as exc:
             row.update(status='out_of_memory',error=str(exc));torch.cuda.empty_cache()
+        except Exception as exc:
+            row.update(status='failed',error=str(exc));raise
         finally:
             row.update(peak_allocated_bytes=torch.cuda.max_memory_allocated(),peak_reserved_bytes=torch.cuda.max_memory_reserved())
             write_json(output/f'memory-probe-{index}.json',row);rows.append(row)
@@ -426,7 +429,7 @@ def launch_workers(*, inputs,input_sha256,output,repo):
     root=Path(output);root.mkdir(parents=True,exist_ok=False);processes=[]
     for lane,device in zip(LANES,devices):
         env=dict(os.environ,CUDA_VISIBLE_DEVICES=device,OMP_NUM_THREADS='4',MKL_NUM_THREADS='4',OPENBLAS_NUM_THREADS='4',
-                 CUBLAS_WORKSPACE_CONFIG=':4096:8',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',HF_DATASETS_OFFLINE='1',TABPFN_DISABLE_TELEMETRY='1')
+                 CUBLAS_WORKSPACE_CONFIG=':4096:8',TABPFN_ALLOW_CPU_LARGE_DATASET='1',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',HF_DATASETS_OFFLINE='1',TABPFN_DISABLE_TELEMETRY='1')
         stream=(root/(lane+'.log')).open('w')
         args=[sys.executable,str(Path(repo)/'scripts/qualify-study-cuda.py'),'worker','--lane',lane,'--inputs',str(inputs),'--input-sha256',input_sha256,'--output',str(root/lane),'--repo',str(repo)]
         processes.append((lane,subprocess.Popen(args,env=env,stdout=stream,stderr=subprocess.STDOUT),stream))
@@ -450,12 +453,52 @@ def launch_workers(*, inputs,input_sha256,output,repo):
     return summary
 
 
+def run_probes(*, inputs,input_sha256,output,repo,campaign_checkpoint,checkpoint_manifest_sha256):
+    """Complete only remaining memory probes using an authenticated trained deployment."""
+    import torch
+    from .cuda_training import configure_cuda_determinism
+    from .campaign import read_campaign_checkpoint
+    from .model_loading import load_inference_model
+    if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT')!='eu-26-17':
+        raise RuntimeError('memory qualification requires accounted Slurm execution')
+    if os.environ.get('TABPFN_ALLOW_CPU_LARGE_DATASET')!='1':
+        raise RuntimeError('explicit large-bank CPU preprocessing allowance required')
+    value=verify_inputs(inputs,input_sha256,repo);root=Path(inputs).parent;out=Path(output);out.mkdir(parents=True,exist_ok=False)
+    row={'scope':'three inference-memory probes, Q1 last parameter, trained full model',
+         'status':'running','input_manifest_sha256':input_sha256,'job_id':os.environ['SLURM_JOB_ID'],
+         'preprocessing_device':'cpu','neural_device':'cuda:0','large_cpu_preprocessing_allowed':True,
+         'posterior_requests':0,'posterior_draws_contract':50000,'scientifically_qualified':False}
+    write_json(out/'result.json',row);started=time.perf_counter()
+    try:
+        configure_cuda_determinism();torch.set_num_threads(4)
+        if torch.cuda.device_count()!=1:raise RuntimeError('one visible GPU required')
+        checkpoint=Path(campaign_checkpoint)
+        if file_hash(checkpoint/'manifest.json')!=checkpoint_manifest_sha256:raise ValueError('deployment checkpoint checksum mismatch')
+        data=read_campaign_checkpoint(checkpoint)
+        model,metadata=load_inference_model(value['base_checkpoint'],expected_model_sha256=data['weights_sha256'],
+            campaign_checkpoint=checkpoint,expected_checkpoint_manifest_sha256=checkpoint_manifest_sha256,device='cuda:0')
+        row['model']=metadata
+        props=torch.cuda.get_device_properties(0);row['hardware']={'name':props.name,'memory_bytes':props.total_memory,'uuid':str(getattr(props,'uuid','unavailable'))}
+        if 'A100' not in props.name:raise RuntimeError('declared A100 hardware required')
+        row['probes']=_memory_probes(value,root,model,out,selected=[0,1,2])
+        row['all_shapes_supported']=all(r['status']=='completed' for r in row['probes'])
+        row['status']='probes_complete' if row['all_shapes_supported'] else 'probes_complete_with_unsupported_shapes'
+    except BaseException as exc:
+        row.update(status='failed',failure={'type':type(exc).__name__,'message':str(exc)})
+        (out/'traceback.txt').write_text(traceback.format_exc());raise
+    finally:
+        row['wall_seconds']=time.perf_counter()-started;write_json(out/'result.json',row)
+    return row
+
+
 def main(argv=None):
     p=argparse.ArgumentParser();sub=p.add_subparsers(dest='operation',required=True)
     prep=sub.add_parser('prepare');prep.add_argument('--output',required=True);prep.add_argument('--repo',required=True);prep.add_argument('--base-checkpoint',required=True);prep.add_argument('--source-commit',required=True)
-    for command in ('run','worker'):
+    for command in ('run','worker','probes'):
         q=sub.add_parser(command);q.add_argument('--inputs',required=True);q.add_argument('--input-sha256',required=True);q.add_argument('--output',required=True);q.add_argument('--repo',required=True)
         if command=='worker':q.add_argument('--lane',choices=LANES,required=True)
+        if command=='probes':
+            q.add_argument('--campaign-checkpoint',required=True);q.add_argument('--checkpoint-manifest-sha256',required=True)
     a=p.parse_args();args=vars(a);op=args.pop('operation')
-    result=prepare_inputs(**args) if op=='prepare' else (launch_workers(**args) if op=='run' else worker(**args))
+    result=prepare_inputs(**args) if op=='prepare' else (launch_workers(**args) if op=='run' else (run_probes(**args) if op=='probes' else worker(**args)))
     print(json.dumps(result,sort_keys=True,allow_nan=False))
