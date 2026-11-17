@@ -23,6 +23,7 @@ CORE_PATHS = {"frozen": "profile-01/frozen", "unmerged": "profile-01/unmerged", 
 FOUR_K_PATHS = {"frozen_stock": "c4k_frozen_stock", "frozen_tiled": "c4k_frozen_tiled",
                 "r4_unmerged": "c4k_r4_unmerged", "r4_merged_tiled": "c4k_r4_merged_tiled"}
 PARAMETERS = ("mu", "tau", "a", "sigma")
+TILED_POLICY = "tabpfn_fp32_math_sdpa_query_batch_tiled.v1"
 
 
 def file_sha256(path):
@@ -168,9 +169,23 @@ def memory_evidence(root):
     repo = Path(__file__).resolve().parents[1]
     old_path = repo / "evidence/cuda-qualification-v1/memory/memory-probe-2.json"
     old = _json(old_path)
+    inputs_path = Path(root) / "inputs-01/manifest.json"
+    inputs = _json(inputs_path)
     probe_root = Path(root) / "profile-01/probes"
+    parent_path = probe_root / "result.json"
+    parent = _json(parent_path)
+    if (parent.get("status") != "completed" or parent.get("lane") != "probes"
+            or parent.get("input_manifest_sha256") != file_sha256(inputs_path)
+            or parent.get("source_commit") != inputs["source_commit"]
+            or parent.get("scientifically_qualified") is not False
+            or parent.get("training_pilots_started") is not False):
+        raise ValueError("memory probe parent input/source/completion binding mismatch")
     rows = [_json(probe_root / name) for name in ("probe-74-1.json", "probe-0-1024.json", "probe-37-1024.json", "probe-74-1024.json")]
-    if old.get("status") != "out_of_memory" or old["probe"]["context"]["dimension"] != 75 or old["probe"]["context"]["worlds"] != 4096:
+    if rows != parent["checks"].get("rows"):
+        raise ValueError("memory probe standalone rows differ from the completed parent receipt")
+    if (old.get("status") != "out_of_memory" or old["probe"]["context"]["dimension"] != 75
+            or old["probe"]["context"]["observations"] != 200 or old["probe"]["context"]["worlds"] != 4096
+            or any(old["probe"][key]["manifest_sha256"] != inputs["large_probe"][key]["manifest_sha256"] for key in ("context", "query"))):
         raise ValueError("retained exact-shape stock OOM evidence required")
     match = re.search(r"Tried to allocate ([0-9.]+) GiB", old["error"])
     if not match:
@@ -188,6 +203,8 @@ def memory_evidence(root):
             or not np.allclose(forecast["estimated_sampler_seconds_range"], expected, rtol=1e-12, atol=1e-9)):
         raise ValueError("large-run proxy must stay bound to the measured conditional recipe")
     fitting = _json(probe_root / "fitting-stock-tiled-parity.json")
+    if forecast != parent["checks"].get("forecast") or fitting != parent["checks"].get("fitting_parity"):
+        raise ValueError("memory forecast/parity records differ from the completed parent receipt")
     return {"shape": {"unknowns": 75, "observations": 200, "context_worlds": 4096},
         "stock_oom": {"status": "out_of_memory", "requested_allocation_gib": float(match[1]),
             "recorded_peak_allocated_bytes": old["peak_allocated_bytes"], "evidence_sha256": file_sha256(old_path),
@@ -197,8 +214,43 @@ def memory_evidence(root):
             measured_full_posterior=False, scope="conditional-cost proxy only; full 75D posterior not run; excludes initial preprocessing and IO"),
         "memory_reduction_ratio": None,
         "comparison_scope": "capacity demonstration at one shape; stock requested allocation and successful measured peak are incomparable quantities; no reduction ratio",
+        "parent_receipt_sha256": file_sha256(parent_path), "input_manifest_sha256": file_sha256(inputs_path),
+        "producing_source_commit": parent["source_commit"],
         "source_files_sha256": {name: file_sha256(probe_root / name) for name in
             ("probe-74-1.json", "probe-0-1024.json", "probe-37-1024.json", "probe-74-1024.json", "large-forecast.json", "fitting-stock-tiled-parity.json")}}
+
+
+def _input_source(inputs, bare):
+    value = inputs["source_files"].get("src/posteriorforge/study/" + bare)
+    if not _sha(value):
+        raise ValueError("pinned input source SHA256 required: " + bare)
+    return value
+
+
+def validate_attention_policy(attention, inputs, *, tiled):
+    if not tiled:
+        if attention != {"policy": "stock"}:
+            raise ValueError("stock lane must retain the exact stock attention policy")
+        return
+    if (not isinstance(attention, dict) or attention.get("policy") != TILED_POLICY
+            or type(attention.get("max_score_bytes")) is not int
+            or attention["max_score_bytes"] != inputs["attention_score_budget_bytes"]
+            or attention.get("source_sha256") != _input_source(inputs, "cuda_attention.py")
+            or attention.get("scientifically_qualified") is not False
+            or attention.get("training_path") != "stock_unchanged"
+            or type(attention.get("attention_instances")) is not int or attention["attention_instances"] < 1):
+        raise ValueError("tiled lane attention policy/budget/source binding mismatch")
+
+
+def _query_descriptor(inputs):
+    path = Path(inputs["observation"])
+    if file_sha256(path) != inputs["observation_sha256"]:
+        raise ValueError("pinned observation FILE SHA256 mismatch")
+    value = np.load(path, allow_pickle=False)
+    if not isinstance(value, np.ndarray) or value.shape != (10,) or value.dtype != np.float64 or not np.isfinite(value).all():
+        raise ValueError("pinned finite float64 observation array required")
+    array = np.ascontiguousarray(value)
+    return {"shape": list(array.shape), "dtype": array.dtype.str, "sha256": sha256(array.tobytes()).hexdigest()}
 
 
 def validate_group_identity(group, inputs, *, frozen, tiled, merged):
@@ -210,11 +262,33 @@ def validate_group_identity(group, inputs, *, frozen, tiled, merged):
         raise ValueError("reported lane method/deployment/attention mode mismatch")
     if not frozen and group["completed_updates"] != 2:
         raise ValueError("these adapters must retain exactly two engineering updates")
+    descriptor = inputs["small_bank" if group["context_worlds"] == 256 else "control_4096"]
+    bank_path = Path(descriptor["directory"]) / "manifest.json"
+    if file_sha256(bank_path) != descriptor["manifest_sha256"]:
+        raise ValueError("pinned context bank manifest SHA256 mismatch")
+    bank = _json(bank_path)
+    query = _query_descriptor(inputs)
     for row in group["runs"]:
         if row["origin_model_sha256"] != wanted or row["checkpoint_manifest_sha256"] != checkpoint:
             raise ValueError("actual deployed fingerprint must retain the pinned originating model/checkpoint")
         if row["deployment_mode"] != expected_mode:
             raise ValueError("deployed mode does not match the labelled control")
+        binding = row["binding"]; backend = binding["backend"]
+        if (row["bank_manifest_sha256"] != descriptor["manifest_sha256"]
+                or binding["identities"]["bank_manifest_sha256"] != descriptor["manifest_sha256"]
+                or binding["theta"] != bank["theta"] or binding["observations"] != bank["observations"]
+                or binding["problem"] != bank["problem_fingerprint"] or binding["query"] != query):
+            raise ValueError("group bank/query arrays must match the pinned input artifacts")
+        expected_sources = (
+            (binding["source_sha256"], ("sampling.py", "science.py", "spec.py", "banks.py", "config.py")),
+            (backend["source_sha256"], ("model.py", "sampling_backend.py")),
+            (backend["deployment"]["source_files"], ("inference_deployment.py", "model.py", "model_loading.py", "training.py")))
+        for sources, names in expected_sources:
+            if set(sources) != set(names) or any(sources[name] != _input_source(inputs, name) for name in names):
+                raise ValueError("per-run source identity differs from the pinned input source")
+        if backend.get("engineering_source_sha256") != _input_source(inputs, "inference_engineering.py"):
+            raise ValueError("engineering driver source differs from the pinned input source")
+        validate_attention_policy(row["attention"], inputs, tiled=tiled)
 
 
 def collect_report(root, *, partial=False):
