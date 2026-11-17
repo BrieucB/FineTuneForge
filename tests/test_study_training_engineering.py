@@ -121,3 +121,49 @@ def test_fusion_cli_routes_arguments(monkeypatch,capsys):
               '--checkpoint-source-commit','h'])
     assert calls[0]['checkpoint_source_commit']=='h'
     assert json.loads(capsys.readouterr().out)=={'ok':True}
+
+
+def test_triton_fp_fusion_policy_default_and_explicit():
+    assert eng.triton_fp_fusion_policy({}) == {'environment_value':None,'effective_value':'1','enabled':True,
+        'meaning':'Triton compiler default; explicit operations and external kernels may differ'}
+    p=eng.triton_fp_fusion_policy({'TRITON_DEFAULT_FP_FUSION':'0'})
+    assert p['effective_value']=='0' and p['enabled'] is False
+    assert eng.triton_fp_fusion_policy({'TRITON_DEFAULT_FP_FUSION':'1'})['enabled'] is True
+    with pytest.raises(ValueError,match='must be 0 or 1'):
+        eng.triton_fp_fusion_policy({'TRITON_DEFAULT_FP_FUSION':'false'})
+
+
+def test_fusion_invalid_policy_fails_before_import_and_auth(monkeypatch,tmp_path):
+    import builtins
+    monkeypatch.setenv('SLURM_JOB_ID','123');monkeypatch.setenv('SLURM_JOB_ACCOUNT','eu-26-17')
+    monkeypatch.setenv('TRITON_DEFAULT_FP_FUSION','invalid')
+    monkeypatch.setattr(eng,'verify_bindings',lambda *args: pytest.fail('authentication must not run'))
+    original_import=builtins.__import__
+    def guarded_import(name,*args,**kwargs):
+        if name=='torch': pytest.fail('torch must not be imported')
+        return original_import(name,*args,**kwargs)
+    monkeypatch.setattr(builtins,'__import__',guarded_import)
+    with pytest.raises(ValueError,match='TRITON_DEFAULT_FP_FUSION'):
+        eng.fusion_preflight(inputs='x',input_sha256='x',output=tmp_path/'out',repo='x',
+                             source_commit='x',checkpoint='x',checkpoint_sha256='x',checkpoint_source_commit='x')
+    assert not (tmp_path/'out').exists()
+
+
+def test_fusion_failure_receipt_records_effective_policy(monkeypatch,tmp_path):
+    pytest.importorskip("torch")
+    from posteriorforge.study import cuda_training
+    monkeypatch.setenv('SLURM_JOB_ID','123');monkeypatch.setenv('SLURM_JOB_ACCOUNT','eu-26-17')
+    monkeypatch.setenv('TRITON_DEFAULT_FP_FUSION','0')
+    monkeypatch.setattr(eng,'verify_bindings',lambda *args: {'protocol_sha256':'a'*64,'episodes':[]})
+    monkeypatch.setattr(eng,'verify_fusion_checkpoint',lambda *args: {'weights_sha256':'b'*64})
+    def stop(): raise RuntimeError('fixture stop before CUDA')
+    monkeypatch.setattr(cuda_training,'configure_cuda_determinism',stop)
+    out=tmp_path/'out'
+    with pytest.raises(RuntimeError,match='fixture stop'):
+        eng.fusion_preflight(inputs='x',input_sha256='x',output=out,repo='x',source_commit='x',
+                             checkpoint='x',checkpoint_sha256='x',checkpoint_source_commit='x')
+    result=json.loads((out/'result.json').read_text())
+    assert result['status']=='failed' and result['failure']['message']=='fixture stop before CUDA'
+    assert result['triton_fp_fusion']['environment_value']=='0'
+    assert result['triton_fp_fusion']['effective_value']=='0'
+    assert result['triton_fp_fusion']['enabled'] is False

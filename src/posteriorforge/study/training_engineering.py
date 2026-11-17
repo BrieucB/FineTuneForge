@@ -485,10 +485,21 @@ def _fusion_compare(reference, candidate):
     return result
 
 
+def triton_fp_fusion_policy(environ):
+    """Record Triton's pinned compiler default before importing Torch."""
+    selected = environ.get('TRITON_DEFAULT_FP_FUSION', '1')
+    if selected not in ('0', '1'):
+        raise ValueError('TRITON_DEFAULT_FP_FUSION must be 0 or 1')
+    return {'environment_value':environ.get('TRITON_DEFAULT_FP_FUSION'),
+            'effective_value':selected, 'enabled':selected=='1',
+            'meaning':'Triton compiler default; explicit operations and external kernels may differ'}
+
+
 def fusion_preflight(*, inputs, input_sha256, output, repo, source_commit,
                      checkpoint, checkpoint_sha256, checkpoint_source_commit):
     if not os.environ.get('SLURM_JOB_ID') or os.environ.get('SLURM_JOB_ACCOUNT')!='eu-26-17':
         raise RuntimeError('accounted eu-26-17 Slurm allocation required')
+    fp_fusion_policy=triton_fp_fusion_policy(os.environ)
     import numpy as np
     import torch
     from .campaign import CampaignSpec, restore_campaign_checkpoint
@@ -508,7 +519,8 @@ def fusion_preflight(*, inputs, input_sha256, output, repo, source_commit,
             'checkpoint_weights_sha256':checkpoint_metadata['weights_sha256'], 'optimizer_updates':0,'posterior_requests':0,
             'scientifically_qualified':False,'policies':{'cache':'per_layer_forward_and_checkpoint_recompute.v1',
             'neural':'fp32','probability':'fp64','tf32':False,'amp':False,'sdpa':'math','fullgraph':True,'dynamic':False},
-            'compile_cache_path':os.environ.get('TORCHINDUCTOR_CACHE_DIR')}
+            'compile_cache_path':os.environ.get('TORCHINDUCTOR_CACHE_DIR'),
+            'triton_fp_fusion':fp_fusion_policy}
     write_json(out/'result.json',result);started=time.perf_counter()
     try:
         configure_cuda_determinism();torch.set_num_threads(4)
