@@ -15,6 +15,11 @@ CUDA_PILOT_EXECUTION = {
     "parametrization_cache_policy": "per_layer_forward_and_checkpoint_recompute.v1",
     "fusion_enabled": False,
 }
+CUDA_TILED_ATTENTION_EXECUTION = {
+    **CUDA_PILOT_EXECUTION,
+    "attention_policy": "tabpfn_fp32_math_sdpa_training_tiled_recompute.v1",
+    "attention_max_score_bytes": 512 * 1024 * 1024,
+}
 
 
 def _git(directory, *args):

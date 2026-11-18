@@ -245,6 +245,9 @@ def _run_cuda_pilot(spec, *, stream, validation, store, backend, output, pilot_i
     if stream.diagnostic or len(validation) != 320:
         raise CampaignQualificationError('CUDA pilot requires the full matched training and validation streams')
     _require_cuda_pilot_backend(spec, backend)
+    for key in ('attention_policy', 'attention_max_score_bytes'):
+        if backend.identity.get(key) != pilot_identity['execution'].get(key):
+            raise CampaignQualificationError('CUDA pilot backend does not match the requested attention policy')
     return _run_campaign(spec, stream=stream, validation=validation, store=store, backend=backend,
                          output=output, resume_from=resume_from, stop_after_update=stop_after_update,
                          pilot_identity=pilot_identity)

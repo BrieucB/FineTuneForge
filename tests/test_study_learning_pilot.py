@@ -55,6 +55,31 @@ def test_v2_execution_contract_is_closed(payload, field, value):
         workflows.TrainingRequest.from_dict(payload)
 
 
+def test_tiled_attention_is_an_explicit_request_identity(payload, tmp_path, monkeypatch):
+    from posteriorforge.study import pilot
+
+    stock = workflows.TrainingRequest.from_dict(payload)
+    payload["execution"] = dict(pilot.CUDA_TILED_ATTENTION_EXECUTION)
+    tiled = workflows.TrainingRequest.from_dict(payload)
+    assert tiled.fingerprint != stock.fingerprint
+    assert tiled.plan()["execution"] == pilot.CUDA_TILED_ATTENTION_EXECUTION
+    assert tiled.plan()["execution"]["fusion_enabled"] is False
+    for invalid in (True, float(512 * 1024 * 1024), 1024):
+        invalid_request = dict(payload, execution=dict(payload["execution"], attention_max_score_bytes=invalid))
+        with pytest.raises(ValueError, match="cache policy"):
+            workflows.TrainingRequest.from_dict(invalid_request)
+
+    def make_backend(spec, checkpoint, *, attention_max_score_bytes):
+        assert attention_max_score_bytes == 512 * 1024 * 1024
+        return "tiled"
+
+    monkeypatch.setattr(pilot, "authorize_cuda_pilot", lambda **_: {})
+    monkeypatch.setattr(workflows, "_make_cuda_pilot_backend", make_backend)
+    monkeypatch.setattr(workflows, "_execute_training_request",
+                        lambda request, *, spec, factory, **_: factory(spec, tmp_path / "base.ckpt"))
+    assert workflows.execute_cuda_pilot_request(tiled, output=tmp_path / "tiled", ledger="unused.json") == "tiled"
+
+
 @pytest.mark.parametrize("changes", [
     {"phase": "main", "updates": 1000},
     {"method": "lora_r16"},

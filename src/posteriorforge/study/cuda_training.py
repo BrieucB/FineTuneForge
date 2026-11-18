@@ -89,21 +89,38 @@ class QualificationTrainingBackend(StockTrainingBackend):
 class CudaLearningPilotBackend(QualificationTrainingBackend):
     """Use the qualified eager rank-4 path and retain capacity measurements."""
 
-    def __init__(self, spec, checkpoint):
+    def __init__(self, spec, checkpoint, *, attention_max_score_bytes=None):
+        from .pilot import CUDA_TILED_ATTENTION_EXECUTION
+
         if spec.method != "lora_r4" or spec.phase != "pilot" or spec.diagnostic:
             raise ModelQualificationError("CUDA learning pilot requires a non-diagnostic rank-4 pilot")
         if os.environ.get("TABPFN_ALLOW_CPU_LARGE_DATASET") != "1":
             raise ModelQualificationError("the CUDA pilot requires CPU preprocessing for the 1,024-world contexts")
         if torch.cuda.device_count() != 1:
             raise ModelQualificationError("CUDA learning pilot requires exactly one visible GPU")
+        if attention_max_score_bytes is not None and (
+                type(attention_max_score_bytes) is not int
+                or attention_max_score_bytes != CUDA_TILED_ATTENTION_EXECUTION["attention_max_score_bytes"]):
+            raise ModelQualificationError("CUDA learning pilot requires the declared attention score budget")
+        self.attention_max_score_bytes = attention_max_score_bytes
         super().__init__(spec, checkpoint, device="cuda:0", allow_cuda_qualification=True,
                          cache_parametrizations=True)
         self.identity.update(fusion_enabled=False, cpu_large_dataset_preprocessing=True)
+        if attention_max_score_bytes is not None:
+            self.identity.update(attention_policy=CUDA_TILED_ATTENTION_EXECUTION["attention_policy"],
+                                 attention_max_score_bytes=attention_max_score_bytes,
+                                 attention_source_sha256=sha256(Path(__file__).with_name("cuda_attention.py").read_bytes()).hexdigest())
 
     def _measure(self, operation, *args):
         torch.cuda.synchronize(self.device)
         torch.cuda.reset_peak_memory_stats(self.device)
-        report = operation(*args)
+        if self.attention_max_score_bytes is None:
+            report = operation(*args)
+        else:
+            from .cuda_attention import install_training_tiled_attention
+
+            with install_training_tiled_attention(self.model, max_score_bytes=self.attention_max_score_bytes) as attention:
+                report = dict(operation(*args), attention=attention.metadata, attention_statistics=attention.statistics)
         torch.cuda.synchronize(self.device)
         return dict(report, peak_allocated_bytes=torch.cuda.max_memory_allocated(self.device),
                     peak_reserved_bytes=torch.cuda.max_memory_reserved(self.device))

@@ -393,10 +393,11 @@ class TrainingRequest:
         spec = CampaignSpec(**self.campaign)
         object.__setattr__(self, "campaign", MappingProxyType(spec.to_dict()))
         if self.execution is not None:
-            from .pilot import CUDA_PILOT_EXECUTION
+            from .pilot import CUDA_PILOT_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION
 
             if (not isinstance(self.execution, Mapping)
-                    or self.execution != CUDA_PILOT_EXECUTION
+                    or self.execution not in (CUDA_PILOT_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION)
+                    or type(self.execution.get("attention_max_score_bytes", 0)) is not int
                     or self.execution["fusion_enabled"] is not False):
                 raise ValueError("CUDA pilot requires the eager rank-4 cache policy with fusion disabled")
             if spec.method != "lora_r4" or spec.phase != "pilot" or spec.diagnostic:
@@ -404,7 +405,7 @@ class TrainingRequest:
             if (spec.protocol_sha256 != protocol_identity()["protocol_sha256"]
                     or spec.master_seed != StudyConfig().master_seed):
                 raise ValueError("CUDA pilot requires the fixed study protocol and master seed")
-            object.__setattr__(self, "execution", MappingProxyType(dict(CUDA_PILOT_EXECUTION)))
+            object.__setattr__(self, "execution", MappingProxyType(dict(self.execution)))
 
     @classmethod
     def from_dict(cls, value):
@@ -485,10 +486,10 @@ def _pilot_catalogue(path, expected_sha256, *, split):
     return setups
 
 
-def _make_cuda_pilot_backend(spec, checkpoint):
+def _make_cuda_pilot_backend(spec, checkpoint, *, attention_max_score_bytes=None):
     from .cuda_training import CudaLearningPilotBackend
 
-    return CudaLearningPilotBackend(spec, checkpoint)
+    return CudaLearningPilotBackend(spec, checkpoint, attention_max_score_bytes=attention_max_score_bytes)
 
 
 def execute_training_request(request, *, output, base_directory=".", allow_unqualified_cpu_diagnostic=False,
@@ -511,6 +512,7 @@ def execute_training_request(request, *, output, base_directory=".", allow_unqua
 def execute_cuda_pilot_request(request, *, output, ledger, base_directory=".",
                                resume_from=None, stop_after_update=None):
     """Run a rank-4 pilot segment only inside its pre-reserved allocation."""
+    from functools import partial
     from .campaign import CampaignSpec
     from .pilot import authorize_cuda_pilot
 
@@ -526,9 +528,12 @@ def execute_cuda_pilot_request(request, *, output, ledger, base_directory=".",
     allocation = authorize_cuda_pilot(request_sha256=request.fingerprint, ledger=ledger,
                                       output=output, resume_from=resume_from,
                                       stop_after_update=stop_after_update)
+    factory = _make_cuda_pilot_backend
+    if "attention_max_score_bytes" in request.execution:
+        factory = partial(factory, attention_max_score_bytes=request.execution["attention_max_score_bytes"])
     return _execute_training_request(
         request, spec=spec, output=output, base_directory=base_directory, resume_from=resume_from,
-        stop_after_update=stop_after_update, factory=_make_cuda_pilot_backend, allocation=allocation)
+        stop_after_update=stop_after_update, factory=factory, allocation=allocation)
 
 
 def _execute_training_request(request, *, spec, output, base_directory, resume_from,
