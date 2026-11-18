@@ -303,7 +303,7 @@ def test_cpu_diagnostic_rejects_cuda_parameters_before_run(tmp_path):
     assert not output.exists()
 
 
-def test_pilot_catalogue_authenticates_generated_definitions(tmp_path):
+def test_pilot_catalogue_authenticates_generated_definitions(tmp_path, monkeypatch):
     from posteriorforge.study.catalogue import generate_catalogue
 
     validation = generate_catalogue("validation")
@@ -316,6 +316,9 @@ def test_pilot_catalogue_authenticates_generated_definitions(tmp_path):
         "problem_fingerprints": [setup.fingerprint for setup in validation],
         "setups": [setup.to_dict() for setup in validation],
     }
+    # CI generates its own fixture. The pilot ships the exact pinned catalogue.
+    fixture_digest = workflows.canonical_sha256(payload["problem_fingerprints"])
+    monkeypatch.setitem(workflows.PILOT_CATALOGUE_SHA256, "validation", fixture_digest)
     path.write_text(json.dumps(payload))
     canonical_sha256 = workflows.file_sha256(path)
     loaded = workflows._pilot_catalogue(path, canonical_sha256, split="validation")
@@ -326,7 +329,7 @@ def test_pilot_catalogue_authenticates_generated_definitions(tmp_path):
     path.write_text(json.dumps(payload))
     with pytest.raises(ValueError, match="checksum"):
         workflows._pilot_catalogue(path, canonical_sha256, split="validation")
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="fixed protocol listing"):
         workflows._pilot_catalogue(path, workflows.file_sha256(path), split="validation")
 
 
