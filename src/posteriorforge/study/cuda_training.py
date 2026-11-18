@@ -89,8 +89,8 @@ class QualificationTrainingBackend(StockTrainingBackend):
 class CudaLearningPilotBackend(QualificationTrainingBackend):
     """Use the qualified eager rank-4 path and retain capacity measurements."""
 
-    def __init__(self, spec, checkpoint, *, attention_max_score_bytes=None):
-        from .pilot import CUDA_TILED_ATTENTION_EXECUTION
+    def __init__(self, spec, checkpoint, *, attention_max_score_bytes=None, recompute_ensemble_members=False):
+        from .pilot import CUDA_MEMBER_RECOMPUTE_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION
 
         if spec.method != "lora_r4" or spec.phase != "pilot" or spec.diagnostic:
             raise ModelQualificationError("CUDA learning pilot requires a non-diagnostic rank-4 pilot")
@@ -102,6 +102,9 @@ class CudaLearningPilotBackend(QualificationTrainingBackend):
                 type(attention_max_score_bytes) is not int
                 or attention_max_score_bytes != CUDA_TILED_ATTENTION_EXECUTION["attention_max_score_bytes"]):
             raise ModelQualificationError("CUDA learning pilot requires the declared attention score budget")
+        if type(recompute_ensemble_members) is not bool or (
+                recompute_ensemble_members and attention_max_score_bytes is None):
+            raise ModelQualificationError("member checkpointing requires explicit opt-in with tiled attention")
         self.attention_max_score_bytes = attention_max_score_bytes
         super().__init__(spec, checkpoint, device="cuda:0", allow_cuda_qualification=True,
                          cache_parametrizations=True)
@@ -110,6 +113,9 @@ class CudaLearningPilotBackend(QualificationTrainingBackend):
             self.identity.update(attention_policy=CUDA_TILED_ATTENTION_EXECUTION["attention_policy"],
                                  attention_max_score_bytes=attention_max_score_bytes,
                                  attention_source_sha256=sha256(Path(__file__).with_name("cuda_attention.py").read_bytes()).hexdigest())
+        if recompute_ensemble_members:
+            self.model.recompute_ensemble_members = True
+            self.identity["ensemble_member_policy"] = CUDA_MEMBER_RECOMPUTE_EXECUTION["ensemble_member_policy"]
 
     def _measure(self, operation, *args):
         torch.cuda.synchronize(self.device)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Measure three retained rank-4 pilot conditionals in one authorized A100 job."""
 from argparse import ArgumentParser
-from contextlib import nullcontext
+from contextlib import contextmanager, nullcontext
 from hashlib import sha256
 from importlib.metadata import version
 import json
@@ -14,7 +14,9 @@ import traceback
 from posteriorforge.study.banks import PairedBank, array_descriptor, load_bank
 from posteriorforge.study.campaign import CampaignSpec
 from posteriorforge.study.ordering import reorder_bank, reorder_problem
-from posteriorforge.study.pilot import CUDA_TILED_ATTENTION_EXECUTION, authorize_cuda_pilot
+from posteriorforge.study.pilot import (
+    CUDA_MEMBER_RECOMPUTE_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION, authorize_cuda_pilot,
+)
 from posteriorforge.study.workflows import TrainingRequest, _write_json, file_sha256
 
 SCRATCH = Path("/scratch/project/eu-26-17/eubrieucb/posteriorforge")
@@ -26,6 +28,8 @@ CHECKPOINT = SCRATCH / "cache/model/tabpfn-v2-regressor.ckpt"
 CHECKPOINT_SHA256 = "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736"
 ATOL, RTOL = 2e-7, 2e-5
 MEMBER_COUNT = 8
+LORA_GRADIENT_TENSORS = 244
+MEMBER_RECOMPUTE_POLICY = CUDA_MEMBER_RECOMPUTE_EXECUTION["ensemble_member_policy"]
 SMALL_SCORE_CAP = 4 * 1024**2
 SCORE_CAP = CUDA_TILED_ATTENTION_EXECUTION["attention_max_score_bytes"]
 # Each width occurs in four of the eight ordered stock preprocessors.
@@ -160,7 +164,28 @@ def gradient_vector(torch, model, row):
     return used, vector
 
 
-def measure(torch, device, spec, item, score_cap, report, save):
+@contextmanager
+def count_member_forwards(model, row):
+    """Count member calls by phase, including checkpoint early-stop calls."""
+    if "forward_member" in model.__dict__:
+        raise RuntimeError("qualification requires the unwrapped member forward")
+    original = model.forward_member
+    counts = {"forward": 0, "backward_recompute": 0}
+    row["member_forward_calls_started"] = counts
+
+    def forward_member(member):
+        key = "backward_recompute" if row["phase"] == "backward" else "forward"
+        counts[key] += 1
+        return original(member)
+
+    model.forward_member = forward_member
+    try:
+        yield counts
+    finally:
+        del model.forward_member
+
+
+def measure(torch, device, spec, item, score_cap, report, save, *, member_recompute=None):
     from posteriorforge.study.cuda_attention import install_training_tiled_attention
     from posteriorforge.study.model import CANONICAL_FULL_SUPPORT
     from posteriorforge.study.training_execution import conditional_forward_cache
@@ -182,6 +207,8 @@ def measure(torch, device, spec, item, score_cap, report, save):
         "execution": "stock" if score_cap is None else "tiled",
         "score_cap_bytes": score_cap,
     }
+    if member_recompute is not None:
+        row["ensemble_member_policy"] = MEMBER_RECOMPUTE_POLICY if member_recompute else None
     report["measurements"].append(row)
     row["phase"] = "preparation"
     save()
@@ -193,6 +220,10 @@ def measure(torch, device, spec, item, score_cap, report, save):
     try:
         ensemble, targets, jacobian = prepare_stage(torch, device, item)
         model = fresh_model(torch, spec, device)
+        member_scope = nullcontext()
+        if member_recompute is not None:
+            model.recompute_ensemble_members = member_recompute
+            member_scope = count_member_forwards(model, row)
         torch.cuda.synchronize(device)
         row["preparation_seconds"] = time.perf_counter() - started
         row["preparation_memory"] = cuda_memory(torch, device)
@@ -200,7 +231,7 @@ def measure(torch, device, spec, item, score_cap, report, save):
         row["forward_backward_baseline_memory"] = cuda_memory(torch, device)
         attention = (nullcontext() if score_cap is None
                      else install_training_tiled_attention(model, max_score_bytes=score_cap))
-        with attention, conditional_forward_cache(model, enabled=True):
+        with attention, conditional_forward_cache(model, enabled=True), member_scope as member_counts:
             row["phase"] = "forward_and_density"
             save()
             started = time.perf_counter()
@@ -220,6 +251,10 @@ def measure(torch, device, spec, item, score_cap, report, save):
             torch.cuda.synchronize(device)
             row["backward_seconds"] = time.perf_counter() - started
             row["forward_and_backward_memory"] = cuda_memory(torch, device)
+        if member_counts is not None:
+            expected_recompute = MEMBER_COUNT if member_recompute else 0
+            if member_counts != {"forward": MEMBER_COUNT, "backward_recompute": expected_recompute}:
+                raise RuntimeError("the member forward and recomputation counts differ from the requested policy")
         if score_cap is not None:
             stats = attention.statistics
             if (stats["tiled_training"] <= 0 or stats["checkpointed_tiles"] <= 0
@@ -228,6 +263,8 @@ def measure(torch, device, spec, item, score_cap, report, save):
                     or not 0 < stats["max_tile_score_bytes"] <= score_cap):
                 raise RuntimeError("required bounded training attention and recomputation were not observed")
         used, vector = gradient_vector(torch, model, row)
+        if member_recompute is not None and not len(used) == row["trainable_tensors"] == LORA_GRADIENT_TENSORS:
+            raise RuntimeError("the retained rank-4 model must produce all 244 named LoRA gradients")
         row["phase"] = "complete"
         return row, used, vector
     finally:
@@ -238,26 +275,26 @@ def measure(torch, device, spec, item, score_cap, report, save):
         save()
 
 
-def compare(torch, stock, tiled):
-    stock_row, stock_names, stock_grad = stock
-    tiled_row, tiled_names, tiled_grad = tiled
-    if stock_names != tiled_names:
-        raise RuntimeError("stock and tiled checks used different LoRA gradient tensors")
-    gradient_difference = (tiled_grad - stock_grad).abs()
-    allowed_gradient_difference = ATOL + RTOL * stock_grad.abs()
-    loss_difference = abs(tiled_row["loss"] - stock_row["loss"])
+def compare(torch, reference, candidate):
+    reference_row, reference_names, reference_grad = reference
+    candidate_row, candidate_names, candidate_grad = candidate
+    if reference_names != candidate_names:
+        raise RuntimeError("the matched checks used different LoRA gradient tensors")
+    gradient_difference = (candidate_grad - reference_grad).abs()
+    allowed_gradient_difference = ATOL + RTOL * reference_grad.abs()
+    loss_difference = abs(candidate_row["loss"] - reference_row["loss"])
     return {
         "atol": ATOL,
         "rtol": RTOL,
         "loss_absolute_difference": loss_difference,
-        "loss_passed": loss_difference <= ATOL + RTOL * abs(stock_row["loss"]),
+        "loss_passed": loss_difference <= ATOL + RTOL * abs(reference_row["loss"]),
         "gradient_max_absolute_difference": float(gradient_difference.max()),
         "gradient_max_tolerance_ratio": float((gradient_difference / allowed_gradient_difference).max()),
         "gradients_passed": bool(torch.all(gradient_difference <= allowed_gradient_difference)),
     }
 
 
-def execute(spec, items, report, save):
+def execute(spec, items, report, save, *, member_recompute):
     import torch
     from posteriorforge.study.cuda_training import configure_cuda_determinism
     from posteriorforge.study.model import CANONICAL_FULL_SUPPORT
@@ -294,16 +331,22 @@ def execute(spec, items, report, save):
                   initial_weights_sha256=RETAINED_INITIAL_WEIGHTS_SHA256,
                   checkpoint_sha256=CHECKPOINT_SHA256, density_law=CANONICAL_FULL_SUPPORT)
     save()
-    stock = measure(torch, device, spec, items[0], None, report, save)
-    tiled = measure(torch, device, spec, items[0], SMALL_SCORE_CAP, report, save)
-    report["stock_tiled_comparison"] = compare(torch, stock, tiled)
+    if member_recompute:
+        reference = measure(torch, device, spec, items[0], SMALL_SCORE_CAP, report, save, member_recompute=False)
+        candidate = measure(torch, device, spec, items[0], SMALL_SCORE_CAP, report, save, member_recompute=True)
+        comparison_key = "tiled_member_recompute_comparison"
+    else:
+        reference = measure(torch, device, spec, items[0], None, report, save)
+        candidate = measure(torch, device, spec, items[0], SMALL_SCORE_CAP, report, save)
+        comparison_key = "stock_tiled_comparison"
+    result = report[comparison_key] = compare(torch, reference, candidate)
     save()
     # Complete the two capacity measurements before enforcing the numerical gate.
     for item in items[1:]:
-        measure(torch, device, spec, item, SCORE_CAP, report, save)
-    result = report["stock_tiled_comparison"]
+        measure(torch, device, spec, item, SCORE_CAP, report, save,
+                member_recompute=True if member_recompute else None)
     if not result["loss_passed"] or not result["gradients_passed"]:
-        raise RuntimeError("the matched stock and tiled loss or LoRA gradients exceed tolerance")
+        raise RuntimeError("the matched loss or LoRA gradients exceed tolerance")
 
 
 def main():
@@ -317,7 +360,8 @@ def main():
     output = args.output.resolve()
     attempt = args.attempt.resolve()
     request = TrainingRequest.from_dict(json.loads(config.read_bytes()))
-    if request.execution != CUDA_TILED_ATTENTION_EXECUTION:
+    member_recompute = request.execution == CUDA_MEMBER_RECOMPUTE_EXECUTION
+    if not member_recompute and request.execution != CUDA_TILED_ATTENTION_EXECUTION:
         raise ValueError("a v2 tiled CUDA training request is required")
     allocation = authorize_cuda_pilot(
         request_sha256=request.fingerprint, ledger=args.ledger, output=output,
@@ -340,6 +384,8 @@ def main():
         "posterior_draws": 0,
         "scientifically_qualified": False,
     }
+    if member_recompute:
+        report["ensemble_member_policy"] = MEMBER_RECOMPUTE_POLICY
 
     def save():
         _write_json(output / "qualification.json", report)
@@ -360,7 +406,7 @@ def main():
         if any(os.getenv(key) != value for key, value in required_settings.items()):
             raise RuntimeError("offline FP32 qualification environment is required")
         spec, items = load_retained_episodes(request, config, attempt)
-        execute(spec, items, report, save)
+        execute(spec, items, report, save, member_recompute=member_recompute)
     except BaseException as error:
         report.update(status="failed", exception_type=type(error).__name__, exception=str(error),
                       traceback=traceback.format_exc())

@@ -20,6 +20,10 @@ CUDA_TILED_ATTENTION_EXECUTION = {
     "attention_policy": "tabpfn_fp32_math_sdpa_training_tiled_recompute.v1",
     "attention_max_score_bytes": 512 * 1024 * 1024,
 }
+CUDA_MEMBER_RECOMPUTE_EXECUTION = {
+    **CUDA_TILED_ATTENTION_EXECUTION,
+    "ensemble_member_policy": "per_member_non_reentrant_checkpoint.v1",
+}
 
 
 def _git(directory, *args):

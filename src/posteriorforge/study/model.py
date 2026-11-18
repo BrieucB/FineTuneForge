@@ -7,7 +7,7 @@ uses consistent density and sampling but remains scientifically unqualified.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from hashlib import sha256
 from pathlib import Path
 from typing import Sequence
@@ -424,6 +424,7 @@ class TabPFNBackbone(nn.Module):
         self.backbone = backbone
         self.register_buffer("borders", _borders(borders).clone())
         self.checkpoint_sha256 = checkpoint_sha256
+        self.recompute_ensemble_members = False
         configure_differentiable_forward(backbone)
 
     @classmethod
@@ -461,7 +462,24 @@ class TabPFNBackbone(nn.Module):
     def forward(self, members: Sequence[PreparedMember], *, expected_members: int = 8) -> list[torch.Tensor]:
         if len(members) != expected_members:
             raise ValueError(f"all {expected_members} configured members are required")
-        return [self.forward_member(member) for member in members]
+        if not self.recompute_ensemble_members or not torch.is_grad_enabled():
+            return [self.forward_member(member) for member in members]
+
+        from torch.utils.checkpoint import checkpoint
+
+        def forward_with_inputs(context_x, context_y, query_x, member):
+            return self.forward_member(replace(
+                member, context_x=context_x, context_y=context_y, query_x=query_x))
+
+        # Save each member's inputs for backward and retain its logits for the
+        # joint density. Pass tensors directly so checkpoint saves device RNG.
+        return [
+            checkpoint(
+                forward_with_inputs, member.context_x, member.context_y, member.query_x, member,
+                use_reentrant=False, preserve_rng_state=True,
+            )
+            for member in members
+        ]
 
     def metadata(self) -> dict:
         return {"checkpoint_sha256": self.checkpoint_sha256, "backbone": "TabPFN-v2-regressor", "source_version": "2.0.9", "gradient_enabled_path": True, "feature_embedding_policy": FEATURE_EMBEDDING_POLICY, "sampling_law_activated": False, "scientifically_qualified": False}

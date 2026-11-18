@@ -119,8 +119,7 @@ def test_patched_attention_restores_original_after_exception():
     assert "_compute" not in layer.__dict__
 
 
-@pytest.mark.parametrize("rank", [4, 16])
-def test_real_tabpfn_checkpoint_cache_and_tiling_preserve_lora_gradients(rank, monkeypatch):
+def _real_attention_case(rank, monkeypatch):
     checkpoint = os.environ.get("FTF_CPU_CHECKPOINT")
     if not checkpoint:
         pytest.skip("real cached checkpoint opt-in; no downloads")
@@ -131,9 +130,7 @@ def test_real_tabpfn_checkpoint_cache_and_tiling_preserve_lora_gradients(rank, m
         PreparedMember,
         TabPFNBackbone,
         attach_lora,
-        canonical_full_support_mixture,
     )
-    from posteriorforge.study.training_execution import conditional_forward_cache
 
     network = TabPFNBackbone.from_checkpoint(checkpoint)
     generator = torch.Generator().manual_seed(2026111705)
@@ -174,6 +171,35 @@ def test_real_tabpfn_checkpoint_cache_and_tiling_preserve_lora_gradients(rank, m
     monkeypatch.setattr(
         MultiHeadAttention, "compute_attention_heads", staticmethod(untiled_math_attention)
     )
+    return network, ensemble, complete_group_score_bytes
+
+
+def _real_training_record(network, outputs, density, losses):
+    return (
+        {f"member_{i}": output.detach() for i, output in enumerate(outputs)},
+        {"density_weights": density.weights.detach()},
+        {"losses": losses.detach()},
+        trainable_gradient_snapshot(network),
+    )
+
+
+def _assert_real_training_match(reference, actual):
+    tolerances = [(LOGIT_ATOL, LOGIT_RTOL), (ATOL, RTOL), (LOSS_ATOL, 0), (ATOL, RTOL)]
+    for expected, observed, (atol, rtol) in zip(reference, actual, tolerances, strict=True):
+        report = compare_named_tensors(expected, observed, atol=atol, rtol=rtol)
+        assert report["passed"], {
+            "missing": report["missing"],
+            "unexpected": report["unexpected"],
+            "failed": {name: report["tensors"][name] for name in report["failed"]},
+        }
+
+
+@pytest.mark.parametrize("rank", [4, 16])
+def test_real_tabpfn_checkpoint_cache_and_tiling_preserve_lora_gradients(rank, monkeypatch):
+    from posteriorforge.study.model import canonical_full_support_mixture
+    from posteriorforge.study.training_execution import conditional_forward_cache
+
+    network, ensemble, complete_group_score_bytes = _real_attention_case(rank, monkeypatch)
 
     def run(attention=None):
         network.zero_grad(set_to_none=True)
@@ -185,7 +211,7 @@ def test_real_tabpfn_checkpoint_cache_and_tiling_preserve_lora_gradients(rank, m
             )
             # Stagewise training weights a single-conditional role group by
             # 1/(total query cases * 3 equiprobable role groups).
-            contribution = losses.sum() / (len(queries) * 3)
+            contribution = losses.sum() / (len(ensemble[0].query_x) * 3)
             if attention is not None:
                 forward_calls = attention.statistics["tiled_training"]
                 assert forward_calls > 0
@@ -196,18 +222,14 @@ def test_real_tabpfn_checkpoint_cache_and_tiling_preserve_lora_gradients(rank, m
             assert stats["recomputed_tiles"] > 0
             assert stats["max_estimated_score_bytes"] > attention.metadata["max_score_bytes"]
             assert 0 < stats["max_tile_score_bytes"] <= attention.metadata["max_score_bytes"]
-        gradients = trainable_gradient_snapshot(network)
+        record = _real_training_record(network, outputs, density, losses)
+        gradients = record[-1]
         for adapter in ("lora_A", "lora_B"):
             assert any(
                 gradient is not None and torch.count_nonzero(gradient).item() > 0
                 for name, gradient in gradients.items() if adapter in name
             )
-        return (
-            {f"member_{i}": output.detach() for i, output in enumerate(outputs)},
-            {"density_weights": density.weights.detach()},
-            {"losses": losses.detach()},
-            gradients,
-        )
+        return record
 
     reference = run()
     # Mirror the planned 1024-context route: force a split across feature
@@ -215,12 +237,81 @@ def test_real_tabpfn_checkpoint_cache_and_tiling_preserve_lora_gradients(rank, m
     budget = max(complete_group_score_bytes)
     with install_training_tiled_attention(network, max_score_bytes=budget) as attention:
         actual = run(attention)
-        assert attention.statistics["max_query_tile"] == len(context)
-    tolerances = [(LOGIT_ATOL, LOGIT_RTOL), (ATOL, RTOL), (LOSS_ATOL, 0), (ATOL, RTOL)]
-    for expected, observed, (atol, rtol) in zip(reference, actual, tolerances, strict=True):
-        report = compare_named_tensors(expected, observed, atol=atol, rtol=rtol)
-        assert report["passed"], {
-            "missing": report["missing"],
-            "unexpected": report["unexpected"],
-            "failed": {name: report["tensors"][name] for name in report["failed"]},
-        }
+        assert attention.statistics["max_query_tile"] == len(ensemble[0].context_x)
+    _assert_real_training_match(reference, actual)
+
+
+def test_real_tabpfn_member_checkpoint_preserves_tiled_training_and_rng(monkeypatch):
+    from posteriorforge.study.model import canonical_full_support_mixture
+    from posteriorforge.study.training_execution import conditional_forward_cache
+
+    network, ensemble, complete_group_score_bytes = _real_attention_case(4, monkeypatch)
+    assert network.recompute_ensemble_members is False
+    with torch.no_grad(), torch.random.fork_rng(devices=[]):
+        network.forward_member(ensemble[0])
+    budget = max(complete_group_score_bytes)
+    borders = [network.borders] * len(ensemble)
+    targets = torch.tensor([-4., .25, 4.], dtype=torch.float64)
+    expected_members = [member.context_x.data_ptr() for member in ensemble]
+    assert len(set(expected_members)) == 8
+
+    calls = []
+    original = network.forward_member
+
+    def observe_member(member):
+        calls.append((member.context_x.data_ptr(), torch.random.get_rng_state()))
+        return original(member)
+
+    monkeypatch.setattr(network, "forward_member", observe_member)
+
+    def run(recompute_members):
+        network.recompute_ensemble_members = recompute_members
+        network.zero_grad(set_to_none=True)
+        calls.clear()
+        saved_tensors = []
+
+        def observe_saved(tensor):
+            saved_tensors.append((tensor.data_ptr(), tensor.numel()))
+            return tensor.detach()
+
+        with (
+            torch.random.fork_rng(devices=[]),
+            install_training_tiled_attention(network, max_score_bytes=budget) as attention,
+            conditional_forward_cache(network, enabled=True),
+        ):
+            torch.manual_seed(845)
+            rng_before_forward = torch.random.get_rng_state()
+            with torch.autograd.graph.saved_tensors_hooks(observe_saved, lambda tensor: tensor):
+                outputs = network(ensemble)
+            assert [member for member, _ in calls] == expected_members
+            assert len(outputs) == 8
+            forward_calls = dict(calls)
+            rng_after_forward = torch.random.get_rng_state()
+            assert not torch.equal(rng_after_forward, rng_before_forward)
+            density = canonical_full_support_mixture(outputs, borders, network.borders)
+            losses = -density.log_prob(targets, log_abs_det_decode=.17)
+            (losses.sum() / (len(targets) * 3)).backward()
+            assert torch.equal(torch.random.get_rng_state(), rng_after_forward)
+            recomputed_calls = calls[len(ensemble):]
+            if recompute_members:
+                assert sorted(member for member, _ in recomputed_calls) == sorted(expected_members)
+                for member, rng in recomputed_calls:
+                    assert torch.equal(rng, forward_calls[member])
+            else:
+                assert not recomputed_calls
+            assert attention.statistics["tiled_training"] > 0
+            assert attention.statistics["recomputed_tiles"] > 0
+            assert attention.statistics["max_query_tile"] == len(ensemble[0].context_x)
+        return _real_training_record(network, outputs, density, losses), rng_after_forward, saved_tensors
+
+    expected, expected_rng, saved_without_recompute = run(False)
+    actual, actual_rng, saved_with_recompute = run(True)
+    assert torch.equal(actual_rng, expected_rng)
+    prepared_inputs = {
+        tensor.data_ptr()
+        for member in ensemble
+        for tensor in (member.context_x, member.context_y, member.query_x)
+    }
+    assert {pointer for pointer, count in saved_with_recompute if count} == prepared_inputs
+    assert sum(count for _, count in saved_with_recompute) < sum(count for _, count in saved_without_recompute)
+    _assert_real_training_match(expected, actual)

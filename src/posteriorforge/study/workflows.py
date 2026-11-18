@@ -393,10 +393,13 @@ class TrainingRequest:
         spec = CampaignSpec(**self.campaign)
         object.__setattr__(self, "campaign", MappingProxyType(spec.to_dict()))
         if self.execution is not None:
-            from .pilot import CUDA_PILOT_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION
+            from .pilot import (
+                CUDA_MEMBER_RECOMPUTE_EXECUTION, CUDA_PILOT_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION,
+            )
 
             if (not isinstance(self.execution, Mapping)
-                    or self.execution not in (CUDA_PILOT_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION)
+                    or self.execution not in (CUDA_PILOT_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION,
+                                              CUDA_MEMBER_RECOMPUTE_EXECUTION)
                     or type(self.execution.get("attention_max_score_bytes", 0)) is not int
                     or self.execution["fusion_enabled"] is not False):
                 raise ValueError("CUDA pilot requires the eager rank-4 cache policy with fusion disabled")
@@ -486,10 +489,12 @@ def _pilot_catalogue(path, expected_sha256, *, split):
     return setups
 
 
-def _make_cuda_pilot_backend(spec, checkpoint, *, attention_max_score_bytes=None):
+def _make_cuda_pilot_backend(spec, checkpoint, *, attention_max_score_bytes=None, recompute_ensemble_members=False):
     from .cuda_training import CudaLearningPilotBackend
 
-    return CudaLearningPilotBackend(spec, checkpoint, attention_max_score_bytes=attention_max_score_bytes)
+    return CudaLearningPilotBackend(
+        spec, checkpoint, attention_max_score_bytes=attention_max_score_bytes,
+        recompute_ensemble_members=recompute_ensemble_members)
 
 
 def execute_training_request(request, *, output, base_directory=".", allow_unqualified_cpu_diagnostic=False,
@@ -531,6 +536,8 @@ def execute_cuda_pilot_request(request, *, output, ledger, base_directory=".",
     factory = _make_cuda_pilot_backend
     if "attention_max_score_bytes" in request.execution:
         factory = partial(factory, attention_max_score_bytes=request.execution["attention_max_score_bytes"])
+    if "ensemble_member_policy" in request.execution:
+        factory = partial(factory, recompute_ensemble_members=True)
     return _execute_training_request(
         request, spec=spec, output=output, base_directory=base_directory, resume_from=resume_from,
         stop_after_update=stop_after_update, factory=factory, allocation=allocation)

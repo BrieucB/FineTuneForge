@@ -80,6 +80,31 @@ def test_tiled_attention_is_an_explicit_request_identity(payload, tmp_path, monk
     assert workflows.execute_cuda_pilot_request(tiled, output=tmp_path / "tiled", ledger="unused.json") == "tiled"
 
 
+def test_member_checkpointing_requires_tiled_attention_and_changes_request_identity(payload, tmp_path, monkeypatch):
+    from posteriorforge.study import pilot
+
+    checkpointed_policy = pilot.CUDA_MEMBER_RECOMPUTE_EXECUTION
+    invalid = dict(payload, execution=dict(payload["execution"],
+                    ensemble_member_policy=checkpointed_policy["ensemble_member_policy"]))
+    with pytest.raises(ValueError, match="cache policy"):
+        workflows.TrainingRequest.from_dict(invalid)
+    tiled = workflows.TrainingRequest.from_dict(dict(payload, execution=pilot.CUDA_TILED_ATTENTION_EXECUTION))
+    checkpointed = workflows.TrainingRequest.from_dict(dict(payload, execution=checkpointed_policy))
+    assert checkpointed.fingerprint != tiled.fingerprint
+
+    def factory(spec, checkpoint, *, attention_max_score_bytes, recompute_ensemble_members):
+        assert attention_max_score_bytes == 512 * 1024 * 1024
+        assert recompute_ensemble_members is True
+        return "checkpointed"
+
+    monkeypatch.setattr(pilot, "authorize_cuda_pilot", lambda **_: {})
+    monkeypatch.setattr(workflows, "_make_cuda_pilot_backend", factory)
+    monkeypatch.setattr(workflows, "_execute_training_request",
+                        lambda request, *, spec, factory, **_: factory(spec, tmp_path / "base.ckpt"))
+    assert workflows.execute_cuda_pilot_request(
+        checkpointed, output=tmp_path / "recomputed", ledger="unused.json") == "checkpointed"
+
+
 @pytest.mark.parametrize("changes", [
     {"phase": "main", "updates": 1000},
     {"method": "lora_r16"},
