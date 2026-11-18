@@ -593,21 +593,12 @@ class CacheIdentity:
             raise ModelQualificationError("stale model/adapter/preprocessing/context cache")
 
 
-def full_support_cdf_grid(logits: torch.Tensor, source_borders: torch.Tensor, values: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-    """Native-shaped full-tail CDF/SF at a shared grid, without a Q*K*K tensor.
-
-    Nondecreasing inverse-target grids may contain upstream-cancelled interior
-    bars. Their logits MUST be -inf, proving exactly zero probability for every
-    query. No border moves, positive mass is discarded, or member is omitted.
-    Positive-mass collapsed bars and nonpositive outer-tail scales are rejected.
-    This primitive does not choose/activate an ensemble canonicalization policy.
-    """
+def _full_support_source(logits, source_borders):
     source = torch.as_tensor(source_borders, dtype=torch.float64, device=logits.device)
-    grid = torch.as_tensor(values, dtype=torch.float64, device=logits.device)
-    if source.ndim != 1 or len(source) < 3 or grid.ndim != 1 or not bool(torch.isfinite(source).all()) or not bool(torch.isfinite(grid).all()):
-        raise ValueError("finite source borders and one evaluation grid are required")
+    if source.ndim != 1 or len(source) < 3 or not bool(torch.isfinite(source).all()):
+        raise ValueError("finite source borders are required")
     widths = torch.diff(source)
-    if bool((widths < 0).any()) or not bool((widths[[0,-1]] > 0).all()):
+    if not bool(torch.isfinite(widths).all()) or bool((widths < 0).any()) or not bool((widths[[0,-1]] > 0).all()):
         raise ModelQualificationError("nondecreasing source borders and positive outer-tail scales required")
     if logits.ndim < 1 or logits.shape[-1] != len(widths):
         raise ValueError("source logit/border dimensions differ")
@@ -617,7 +608,10 @@ def full_support_cdf_grid(logits: torch.Tensor, source_borders: torch.Tensor, va
     collapsed = widths == 0
     if bool(collapsed.any()) and not bool(torch.isneginf(logits[..., collapsed]).all()):
         raise ModelQualificationError("positive-mass zero-width source bar; no mass deletion")
-    probability = torch.softmax(logits.to(torch.float64), -1)
+    return source, widths, torch.softmax(logits.to(torch.float64), -1)
+
+
+def _cdf_survival_grid(probability, source, widths, grid):
     cumulative = probability.cumsum(-1)
     before = torch.cat((torch.zeros_like(cumulative[..., :1]), cumulative[..., :-1]), -1)
     reverse = probability.flip(-1).cumsum(-1).flip(-1)
@@ -630,16 +624,84 @@ def full_support_cdf_grid(logits: torch.Tensor, source_borders: torch.Tensor, va
     # The benign denominator is used only for branches replaced by outer tails.
     denominator = torch.where(selected_widths > 0, selected_widths, 1.0)
     fraction = ((grid-source[index])/denominator).clamp(0,1)
-    shape = logits.shape[:-1] + (len(grid),)
+    shape = probability.shape[:-1] + (len(grid),)
     expanded_index = index.expand(shape)
     chosen = probability.gather(-1, expanded_index)
     cdf = before.gather(-1, expanded_index) + chosen*fraction
-    survival = after.gather(-1, expanded_index) + chosen*(1-fraction)
+    remaining = ((source[index + 1] - grid) / denominator).clamp(0, 1)
+    survival = after.gather(-1, expanded_index) + chosen * remaining
     left = probability[..., :1] * torch.special.erfc((source[1]-grid)/(math.sqrt(2)*widths[0]/_HALF_NORMAL_MEDIAN))
     right = probability[..., -1:] * torch.special.erfc((grid-source[-2])/(math.sqrt(2)*widths[-1]/_HALF_NORMAL_MEDIAN))
     cdf = torch.where(grid < source[1], left, torch.where(grid >= source[-2],1-right,cdf))
     survival = torch.where(grid < source[1],1-left,torch.where(grid >= source[-2],right,survival))
     return cdf, survival
+
+
+def full_support_cdf_grid(logits: torch.Tensor, source_borders: torch.Tensor, values: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    """Native-shaped full-tail CDF/SF at a shared grid, without a Q*K*K tensor.
+
+    Nondecreasing inverse-target grids may contain upstream-cancelled interior
+    bars. Their logits must be -inf, proving zero probability for every query.
+    Positive-mass collapsed bars and nonpositive outer-tail scales are rejected.
+    """
+    grid = torch.as_tensor(values, dtype=torch.float64, device=logits.device)
+    if grid.ndim != 1 or not bool(torch.isfinite(grid).all()):
+        raise ValueError("one finite evaluation grid is required")
+    source, widths, probability = _full_support_source(logits, source_borders)
+    return _cdf_survival_grid(probability, source, widths, grid)
+
+
+def _half_normal_interval(near, length, source_width):
+    """Half-normal mass at distance `near` from its anchor over `length`."""
+    scale = source_width / _HALF_NORMAL_MEDIAN
+    z, span = near / scale, length / scale
+    result = torch.zeros_like(z)
+    # Even the entire survival probability beyond 40 sigma rounds to zero in FP64.
+    representable = z < 40
+    short = representable & ((1 + z) * span <= 1 / 256)
+    wide = representable & ~short
+    start, step = z[wide], span[wide]
+    log_start = torch.special.log_ndtr(-start)
+    log_end = torch.special.log_ndtr(-(start + step))
+    log_drop = (-torch.expm1(log_end - log_start)).log()
+    result[wide] = (math.log(2) + log_start + log_drop).exp()
+
+    # On short intervals integrate the density directly. Four-point
+    # Gauss–Legendre quadrature on [0, 1] resolves widths that disappear when
+    # forming the far standardized endpoint or subtracting two log tails.
+    start, step = z[short], span[short]
+    nodes = z.new_tensor([0.06943184420297371, 0.33000947820757187, 0.6699905217924281, 0.9305681557970262])
+    weights = z.new_tensor([0.17392742256872693, 0.32607257743127307, 0.32607257743127307, 0.17392742256872693])
+    offset = step[:, None] * nodes
+    integral = (weights * torch.exp(-offset * (start[:, None] + 0.5 * offset))).sum(-1)
+    log_mass = 0.5 * (math.log(2 / math.pi) - start.square()) + step.log() + integral.log()
+    result[short] = log_mass.exp()
+    return result
+
+
+def _direct_projected_intervals(probability, source, widths, grid, columns):
+    """Add only the source pieces that overlap each selected destination bin."""
+    # Splitting the union of the sorted grids creates at most O(K+M) pieces.
+    # Exterior edges are infinite; their finite neighbors set the tail scales.
+    edges = torch.cat((grid.new_tensor([-math.inf]), grid, grid.new_tensor([math.inf])))
+    split = torch.sort(torch.cat((edges, source[1:-1]))).values
+    lower, upper = split[:-1], split[1:]
+    destination = torch.searchsorted(grid.contiguous(), lower, right=True)
+    compact = torch.searchsorted(columns, destination)
+    keep = (upper > lower) & (compact < len(columns)) & (columns[compact.clamp_max(len(columns)-1)] == destination)
+    lower, upper, compact = lower[keep], upper[keep], compact[keep]
+    index = torch.searchsorted(source[1:-1].contiguous(), lower, right=True)
+    left = index == 0
+    right = index == len(widths) - 1
+    interior = ~(left | right)
+    length = upper - lower
+    fraction = torch.empty_like(length)
+    fraction[interior] = length[interior] / widths[index[interior]]
+    fraction[left] = _half_normal_interval(source[1] - upper[left], length[left], widths[0])
+    fraction[right] = _half_normal_interval(lower[right] - source[-2], length[right], widths[-1])
+    contributions = probability.index_select(-1, index) * fraction
+    shape = probability.shape[:-1] + (len(columns),)
+    return probability.new_zeros(shape).index_add(-1, compact, contributions)
 
 
 def translate_full_support_logits(logits: torch.Tensor, source_borders: torch.Tensor, canonical_borders: torch.Tensor) -> torch.Tensor:
@@ -652,13 +714,41 @@ def translate_full_support_logits(logits: torch.Tensor, source_borders: torch.Te
     canonical = _borders(canonical_borders).to(logits.device)
     if len(canonical) < 3:
         raise ValueError("full-tail canonical grid needs at least two bins")
-    cdf, survival = full_support_cdf_grid(logits, source_borders, canonical[1:-1])
-    source = torch.as_tensor(source_borders, dtype=torch.float64, device=logits.device)
+    source, widths, probability = _full_support_source(logits, source_borders)
     if torch.equal(source, canonical):
         # Identity projection preserves direct masses even below CDF resolution.
-        raw = torch.softmax(logits.to(torch.float64), -1)
-    else:
-        raw = torch.cat((cdf[..., :1], torch.diff(cdf, dim=-1), survival[..., -1:]), -1)
+        return probability
+
+    grid = canonical[1:-1].contiguous()
+    cdf, survival = _cdf_survival_grid(probability, source, widths, grid)
+    # For endpoints evaluated as 1 - tail, budget for the unit-scale operands.
+    # Elsewhere the endpoints are sums/products on the scale of their own mass.
+    left_scale = torch.where(grid >= source[-2], 1.0, cdf)
+    right_scale = torch.where(grid < source[1], 1.0, survival)
+    # In a Gaussian tail the exponent amplifies error in the standardized
+    # endpoint. Beyond 40 sigma no half-normal mass is representable in FP64.
+    left_distance = ((source[1] - grid) / widths[0] * _HALF_NORMAL_MEDIAN).clamp(0, 40)
+    right_distance = ((grid - source[-2]) / widths[-1] * _HALF_NORMAL_MEDIAN).clamp(0, 40)
+    endpoint_cost = len(widths) + 8 + 4 * (left_distance.square() + right_distance.square())
+    left_scale = left_scale * endpoint_cost
+    right_scale = right_scale * endpoint_cost
+    left_operands = left_scale[..., :-1] + left_scale[..., 1:]
+    right_operands = right_scale[..., :-1] + right_scale[..., 1:]
+    from_right = right_operands < left_operands
+    interior = torch.where(from_right, -survival.diff(dim=-1), cdf.diff(dim=-1))
+    raw = torch.cat((cdf[..., :1], interior, survival[..., -1:]), -1)
+    magnitude = torch.cat((left_scale[..., :1], torch.minimum(left_operands, right_operands), right_scale[..., -1:]), -1)
+    # Estimate absolute endpoint error using the number of terms in the scan
+    # plus a small allowance for interpolation and subtraction. Use differences
+    # only when the estimated relative error is below sqrt(FP64 epsilon).
+    epsilon = torch.finfo(torch.float64).eps
+    uncertainty = magnitude * epsilon
+    uncertain = ~(raw * math.sqrt(epsilon) > uncertainty)
+    columns = uncertain.reshape(-1, raw.shape[-1]).any(0).nonzero(as_tuple=True)[0]
+    if columns.numel():
+        direct = _direct_projected_intervals(probability, source, widths, grid, columns)
+        replacement = torch.where(uncertain.index_select(-1, columns), direct, raw.index_select(-1, columns))
+        raw = raw.index_copy(-1, columns, replacement)
     if not bool(torch.isfinite(raw).all()) or bool((raw < 0).any()) or not bool((raw.sum(-1)>0).all()):
         raise ModelQualificationError("invalid full-tail projected masses; no clipping or mass floor")
     return raw
@@ -692,5 +782,5 @@ def sampling_law_metadata(law: str) -> dict:
     if law == LEGACY_FINITE:
         metadata.update(source_policy="legacy_strict",outer_bins="finite uniform bars",weights="raw finite-CDF translations averaged across all8 before represented-CDF normalization")
     else:
-        metadata.update(source_policy="cancelled_zero_width",outer_bins="half-normal tails outside first/last inner border",tail_scale="corresponding outer finite border width / Phi^-1(0.75)",member_interpretation="native-shaped histogram in inverse-border coordinates; not exact nonlinear inverse-transform mixture",weights="member CDF at canonical inner borders; stable SF for last mass; average all8 raw masses then direct FP64 normalization",uniforms="open FP64 k/2^53 with integer k in1..2^53-1; no clipping")
+        metadata.update(source_policy="cancelled_zero_width",outer_bins="half-normal tails outside first/last inner border",tail_scale="corresponding outer finite border width / Phi^-1(0.75)",member_interpretation="native-shaped histogram in inverse-border coordinates; not exact nonlinear inverse-transform mixture",weights="FP64 differences of CDF or survival totals with direct integration when rounding may dominate; average all8 raw masses then FP64 normalization",uniforms="open FP64 k/2^53 with integer k in1..2^53-1; no clipping")
     return metadata

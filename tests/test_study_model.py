@@ -329,6 +329,68 @@ def test_canonical_projection_retains_direct_upper_survival_below_cdf_resolution
     assert density.weights[-1]>0 and torch.isfinite(loss) and torch.isfinite(logits.grad).all()
 
 
+def test_canonical_projection_recovers_upper_mass_when_cdf_difference_loses_it():
+    from posteriorforge.study.model import translate_full_support_logits
+
+    logits = torch.tensor([0., 3., 0., -45., -46.], dtype=torch.float32, requires_grad=True)
+    source = torch.tensor([-1., 0., 1., 2., 3., 4.], dtype=torch.float32)
+    canonical = torch.tensor([-1., 0., 2.99, 3., 4.], dtype=torch.float32)
+    raw = translate_full_support_logits(logits, source, canonical)
+    expected = torch.softmax(logits.double(), -1)[-2] * (3 - canonical.double()[2])
+    assert 0 < raw[2] < 1e-22
+    torch.testing.assert_close(raw[2], expected, rtol=1e-12, atol=0)
+    torch.testing.assert_close(raw.sum(), raw.new_tensor(1.), atol=2e-15, rtol=0)
+
+
+def test_canonical_projection_integrates_uncertain_bins_in_batched_center():
+    from posteriorforge.study.model import translate_full_support_logits
+
+    dtype = torch.float64
+    logits = torch.tensor([[[0., -50., 0.], [.3, 1., -.2]], [[-.1, 2., .2], [0., -60., 0.]]],
+                          dtype=dtype, requires_grad=True)
+    source = torch.tensor([0., 1., 2., 3.], dtype=dtype)
+    canonical = torch.tensor([0., 1.1, 1.2, 3.], dtype=dtype)
+    raw = translate_full_support_logits(logits, source, canonical)
+    probability = torch.softmax(logits.detach(), -1)
+    expected = probability[..., 1] * (canonical[2] - canonical[1])
+    torch.testing.assert_close(raw[..., 1], expected, rtol=1e-12, atol=0)
+    torch.testing.assert_close(raw.sum(-1), torch.ones_like(expected), atol=2e-15, rtol=0)
+    (-raw[..., 1].log().sum()).backward()
+    probability[..., 1] -= 1
+    torch.testing.assert_close(logits.grad, probability, rtol=2e-14, atol=2e-15)
+
+
+@pytest.mark.parametrize('direction', [-1, 1])
+def test_canonical_projection_integrates_narrow_half_normal_slices(direction):
+    import math
+    from posteriorforge.study.model import _HALF_NORMAL_MEDIAN, translate_full_support_logits
+
+    dtype = torch.float64
+    logits = torch.tensor([0., 0., 0.], dtype=dtype, requires_grad=True)
+    source = torch.tensor([-1., 0., 1., 2.], dtype=dtype)
+    canonical = torch.tensor([-2., -1e-19, 0., 1., 3.], dtype=dtype)
+    if direction == 1:
+        source, canonical = -source.flip(-1), -canonical.flip(-1)
+    mass = translate_full_support_logits(logits, source, canonical)[1 if direction == -1 else 2]
+    expected = math.erf(1e-19 * _HALF_NORMAL_MEDIAN / math.sqrt(2)) / 3
+    assert expected > 0 and mass.item() == pytest.approx(expected, abs=0, rel=1e-13)
+    (-mass.log()).backward()
+    assert torch.isfinite(logits.grad).all()
+
+
+def test_canonical_projection_recovers_outer_mass_from_small_half_normal_pieces():
+    import math
+    from posteriorforge.study.model import _HALF_NORMAL_MEDIAN, translate_full_support_logits
+
+    logits = torch.tensor([-50., 0.], dtype=torch.float64)
+    source = torch.tensor([-1., 0., 1.], dtype=torch.float64)
+    canonical = torch.tensor([-2., 1e-19, 2.], dtype=torch.float64)
+    projected = translate_full_support_logits(logits, source, canonical)
+    probability = torch.softmax(logits, -1)
+    expected = probability[0] + probability[1] * math.erf(1e-19 * _HALF_NORMAL_MEDIAN / math.sqrt(2))
+    torch.testing.assert_close(projected[0], expected, rtol=1e-13, atol=0)
+
+
 def test_canonical_full_tail_cancelled_source_sampling_is_coherent_and_unclipped():
     from scipy.integrate import quad
     from posteriorforge.study.model import canonical_full_support_mixture,sampling_law_metadata
