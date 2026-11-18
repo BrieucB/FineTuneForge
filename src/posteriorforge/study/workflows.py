@@ -1,4 +1,4 @@
-"""File-backed CPU orchestration; no GPU authorization or scheduler access."""
+"""File-backed CPU diagnostics and execution inside an authorized CUDA allocation."""
 from __future__ import annotations
 
 from contextlib import contextmanager
@@ -44,6 +44,12 @@ POLICY = {
     "posterior_draws": 50000,
     "selection_with_no_qualified_primary": "freeze_diagnostic_inputs_without_claims",
     "execution": "cpu_diagnostic_only_no_slurm",
+}
+
+# Hash the ordered setup definitions rather than the catalogue's JSON formatting.
+PILOT_CATALOGUE_SHA256 = {
+    "train": "fdd7710ab2fa41e40fee9d9410b5b7d9b75c138b062362adaa643bec3cd60b79",
+    "validation": "6c7cc120b61ecdd0faed77dce89cc74a2f57e2a1161955f47e2e0cb4c464f7fc",
 }
 
 
@@ -237,11 +243,13 @@ def make_posterior_backend(model, *, base_directory):
 @contextmanager
 def _output_lock(output, request_sha256, *, resume):
     root = Path(output)
-    if root.exists() and not resume:
-        raise FileExistsError("output exists; explicit resume is required")
     if resume and not (root / "run.json").is_file():
         raise ValueError("no retained run to resume")
-    root.mkdir(parents=True, exist_ok=True)
+    if not resume:
+        try:
+            root.mkdir(parents=True, exist_ok=False)
+        except FileExistsError as exc:
+            raise FileExistsError("output exists; explicit resume is required") from exc
     with (root / ".lock").open("a+") as handle:
         try:
             fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -373,6 +381,7 @@ class TrainingRequest:
     base_checkpoint: str
     data_cache_directory: str
     campaign: dict
+    execution: Mapping | None = None
 
     def __post_init__(self):
         for name in ("training_catalogue_file", "validation_catalogue_file", "base_checkpoint", "data_cache_directory"):
@@ -383,11 +392,31 @@ class TrainingRequest:
         from .campaign import CampaignSpec
         spec = CampaignSpec(**self.campaign)
         object.__setattr__(self, "campaign", MappingProxyType(spec.to_dict()))
+        if self.execution is not None:
+            from .pilot import CUDA_PILOT_EXECUTION
+
+            if (not isinstance(self.execution, Mapping)
+                    or self.execution != CUDA_PILOT_EXECUTION
+                    or self.execution["fusion_enabled"] is not False):
+                raise ValueError("CUDA pilot requires the eager rank-4 cache policy with fusion disabled")
+            if spec.method != "lora_r4" or spec.phase != "pilot" or spec.diagnostic:
+                raise ValueError("CUDA training execution is limited to non-diagnostic rank-4 pilots")
+            if (spec.protocol_sha256 != protocol_identity()["protocol_sha256"]
+                    or spec.master_seed != StudyConfig().master_seed):
+                raise ValueError("CUDA pilot requires the fixed study protocol and master seed")
+            object.__setattr__(self, "execution", MappingProxyType(dict(CUDA_PILOT_EXECUTION)))
 
     @classmethod
     def from_dict(cls, value):
         v = dict(value)
-        if v.pop("schema", None) != "finetuneforge.training_request.v1":
+        schema = v.pop("schema", None)
+        if schema == "finetuneforge.training_request.v1":
+            if "execution" in v:
+                raise ValueError("training request v1 cannot declare a CUDA execution policy")
+        elif schema == "finetuneforge.training_request.v2":
+            if not isinstance(v.get("execution"), Mapping):
+                raise ValueError("training request v2 requires an explicit CUDA execution policy")
+        else:
             raise ValueError("unsupported training request schema")
         try:
             return cls(**v)
@@ -398,17 +427,25 @@ class TrainingRequest:
         from dataclasses import fields
         v = {f.name: getattr(self, f.name) for f in fields(self)}
         v["campaign"] = dict(self.campaign)
-        return {"schema": "finetuneforge.training_request.v1", **v}
+        execution = v.pop("execution")
+        if execution is None:
+            return {"schema": "finetuneforge.training_request.v1", **v}
+        return {"schema": "finetuneforge.training_request.v2", **v, "execution": dict(execution)}
 
     @property
     def fingerprint(self):
         return canonical_sha256(self.to_dict())
 
     def plan(self):
-        return {"status": "planned_unqualified", "request_sha256": self.fingerprint,
+        plan = {"status": "planned_unqualified", "request_sha256": self.fingerprint,
                 "campaign": dict(self.campaign), "posterior_draws": 0, "gpu_jobs_submitted": 0,
                 "policy": json.loads(json.dumps(POLICY)), "scientifically_qualified": False,
                 "production_execution_enabled": False}
+        if self.execution is not None:
+            plan.update(execution=dict(self.execution), allocation_required=True,
+                        posterior_draws_per_request=POLICY["posterior_draws"])
+            plan["policy"]["execution"] = "authenticated_slurm_rank4_pilot_only"
+        return plan
 
 
 def _catalogue(path, expected_sha256):
@@ -424,16 +461,81 @@ def _catalogue(path, expected_sha256):
     return setups
 
 
+def _pilot_catalogue(path, expected_sha256, *, split):
+    from .spec import ProblemSpec
+
+    contents = Path(path).read_bytes()
+    if sha256(contents).hexdigest() != expected_sha256:
+        raise ValueError("catalogue checksum mismatch")
+    value = json.loads(contents)
+    study = StudyConfig()
+    count = study.training_setups if split == "train" else study.validation_setups
+    if (not isinstance(value, dict) or value.get("schema") != "posteriorforge.study.catalogue.v1"
+            or value.get("split") != split or value.get("seed") != study.master_seed
+            or value.get("generated_observation_cases") != 0
+            or not isinstance(value.get("setups"), list) or len(value["setups"]) != count):
+        raise ValueError("CUDA pilot requires the fixed setup-only study catalogues")
+    setups = tuple(ProblemSpec.from_dict(row) for row in value["setups"])
+    fingerprints = [setup.fingerprint for setup in setups]
+    if (fingerprints != value.get("problem_fingerprints") or len(set(fingerprints)) != count
+            or any(setup.split != split for setup in setups)):
+        raise ValueError("CUDA pilot catalogue fingerprint or split mismatch")
+    if canonical_sha256(fingerprints) != PILOT_CATALOGUE_SHA256[split]:
+        raise ValueError("CUDA pilot catalogue differs from the fixed protocol listing")
+    return setups
+
+
+def _make_cuda_pilot_backend(spec, checkpoint):
+    from .cuda_training import CudaLearningPilotBackend
+
+    return CudaLearningPilotBackend(spec, checkpoint)
+
+
 def execute_training_request(request, *, output, base_directory=".", allow_unqualified_cpu_diagnostic=False,
                              resume_from=None, stop_after_update=None, backend_factory=None):
     _cpu_guard(allow_unqualified_cpu_diagnostic)
     if not isinstance(request, TrainingRequest):
         request = TrainingRequest.from_dict(request)
-    from .campaign import CampaignSpec, StockTrainingBackend, read_campaign_checkpoint, run_cpu_diagnostic
-    from .episodes import EpisodeStream, QuickValidationStream, BankStore
+    if request.execution is not None:
+        raise RuntimeError("CUDA pilot requests require the separate train-cuda-pilot command")
+    from .campaign import CampaignSpec, StockTrainingBackend
+
     spec = CampaignSpec(**request.campaign)
     if not spec.diagnostic:
         raise RuntimeError("production campaigns remain blocked pending I07; use a declared bounded CPU diagnostic")
+    factory = StockTrainingBackend.from_checkpoint_factory if backend_factory is None else backend_factory
+    return _execute_training_request(request, spec=spec, output=output, base_directory=base_directory,
+                                     resume_from=resume_from, stop_after_update=stop_after_update, factory=factory)
+
+
+def execute_cuda_pilot_request(request, *, output, ledger, base_directory=".",
+                               resume_from=None, stop_after_update=None):
+    """Run a rank-4 pilot segment only inside its pre-reserved allocation."""
+    from .campaign import CampaignSpec
+    from .pilot import authorize_cuda_pilot
+
+    if not isinstance(request, TrainingRequest):
+        request = TrainingRequest.from_dict(request)
+    if request.execution is None:
+        raise ValueError("CUDA pilot requires a v2 training request")
+    spec = CampaignSpec(**request.campaign)
+    if stop_after_update is not None and (type(stop_after_update) is not int
+                                         or not 1 <= stop_after_update <= spec.updates):
+        raise ValueError("CUDA pilot stop must be within the 200-update allowance")
+    output = Path(output).resolve()
+    allocation = authorize_cuda_pilot(request_sha256=request.fingerprint, ledger=ledger,
+                                      output=output, resume_from=resume_from,
+                                      stop_after_update=stop_after_update)
+    return _execute_training_request(
+        request, spec=spec, output=output, base_directory=base_directory, resume_from=resume_from,
+        stop_after_update=stop_after_update, factory=_make_cuda_pilot_backend, allocation=allocation)
+
+
+def _execute_training_request(request, *, spec, output, base_directory, resume_from,
+                              stop_after_update, factory, allocation=None):
+    from .campaign import campaign_identity, read_campaign_checkpoint, run_cpu_diagnostic, _run_cuda_pilot
+    from .episodes import EpisodeStream, QuickValidationStream, BankStore
+
     with _output_lock(output, request.fingerprint, resume=resume_from is not None) as root:
         attempt = uuid.uuid4().hex
         started = time.monotonic()
@@ -441,34 +543,68 @@ def execute_training_request(request, *, output, base_directory=".", allow_unqua
                   "request": request.to_dict(), "attempt_id": attempt, "status": "running",
                   "scientifically_qualified": False, "gpu_jobs_submitted": 0, "posterior_draws": 0,
                   "orchestration_source_sha256": file_sha256(__file__)}
+        if allocation is not None:
+            for path in (root / "driver-attempts").glob("*.json"):
+                previous_allocation = json.loads(path.read_text()).get("allocation", {})
+                if previous_allocation.get("job_id") == allocation["job_id"]:
+                    raise RuntimeError("this CUDA pilot allocation already ran an attempt")
+            if (root / "run.json").is_file():
+                previous_allocation = json.loads((root / "run.json").read_text()).get("allocation", {})
+                if previous_allocation.get("job_id") == allocation["job_id"]:
+                    raise RuntimeError("this CUDA pilot allocation already ran an attempt")
+            record["allocation"] = allocation
         _write_json(root / "run.json", record)
         try:
             if resume_from is not None:
                 resume_from = Path(resume_from).resolve()
                 if not resume_from.is_relative_to((root / "campaign" / "checkpoints").resolve()):
                     raise ValueError("resume must use a checkpoint retained in this run directory")
-            train = _catalogue(_resolve(request.training_catalogue_file, base_directory), request.training_catalogue_sha256)
-            validation = _catalogue(_resolve(request.validation_catalogue_file, base_directory), request.validation_catalogue_sha256)
+            train_path = _resolve(request.training_catalogue_file, base_directory)
+            validation_path = _resolve(request.validation_catalogue_file, base_directory)
+            checkpoint_path = _resolve(request.base_checkpoint, base_directory)
+            if allocation is None:
+                train = _catalogue(train_path, request.training_catalogue_sha256)
+                validation = _catalogue(validation_path, request.validation_catalogue_sha256)
+            else:
+                from .model_loading import BASE_SHA256
+
+                train = _pilot_catalogue(train_path, request.training_catalogue_sha256, split="train")
+                validation = _pilot_catalogue(validation_path, request.validation_catalogue_sha256, split="validation")
+                if file_sha256(checkpoint_path) != BASE_SHA256:
+                    raise ValueError("CUDA pilot requires the pinned cached base checkpoint")
             stream = EpisodeStream(train, protocol_sha256=spec.protocol_sha256, master_seed=spec.master_seed,
-                                   replica=spec.replica, phase=spec.phase, diagnostic=True)
+                                   replica=spec.replica, phase=spec.phase, diagnostic=spec.diagnostic)
             checks = QuickValidationStream(validation, protocol_sha256=spec.protocol_sha256,
-                                           master_seed=spec.master_seed, diagnostic=True)
+                                           master_seed=spec.master_seed, diagnostic=spec.diagnostic)
             store = BankStore(_resolve(request.data_cache_directory, base_directory))
-            factory = StockTrainingBackend.from_checkpoint_factory if backend_factory is None else backend_factory
-            backend = factory(spec, _resolve(request.base_checkpoint, base_directory))
+            pilot_identity = None if allocation is None else {
+                "source_commit": allocation["source_commit"], "request_sha256": request.fingerprint,
+                "execution": dict(request.execution), "bank_provider_sha256": store.provider_identity,
+            }
+            backend = factory(spec, checkpoint_path)
             result_path = root / "campaign" / "result.json"
             previous = json.loads(result_path.read_text()) if result_path.exists() else None
-            if resume_from is not None and previous is not None and previous.get("state", {}).get("update") == spec.updates:
-                from .campaign import campaign_identity
+            complete_resume = (resume_from is not None and previous is not None
+                               and previous.get("state", {}).get("update") == spec.updates
+                               and (allocation is None or stop_after_update in (None, spec.updates)))
+            if complete_resume:
                 retained = read_campaign_checkpoint(resume_from,
-                    expected_identity=campaign_identity(spec, stream, checks, backend))
+                    expected_identity=campaign_identity(spec, stream, checks, backend, pilot_identity=pilot_identity))
                 if retained["state"] != previous["state"] or Path(previous["last_checkpoint"]).resolve() != resume_from:
                     raise ValueError("completed campaign checkpoint/result mismatch")
+                if allocation is not None and (retained["identity"] != previous.get("identity")
+                                               or retained["history"] != previous.get("history")):
+                    raise ValueError("completed CUDA pilot checkpoint/result identity or history mismatch")
                 result = previous
                 record["reused_complete_campaign"] = True
-            else:
+            elif allocation is None:
                 result = run_cpu_diagnostic(spec, stream=stream, validation=checks, store=store, backend=backend,
                     output=root / "campaign", allow_unqualified_cpu_diagnostic=True,
+                    resume_from=resume_from, stop_after_update=stop_after_update)
+                record["reused_complete_campaign"] = False
+            else:
+                result = _run_cuda_pilot(spec, stream=stream, validation=checks, store=store, backend=backend,
+                    output=root / "campaign", pilot_identity=pilot_identity,
                     resume_from=resume_from, stop_after_update=stop_after_update)
                 record["reused_complete_campaign"] = False
             checkpoint = Path(result["last_checkpoint"])

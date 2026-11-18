@@ -84,3 +84,32 @@ class QualificationTrainingBackend(StockTrainingBackend):
         return dict(report, preprocessing_seconds=preprocessing,
             preprocessing_includes_host_to_device=True,
             update_seconds=time.perf_counter()-started-preprocessing)
+
+
+class CudaLearningPilotBackend(QualificationTrainingBackend):
+    """Use the qualified eager rank-4 path and retain capacity measurements."""
+
+    def __init__(self, spec, checkpoint):
+        if spec.method != "lora_r4" or spec.phase != "pilot" or spec.diagnostic:
+            raise ModelQualificationError("CUDA learning pilot requires a non-diagnostic rank-4 pilot")
+        if os.environ.get("TABPFN_ALLOW_CPU_LARGE_DATASET") != "1":
+            raise ModelQualificationError("the CUDA pilot requires CPU preprocessing for the 1,024-world contexts")
+        if torch.cuda.device_count() != 1:
+            raise ModelQualificationError("CUDA learning pilot requires exactly one visible GPU")
+        super().__init__(spec, checkpoint, device="cuda:0", allow_cuda_qualification=True,
+                         cache_parametrizations=True)
+        self.identity.update(fusion_enabled=False, cpu_large_dataset_preprocessing=True)
+
+    def _measure(self, operation, *args):
+        torch.cuda.synchronize(self.device)
+        torch.cuda.reset_peak_memory_stats(self.device)
+        report = operation(*args)
+        torch.cuda.synchronize(self.device)
+        return dict(report, peak_allocated_bytes=torch.cuda.max_memory_allocated(self.device),
+                    peak_reserved_bytes=torch.cuda.max_memory_reserved(self.device))
+
+    def update(self, items, state):
+        return self._measure(super().update, items, state)
+
+    def quick_validate(self, items):
+        return self._measure(super().quick_validate, items)

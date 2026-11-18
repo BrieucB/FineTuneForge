@@ -8,7 +8,7 @@ from .spec import ProblemSpec
 
 
 def configure_parser(commands):
-    parser = commands.add_parser("study", help="FineTuneForge variable-size study (CPU-only software stage)")
+    parser = commands.add_parser("study", help="FineTuneForge variable-size study")
     sub = parser.add_subparsers(dest="study_operation", required=True)
     plan = sub.add_parser("plan", help="expand the agreed design without executing work")
     plan.add_argument("--config")
@@ -32,7 +32,7 @@ def configure_parser(commands):
     budget = sub.add_parser("budget", help="inspect the separate 10,000-hour study ledger; never submit")
     budget.add_argument("--ledger", required=True)
     sub.add_parser("submit", help="disabled during CPU-only implementation")
-    train_plan = sub.add_parser("train-plan", help="show matched pilot/main plans or a declared CPU request")
+    train_plan = sub.add_parser("train-plan", help="show matched pilot/main plans or validate a training request")
     train_plan.add_argument("--config")
     train = sub.add_parser("train", help="execute a bounded, explicit CPU training diagnostic")
     train.add_argument("--config", required=True)
@@ -40,6 +40,12 @@ def configure_parser(commands):
     train.add_argument("--cpu-diagnostic", action="store_true")
     train.add_argument("--resume-from")
     train.add_argument("--stop-after-update", type=int)
+    pilot = sub.add_parser("train-cuda-pilot", help="run a ledger-bound stock CUDA learning pilot")
+    pilot.add_argument("--config", required=True)
+    pilot.add_argument("--output", required=True)
+    pilot.add_argument("--ledger", required=True)
+    pilot.add_argument("--resume-from")
+    pilot.add_argument("--stop-after-update", type=int)
     posterior_plan = sub.add_parser("posterior-plan", help="validate a fixed50k posterior request without loading a model")
     posterior_plan.add_argument("--config", required=True)
     posterior = sub.add_parser("posterior", help="sample exactly50k complete vectors on CPU with recovery evidence")
@@ -114,7 +120,8 @@ def run(args):
         samples = draw_prior(spec, 50000, args["seed"])
         return save_samples(spec, samples, args["output"], kind="prior_control",
                             provenance={"forward_evaluations": 0, "seed": args["seed"]})
-    if operation in ("train-plan", "train", "posterior-plan", "posterior", "evaluation-plan", "evaluate"):
+    if operation in ("train-plan", "train", "train-cuda-pilot", "posterior-plan", "posterior",
+                     "evaluation-plan", "evaluate"):
         from . import workflows as w
         config = args.get("config")
         path = Path(config).resolve() if config else None
@@ -126,6 +133,10 @@ def run(args):
             return w.execute_training_request(value, output=args["output"], base_directory=base,
                 allow_unqualified_cpu_diagnostic=args["cpu_diagnostic"],
                 resume_from=args["resume_from"], stop_after_update=args["stop_after_update"])
+        if operation == "train-cuda-pilot":
+            return w.execute_cuda_pilot_request(value, output=args["output"], ledger=args["ledger"],
+                base_directory=base, resume_from=args["resume_from"],
+                stop_after_update=args["stop_after_update"])
         if operation == "posterior-plan":
             return w.PosteriorRequest.from_dict(value).plan()
         if operation == "posterior":

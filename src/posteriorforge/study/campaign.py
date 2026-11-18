@@ -1,8 +1,9 @@
-"""Training planning and bounded CPU orchestration; production stays I07-gated.
+"""Training planning, CPU diagnostics and a bounded CUDA pilot; production stays I07-gated.
 
 Pilots and main runs have disjoint matched data streams. Main runs restart the
 original pretrained model with fresh adapters; pilot data/compute remain costs.
-No posterior draws, GPU execution, scheduler submission or upload occurs here.
+The campaign loop scores known parameters and takes no posterior draws.
+Scheduler submission and allocation accounting remain outside the loop.
 """
 from __future__ import annotations
 from dataclasses import asdict,dataclass
@@ -165,12 +166,16 @@ class StockTrainingBackend:
             save_adapter(directory/'adapter',self.model.backbone,checkpoint_sha256=BASE_CHECKPOINT_SHA256);format_='peft_adapter';path='adapter'
         return {'backend_kind':self.backend_kind,'format':format_,'path':path,'campaign_method':self.spec.method,'training_method':self.spec.training_method,'rank':self.spec.rank,'base_checkpoint_sha256':BASE_CHECKPOINT_SHA256,'weights_sha256':weights_fingerprint(self.model),'sampling_law':CANONICAL_FULL_SUPPORT,'source_policy':'cancelled_zero_width','scientifically_qualified':False}
 
-def campaign_identity(spec,stream,validation,backend):
+def campaign_identity(spec,stream,validation,backend,*,pilot_identity=None):
     if spec.protocol_sha256!=stream.protocol_sha256 or spec.replica!=stream.replica or spec.phase!=stream.phase:raise ValueError('campaign/stream mismatch')
     if validation.protocol_sha256!=spec.protocol_sha256:raise ValueError('validation protocol mismatch')
     if spec.master_seed!=stream.master_seed or spec.master_seed!=validation.master_seed:raise ValueError('campaign/training/validation master-seed mismatch')
     if getattr(backend,'spec',spec)!=spec:raise ValueError('backend/campaign specification mismatch')
-    return {'spec':spec.to_dict(),'protocol_sha256':spec.protocol_sha256,'stream_id':stream.identity,'quick_validation_id':validation.identity,'source_sha256':digest(source_identity()),'source_files':source_identity(),'backend':backend.identity,'training_config':asdict(backend.training_config)}
+    sources = source_identity()
+    identity = {'spec':spec.to_dict(),'protocol_sha256':spec.protocol_sha256,'stream_id':stream.identity,'quick_validation_id':validation.identity,'source_sha256':digest(sources),'source_files':sources,'backend':backend.identity,'training_config':asdict(backend.training_config)}
+    if pilot_identity is not None:
+        identity['cuda_learning_pilot'] = pilot_identity
+    return identity
 
 def save_campaign_checkpoint(directory,backend,state,*,identity,history):
     from .model import weights_fingerprint
@@ -211,12 +216,46 @@ def restore_campaign_checkpoint(directory,backend,*,expected_identity):
 
 def run_cpu_diagnostic(spec,*,stream,validation,store,backend,output,allow_unqualified_cpu_diagnostic=False,resume_from=None,stop_after_update=None):
     """Complete bounded CPU loop with real/injected backend and retained attempts."""
+    from .model import ModelQualificationError
+    if allow_unqualified_cpu_diagnostic is not True or not spec.diagnostic:
+        raise ModelQualificationError('explicit bounded CPU-diagnostic campaign required; production is I07-gated')
+    if any(p.device.type != 'cpu' for p in backend.model.parameters()):
+        raise ModelQualificationError('GPU execution disabled')
+    return _run_campaign(spec, stream=stream, validation=validation, store=store, backend=backend,
+                         output=output, resume_from=resume_from, stop_after_update=stop_after_update)
+
+
+def _require_cuda_pilot_backend(spec, backend):
+    from .cuda_training import QualificationTrainingBackend
+    from .pilot import CUDA_PILOT_EXECUTION
+
+    if spec.diagnostic or spec.phase != 'pilot' or spec.method != 'lora_r4':
+        raise CampaignQualificationError('only the rank-4 CUDA learning pilot is enabled')
+    if (not isinstance(backend, QualificationTrainingBackend)
+            or backend.cache_parametrizations is not True
+            or backend.identity.get('backend_kind') != CUDA_PILOT_EXECUTION['backend']
+            or backend.identity.get('parametrization_cache_policy') != CUDA_PILOT_EXECUTION['parametrization_cache_policy']
+            or backend.identity.get('fusion_enabled') is not False
+            or backend.identity.get('qualification_only') is not True):
+        raise CampaignQualificationError('CUDA learning pilot requires the qualified cached rank-4 backend')
+
+
+def _run_cuda_pilot(spec, *, stream, validation, store, backend, output, pilot_identity,
+                    resume_from=None, stop_after_update=None):
+    if stream.diagnostic or len(validation) != 320:
+        raise CampaignQualificationError('CUDA pilot requires the full matched training and validation streams')
+    _require_cuda_pilot_backend(spec, backend)
+    return _run_campaign(spec, stream=stream, validation=validation, store=store, backend=backend,
+                         output=output, resume_from=resume_from, stop_after_update=stop_after_update,
+                         pilot_identity=pilot_identity)
+
+
+def _run_campaign(spec, *, stream, validation, store, backend, output, resume_from,
+                  stop_after_update, pilot_identity=None):
     import torch
     from .model import ModelQualificationError,weights_fingerprint
     from .training import TrainingState
-    if not allow_unqualified_cpu_diagnostic or not spec.diagnostic:raise ModelQualificationError('explicit bounded CPU-diagnostic campaign required; production is I07-gated')
-    if any(p.device.type!='cpu' for p in backend.model.parameters()):raise ModelQualificationError('GPU execution disabled')
-    identity=campaign_identity(spec,stream,validation,backend)
+    identity=campaign_identity(spec,stream,validation,backend,pilot_identity=pilot_identity)
     output=Path(output);output.mkdir(parents=True,exist_ok=True)
     runfile=output/'run.json'
     if runfile.exists() and json.loads(runfile.read_text())['identity']!=identity:raise ModelQualificationError('run identity mismatch')
@@ -231,10 +270,19 @@ def run_cpu_diagnostic(spec,*,stream,validation,store,backend,output,allow_unqua
             checkpointed=time.perf_counter();initial_sha=save_campaign_checkpoint(initial,backend,state,identity=identity,history=history)
             _write(runfile,{'identity':identity,'scientifically_qualified':False,'gpu_jobs_submitted':0,'initial_checkpoint':str(initial),'initial_checkpoint_manifest_sha256':initial_sha,'initial_checkpoint_seconds':time.perf_counter()-checkpointed})
         else:read_campaign_checkpoint(initial,expected_identity=identity)
-    else:state,previous=restore_campaign_checkpoint(resume_from,backend,expected_identity=identity);history=list(previous['history'])
+    else:
+        if pilot_identity is not None:
+            retained = sorted((output / 'checkpoints').glob('update-[0-9][0-9][0-9][0-9][0-9][0-9]'))
+            if not retained or Path(resume_from).resolve() != retained[-1].resolve():
+                raise CampaignQualificationError('CUDA pilot resume requires the latest committed checkpoint')
+        state,previous=restore_campaign_checkpoint(resume_from,backend,expected_identity=identity);history=list(previous['history'])
     target=spec.updates if stop_after_update is None else stop_after_update
-    if type(target) is not int or not state.update<target<=spec.updates:raise ValueError('diagnostic stop must advance within allowance')
-    milestones=quick_milestones(spec.updates);last_checkpoint=None
+    # The endpoint checkpoint can survive an interrupted result publication.
+    recovered_endpoint = pilot_identity is not None and resume_from is not None and state.update == target == spec.updates
+    if not recovered_endpoint and (type(target) is not int or not state.update<target<=spec.updates):
+        raise ValueError('campaign stop must advance within allowance')
+    milestones=quick_milestones(spec.updates)
+    last_checkpoint=Path(resume_from) if recovered_endpoint else None
     attempts=output/'attempts';attempts.mkdir(exist_ok=True)
     while state.update<target:
         before=asdict(state);event_start=len(store.events);started=time.perf_counter()
@@ -259,12 +307,18 @@ def run_cpu_diagnostic(spec,*,stream,validation,store,backend,output,allow_unqua
                 record['timings']['checkpoint_seconds']=time.perf_counter()-checkpointed
             record['status']='complete';record['after']=asdict(state)
         except BaseException as exc:
-            backend.optimizer.zero_grad(set_to_none=True);record.update(status='failed',exception_type=type(exc).__name__,exception=str(exc),after=asdict(state))
+            record.update(status='failed',exception_type=type(exc).__name__,exception=str(exc),after=asdict(state))
+            backend.optimizer.zero_grad(set_to_none=True)
             raise
         finally:
             record['data_events']=store.events[event_start:];record['timings']['allocated_cpu_wall_seconds']=time.perf_counter()-started
             _write(attempt/'attempt.json',record)
-    result={'status':'cpu_diagnostic_complete' if state.update==spec.updates else 'cpu_diagnostic_checkpointed','identity':identity,'state':asdict(state),'history':history,'shortlist':shortlist_checkpoints(history),'costs':summarize_attempt_costs(output),'last_checkpoint':str(last_checkpoint),'posterior_draws':0,'gpu_jobs_submitted':0,'scientifically_qualified':False}
+    mode = 'cpu_diagnostic' if pilot_identity is None else 'cuda_learning_pilot'
+    status = 'complete' if state.update == spec.updates else 'checkpointed'
+    costs = summarize_attempt_costs(output)
+    if pilot_identity is not None:
+        costs.update(gpu_hours=None, gpu_accounting='reconcile terminal Slurm allocations in the study ledger')
+    result={'status':f'{mode}_{status}','identity':identity,'state':asdict(state),'history':history,'shortlist':shortlist_checkpoints(history),'costs':costs,'last_checkpoint':str(last_checkpoint),'posterior_draws':0,'gpu_jobs_submitted':0,'scientifically_qualified':False}
     _write(output/'result.json',result)
     return result
 
