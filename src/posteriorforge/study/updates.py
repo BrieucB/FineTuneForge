@@ -87,7 +87,8 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                          episodes: Sequence[PreparedTeacherForcedEpisode], state: TrainingState,
                          *, law: str, gradient_clip: float = 1.0,
                          allow_unqualified_cpu_diagnostic: bool = False, device_type: str = "cpu",
-                         cache_parametrizations: bool = False) -> dict:
+                         cache_parametrizations: bool = False, global_query_cases: int | None = None,
+                         sum_rank_gradients=None) -> dict:
     """Backward each conditional, then take one step for the entire batch.
 
     Each parameter/query contributes
@@ -112,6 +113,13 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
             allow_unqualified_cpu_diagnostic=allow_unqualified_cpu_diagnostic, device_type=device_type)
         if type(state.update) is not int or type(state.data_position) is not int or state.update < 0 or state.data_position < 0:
             raise ValueError("training counters must be nonnegative integers")
+        local_cases = total_cases
+        if (global_query_cases is None) != (sum_rank_gradients is None):
+            raise ValueError("global case count and gradient summation must be supplied together")
+        if sum_rank_gradients is not None:
+            if not callable(sum_rank_gradients) or type(global_query_cases) is not int or global_query_cases <= local_cases:
+                raise ValueError("distributed batch requires a larger global case count and a gradient sum")
+            total_cases = global_query_cases
         scalar_losses = []
         backward_calls = 0
         for episode, counts in zip(episodes, group_counts):
@@ -137,6 +145,9 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                     backward_calls += 1
                     del contribution, losses, density
                 _require_finite_gradients(parameters)
+        if sum_rank_gradients is not None:
+            sum_rank_gradients(parameters)
+            _require_finite_gradients(parameters)
         norm = torch.nn.utils.clip_grad_norm_(parameters, gradient_clip, error_if_nonfinite=True)
         _require_finite_gradients(parameters)
         optimizer.step()  # Sole step, after every conditional used unchanged weights.
@@ -148,13 +159,16 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
         raise
     state.update += 1
     state.data_position += total_cases
-    return {"update": state.update, "data_position": state.data_position,
+    report = {"update": state.update, "data_position": state.data_position,
         "loss": math.fsum(scalar_losses), "gradient_norm_before_clip": float(norm.detach()),
         "episode_count": len(episodes), "query_case_count": total_cases,
         "conditional_count": backward_calls, "backward_calls": backward_calls,
         "optimizer_steps": 1, "sampling_law": law,
         "query_weighting": "equal realized query cases; setup frequency follows catalogue sampling",
         "execution_mode": "unqualified_cpu_diagnostic" if device_type == "cpu" else "unqualified_cuda_qualification", "scientifically_qualified": False}
+    if sum_rank_gradients is not None:
+        report.update(local_query_case_count=local_cases, loss_scope="local_contribution_to_global_loss")
+    return report
 
 
 def stagewise_cpu_update(model: nn.Module, optimizer: torch.optim.Optimizer,
@@ -170,12 +184,17 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
                          episodes: Sequence[PreparedTeacherForcedEpisode], state: TrainingState,
                          *, law: str, gradient_clip: float = 1.0,
                          allow_cuda_qualification: bool = False, expected_device=None,
-                         cache_parametrizations: bool = False) -> dict:
+                         cache_parametrizations: bool = False, global_query_cases: int | None = None,
+                         sum_rank_gradients=None) -> dict:
     """One explicitly authorized engineering update; does not qualify a campaign.
 
     Neural parameters remain FP32 and probability/Jacobian calculations FP64.
     Every conditional is backpropagated before the next; there is exactly one
     optimizer step for the complete effective batch. No autocast or scaler is used.
+
+    With rank-local episodes, use the global case count for normalization and
+    supply the collective that replaces the local gradients with their sum.
+    The collective runs once, after local backward passes and before clipping.
     """
     if allow_cuda_qualification is not True:
         raise ModelQualificationError("explicit CUDA qualification opt-in required")
@@ -196,7 +215,8 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
     torch.cuda.synchronize(target)
     report = _stagewise_update(model, optimizer, episodes, state, law=law,
         gradient_clip=gradient_clip, allow_unqualified_cpu_diagnostic=True, device_type="cuda",
-        cache_parametrizations=cache_parametrizations)
+        cache_parametrizations=cache_parametrizations, global_query_cases=global_query_cases,
+        sum_rank_gradients=sum_rank_gradients)
     torch.cuda.synchronize(target)
     return dict(report, device=str(target), neural_precision="float32",
                 probability_precision="float64", mixed_precision=False,

@@ -146,3 +146,50 @@ def test_opt_in_and_cpu_device_are_mandatory_without_production_fallback(monkeyp
     with pytest.raises(ModelQualificationError,match='CPU-only'):
         stagewise_cpu_update(model,optimizer,episodes,TrainingState(),law=CANONICAL_FULL_SUPPORT,allow_unqualified_cpu_diagnostic=True)
     assert not tracker.events
+
+
+def test_two_shards_sum_global_weighted_gradients_before_clipping():
+    from posteriorforge.study.updates import _stagewise_update
+
+    reference, reference_optimizer = model_and_optimizer()
+    ranks = [model_and_optimizer(), model_and_optimizer()]
+    states = [TrainingState(), TrainingState()]
+    reference_report = stagewise_cpu_update(
+        reference, reference_optimizer, fixtures(Tracker()), TrainingState(),
+        law=CANONICAL_FULL_SUPPORT, gradient_clip=.1, allow_unqualified_cpu_diagnostic=True,
+    )
+    assert reference_report['gradient_norm_before_clip'] > .1
+    contributions = []
+    rhs_reports = []
+
+    def collect_rank_zero(left):
+        def sum_for_rank_one(right):
+            for left_parameter, right_parameter in zip(left, right, strict=True):
+                left_parameter.grad.add_(right_parameter.grad)
+                right_parameter.grad.copy_(left_parameter.grad)
+
+        rhs_reports.append(_stagewise_update(
+            *ranks[1], (fixtures(Tracker())[1],), states[1],
+            law=CANONICAL_FULL_SUPPORT, gradient_clip=.1, allow_unqualified_cpu_diagnostic=True,
+            global_query_cases=4, sum_rank_gradients=sum_for_rank_one,
+        ))
+        contributions.append(1)
+
+    lhs = _stagewise_update(
+        *ranks[0], (fixtures(Tracker())[0],), states[0],
+        law=CANONICAL_FULL_SUPPORT, gradient_clip=.1, allow_unqualified_cpu_diagnostic=True,
+        global_query_cases=4, sum_rank_gradients=collect_rank_zero,
+    )
+    rhs, = rhs_reports
+    assert contributions == [1]
+    assert lhs['loss'] + rhs['loss'] == pytest.approx(reference_report['loss'], abs=3e-14)
+    assert lhs['gradient_norm_before_clip'] == pytest.approx(reference_report['gradient_norm_before_clip'], abs=3e-14)
+    assert [r['local_query_case_count'] for r in (lhs, rhs)] == [1, 3]
+    assert [r['backward_calls'] for r in (lhs, rhs)] == [4, 6]
+    assert states == [TrainingState(update=1, data_position=4)] * 2
+    for model, optimizer in ranks:
+        for expected, actual in zip(reference.parameters(), model.parameters(), strict=True):
+            torch.testing.assert_close(actual, expected, atol=3e-14, rtol=3e-14)
+            torch.testing.assert_close(actual.grad, expected.grad, atol=3e-14, rtol=3e-14)
+            for key, tensor in reference_optimizer.state[expected].items():
+                torch.testing.assert_close(optimizer.state[actual][key], tensor, atol=3e-14, rtol=3e-14)
