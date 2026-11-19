@@ -16,7 +16,8 @@ from .training import PreparedTeacherForcedEpisode, TargetSupportMismatch, Train
 _ROLE_GROUP = {"population": 0, "batch": 0, "physical": 1, "noise": 2}
 
 
-def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualified_cpu_diagnostic, device_type="cpu"):
+def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualified_cpu_diagnostic,
+               device_type="cpu", allow_conditional_shards=False):
     if not allow_unqualified_cpu_diagnostic:
         raise ModelQualificationError("explicit unqualified CPU-diagnostic opt-in required; I07 does not authorize a campaign" if device_type == "cpu" else "explicit CUDA qualification opt-in required; production is still I07-gated")
     if law not in (LEGACY_FINITE, CANONICAL_FULL_SUPPORT):
@@ -51,7 +52,14 @@ def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualif
         if type(episode.query_count) is not int or episode.query_count < 1:
             raise ValueError("positive query-case count required")
         dimension = len(episode.parameter_order)
-        if not dimension or len(set(episode.parameter_order)) != dimension or len(episode.roles) != dimension or len(episode.stages) != dimension:
+        if not dimension or len(set(episode.parameter_order)) != dimension or len(episode.roles) != dimension:
+            raise ModelQualificationError("incomplete ordered teacher-forced episode")
+        indices = tuple(stage.index for stage in episode.stages)
+        if allow_conditional_shards:
+            if (not indices or any(type(i) is not int or not 0 <= i < dimension for i in indices)
+                    or indices != tuple(sorted(set(indices)))):
+                raise ModelQualificationError("invalid ordered teacher-forced conditional shard")
+        elif indices != tuple(range(dimension)):
             raise ModelQualificationError("incomplete ordered teacher-forced episode")
         try:
             groups = [_ROLE_GROUP[role] for role in episode.roles]
@@ -60,8 +68,8 @@ def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualif
         group_counts = tuple(groups.count(group) for group in range(3))
         if not all(group_counts):
             raise ModelQualificationError("population/batch, physical and inferred-noise groups required")
-        for j, stage in enumerate(episode.stages):
-            if stage.index != j or stage.parameter_name != episode.parameter_order[j] or stage.role != episode.roles[j]:
+        for j, stage in zip(indices, episode.stages, strict=True):
+            if stage.parameter_name != episode.parameter_order[j] or stage.role != episode.roles[j]:
                 raise ModelQualificationError("teacher-forced stage order/role mismatch")
             for value in (stage.targets, stage.decoder_log_jac):
                 if not isinstance(value, torch.Tensor) or value.device != target_device or value.shape != (episode.query_count,) or not bool(torch.isfinite(value).all()):
@@ -88,7 +96,8 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                          *, law: str, gradient_clip: float = 1.0,
                          allow_unqualified_cpu_diagnostic: bool = False, device_type: str = "cpu",
                          cache_parametrizations: bool = False, global_query_cases: int | None = None,
-                         sum_rank_gradients=None, profile_region=None) -> dict:
+                         sum_rank_gradients=None, profile_region=None,
+                         allow_conditional_shards: bool = False) -> dict:
     """Backward each conditional, then take one step for the entire batch.
 
     Each parameter/query contributes
@@ -105,20 +114,24 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
     """
     if type(cache_parametrizations) is not bool:
         raise TypeError("cache_parametrizations must be an explicit boolean")
+    if type(allow_conditional_shards) is not bool or (allow_conditional_shards and sum_rank_gradients is None):
+        raise ValueError("conditional shards require an explicit distributed gradient sum")
     optimizer.zero_grad(set_to_none=True)
     try:
         episodes = tuple(episodes)
         parameters, group_counts, total_cases = _preflight(model, optimizer, episodes,
             law=law, gradient_clip=gradient_clip,
-            allow_unqualified_cpu_diagnostic=allow_unqualified_cpu_diagnostic, device_type=device_type)
+            allow_unqualified_cpu_diagnostic=allow_unqualified_cpu_diagnostic, device_type=device_type,
+            allow_conditional_shards=allow_conditional_shards)
         if type(state.update) is not int or type(state.data_position) is not int or state.update < 0 or state.data_position < 0:
             raise ValueError("training counters must be nonnegative integers")
         local_cases = total_cases
         if (global_query_cases is None) != (sum_rank_gradients is None):
             raise ValueError("global case count and gradient summation must be supplied together")
         if sum_rank_gradients is not None:
-            if not callable(sum_rank_gradients) or type(global_query_cases) is not int or global_query_cases <= local_cases:
-                raise ValueError("distributed batch requires a larger global case count and a gradient sum")
+            minimum_global = local_cases if allow_conditional_shards else local_cases + 1
+            if not callable(sum_rank_gradients) or type(global_query_cases) is not int or global_query_cases < minimum_global:
+                raise ValueError("distributed batch requires a valid global case count and a gradient sum")
             total_cases = global_query_cases
         scalar_losses = []
         backward_calls = 0
@@ -191,7 +204,8 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
                          *, law: str, gradient_clip: float = 1.0,
                          allow_cuda_qualification: bool = False, expected_device=None,
                          cache_parametrizations: bool = False, global_query_cases: int | None = None,
-                         sum_rank_gradients=None, profile_region=None) -> dict:
+                         sum_rank_gradients=None, profile_region=None,
+                         allow_conditional_shards: bool = False) -> dict:
     """One explicitly authorized engineering update; does not qualify a campaign.
 
     Neural parameters remain FP32 and probability/Jacobian calculations FP64.
@@ -201,6 +215,8 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
     With rank-local episodes, use the global case count for normalization and
     supply the collective that replaces the local gradients with their sum.
     The collective runs once, after local backward passes and before clipping.
+    A caller with a validated, exhaustive cross-rank assignment may opt in to
+    conditional shards. Shards use the full problem's original role counts.
     An optional profile context wraps density, loss and backward per conditional.
     """
     if allow_cuda_qualification is not True:
@@ -223,7 +239,8 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
     report = _stagewise_update(model, optimizer, episodes, state, law=law,
         gradient_clip=gradient_clip, allow_unqualified_cpu_diagnostic=True, device_type="cuda",
         cache_parametrizations=cache_parametrizations, global_query_cases=global_query_cases,
-        sum_rank_gradients=sum_rank_gradients, profile_region=profile_region)
+        sum_rank_gradients=sum_rank_gradients, profile_region=profile_region,
+        allow_conditional_shards=allow_conditional_shards)
     torch.cuda.synchronize(target)
     return dict(report, device=str(target), neural_precision="float32",
                 probability_precision="float64", mixed_precision=False,

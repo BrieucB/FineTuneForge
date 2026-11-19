@@ -368,13 +368,14 @@ class TeacherForcedArrays:
     decoder_log_jac: np.ndarray
 
 
-def teacher_forced_inputs(context_bank, query_bank) -> tuple[TeacherForcedArrays, ...]:
+def teacher_forced_inputs(context_bank, query_bank, *, stage_indices=None) -> tuple[TeacherForcedArrays, ...]:
     """Construct arbitrary-D conditionals; current/future labels never enter X.
 
     These are training/probability-scoring inputs, not posterior-generation
     inputs: only known generating *predecessors* are teacher-forced. Independent
     context and query worlds are mandatory. Final-test cases never enter this
     preparation path. The complete-prior transport is causal in parameter order.
+    A stage selection keeps the full context and original predecessor columns.
     """
     from .banks import PairedBank
     from .science import encode_prior, log_abs_det_decode
@@ -385,6 +386,10 @@ def teacher_forced_inputs(context_bank, query_bank) -> tuple[TeacherForcedArrays
         raise ValueError("context/query problem fingerprints differ")
     if spec.split == "test":
         raise ModelQualificationError("test cases cannot enter teacher-forced preparation")
+    indices = tuple(range(len(spec.parameters))) if stage_indices is None else tuple(stage_indices)
+    if (not indices or any(type(i) is not int or not 0 <= i < len(spec.parameters) for i in indices)
+            or indices != tuple(sorted(set(indices)))):
+        raise ModelQualificationError("teacher-forced stage selection must be nonempty, unique and in parameter order")
     context_rows = {row.tobytes() for row in context_bank.theta}
     if any(row.tobytes() in context_rows for row in query_bank.theta):
         raise ModelQualificationError("query generating parameters occur in the context bank")
@@ -399,12 +404,12 @@ def teacher_forced_inputs(context_bank, query_bank) -> tuple[TeacherForcedArrays
         result.setflags(write=False)
         return result
 
-    return tuple(TeacherForcedArrays(j, parameter.name, parameter.role,
+    return tuple(TeacherForcedArrays(j, spec.parameters[j].name, spec.parameters[j].role,
         readonly(np.concatenate((context_bank.observations, context_z[:, :j]), axis=1)),
         readonly(context_z[:, j]),
         readonly(np.concatenate((query_bank.observations, query_z[:, :j]), axis=1)),
         readonly(query_z[:, j]), readonly(jac[:, j]))
-        for j, parameter in enumerate(spec.parameters))
+        for j in indices)
 
 
 @dataclass(frozen=True)
@@ -431,7 +436,9 @@ class PreparedTeacherForcedEpisode:
     stages: tuple[PreparedTeacherForcedStage, ...]
 
 
-def prepare_teacher_forced_episode(context_bank, query_bank, *, regressor_factory, law: str, device: str | torch.device = "cpu", source_policy: str | None = None) -> PreparedTeacherForcedEpisode:
+def prepare_teacher_forced_episode(context_bank, query_bank, *, regressor_factory, law: str,
+                                   device: str | torch.device = "cpu", source_policy: str | None = None,
+                                   stage_indices=None) -> PreparedTeacherForcedEpisode:
     """Fit stock eight-member preprocessing independently of trainable weights.
 
     The explicitly supplied factory must return a stock TabPFN-v2 regressor with
@@ -439,6 +446,8 @@ def prepare_teacher_forced_episode(context_bank, query_bank, *, regressor_factor
     cached checkpoint. Fitting this separate wrapper never fits neural weights.
     Only preprocessed numerical tensors, border transforms and cancellation
     masks survive; no weight-dependent neural context or fitted model is kept.
+    If stage_indices are supplied, fit only those stages and retain the original
+    parameter order and role counts for distributed loss normalization.
     No model downloads, posterior draws, optimizer step or campaign occurs here.
     """
     from .model import prepare_fitted_regressor_members
@@ -450,7 +459,7 @@ def prepare_teacher_forced_episode(context_bank, query_bank, *, regressor_factor
         raise ModelQualificationError("legacy finite scoring retains its original strict source-grid guard")
     if not callable(regressor_factory):
         raise TypeError("an explicit offline stock-regressor factory is required")
-    arrays = teacher_forced_inputs(context_bank, query_bank)
+    arrays = teacher_forced_inputs(context_bank, query_bank, stage_indices=stage_indices)
     stages = []
     for stage in arrays:
         regressor = regressor_factory()

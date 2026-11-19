@@ -229,3 +229,37 @@ def test_selected_full_tail_default_retains_guard_and_pending_cannot_fallback():
     with pytest.raises(ModelQualificationError,match='no finite fallback'):
         prepare_teacher_forced_episode(context,query,regressor_factory=factory,law=config.density_law)
     assert not called
+
+
+def test_teacher_forced_stage_selection_preserves_original_indices_and_full_prefix(monkeypatch):
+    from types import SimpleNamespace
+    from posteriorforge.study import model as model_module
+    from posteriorforge.study.training import prepare_teacher_forced_episode, teacher_forced_inputs
+
+    context, query = _teacher_banks(specimens=2, query_count=1)
+    all_stages = teacher_forced_inputs(context, query)
+    selected_indices = (1, len(all_stages) - 1)
+    selected = teacher_forced_inputs(context, query, stage_indices=selected_indices)
+    assert tuple(stage.index for stage in selected) == selected_indices
+    for stage in selected:
+        for name in ('context_features', 'context_targets', 'query_features', 'query_targets', 'decoder_log_jac'):
+            np.testing.assert_array_equal(getattr(stage, name), getattr(all_stages[stage.index], name))
+
+    calls = []
+    class Regressor:
+        executor_ = SimpleNamespace(model=object())
+
+        def fit(self, x, y):
+            calls.append(x.shape)
+
+    monkeypatch.setattr(model_module, 'prepare_fitted_regressor_members', lambda *a, **kw: None)
+    actual = prepare_teacher_forced_episode(context, query, regressor_factory=Regressor,
+                                             law=CANONICAL_FULL_SUPPORT, stage_indices=selected_indices)
+    assert len(calls) == len(actual.stages) == 2
+    assert calls == [stage.context_features.shape for stage in selected]
+    assert actual.parameter_order == tuple(context.spec.parameter_order)
+    assert actual.roles == tuple(context.spec.roles)
+    assert tuple(stage.index for stage in actual.stages) == selected_indices
+    for invalid in ((), (0, 0), (1, 0), (len(all_stages),)):
+        with pytest.raises(ModelQualificationError, match='stage selection'):
+            teacher_forced_inputs(context, query, stage_indices=invalid)

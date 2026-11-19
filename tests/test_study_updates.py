@@ -193,3 +193,49 @@ def test_two_shards_sum_global_weighted_gradients_before_clipping():
             torch.testing.assert_close(actual.grad, expected.grad, atol=3e-14, rtol=3e-14)
             for key, tensor in reference_optimizer.state[expected].items():
                 torch.testing.assert_close(optimizer.state[actual][key], tensor, atol=3e-14, rtol=3e-14)
+
+
+def test_split_case_preserves_full_role_weights_and_the_global_case_denominator():
+    from posteriorforge.study.updates import _stagewise_update
+
+    model, optimizer = model_and_optimizer()
+    a, b = fixtures(Tracker())
+    baseline = stagewise_cpu_update(model, optimizer, (a, b), TrainingState(), law=CANONICAL_FULL_SUPPORT,
+                                    gradient_clip=.1, allow_unqualified_cpu_diagnostic=True)
+    peers = [model_and_optimizer(), model_and_optimizer()]
+    states = [TrainingState(), TrainingState()]
+    first_a, _ = fixtures(Tracker())
+    second_a, second_b = fixtures(Tracker())
+    left = (replace(first_a, stages=(first_a.stages[1],)),)
+    right = (replace(second_a, stages=second_a.stages[:1]+second_a.stages[2:]), second_b)
+    options = dict(law=CANONICAL_FULL_SUPPORT, gradient_clip=.1, allow_unqualified_cpu_diagnostic=True,
+                   global_query_cases=4, allow_conditional_shards=True)
+    saved = []
+
+    def reduce_left(left_parameters):
+        def reduce_right(right_parameters):
+            for left, right in zip(left_parameters, right_parameters, strict=True):
+                left.grad.add_(right.grad)
+                right.grad.copy_(left.grad)
+        saved.append(_stagewise_update(*peers[1], right, states[1], sum_rank_gradients=reduce_right, **options))
+
+    first = _stagewise_update(*peers[0], left, states[0], sum_rank_gradients=reduce_left, **options)
+    second, = saved
+    assert first['conditional_count'] == 1 and second['conditional_count'] == 9
+    assert first['loss'] + second['loss'] == pytest.approx(baseline['loss'], abs=3e-14)
+    assert first['gradient_norm_before_clip'] == pytest.approx(baseline['gradient_norm_before_clip'], abs=3e-14)
+    assert states == [TrainingState(update=1, data_position=4)] * 2
+    for actual_model, _ in peers:
+        for expected, actual in zip(model.parameters(), actual_model.parameters(), strict=True):
+            torch.testing.assert_close(actual, expected, atol=3e-14, rtol=3e-14)
+            torch.testing.assert_close(actual.grad, expected.grad, atol=3e-14, rtol=3e-14)
+
+
+def test_regular_update_refuses_partial_cases():
+    model, optimizer = model_and_optimizer()
+    case, _ = fixtures(Tracker())
+    state = TrainingState()
+    with pytest.raises(ModelQualificationError, match='incomplete ordered'):
+        stagewise_cpu_update(model, optimizer, (replace(case, stages=case.stages[1:]),), state,
+                             law=CANONICAL_FULL_SUPPORT, allow_unqualified_cpu_diagnostic=True)
+    assert state == TrainingState()

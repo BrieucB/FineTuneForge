@@ -61,9 +61,10 @@ class QualificationTrainingBackend(StockTrainingBackend):
             qualification_only=True, scientifically_qualified=False,
             parametrization_cache_policy="per_layer_forward_and_checkpoint_recompute.v1" if cache_parametrizations else "stock_uncached")
 
-    def prepare(self, item):
+    def prepare(self, item, *, stage_indices=None):
         return prepare_teacher_forced_episode(item.context, item.query,
-            regressor_factory=self.regressor_factory, law=CANONICAL_FULL_SUPPORT, device=self.device)
+            regressor_factory=self.regressor_factory, law=CANONICAL_FULL_SUPPORT, device=self.device,
+            stage_indices=stage_indices)
 
     def update(self, items, state):
         items = tuple(items)
