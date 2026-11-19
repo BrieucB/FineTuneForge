@@ -126,3 +126,37 @@ def test_concurrent_reservations_cannot_exceed_cap_after_reload(tmp_path):
     assert summary['reserved_gpu_seconds'] == 4
     assert summary['remaining_gpu_seconds'] == 0
     assert {entry['reservation_id'] for entry in reloaded.inspect()['reservations']} == set(accepted) | {seed['reservation_id']}
+
+
+@pytest.mark.parametrize(("gpus", "nodes", "per_node"), [(4, 1, 4), (8, 1, 8), (16, 2, 8)])
+def test_qgpu_full_node_layout_reserves_total_and_reconciles(gpus, nodes, per_node, tmp_path, monkeypatch):
+    import subprocess
+    from posteriorforge.study import budget
+
+    script = tmp_path / "worker.sh"
+    script.write_text("#!/bin/sh\nexit 0\n")
+    ledger = StudyBudgetLedger(tmp_path / "ledger.json", allow_gpu_jobs=True)
+
+    def submit(argv, **kwargs):
+        assert f"--nodes={nodes}" in argv and f"--ntasks={nodes}" in argv
+        assert f"--gpus-per-node={per_node}" in argv and f"--cpus-per-task={16 * per_node}" in argv
+        row, = json.loads(ledger.path.read_text())["reservations"]
+        assert row["gpus"] == gpus and row["reserved_gpu_seconds"] == 60 * gpus
+        return subprocess.CompletedProcess(argv, 0, stdout="12345\n", stderr="")
+
+    monkeypatch.setattr(budget.subprocess, "run", submit)
+    entry = ledger.submit(script, gpus=gpus, walltime_seconds=60, purpose="mock scaling check",
+                          job_name="pf-test-scale", log_directory=tmp_path / "log")
+    record = {"JobIDRaw": "12345", "Account": "eu-26-17", "Partition": "qgpu",
+              "State": "COMPLETED", "ElapsedRaw": "10", "AllocTRES": f"gres/gpu={gpus}"}
+    assert ledger.reconcile(entry["reservation_id"], record)["actual_gpu_seconds"] == gpus * 10
+
+
+def test_qgpu_rejects_explicit_single_node_for_two_node_replay(tmp_path):
+    script = tmp_path / "worker.sh"
+    script.write_text("#!/bin/sh\nexit 0\n")
+    ledger = StudyBudgetLedger(tmp_path / "ledger.json", allow_gpu_jobs=True)
+    with pytest.raises(ValueError, match="single explicit node"):
+        ledger.submit(script, gpus=16, walltime_seconds=60, purpose="mock scaling check",
+                      job_name="pf-test-scale", log_directory=tmp_path / "log", node_name="acn05")
+    assert not ledger.path.exists()

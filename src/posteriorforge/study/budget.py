@@ -22,6 +22,8 @@ import tempfile
 import uuid
 
 CAP_GPU_SECONDS = 10000 * 3600
+# Total GPUs -> (Karolina qgpu nodes, A100 GPUs per node).
+_QGPU_LAYOUTS = {1: (1, 1), 2: (1, 2), 4: (1, 4), 8: (1, 8), 16: (2, 8)}
 SCHEMA = "posteriorforge.study.gpu_budget.v1"
 TERMINAL_STATES = frozenset({"COMPLETED", "FAILED", "CANCELLED", "TIMEOUT", "NODE_FAIL",
                              "OUT_OF_MEMORY", "PREEMPTED", "BOOT_FAIL", "REVOKED", "DEADLINE"})
@@ -132,7 +134,7 @@ class StudyBudgetLedger:
                 jobs.add(job)
             if entry.get("state") not in HELD_STATES | {"reconciled", "released"}:
                 raise BudgetError("unknown reservation state")
-            if type(entry.get("gpus")) is not int or entry["gpus"] not in (1, 2, 4):
+            if type(entry.get("gpus")) is not int or entry["gpus"] not in _QGPU_LAYOUTS:
                 raise BudgetError("invalid reserved GPU count")
             wall = entry.get("walltime_seconds")
             if type(wall) is not int or wall <= 0 or entry.get("reserved_gpu_seconds") != entry["gpus"] * wall:
@@ -190,8 +192,8 @@ class StudyBudgetLedger:
         raise BudgetError("unknown reservation")
 
     def _reserve_locked(self, value, *, gpus, walltime_seconds, purpose, metadata=None):
-        if type(gpus) is not int or gpus not in (1, 2, 4):
-            raise ValueError("same-node qgpu allocation requires 1, 2 or 4 GPUs")
+        if type(gpus) is not int or gpus not in _QGPU_LAYOUTS:
+            raise ValueError("qgpu allocation requires 1, 2, 4, 8 or 16 GPUs")
         walltime_seconds = _positive_int(walltime_seconds, "walltime_seconds")
         if walltime_seconds > 2 * 86400:
             raise ValueError("qgpu walltime exceeds the 48 hour limit")
@@ -230,7 +232,7 @@ class StudyBudgetLedger:
 
     def submit(self, script, *, gpus, walltime_seconds, purpose, job_name,
                log_directory, script_args=(), metadata=None, node_name=None, timeout=60):
-        """Reserve then submit a single-node allocation; never retries sbatch.
+        """Reserve then submit an approved qgpu layout; never retries sbatch.
 
         Scripts must not contain #SBATCH options. Resources are fixed here, so a
         script cannot silently override the reserved GPU count or walltime.
@@ -248,6 +250,11 @@ class StudyBudgetLedger:
         if node_name is not None and (not isinstance(node_name, str) or
                                       re.fullmatch(r"acn[0-9]{1,3}", node_name) is None):
             raise ValueError("node_name must be one literal Karolina accelerator node")
+        if type(gpus) is not int or gpus not in _QGPU_LAYOUTS:
+            raise ValueError("qgpu allocation requires 1, 2, 4, 8 or 16 GPUs")
+        nodes, per_node = _QGPU_LAYOUTS[gpus]
+        if node_name is not None and nodes != 1:
+            raise ValueError("a single explicit node is incompatible with a multi-node allocation")
         if not all(isinstance(arg, str) for arg in script_args):
             raise ValueError("script_args must be strings")
         directory = Path(log_directory).resolve()
@@ -255,8 +262,8 @@ class StudyBudgetLedger:
         walltime_seconds = _positive_int(walltime_seconds, "walltime_seconds")
         hours, remainder = divmod(walltime_seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
-        argv = ["sbatch", "--parsable", "--no-requeue", "--account=eu-26-17", "--partition=qgpu", "--nodes=1",
-                "--ntasks=1", f"--gpus-per-node={gpus}", f"--cpus-per-task={16 * gpus}",
+        argv = ["sbatch", "--parsable", "--no-requeue", "--account=eu-26-17", "--partition=qgpu", f"--nodes={nodes}",
+                f"--ntasks={nodes}", "--ntasks-per-node=1", f"--gpus-per-node={per_node}", f"--cpus-per-task={16 * per_node}",
                 f"--time={hours:02d}:{minutes:02d}:{seconds:02d}", f"--job-name={job_name}",
                 f"--output={directory}/%x-%j.out", f"--error={directory}/%x-%j.err",
                 *([f"--nodelist={node_name}"] if node_name is not None else []),
