@@ -23,3 +23,11 @@ def test_selectively_splits_the_slow_case_and_covers_every_original_stage():
 def test_refuses_missing_or_invalid_conditional_costs(costs):
     with pytest.raises(ValueError, match='cost estimates'):
         plan_conditional_shards(costs, 1)
+
+
+def test_distributes_subdivided_cases_to_more_workers_than_cases():
+    cases = ((2.0,) * 8, (1.0,) * 6)
+    ranks = plan_conditional_shards(cases, 8)
+    assert len(ranks) == 8 and all(ranks)
+    seen = sorted((case, index) for rank in ranks for case, stages in rank.items() for index in stages)
+    assert seen == [(case, index) for case, stages in enumerate(cases) for index in range(len(stages))]

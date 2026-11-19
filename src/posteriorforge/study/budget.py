@@ -23,7 +23,7 @@ import uuid
 
 CAP_GPU_SECONDS = 10000 * 3600
 # Total GPUs -> (Karolina qgpu nodes, A100 GPUs per node).
-_QGPU_LAYOUTS = {1: (1, 1), 2: (1, 2), 4: (1, 4), 8: (1, 8), 16: (2, 8)}
+_QGPU_LAYOUTS = {1: (1, 1), 2: (1, 2), 4: (1, 4), 8: (1, 8), 16: (2, 8), 32: (4, 8)}
 SCHEMA = "posteriorforge.study.gpu_budget.v1"
 TERMINAL_STATES = frozenset({"COMPLETED", "FAILED", "CANCELLED", "TIMEOUT", "NODE_FAIL",
                              "OUT_OF_MEMORY", "PREEMPTED", "BOOT_FAIL", "REVOKED", "DEADLINE"})
@@ -193,7 +193,7 @@ class StudyBudgetLedger:
 
     def _reserve_locked(self, value, *, gpus, walltime_seconds, purpose, metadata=None):
         if type(gpus) is not int or gpus not in _QGPU_LAYOUTS:
-            raise ValueError("qgpu allocation requires 1, 2, 4, 8 or 16 GPUs")
+            raise ValueError("qgpu allocation requires 1, 2, 4, 8, 16 or 32 GPUs")
         walltime_seconds = _positive_int(walltime_seconds, "walltime_seconds")
         if walltime_seconds > 2 * 86400:
             raise ValueError("qgpu walltime exceeds the 48 hour limit")
@@ -251,7 +251,7 @@ class StudyBudgetLedger:
                                       re.fullmatch(r"acn[0-9]{1,3}", node_name) is None):
             raise ValueError("node_name must be one literal Karolina accelerator node")
         if type(gpus) is not int or gpus not in _QGPU_LAYOUTS:
-            raise ValueError("qgpu allocation requires 1, 2, 4, 8 or 16 GPUs")
+            raise ValueError("qgpu allocation requires 1, 2, 4, 8, 16 or 32 GPUs")
         nodes, per_node = _QGPU_LAYOUTS[gpus]
         if node_name is not None and nodes != 1:
             raise ValueError("a single explicit node is incompatible with a multi-node allocation")

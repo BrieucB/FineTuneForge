@@ -128,7 +128,7 @@ def test_concurrent_reservations_cannot_exceed_cap_after_reload(tmp_path):
     assert {entry['reservation_id'] for entry in reloaded.inspect()['reservations']} == set(accepted) | {seed['reservation_id']}
 
 
-@pytest.mark.parametrize(("gpus", "nodes", "per_node"), [(4, 1, 4), (8, 1, 8), (16, 2, 8)])
+@pytest.mark.parametrize(("gpus", "nodes", "per_node"), [(4, 1, 4), (8, 1, 8), (16, 2, 8), (32, 4, 8)])
 def test_qgpu_full_node_layout_reserves_total_and_reconciles(gpus, nodes, per_node, tmp_path, monkeypatch):
     import subprocess
     from posteriorforge.study import budget
