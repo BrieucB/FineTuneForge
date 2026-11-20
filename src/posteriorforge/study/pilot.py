@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 from .budget import StudyBudgetLedger
+from .conditional_sampling import HALF_CONDITIONAL_PERCENT, HALF_CONDITIONAL_POLICY
 
 
 CUDA_PILOT_EXECUTION = {
@@ -23,6 +24,11 @@ CUDA_TILED_ATTENTION_EXECUTION = {
 CUDA_MEMBER_RECOMPUTE_EXECUTION = {
     **CUDA_TILED_ATTENTION_EXECUTION,
     "ensemble_member_policy": "per_member_non_reentrant_checkpoint.v1",
+}
+CUDA_HALF_CONDITIONAL_EXECUTION = {
+    **CUDA_MEMBER_RECOMPUTE_EXECUTION,
+    "conditional_sampling_policy": HALF_CONDITIONAL_POLICY,
+    "conditional_sampling_percent": HALF_CONDITIONAL_PERCENT,
 }
 
 

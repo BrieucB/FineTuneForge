@@ -27,7 +27,7 @@ def _write(path,value):
     tmp.write_text(json.dumps(value,sort_keys=True,indent=2,allow_nan=False)+'\n');os.replace(tmp,path)
 
 def source_identity():
-    names=('campaign.py','episodes.py','model.py','training.py','updates.py','science.py','banks.py','ordering.py','spec.py','seeds.py','cuda_training.py','training_execution.py')
+    names=('campaign.py','episodes.py','model.py','training.py','updates.py','science.py','banks.py','ordering.py','spec.py','seeds.py','cuda_training.py','training_execution.py','conditional_sampling.py')
     return {name:sha256(Path(__file__).with_name(name).read_bytes()).hexdigest() for name in names}
 
 def quick_milestones(updates):
@@ -245,7 +245,8 @@ def _run_cuda_pilot(spec, *, stream, validation, store, backend, output, pilot_i
     if stream.diagnostic or len(validation) != 320:
         raise CampaignQualificationError('CUDA pilot requires the full matched training and validation streams')
     _require_cuda_pilot_backend(spec, backend)
-    for key in ('attention_policy', 'attention_max_score_bytes', 'ensemble_member_policy'):
+    for key in ('attention_policy', 'attention_max_score_bytes', 'ensemble_member_policy',
+                'conditional_sampling_policy', 'conditional_sampling_percent'):
         if backend.identity.get(key) != pilot_identity['execution'].get(key):
             raise CampaignQualificationError('CUDA pilot backend does not match the requested execution policy')
     return _run_campaign(spec, stream=stream, validation=validation, store=store, backend=backend,
@@ -298,6 +299,8 @@ def _run_campaign(spec, *, stream, validation, store, backend, output, resume_fr
             update_started=time.perf_counter();report=backend.update(items,state);record['timings']['training_update_seconds']=time.perf_counter()-update_started;record['update']=report
             if state.update!=before['update']+1 or state.data_position!=before['data_position']+spec.effective_batch:raise ModelQualificationError('backend counter/cursor mismatch')
             row={'update':state.update,'data_position':state.data_position,'training_loss':report['loss']}
+            if 'conditional_sampling_plan' in report:
+                row['conditional_sampling_plan'] = report['conditional_sampling_plan']
             if state.update in milestones:
                 checked=time.perf_counter();quick=backend.quick_validate(materialize_episode(validation,r,store) for r in validation)
                 if quick.get('posterior_draws')!=0 or quick.get('score_count')!=len(validation) or not math.isfinite(quick['score']):raise ModelQualificationError('incomplete/nonfinite quick validation; no posterior draws allowed')

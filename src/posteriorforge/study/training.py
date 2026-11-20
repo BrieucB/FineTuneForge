@@ -25,6 +25,7 @@ import numpy as np
 import torch
 from torch import nn
 
+from .conditional_sampling import ROLE_GROUP
 from .model import LEGACY_FINITE, PENDING_FULL_TAIL, CANONICAL_FULL_SUPPORT, BarDensity, ModelQualificationError, PreparedEnsemble, configure_differentiable_forward
 
 
@@ -85,7 +86,6 @@ def balanced_problem_loss(parameter_losses: Sequence[torch.Tensor], parameter_ro
     """Equal problem influence and equal means of the three scientific role groups."""
     if not parameter_losses or len(parameter_losses) != len(parameter_roles):
         raise ValueError("paired nonempty problem losses and roles are required")
-    mapping = {"population": 0, "batch": 0, "physical": 1, "noise": 2}
     problem_losses = []
     for losses, roles in zip(parameter_losses, parameter_roles):
         if losses.ndim != 1 or len(losses) != len(roles) or not len(roles):
@@ -93,7 +93,7 @@ def balanced_problem_loss(parameter_losses: Sequence[torch.Tensor], parameter_ro
         if not bool(torch.isfinite(losses).all()):
             raise TargetSupportMismatch("nonfinite proper density score; no target dropping or clipping")
         try:
-            groups = [mapping[role] for role in roles]
+            groups = [ROLE_GROUP[role] for role in roles]
         except KeyError as exc:
             raise ValueError("unrecognized parameter role") from exc
         if set(groups) != {0, 1, 2}:

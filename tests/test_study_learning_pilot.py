@@ -484,3 +484,160 @@ def test_pilot_checkpoint_resume_preserves_cursor_and_fixed_validation(
     assert len(checks) == 10
     assert len(set(checks[0])) == 320
     assert all(check == checks[0] for check in checks)
+
+
+def test_half_sampling_is_bound_to_the_explicit_request(payload, tmp_path, monkeypatch):
+    from posteriorforge.study import pilot
+
+    control = workflows.TrainingRequest.from_dict(dict(payload, execution=pilot.CUDA_MEMBER_RECOMPUTE_EXECUTION))
+    policy = dict(pilot.CUDA_HALF_CONDITIONAL_EXECUTION)
+    sampled = workflows.TrainingRequest.from_dict(dict(payload, execution=policy))
+    assert sampled.plan()["execution"] == policy
+    assert sampled.fingerprint != control.fingerprint
+    assert control.to_dict()["execution"] == pilot.CUDA_MEMBER_RECOMPUTE_EXECUTION
+
+    for changed in (
+        dict(policy, conditional_sampling_percent=50.0),
+        dict(policy, conditional_sampling_percent=25),
+        dict(policy, conditional_sampling_policy="different.v1"),
+        {key: value for key, value in policy.items() if key != "ensemble_member_policy"},
+    ):
+        with pytest.raises(ValueError, match="cache policy"):
+            workflows.TrainingRequest.from_dict(dict(payload, execution=changed))
+
+    def factory(spec, checkpoint, *, attention_max_score_bytes, recompute_ensemble_members, conditional_sampling_policy):
+        assert attention_max_score_bytes == 512 * 1024 * 1024
+        assert recompute_ensemble_members is True
+        assert conditional_sampling_policy == policy["conditional_sampling_policy"]
+        return "sampled"
+
+    monkeypatch.setattr(pilot, "authorize_cuda_pilot", lambda **_: {})
+    monkeypatch.setattr(workflows, "_make_cuda_pilot_backend", factory)
+    monkeypatch.setattr(workflows, "_execute_training_request",
+                        lambda request, *, spec, factory, **_: factory(spec, tmp_path / "base.ckpt"))
+    assert workflows.execute_cuda_pilot_request(sampled, output=tmp_path / "run", ledger="unused.json") == "sampled"
+
+
+def test_sampled_cuda_pilot_command_restarts_exactly_with_cpu_fixture(
+    payload, allocation, tmp_path, monkeypatch, capsys,
+):
+    torch = pytest.importorskip("torch")
+    from posteriorforge.study import cuda_training, model_loading, pilot
+    from posteriorforge.study.conditional_sampling import select_half_conditionals
+    from posteriorforge.study.entrypoint import main
+    from posteriorforge.study.model import weights_fingerprint
+    from posteriorforge.study.training import make_optimizer
+    from posteriorforge.study.updates import _stagewise_update
+    from test_study_campaign import TinyBackend, problem
+    from test_study_updates import FixtureEnsemble, Tracker, fixtures
+
+    policy = dict(pilot.CUDA_HALF_CONDITIONAL_EXECUTION)
+    payload["execution"] = policy
+    request = workflows.TrainingRequest.from_dict(payload)
+    config = tmp_path / "request.json"
+    config.write_text(json.dumps(payload))
+    base = tmp_path / payload["base_checkpoint"]
+    base.write_bytes(b"CPU fixture for sampled CUDA request")
+    monkeypatch.setattr(model_loading, "BASE_SHA256", workflows.file_sha256(base))
+    training = tuple(replace(problem(), id=f"train-{i}", split="train") for i in range(10_000))
+    validation = tuple(replace(problem(), id=f"validation-{i}", split="validation") for i in range(20))
+    monkeypatch.setattr(workflows, "_pilot_catalogue",
+                        lambda _path, _checksum, *, split: {"train": training, "validation": validation}[split])
+
+    sample_episode, = fixtures(Tracker(), query_counts=(1,), dimensions=(4,))
+    roles = sample_episode.roles
+
+    def materialize(stream, episode, store):
+        return SimpleNamespace(
+            context=SimpleNamespace(spec=SimpleNamespace(roles=roles)),
+            query=SimpleNamespace(theta=[[0.0]]),
+            receipt={"request": episode.to_dict(), "posterior_draws": 0},
+        )
+
+    monkeypatch.setattr(campaign, "materialize_episode", materialize)
+    monkeypatch.setattr(campaign, "quick_milestones", lambda updates: (2, updates))
+    monkeypatch.setattr(torch.cuda, "synchronize", lambda device: None)
+
+    class CpuEnvelope(cuda_training.CudaLearningPilotBackend):
+        def __init__(self, spec, checkpoint, *, attention_max_score_bytes, recompute_ensemble_members,
+                     conditional_sampling_policy):
+            assert checkpoint == base
+            assert attention_max_score_bytes == policy["attention_max_score_bytes"] and recompute_ensemble_members
+            assert conditional_sampling_policy == policy["conditional_sampling_policy"]
+            TinyBackend.__init__(self, spec)
+            self.model = torch.nn.Linear(2, 3, dtype=torch.float64)
+            self.optimizer = make_optimizer(self.model, self.training_config)
+            self.cache_parametrizations = True
+            self.conditional_sampling_policy = conditional_sampling_policy
+            self.device = torch.device("cpu")
+            self.identity.update(policy, backend_kind=policy["backend"], qualification_only=True,
+                                 initial_weights_sha256=weights_fingerprint(self.model))
+
+        export = TinyBackend.export
+
+        def _measure(self, operation, *args):
+            return operation(*args)
+
+        def prepare(self, item, *, stage_indices=None):
+            req = item.receipt["request"]
+            tracker = Tracker()
+            episode, = fixtures(tracker, query_counts=(1,), dimensions=(4,))
+            if req["phase"] == "quick_validation":
+                assert stage_indices is None
+                return episode
+            assert stage_indices == select_half_conditionals(roles, req["request_id"]).stage_indices
+            # Exercise checkpoint restoration of both global and backend-local RNG.
+            scale = 1.0 + torch.rand(()).item() + self.episode_rng.random()
+            stages = tuple(
+                replace(stage, ensemble=FixtureEnsemble(stage.ensemble.features * scale, tracker, stage.index))
+                for stage in episode.stages if stage.index in stage_indices
+            )
+            return replace(episode, stages=stages)
+
+    def cpu_update(model, optimizer, episodes, state, *, allow_cuda_qualification, expected_device,
+                   cache_parametrizations, **kwargs):
+        assert allow_cuda_qualification and expected_device.type == "cpu" and cache_parametrizations
+        return _stagewise_update(model, optimizer, episodes, state, allow_unqualified_cpu_diagnostic=True, **kwargs)
+
+    monkeypatch.setattr(cuda_training, "CudaLearningPilotBackend", CpuEnvelope)
+    monkeypatch.setattr(cuda_training, "stagewise_cuda_qualification_update", cpu_update)
+
+    def invoke(output, job, stop, checkpoint=None):
+        monkeypatch.setenv("SLURM_JOB_ID", str(job))
+        reserve(allocation, request, output, resume_from=checkpoint, stop_after_update=stop, job_id=str(job))
+        args = ["study", "train-cuda-pilot", "--config", str(config), "--output", str(output),
+                "--ledger", str(allocation.path), "--stop-after-update", str(stop)]
+        if checkpoint is not None:
+            args.extend(("--resume-from", checkpoint))
+        main(args)
+        return json.loads(capsys.readouterr().out)
+
+    uninterrupted = invoke(tmp_path / "full", 7651, 2)
+    first = invoke(tmp_path / "segmented", 7652, 1)
+    resumed = invoke(tmp_path / "segmented", 7653, 2, first["last_checkpoint"])
+    left, right = (Path(run["last_checkpoint"]) for run in (uninterrupted, resumed))
+    retained = campaign.read_campaign_checkpoint(right)
+    assert retained["identity"]["cuda_learning_pilot"]["execution"] == policy
+    assert retained["identity"]["cuda_learning_pilot"]["request_sha256"] == request.fingerprint
+    assert retained["history"][0]["conditional_sampling_plan"] == first["history"][0]["conditional_sampling_plan"]
+    assert retained["history"] == resumed["history"]
+    assert [{k: v for k, v in row.items() if k != "checkpoint"} for row in resumed["history"]] == [
+        {k: v for k, v in row.items() if k != "checkpoint"} for row in uninterrupted["history"]
+    ]
+    assert resumed["data_cursor"] == uninterrupted["data_cursor"] == 32
+    assert resumed["model_sha256"] == uninterrupted["model_sha256"] and resumed["posterior_draws"] == 0
+    assert "quick_score" in retained["history"][1] and resumed["quick_validation_scores_per_check"] == 320
+    plans = retained["history"][1]["conditional_sampling_plan"]["episodes"]
+    assert len({row["request_id"] for row in plans}) == 16
+    assert all(len(row["stage_indices"]) == 3 for row in plans)
+
+    a, b = (torch.load(p / "training" / "training.pt", weights_only=True) for p in (left, right))
+    for name, value in a["model"].items():
+        assert torch.equal(value, b["model"][name])
+    assert a["optimizer"]["param_groups"] == b["optimizer"]["param_groups"]
+    for param, state in a["optimizer"]["state"].items():
+        assert all(torch.equal(value, b["optimizer"]["state"][param][key]) for key, value in state.items())
+    incompatible = json.loads(json.dumps(retained["identity"]))
+    incompatible["cuda_learning_pilot"]["execution"] = pilot.CUDA_MEMBER_RECOMPUTE_EXECUTION
+    with pytest.raises(campaign.CampaignQualificationError, match="identity mismatch"):
+        campaign.read_campaign_checkpoint(right, expected_identity=incompatible)

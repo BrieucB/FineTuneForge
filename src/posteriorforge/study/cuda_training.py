@@ -11,6 +11,9 @@ from pathlib import Path
 import time
 import torch
 from .campaign import StockTrainingBackend, source_identity
+from .conditional_sampling import (
+    HALF_CONDITIONAL_PERCENT, HALF_CONDITIONAL_POLICY, select_half_conditionals,
+)
 from .model import CANONICAL_FULL_SUPPORT, ModelQualificationError
 from .training import make_optimizer, prepare_teacher_forced_episode, _cuda_execution_metadata
 from .updates import stagewise_cuda_qualification_update
@@ -36,6 +39,7 @@ def configure_cuda_determinism() -> None:
 class QualificationTrainingBackend(StockTrainingBackend):
     """One independent CUDA worker with full local model and unchanged scientific loss."""
     backend_kind = "stock_tabpfn_cuda_qualification"
+    conditional_sampling_policy = None
 
     def __init__(self, spec, checkpoint, *, device="cuda:0", allow_cuda_qualification=False,
                  cache_parametrizations=False):
@@ -74,13 +78,20 @@ class QualificationTrainingBackend(StockTrainingBackend):
             raise ModelQualificationError("matched training episodes each require one independent query case")
         torch.cuda.synchronize(self.device)
         started = time.perf_counter()
-        prepared = [self.prepare(item) for item in items]
+        selections = None
+        if self.conditional_sampling_policy is None:
+            prepared = [self.prepare(item) for item in items]
+        else:
+            selections = tuple(select_half_conditionals(item.context.spec.roles, item.receipt["request"]["request_id"])
+                               for item in items)
+            prepared = [self.prepare(item, stage_indices=selection.stage_indices)
+                        for item, selection in zip(items, selections, strict=True)]
         torch.cuda.synchronize(self.device)
         preprocessing = time.perf_counter() - started
         report = stagewise_cuda_qualification_update(self.model, self.optimizer, prepared, state,
             law=CANONICAL_FULL_SUPPORT, gradient_clip=1.0,
             allow_cuda_qualification=True, expected_device=self.device,
-            cache_parametrizations=self.cache_parametrizations)
+            cache_parametrizations=self.cache_parametrizations, conditional_selections=selections)
         torch.cuda.synchronize(self.device)
         return dict(report, preprocessing_seconds=preprocessing,
             preprocessing_includes_host_to_device=True,
@@ -90,7 +101,8 @@ class QualificationTrainingBackend(StockTrainingBackend):
 class CudaLearningPilotBackend(QualificationTrainingBackend):
     """Use the qualified eager rank-4 path and retain capacity measurements."""
 
-    def __init__(self, spec, checkpoint, *, attention_max_score_bytes=None, recompute_ensemble_members=False):
+    def __init__(self, spec, checkpoint, *, attention_max_score_bytes=None, recompute_ensemble_members=False,
+                 conditional_sampling_policy=None):
         from .pilot import CUDA_MEMBER_RECOMPUTE_EXECUTION, CUDA_TILED_ATTENTION_EXECUTION
 
         if spec.method != "lora_r4" or spec.phase != "pilot" or spec.diagnostic:
@@ -106,7 +118,11 @@ class CudaLearningPilotBackend(QualificationTrainingBackend):
         if type(recompute_ensemble_members) is not bool or (
                 recompute_ensemble_members and attention_max_score_bytes is None):
             raise ModelQualificationError("member checkpointing requires explicit opt-in with tiled attention")
+        if conditional_sampling_policy is not None and (
+                conditional_sampling_policy != HALF_CONDITIONAL_POLICY or not recompute_ensemble_members):
+            raise ModelQualificationError("conditional sampling requires the declared half-sampling and member recompute policies")
         self.attention_max_score_bytes = attention_max_score_bytes
+        self.conditional_sampling_policy = conditional_sampling_policy
         super().__init__(spec, checkpoint, device="cuda:0", allow_cuda_qualification=True,
                          cache_parametrizations=True)
         self.identity.update(fusion_enabled=False, cpu_large_dataset_preprocessing=True)
@@ -117,6 +133,9 @@ class CudaLearningPilotBackend(QualificationTrainingBackend):
         if recompute_ensemble_members:
             self.model.recompute_ensemble_members = True
             self.identity["ensemble_member_policy"] = CUDA_MEMBER_RECOMPUTE_EXECUTION["ensemble_member_policy"]
+        if conditional_sampling_policy is not None:
+            self.identity.update(conditional_sampling_policy=HALF_CONDITIONAL_POLICY,
+                                 conditional_sampling_percent=HALF_CONDITIONAL_PERCENT)
 
     def _measure(self, operation, *args):
         torch.cuda.synchronize(self.device)

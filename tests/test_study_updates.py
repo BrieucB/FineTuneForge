@@ -239,3 +239,58 @@ def test_regular_update_refuses_partial_cases():
         stagewise_cpu_update(model, optimizer, (replace(case, stages=case.stages[1:]),), state,
                              law=CANONICAL_FULL_SUPPORT, allow_unqualified_cpu_diagnostic=True)
     assert state == TrainingState()
+
+
+def test_sampled_role_weights_target_the_exhaustive_preclip_gradient():
+    from itertools import combinations, product
+    import math
+
+    from posteriorforge.study.conditional_sampling import select_half_conditionals
+    from posteriorforge.study.updates import _stagewise_update
+
+    def evaluate(request_id=None):
+        model, optimizer = model_and_optimizer()
+        episode, = fixtures(Tracker(enforce=True), query_counts=(1,), dimensions=(6,))
+        selections = None
+        if request_id is not None:
+            selection = select_half_conditionals(episode.roles, request_id)
+            episode = replace(episode, stages=tuple(episode.stages[i] for i in selection.stage_indices))
+            selections = (selection,)
+        state = TrainingState()
+        report = _stagewise_update(model, optimizer, (episode,), state, law=CANONICAL_FULL_SUPPORT,
+            allow_unqualified_cpu_diagnostic=True, gradient_clip=100., conditional_selections=selections)
+        assert state.update == state.data_position == report["optimizer_steps"] == 1
+        assert report["gradient_norm_before_clip"] < 100.
+        return report, torch.cat([p.grad.ravel().detach() for p in model.parameters()])
+
+    full, expected = evaluate()
+    test_episode, = fixtures(Tracker(), query_counts=(1,), dimensions=(6,))
+    requests_by_selection = {}
+    for i in range(100):
+        request_id = f"{i:064x}"
+        selection = select_half_conditionals(test_episode.roles, request_id)
+        requests_by_selection.setdefault(selection.stage_indices, request_id)
+    expected_subsets = {(p, *q, 5) for p, q in product((0, 1), combinations((2, 3, 4), 2))}
+    assert set(requests_by_selection) == expected_subsets
+
+    reports, gradients = zip(*(evaluate(request_id) for request_id in requests_by_selection.values()))
+    assert all(r["conditional_count"] == 4 for r in reports)
+    assert math.fsum(r["loss"] for r in reports) / len(reports) == pytest.approx(full["loss"], abs=3e-14)
+    torch.testing.assert_close(torch.stack(gradients).mean(0), expected, rtol=0, atol=3e-14)
+
+
+def test_invalid_sampled_role_counts_fail_before_forward():
+    from posteriorforge.study.conditional_sampling import select_half_conditionals
+    from posteriorforge.study.updates import _stagewise_update
+
+    tracker = Tracker(enforce=True)
+    original, = fixtures(tracker, query_counts=(1,), dimensions=(6,))
+    selection = select_half_conditionals(original.roles, "1" * 64)
+    sampled = replace(original, stages=tuple(original.stages[i] for i in selection.stage_indices))
+    forged = replace(selection, selected_role_counts=(2, 2, 1))
+    model, optimizer = model_and_optimizer()
+    state = TrainingState()
+    with pytest.raises(ModelQualificationError, match="replay policy"):
+        _stagewise_update(model, optimizer, (sampled,), state, law=CANONICAL_FULL_SUPPORT,
+                          allow_unqualified_cpu_diagnostic=True, conditional_selections=(forged,))
+    assert state == TrainingState() and not optimizer.state and not tracker.events

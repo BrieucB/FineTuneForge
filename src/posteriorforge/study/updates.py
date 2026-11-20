@@ -10,13 +10,14 @@ from contextlib import nullcontext
 from typing import Sequence
 import torch
 from torch import nn
+from .conditional_sampling import (
+    HALF_CONDITIONAL_PERCENT, HALF_CONDITIONAL_POLICY, ROLE_GROUP as _ROLE_GROUP,
+    ConditionalSelection, select_half_conditionals,
+)
 from .model import CANONICAL_FULL_SUPPORT, LEGACY_FINITE, ModelQualificationError, configure_differentiable_forward
 from .training import PreparedTeacherForcedEpisode, TargetSupportMismatch, TrainingState
 
-_ROLE_GROUP = {"population": 0, "batch": 0, "physical": 1, "noise": 2}
-
-
-def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualified_cpu_diagnostic,
+def _preflight(model, optimizer, episodes, selections, *, law, gradient_clip, allow_unqualified_cpu_diagnostic,
                device_type="cpu", allow_conditional_shards=False):
     if not allow_unqualified_cpu_diagnostic:
         raise ModelQualificationError("explicit unqualified CPU-diagnostic opt-in required; I07 does not authorize a campaign" if device_type == "cpu" else "explicit CUDA qualification opt-in required; production is still I07-gated")
@@ -42,7 +43,7 @@ def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualif
     if not episodes:
         raise ValueError("a nonempty effective batch of prepared episodes is required")
     counts, total_cases = [], 0
-    for episode in episodes:
+    for episode, selection in zip(episodes, selections, strict=True):
         if not isinstance(episode, PreparedTeacherForcedEpisode):
             raise TypeError("prepared teacher-forced episodes required")
         if episode.split not in ("train", "diagnostic"):
@@ -55,7 +56,10 @@ def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualif
         if not dimension or len(set(episode.parameter_order)) != dimension or len(episode.roles) != dimension:
             raise ModelQualificationError("incomplete ordered teacher-forced episode")
         indices = tuple(stage.index for stage in episode.stages)
-        if allow_conditional_shards:
+        if selection is not None:
+            if episode.query_count != 1 or indices != selection.stage_indices:
+                raise ModelQualificationError("prepared episode does not match its conditional selection")
+        elif allow_conditional_shards:
             if (not indices or any(type(i) is not int or not 0 <= i < dimension for i in indices)
                     or indices != tuple(sorted(set(indices)))):
                 raise ModelQualificationError("invalid ordered teacher-forced conditional shard")
@@ -68,6 +72,8 @@ def _preflight(model, optimizer, episodes, *, law, gradient_clip, allow_unqualif
         group_counts = tuple(groups.count(group) for group in range(3))
         if not all(group_counts):
             raise ModelQualificationError("population/batch, physical and inferred-noise groups required")
+        if selection is not None and selection != select_half_conditionals(episode.roles, selection.request_id):
+            raise ModelQualificationError("conditional selection does not match the declared replay policy")
         for j, stage in zip(indices, episode.stages, strict=True):
             if stage.parameter_name != episode.parameter_order[j] or stage.role != episode.roles[j]:
                 raise ModelQualificationError("teacher-forced stage order/role mismatch")
@@ -97,11 +103,14 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                          allow_unqualified_cpu_diagnostic: bool = False, device_type: str = "cpu",
                          cache_parametrizations: bool = False, global_query_cases: int | None = None,
                          sum_rank_gradients=None, profile_region=None,
-                         allow_conditional_shards: bool = False) -> dict:
+                         allow_conditional_shards: bool = False,
+                         conditional_selections: Sequence[ConditionalSelection] | None = None) -> dict:
     """Backward each conditional, then take one step for the entire batch.
 
     Each parameter/query contributes
     NLL/(total_query_cases * 3 * parameter_count_in_its_role_group).
+    Sampled terms also receive the inverse of their within-role inclusion
+    probability. The full counts above remain the denominator.
     Its NLL includes its own decoder log-Jacobian. Weights stay unchanged across
     conditional forwards. Each backward releases that stage's graph before the
     next forward; only preprocessing tensors and scalar records are retained.
@@ -119,7 +128,12 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
     optimizer.zero_grad(set_to_none=True)
     try:
         episodes = tuple(episodes)
-        parameters, group_counts, total_cases = _preflight(model, optimizer, episodes,
+        selections = (None,) * len(episodes)
+        if conditional_selections is not None:
+            selections = tuple(conditional_selections)
+            if len(selections) != len(episodes) or any(not isinstance(s, ConditionalSelection) for s in selections):
+                raise ModelQualificationError("one conditional selection is required per prepared episode")
+        parameters, group_counts, total_cases = _preflight(model, optimizer, episodes, selections,
             law=law, gradient_clip=gradient_clip,
             allow_unqualified_cpu_diagnostic=allow_unqualified_cpu_diagnostic, device_type=device_type,
             allow_conditional_shards=allow_conditional_shards)
@@ -138,7 +152,7 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
         def region(phase, episode, stage):
             return nullcontext() if profile_region is None else profile_region(phase, episode, stage)
 
-        for episode, counts in zip(episodes, group_counts):
+        for episode, counts, selection in zip(episodes, group_counts, selections, strict=True):
             for stage in episode.stages:
                 configure_differentiable_forward(model)
                 if cache_parametrizations:
@@ -153,9 +167,12 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
                         density = stage.ensemble.density(model, law=law)
                     with region("loss", episode, stage):
                         losses = -density.log_prob(stage.targets, log_abs_det_decode=stage.decoder_log_jac)
+                        group = _ROLE_GROUP[stage.role]
+                        if selection is not None and selection.selected_role_counts[group] < counts[group]:
+                            losses = losses * (counts[group] / selection.selected_role_counts[group])
                         if losses.shape != (episode.query_count,) or not bool(torch.isfinite(losses).all()):
                             raise TargetSupportMismatch(f"{episode.problem_id}:{stage.parameter_name}: nonfinite/zero generating density; no repair")
-                        contribution = losses.sum() / (total_cases * 3 * counts[_ROLE_GROUP[stage.role]])
+                        contribution = losses.sum() / (total_cases * 3 * counts[group])
                         if not contribution.requires_grad:
                             raise ModelQualificationError("conditional score disconnected from transformer weights")
                         scalar_losses.append(float(contribution.detach()))
@@ -187,6 +204,12 @@ def _stagewise_update(model: nn.Module, optimizer: torch.optim.Optimizer,
         "execution_mode": "unqualified_cpu_diagnostic" if device_type == "cpu" else "unqualified_cuda_qualification", "scientifically_qualified": False}
     if sum_rank_gradients is not None:
         report.update(local_query_case_count=local_cases, loss_scope="local_contribution_to_global_loss")
+    if conditional_selections is not None:
+        report["conditional_sampling_plan"] = {
+            "policy": HALF_CONDITIONAL_POLICY,
+            "percent": HALF_CONDITIONAL_PERCENT,
+            "episodes": [selection.to_dict() for selection in selections],
+        }
     return report
 
 
@@ -205,7 +228,8 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
                          allow_cuda_qualification: bool = False, expected_device=None,
                          cache_parametrizations: bool = False, global_query_cases: int | None = None,
                          sum_rank_gradients=None, profile_region=None,
-                         allow_conditional_shards: bool = False) -> dict:
+                         allow_conditional_shards: bool = False,
+                         conditional_selections: Sequence[ConditionalSelection] | None = None) -> dict:
     """One explicitly authorized engineering update; does not qualify a campaign.
 
     Neural parameters remain FP32 and probability/Jacobian calculations FP64.
@@ -217,6 +241,7 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
     The collective runs once, after local backward passes and before clipping.
     A caller with a validated, exhaustive cross-rank assignment may opt in to
     conditional shards. Shards use the full problem's original role counts.
+    Sampled episodes carry one validated role-stratified selection per case.
     An optional profile context wraps density, loss and backward per conditional.
     """
     if allow_cuda_qualification is not True:
@@ -240,7 +265,7 @@ def stagewise_cuda_qualification_update(model: nn.Module, optimizer: torch.optim
         gradient_clip=gradient_clip, allow_unqualified_cpu_diagnostic=True, device_type="cuda",
         cache_parametrizations=cache_parametrizations, global_query_cases=global_query_cases,
         sum_rank_gradients=sum_rank_gradients, profile_region=profile_region,
-        allow_conditional_shards=allow_conditional_shards)
+        allow_conditional_shards=allow_conditional_shards, conditional_selections=conditional_selections)
     torch.cuda.synchronize(target)
     return dict(report, device=str(target), neural_precision="float32",
                 probability_precision="float64", mixed_precision=False,
