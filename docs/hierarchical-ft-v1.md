@@ -5,6 +5,8 @@ Built with PriorLabs-TabPFN.
 FineTuneForge adds a variable-size study namespace while preserving the historical
 `posteriorforge` package, commands, source evidence, and 200-hour ledger. Scope and
 acceptance criteria live in [issue #9](https://github.com/BrieucB/FineTuneForge/issues/9).
+Record implementation decisions and any open assumptions in the
+[implementation assumptions register](implementation-assumptions.md).
 The new study has a separate 10,000 allocated GPU-hour planning ceiling; it is not
 authorization to run jobs. Its ledger is separate from historical accounting, and
 `posteriorforge study submit` currently refuses execution. The current implementation
@@ -71,6 +73,7 @@ commands and arguments are:
 ```text
 train-plan [--config FILE]
 train --config FILE --output DIR --cpu-diagnostic [--resume-from CHECKPOINT] [--stop-after-update N]
+train-cuda-pilot --config FILE --output DIR --ledger FILE [--resume-from CHECKPOINT] [--stop-after-update N]
 posterior-plan --config FILE
 posterior --config FILE --output DIR --cpu-diagnostic [--resume]
 evaluation-plan --config FILE --output FILE
@@ -80,13 +83,23 @@ seal-selection --records FILE --manifest-sha256 SHA --plan-sha256 SHA \
 inspect-model --base-checkpoint FILE [--campaign-checkpoint DIR]
 ```
 
-Training and posterior execution require explicit CPU-diagnostic opt-in. Training
-requests are file-backed `finetuneforge.training_request.v1` objects; posterior
-requests are `finetuneforge.posterior_request.v1`. Evaluation-plan and evaluation
+The CPU training and posterior commands require explicit diagnostic opt-in.
+File-backed training requests use `finetuneforge.training_request.v1` on CPU
+and `finetuneforge.training_request.v2` for the separately authorized CUDA
+pilot. Posterior requests use `finetuneforge.posterior_request.v1`.
+Evaluation-plan and evaluation
 requests are also file-backed and bind their input files by SHA256. The schemas
 and execution policy are defined in `study/workflows.py`; evaluation records and
 selection locks bind the plan, model, bank, query, and catalogue identities. These
 commands do not submit scheduler jobs.
+
+For a sampled rank-4 pilot, use the execution object
+`CUDA_HALF_CONDITIONAL_EXECUTION` from `posteriorforge.study.pilot` in the
+v2 request. It extends the tiled attention and member-recompute settings
+with `"conditional_sampling_policy": "role_stratified_half_episode_sha256_shuffle.v1"`
+and `"conditional_sampling_percent": 50`. The existing execution objects
+still score every training conditional. A sampled checkpoint resumes with
+the same request identity, and held-out scoring evaluates every conditional.
 
 Training orchestration uses fresh context banks and fresh independent one-case
 queries on every visit, with identical data streams per method for each seed and
