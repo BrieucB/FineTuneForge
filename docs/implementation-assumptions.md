@@ -85,6 +85,24 @@ retains all four job IDs, timings, source and checkpoint identities,
 and memory measurements. Mixed-batch per-rank memory and independent
 posterior-reference qualification remain open.
 
+### Mixed 16-case update and production cost
+
+On 2026-11-21, both sampled layouts executed the same 334 of 659
+conditionals from the original mixed batch. The critical update times
+were 310.52 seconds on 16 A100s and 189.31 seconds on 32 A100s. These
+correspond to 1.380 and 1.683 GPU-hours per update before fixed launch
+and checkpoint overhead. The maximum per-rank PyTorch reservations
+were 38.43 and 38.25 GiB, respectively. The loss and global gradient
+norm agreed at float64 reporting precision.
+
+Use the lower observed rate, 1.380 GPU-hours per update, as a bounded
+rank-4 scenario in the cost forecast. Two rank-4 replicas alone would
+cost 3,450 GPU-hours at 1,000 updates each with the required 25% margin.
+The three planned common allowances do not fit the current training
+envelope at the measured rate. Production cost for rank-16 and full
+tuning on comparable geometry remains to be measured. [Mixed-batch
+receipt and cost forecast](../evidence/hierarchical-ft-v1-conditional-sampling/mixed-batch-capacity-and-production-forecast.json)
+
 ## Standing assumptions
 
 | ID | Status | Scope and assumption | Source |
@@ -95,4 +113,4 @@ posterior-reference qualification remain open.
 | A05 | Adopted | Use fresh context banks and independent simulated query cases on training visits. The training context ladder is 16, 64, 256, and 1,024. Reference and posterior tests keep the sealed test split and the protocol's declared evaluation settings. | [Study contract](hierarchical-ft-v1.md) |
 | A06 | Adopted | Every posterior request uses exactly 50,000 complete vectors. Record invalid decoding as a failed request. Held-out density scoring at known generating parameters makes zero posterior requests. | [Study contract](hierarchical-ft-v1.md) |
 | A07 | Adopted | Reconcile allocated Slurm time, including failed jobs and idle allocated GPUs, in the study ledger. Prefer concurrent independent jobs, with GPU counts chosen from measured scaling and live placement. The EuroHPC balance and the study budget are separate accounting scopes. | [Budget](budget.md) |
-| A08 | Open | The one-wide-case restart fixtures passed. Measure per-rank peak memory on the original mixed batch. Qualify larger-context quality and posterior/reference accuracy under I07. Use representative timings to forecast the full validation and campaign matrix before fixing the production allowance. | [Qualification issue I07](https://github.com/BrieucB/FineTuneForge/issues/16) |
+| A08 | Open | The one-wide-case restart fixtures and per-rank memory check on the original mixed batch passed. Qualify larger-context quality and posterior/reference accuracy under I07. Use representative timings to forecast the full validation and campaign matrix before fixing the production allowance. | [Qualification issue I07](https://github.com/BrieucB/FineTuneForge/issues/16) |
