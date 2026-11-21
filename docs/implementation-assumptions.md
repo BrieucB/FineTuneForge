@@ -68,6 +68,23 @@ The [public A100 restart receipt](../evidence/hierarchical-ft-v1-conditional-sam
 records timing, the checkpoint and source hashes, the original receipt's SHA256,
 and the first attempt, which stopped during the verifier's device comparison.
 
+### Wide 1,024-row restart verification
+
+Two independent rank-4 fixtures used one retained 1,024-row case and
+fifteen 16-row controls per measured update. Each restart ran in a
+fresh process on another A100. Both cases reproduced the sampled stages,
+loss, gradient norm, random-number states, 422 model tensors, and 732
+AdamW tensors exactly. The selected wide cases contained 21 of 42 and
+35 of 69 conditionals. Their peak PyTorch allocations were 9.61 and
+18.65 GiB, and peak reservations were 24.38 and 38.90 GiB. The wider
+fixture left 0.61 GiB between peak PyTorch reservation and the device's
+reported capacity. The four jobs reconciled to 1.586 allocated GPU-hours.
+
+The [wide-case receipt](../evidence/hierarchical-ft-v1-conditional-sampling/wide-sampled-a100-restart-results.json)
+retains all four job IDs, timings, source and checkpoint identities,
+and memory measurements. Mixed-batch per-rank memory and independent
+posterior-reference qualification remain open.
+
 ## Standing assumptions
 
 | ID | Status | Scope and assumption | Source |
@@ -78,4 +95,4 @@ and the first attempt, which stopped during the verifier's device comparison.
 | A05 | Adopted | Use fresh context banks and independent simulated query cases on training visits. The training context ladder is 16, 64, 256, and 1,024. Reference and posterior tests keep the sealed test split and the protocol's declared evaluation settings. | [Study contract](hierarchical-ft-v1.md) |
 | A06 | Adopted | Every posterior request uses exactly 50,000 complete vectors. Record invalid decoding as a failed request. Held-out density scoring at known generating parameters makes zero posterior requests. | [Study contract](hierarchical-ft-v1.md) |
 | A07 | Adopted | Reconcile allocated Slurm time, including failed jobs and idle allocated GPUs, in the study ledger. Prefer concurrent independent jobs, with GPU counts chosen from measured scaling and live placement. The EuroHPC balance and the study budget are separate accounting scopes. | [Budget](budget.md) |
-| A08 | Open | Extend sampled CUDA restart and capacity checks to representative wide cases. Qualify larger-context quality and posterior/reference accuracy under I07. Use representative timings to forecast the full validation and campaign matrix before fixing the production allowance. | [Qualification issue I07](https://github.com/BrieucB/FineTuneForge/issues/16) |
+| A08 | Open | The one-wide-case restart fixtures passed. Measure per-rank peak memory on the original mixed batch. Qualify larger-context quality and posterior/reference accuracy under I07. Use representative timings to forecast the full validation and campaign matrix before fixing the production allowance. | [Qualification issue I07](https://github.com/BrieucB/FineTuneForge/issues/16) |
