@@ -1,0 +1,97 @@
+diff --git a/src/posteriorforge/study/reference.py b/src/posteriorforge/study/reference.py
+index e23cd70..5e00341 100644
+--- a/src/posteriorforge/study/reference.py
++++ b/src/posteriorforge/study/reference.py
+@@ -334,23 +334,12 @@ def run_smc_reference(spec, observation, *, particles=1024, seed=0, moves=8,
+     return ReferenceRun("tempered_smc", theta, seed, spec.fingerprint, query_sha, diagnostics, source_digest())
+
+
+-def run_nuts_reference(spec, observation, *, seed=0, warmup=500, draws=2000, chains=4):
+-    """Optional CPU-only NumPyro implementation; never marks a run qualified."""
+-    for value, name, minimum in ((warmup, "warmup", 1), (draws, "draws", 2), (chains, "chains", 2)):
+-        if type(value) is not int or value < minimum:
+-            raise ValueError(f"invalid {name}")
+-    query_sha = observation_digest(observation)
+-    if np.asarray(observation).shape != (spec.observation_dimension,):
+-        raise ValueError("observation width mismatch")
+-    try:
+-        import jax
+-        import jax.numpy as jnp
+-        import numpyro
+-        import numpyro.distributions as dist
+-        from numpyro.infer import MCMC, NUTS
+-        from numpyro.diagnostics import summary
+-    except ImportError as exc:
+-        raise ReferenceUnavailable("NumPyro reference environment has not been prepared/qualified") from exc
++def numpyro_reference_model(spec, observation):
++    """Shared noncentred model for Float64 NumPyro reference runs."""
++    import jax.numpy as jnp
++    import numpyro
++    import numpyro.distributions as dist
++
+     def model():
+         values, columns = {}, []
+         for j, parameter in enumerate(spec.parameters):
+@@ -372,20 +361,58 @@ def run_nuts_reference(spec, observation, *, seed=0, warmup=500, draws=2000, cha
+             family = families[dataset.family_id]
+             sigmas.extend([values[family.noise_parameter]] * (1 if family.physics == "scalar" else 10))
+         numpyro.sample("observations", dist.Normal(predicted, jnp.stack(sigmas)).to_event(1), obs=jnp.asarray(observation))
++    return model
++
++
++def run_nuts_reference(spec, observation, *, seed=0, warmup=500, draws=2000, chains=4, cuda_qualification=False, target_accept_prob=.9):
++    """Optional Float64 NumPyro run; CUDA requires explicit accounted qualification."""
++    if not 0. < target_accept_prob < 1.:
++        raise ValueError("reference target acceptance must lie within (0, 1)")
++    if type(cuda_qualification) is not bool:
++        raise ValueError("reference CUDA qualification must be explicit")
++    if cuda_qualification:
++        import os
++        if (not os.environ.get("SLURM_JOB_ID", "").isdecimal()
++                or os.environ.get("SLURM_JOB_ACCOUNT") != "eu-26-17"
++                or os.environ.get("SLURM_JOB_PARTITION") != "qgpu"
++                or not os.environ.get("CUDA_VISIBLE_DEVICES")
++                or "," in os.environ["CUDA_VISIBLE_DEVICES"]):
++            raise ReferenceUnavailable("CUDA reference requires one accounted Karolina A100")
++    for value, name, minimum in ((warmup, "warmup", 1), (draws, "draws", 2), (chains, "chains", 2)):
++        if type(value) is not int or value < minimum:
++            raise ValueError(f"invalid {name}")
++    query_sha = observation_digest(observation)
++    if np.asarray(observation).shape != (spec.observation_dimension,):
++        raise ValueError("observation width mismatch")
++    try:
++        import jax
++        import jax.numpy as jnp
++        from numpyro.infer import MCMC, NUTS
++        from numpyro.diagnostics import summary
++    except ImportError as exc:
++        raise ReferenceUnavailable("NumPyro reference environment has not been prepared/qualified") from exc
++    model = numpyro_reference_model(spec, observation)
+     started = time.monotonic()
+     seed_words = _seed_words(seed)
+-    with jax.default_device(jax.devices("cpu")[0]), jax.enable_x64(True):
+-        mcmc = MCMC(NUTS(model, target_accept_prob=.9, max_tree_depth=10), num_warmup=warmup,
++    if cuda_qualification:
++        devices = jax.devices("gpu")
++        if len(devices) != 1 or "A100" not in devices[0].device_kind:
++            raise ReferenceUnavailable("exactly one A100 reference device required")
++        device = devices[0]
++    else:
++        device = jax.devices("cpu")[0]
++    with jax.default_device(device), jax.enable_x64(True):
++        mcmc = MCMC(NUTS(model, target_accept_prob=target_accept_prob, max_tree_depth=10), num_warmup=warmup,
+                      num_samples=draws, num_chains=chains, chain_method="vectorized", progress_bar=False)
+         mcmc.run(jnp.asarray(seed_words, dtype=jnp.uint32))
+         sites = mcmc.get_samples(group_by_chain=True)
+         diagnostic = summary(sites, group_by_chain=True)
+         samples = np.stack([np.asarray(sites[f"physical_{j:04d}"]).reshape(-1) for j in range(spec.dimension)], axis=1)
+         divergences = int(np.asarray(mcmc.get_extra_fields()["diverging"]).sum())
+-    d = {"state": "sampled_unqualified", "chains": chains, "draws_per_chain": draws,
++    d = {"state": "sampled_unqualified", "chains": chains, "draws_per_chain": draws, "target_accept_prob": target_accept_prob,
+          "effective_sample_size": float(min(len(samples), min(v["n_eff"] for v in diagnostic.values()))),
+          "max_rhat": float(max(v["r_hat"] for v in diagnostic.values())), "divergences": divergences,
+-         "platform": "cpu", "jax_x64": True, "noncentred": True,
++         "platform": device.platform, "jax_x64": True, "noncentred": True,
+          "elapsed_seconds": time.monotonic() - started,
+          "likelihood_parameter_rows": None, "local_forward_calls": None,
+          "cost_status": "logical NUTS gradient/initialization calls are not yet instrumented; not zero; elapsed and scheduler allocation are separate",
