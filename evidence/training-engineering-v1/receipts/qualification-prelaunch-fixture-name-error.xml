@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="2.706" timestamp="2026-11-17T21:26:54.986570+01:00" hostname="login4.karolina.it4i.cz"><testcase classname="" name="tests.test_study_training_posteriors" time="0.000"><error message="collection failure">'request' is a reserved word for fixtures, use another name:
+  /home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_training_posteriors.py:13</error></testcase></testsuite></testsuites>

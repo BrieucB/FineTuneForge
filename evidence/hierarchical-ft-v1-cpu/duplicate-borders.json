@@ -1,0 +1,63 @@
+{
+  "all_collapsed_bins_exactly_upstream_masked": true,
+  "b16_failures": [
+    {
+      "cancelled_bins_per_member": 214,
+      "duplicate_interior_bins": 213,
+      "members": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "parameter": "spread",
+      "repeated_value": -997.343017578125,
+      "stage": 1
+    },
+    {
+      "cancelled_bins_per_member": 1021,
+      "duplicate_interior_bins": 1020,
+      "members": [
+        2,
+        3,
+        6,
+        7
+      ],
+      "parameter": "a0",
+      "repeated_value": 999.1871337890625,
+      "stage": 2
+    }
+  ],
+  "context_bank_seed": 2026111701,
+  "context_sizes_checked": [
+    16,
+    64
+  ],
+  "fp64_inverse_and_upstream_repair_still_duplicate": true,
+  "legacy_corrected_v3": "rejects original source grid due strictly-increasing guard; unchanged",
+  "minimum_tested_all_stage_strict_context_size": 64,
+  "new_primitive_scope": "accept interior collapsed source bars only when logits are exactly-inf; preserve every head and border bit; require positive outer-tail scales",
+  "no_bank_filtering_or_border_repair": true,
+  "observation_dimension": 1,
+  "outermost_widths_positive": true,
+  "query_bank_seed": 2026111702,
+  "schema": "finetuneforge.cpu_duplicate_border_audit.summary.v1",
+  "scientifically_qualified": false,
+  "target_transform": "Pipeline(SafePowerTransformer,standard preprocessing)",
+  "unknowns": 4,
+  "upstream_predict_b16": {
+    "each_row_has_finite_logit": true,
+    "finite_or_negative_infinite_logits": true,
+    "logits_shape": [
+      1,
+      5000
+    ],
+    "mean_finite": true,
+    "status": "returned"
+  },
+  "upstream_sources": [
+    "tabpfn/utils.py:_cancel_nan_borders",
+    "tabpfn/utils.py:_repair_borders",
+    "tabpfn/utils.py:_transform_borders_one"
+  ]
+}

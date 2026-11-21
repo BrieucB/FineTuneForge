@@ -1,0 +1,64 @@
+{
+  "assertions": {
+    "active_parametrization_cache_between_layer_calls": 0,
+    "actual_checkpointed_layer_fp32_gradient_atol": 2e-07,
+    "actual_checkpointed_layer_fp32_gradient_rtol": 2e-05,
+    "actual_layer_invocations_per_layer": {
+      "after_checkpointed_backward": 16,
+      "eight_member_forward": 8
+    },
+    "actual_peft_ranks": [
+      4,
+      16
+    ],
+    "actual_upstream_checkpoint_calls": "unchanged, use_reentrant=False",
+    "actual_upstream_checkpoint_flags": "unchanged",
+    "cached_tensor_scope": "one layer invocation, recreated independently during recomputation",
+    "checkpoint_continuation": "exact model and AdamW state",
+    "ensemble_members": 8,
+    "exception_exit": "original forward attributes restored after forward or backward failure",
+    "ordinary_fixture_fp32_gradient_atol": 1e-07,
+    "ordinary_fixture_fp32_gradient_rtol": 1e-05,
+    "same_input_forward_logits_density_loss": "exact",
+    "unknown_nested_preexisting_forward_layouts": "refused before modification",
+    "wrapper_scope": "one conditional forward, probability scoring, backward; restored before gradient guards and optimizer"
+  },
+  "created_utc": "2026-11-17T20:10:40.728776+00:00",
+  "environment": {
+    "peft": "0.21.3",
+    "python": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/bin/python",
+    "tabpfn": "2.0.9",
+    "torch": "2.6.0+cpu"
+  },
+  "files_sha256": {
+    "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/training-hotpath-cpu/pytest-checkpoint-fix-02.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/training-hotpath-cpu/pytest-checkpoint-fix-02.txt": "69b5ac6e284e5e396ddcc5382a9374c4ffbce66e6f96f02a4324a46d672faf49",
+    "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/training-hotpath-cpu/pytest-checkpoint-fix-02.xml": "1773f6b31cedf5a8bdce0bfe3be0fe868b3bbde3be873f1a3371fe2b6a3c98da",
+    "src/posteriorforge/study/training_execution.py": "8429997d492b26ea5dd5b3dffb3b4b3f1d16e7369e0b92684ae9a036554bb2d2",
+    "tests/test_study_training_execution.py": "a5befb5c3bb74c58f6c49b2e6e8a1d780fcff02d4cb1a9ccf5fcff47d92eb584"
+  },
+  "gpu_accessed": false,
+  "gpu_jobs_submitted": false,
+  "independent_verification_reference": {
+    "agent": "training_numerics",
+    "coverage": "actual cached 11.08M checkpoint with all8 members and both LoRA ranks; actual two-layer checkpointed fullFT/r4/r16 two AdamW updates and restart",
+    "elapsed_seconds": 29.41,
+    "junit": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-optimization-20261117/numerics-cpu-02/parity-junit.xml",
+    "passed": 8
+  },
+  "owned_command": "FTF_CPU_PYTHON=/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/bin/python bash scripts/test-study-cpu.sh -q tests/test_study_training_execution.py --junitxml=/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/training-hotpath-cpu/pytest-checkpoint-fix-02.xml",
+  "owned_test_result": {
+    "elapsed_seconds": 8.23,
+    "failed": 0,
+    "passed": 18,
+    "skipped": 0
+  },
+  "policy": "per_layer_forward_and_checkpoint_recompute.v1",
+  "schema": "finetuneforge.training_execution_cpu_receipt.v2",
+  "scientifically_qualified": false,
+  "scope": "CPU correctness only; speed and scientific campaign qualification not asserted",
+  "supersedes": {
+    "reason": "whole-conditional cache was incompatible with actual non-reentrant activation checkpoint recomputation; retained original evidence is superseded",
+    "receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/training-hotpath-cpu/receipt.json"
+  }
+}

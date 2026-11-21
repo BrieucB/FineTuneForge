@@ -1,0 +1,51 @@
+{
+  "deployment": {
+    "backend_kind": "stock_tabpfn_cuda_qualification",
+    "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+    "campaign_method": "lora_r16",
+    "format": "peft_adapter",
+    "path": "adapter",
+    "rank": 16,
+    "sampling_law": "canonical_half_normal_full_support.v1",
+    "scientifically_qualified": false,
+    "source_policy": "cancelled_zero_width",
+    "training_method": "lora",
+    "weights_sha256": "c5cbb002d784c88d69f0597b5a1bf5567bd237bb9d6c9bf6aa7356a3b74e0dae"
+  },
+  "history": [
+    {
+      "loss": -0.9748934416880902,
+      "update": 1
+    },
+    {
+      "loss": -1.0892143441898654,
+      "update": 2
+    }
+  ],
+  "identity": {
+    "cache_parametrizations": true,
+    "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+    "qualification_inputs_sha256": "1fc2ad8891ded13a3b7e47398706b71782068fa0f4e9799d8acf04707eb05293",
+    "source_commit": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a",
+    "spec": {
+      "diagnostic": true,
+      "effective_batch": 16,
+      "learning_rate": 0.0001,
+      "master_seed": 20261117,
+      "method": "lora_r16",
+      "phase": "pilot",
+      "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+      "replica": 0,
+      "updates": 2
+    },
+    "stream_id": "abbe1f65c921442ef2347aeb6e1655cfbfd8170db92f77b8108a89b5577fa0e0"
+  },
+  "schema": "finetuneforge.campaign_checkpoint.v1",
+  "scientifically_qualified": false,
+  "state": {
+    "data_position": 32,
+    "stream_id": "abbe1f65c921442ef2347aeb6e1655cfbfd8170db92f77b8108a89b5577fa0e0",
+    "update": 2
+  },
+  "weights_sha256": "c5cbb002d784c88d69f0597b5a1bf5567bd237bb9d6c9bf6aa7356a3b74e0dae"
+}

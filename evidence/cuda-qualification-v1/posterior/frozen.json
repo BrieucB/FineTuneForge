@@ -1,0 +1,178 @@
+{
+  "analytical_diagnostics": {
+    "a_variance": {
+      "absolute_mc_tolerance": 0.035,
+      "analytic": 1.0425,
+      "sample": 0.9134334826128667
+    },
+    "checks": {
+      "a_mean": false,
+      "a_variance": false,
+      "mu_a_covariance": false,
+      "mu_cdf": false,
+      "mu_mean": false,
+      "mu_sd": false,
+      "sigma_cdf": false,
+      "sigma_mean": false,
+      "sigma_sd": false,
+      "tau_cdf": false,
+      "tau_mean": false,
+      "tau_sd": false
+    },
+    "complete_vectors": true,
+    "control_checks_passed": false,
+    "dimension": 4,
+    "marginals": {
+      "mu": {
+        "analytic_mean": 0.0,
+        "analytic_sd": 1.0,
+        "cdf_sup_error": 0.03426391844595933,
+        "mean_error_in_analytic_sd": 0.06634858594728958,
+        "sample_mean": -0.06634858594728958,
+        "sample_sd": 0.9347005277076508,
+        "sd_ratio": 0.9347005277076508
+      },
+      "sigma": {
+        "analytic_mean": 0.04224108068956894,
+        "analytic_sd": 0.012672324206870686,
+        "cdf_sup_error": 0.7350983336413477,
+        "mean_error_in_analytic_sd": 2.0578345743541386,
+        "sample_mean": 0.06831862757989232,
+        "sample_sd": 0.012397388387860206,
+        "sd_ratio": 0.9783042309743453
+      },
+      "tau": {
+        "analytic_mean": 0.2,
+        "analytic_sd": 0.05,
+        "cdf_sup_error": 0.020005124912379636,
+        "mean_error_in_analytic_sd": 0.035143338949844005,
+        "sample_mean": 0.2017571669474922,
+        "sample_sd": 0.048468399149027765,
+        "sd_ratio": 0.9693679829805553
+      }
+    },
+    "monte_carlo_tolerances": {
+      "cdf_sup_error": 0.012,
+      "mean_error_in_analytic_sd": 0.02,
+      "sd_ratio": [
+        0.98,
+        1.02
+      ]
+    },
+    "mu_a_covariance": {
+      "absolute_mc_tolerance": 0.035,
+      "analytic": 1.0,
+      "sample": 0.8725766828584568
+    },
+    "parameter_order": [
+      "mu",
+      "tau",
+      "a",
+      "sigma"
+    ],
+    "sample_count": 50000,
+    "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+  },
+  "dimension": 4,
+  "figure_sha256": "95f55d3237e639b4cb80d759486852451d2c32896d1fcf9db77c128400e41c4b",
+  "method": "frozen",
+  "peak_allocated_bytes": 1089039360,
+  "peak_reserved_bytes": 1627389952,
+  "posterior_draws": 50000,
+  "samples_sha256": "5b40372891afbff7f868ab0f0a4b4d4bd99eb7fc09701163baf9c9c796b7802a",
+  "sampling": {
+    "binding": {
+      "backend": {
+        "backend_kind": "stock_tabpfn_cuda_qualification",
+        "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+        "execution": {
+          "capability": [
+            8,
+            0
+          ],
+          "cuda_runtime": "12.4",
+          "cudnn_tf32": false,
+          "deterministic_algorithms": true,
+          "device": "cuda:0",
+          "device_name": "NVIDIA A100-SXM4-40GB",
+          "device_uuid": "af76a868-6f89-4ef3-f333-9b0fdd502dd6",
+          "matmul_tf32": false
+        },
+        "feature_embedding_policy": "cpu_seeded_subspace.v1",
+        "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+        "numpy_version": "1.26.4",
+        "sampling_law": "canonical_half_normal_full_support.v1",
+        "source_policy": "cancelled_zero_width",
+        "source_sha256": {
+          "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+          "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+        },
+        "tabpfn_version": "2.0.9",
+        "torch_version": "2.6.0",
+        "type": "TabPFNConditionalBackend"
+      },
+      "count": 50000,
+      "identities": {
+        "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+        "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+        "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+      },
+      "invalid_policy": "fail",
+      "law": "canonical_half_normal_full_support.v1",
+      "microbatch_size": 1024,
+      "observations": {
+        "dtype": "<f8",
+        "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+        "shape": [
+          256,
+          10
+        ]
+      },
+      "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+      "query": {
+        "dtype": "<f8",
+        "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+        "shape": [
+          10
+        ]
+      },
+      "requested_sampling_law": "canonical_half_normal_full_support.v1",
+      "seed": 20265117,
+      "source_policy": "cancelled_zero_width",
+      "source_sha256": {
+        "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+        "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+        "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+        "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+        "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+      },
+      "theta": {
+        "dtype": "<f8",
+        "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+        "shape": [
+          256,
+          4
+        ]
+      },
+      "uniform_law": "uint53-open.v1"
+    },
+    "cold_model_load_seconds": null,
+    "context_forward_evaluations": 256,
+    "context_preparation_seconds_this_run": 0.8469912779983133,
+    "posterior_sampling_forward_evaluations": 0,
+    "sampling_seconds_this_run": 111.85499208299734,
+    "scientifically_qualified": false,
+    "shared_bank_generation_forward_evaluations": 256,
+    "stage_seconds": [
+      27.878540527963196,
+      27.91027504990052,
+      27.998427627928322,
+      28.254960833961377
+    ],
+    "status": "samples_complete_unassessed",
+    "wall_seconds": 112.70222705700144
+  },
+  "scientifically_qualified": false,
+  "scope": "development analytical marginal control, not full scientific screen or simulation savings",
+  "wall_seconds": 115.54903064300015
+}

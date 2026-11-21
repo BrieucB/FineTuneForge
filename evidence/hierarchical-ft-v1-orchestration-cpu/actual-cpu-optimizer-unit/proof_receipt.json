@@ -1,0 +1,61 @@
+{
+  "absolute_loss_difference": 0.0,
+  "actual_loss": -1.3390451987661034,
+  "all8members_retained": true,
+  "backward_calls": 4,
+  "changed_trainable_tensors": 122,
+  "checkpoint_manifest_sha256": "8b05ba762ed5dae7f701b0453e7f120450fcbb3180c53d261562ba3f4df4f8cd",
+  "cpu_threads": 2,
+  "data_forward_evaluations": 17,
+  "expected_physical_role_balanced_loss": -1.3390451987661034,
+  "gpu_jobs_submitted": 0,
+  "junit": {
+    "errors": "0",
+    "failures": "0",
+    "hostname": "login4.karolina.it4i.cz",
+    "name": "pytest",
+    "skipped": "0",
+    "tests": "1",
+    "time": "31.024",
+    "timestamp": "2026-11-17T16:55:25.165999+01:00"
+  },
+  "junit_sha256": "8355001600a381a5256fbf4545ce8f46240734ab2cb097b0650a290fab0c8eca",
+  "launcher_recovery_sha256": "b614e437d27cf79d10f211d1cbe5befdcdcdbd0aeedfe92eba238c388f2f857b",
+  "logging_failure": "tee path typo retained; actual unit,XML,bank/deployment artifacts succeeded; no optimizer rerun",
+  "max_cdf_roundtrip_difference": 0.0,
+  "max_logit_roundtrip_difference": 0.0,
+  "maximum_trainable_parameter_change": 9.999999747378752e-05,
+  "neural_posterior_draws": 0,
+  "optimizer_steps": 1,
+  "prediction_queries": 2,
+  "prediction_stage": 0,
+  "production_training_run": false,
+  "reload_model_sha256": "3900f598020193965ae3cdcf76dadd1a57a9adf010e68aaf9668ae2c465dfdc7",
+  "schema": "finetuneforge.training_orchestration.actual_update_proof.v1",
+  "scientifically_qualified": false,
+  "scope": "ONE actual cached LoRA-r4 StockTrainingBackend.update optimizer unit on B16,Q1,D4; not a campaign or posterior draw run",
+  "source": {
+    "src/posteriorforge/study/campaign.py": "05655b6222849203e6e397ba7d70d6254970778ea793363318ead5ecec2616d6",
+    "src/posteriorforge/study/episodes.py": "f6b5f49edcc0575b419bfc8bc5d4d745319c9c57bdb7f8a95aa03e3748ba43a6",
+    "tests/test_study_campaign.py": "9e3cc1f61fa118ae62c2e68404d23737f85dceeeb7adaf84334fe602fcc00879",
+    "tests/test_study_episodes.py": "099f557e536dba220afdf475a4f48717771524e759cfeafa791713616ec89775"
+  },
+  "state": {
+    "data_position": 1,
+    "stream_id": "cb7386d830de09a614e2c7904926fab27b23cdb8303e2e4c8a51f5b26feec733",
+    "update": 1
+  },
+  "test_result": "1passed,21deselected in31.03s",
+  "timings": {
+    "deployment_roundtrip_and_prediction_seconds": 2.979901496320963,
+    "expected_score_seconds": 4.760361920110881,
+    "optimizer_unit_seconds": 13.209915474057198,
+    "total_cpu_wall_seconds": 29.435820365324616
+  },
+  "torch_cuda_build": null,
+  "torch_version": "2.6.0+cpu",
+  "unit_receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/orchestration/actual-one-update/unit-a65c26f546644b3f9fcba1d125ceab0a/receipt.json",
+  "unit_receipt_sha256": "4cd53c6d92b4f0a366ae1275ef424f521a3abb6596e8b461639e30070f80fac3",
+  "weights_after": "3900f598020193965ae3cdcf76dadd1a57a9adf010e68aaf9668ae2c465dfdc7",
+  "weights_before": "677825165622d5dccc6f3a31f545094e9dc8c6d9dbe234a1166d49a9ec43a5d4"
+}

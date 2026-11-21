@@ -1,0 +1,57 @@
+{
+  "boundary_test": {
+    "main_with_margin_gpu_hours": 2970.0,
+    "pilot_gpu_hours": 500.0,
+    "project_with_reserved_other_phases_gpu_hours": 9970.0,
+    "selected_main_updates": 10000
+  },
+  "corrections": {
+    "identity": "CampaignSpec.master_seed == EpisodeStream.master_seed == QuickValidationStream.master_seed",
+    "main": "1.25*(mainupdates+10quickchecks+mainothercosts)<=3000GPU-hours",
+    "over_budget_qualification": "pilot>500 is explicitly flagged and preventsselecting a mainallowance; no automaticphase-reallocation",
+    "project": "mainforecast withmargin +reservedqualification500+evaluation4500+engineering1000+reserve1000 <=10000GPU-hours; pilotnotaddedagain",
+    "qualification": "pilot_gpu_hours reported against500qualificationGPU-hours; never included in main25percentmargin",
+    "types": "replica/master_seed requireexactPythonint, diagnostic requiresexactbool; constructor/planner/LRrecord boolalias safeguards"
+  },
+  "evidence_directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/orchestration/budget-type-correction",
+  "gpu_jobs_submitted": 0,
+  "junit": {
+    "errors": "0",
+    "failures": "0",
+    "hostname": "login4.karolina.it4i.cz",
+    "name": "pytest",
+    "skipped": "0",
+    "tests": "23",
+    "time": "3.843",
+    "timestamp": "2026-11-17T16:35:25.515426+01:00"
+  },
+  "junit_sha256": "af2a037a7aa399a541d276928e9ce1056b9dbffc95ce28f0da53ce3d54a1a460",
+  "log_sha256": "3debb1e75e8d040616a823d54f4469648c9388d4c325202fbd10f12e56fab437",
+  "neural_posterior_requests_run": 0,
+  "prior_dated_logs_modified": false,
+  "prior_receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/orchestration/training_orchestration_final_receipt.json",
+  "prior_receipt_sha256": "eaaf4d099c6551c208c59b82ff598cc653e939feabd146fbed2f6b44d86ddcba",
+  "production_guard": "I07 qualification stillrequired; forecasts do notauthorizeexecution",
+  "production_training_run": false,
+  "schema": "finetuneforge.training_orchestration.budget_type_correction.v1",
+  "scientifically_qualified": false,
+  "source": {
+    "src/posteriorforge/study/campaign.py": {
+      "lines": 293,
+      "sha256": "05655b6222849203e6e397ba7d70d6254970778ea793363318ead5ecec2616d6"
+    },
+    "src/posteriorforge/study/episodes.py": {
+      "lines": 156,
+      "sha256": "f6b5f49edcc0575b419bfc8bc5d4d745319c9c57bdb7f8a95aa03e3748ba43a6"
+    },
+    "tests/test_study_campaign.py": {
+      "lines": 219,
+      "sha256": "5b8089649e47fbc63abd8893b9cb84a97273f57494ae67f3a95ecd7ca33e4f8b"
+    },
+    "tests/test_study_episodes.py": {
+      "lines": 79,
+      "sha256": "099f557e536dba220afdf475a4f48717771524e759cfeafa791713616ec89775"
+    }
+  },
+  "test_result": "23 passed,11deselected in3.85s"
+}

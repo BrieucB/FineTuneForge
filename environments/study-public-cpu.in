@@ -1,0 +1,4 @@
+# Minimal public wheel reproduction; no model, JAX or Torch.
+numpy==1.26.4
+scipy==1.12.0
+pytest==8.4.2

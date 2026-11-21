@@ -1,17 +1,45 @@
-# PosteriorForge
+# FineTuneForge
+
+*Foundation-model fine-tuning and efficient GPU inference.*
 
 Built with PriorLabs-TabPFN.
+
+The variable-size hierarchical fine-tuning study is implemented in a separate
+`posteriorforge study` namespace. The GitHub project is FineTuneForge; the Python package
+and CLI remain `posteriorforge`. The study scope and acceptance criteria are tracked in
+[issue #9](https://github.com/BrieucB/FineTuneForge/issues/9). File-backed CPU diagnostic
+orchestration covers bounded training, complete-posterior sampling, evaluation, and
+selection records. All three trained methods passed bounded bitwise GPU restart and
+deployment checks in the [first CUDA pilot](evidence/cuda-qualification-v1/report.md).
+The [inference follow-up](evidence/inference-engineering-v1/report.md) fixes its exact
+75-unknown/200-observation/4,096-world conditional OOM with FP32 attention tiling,
+and qualifies merging Hugging Face PEFT adapters for inference. On the four-unknown,
+256-world control, median runtime for 50,000 complete vectors falls from 275.36 to
+112.96 seconds across three timing repetitions. These are engineering checks with a
+two-update adapter; noise-posterior bias remains, and training campaigns and scientific
+posterior qualification remain pending.
+
+![Matched 50,000-vector inference timing with an engineering-only adapter](evidence/inference-engineering-v1/latency-context256.png)
+See the [CUDA pilot contract](docs/cuda-qualification-v1.md) and
+[separate locked GPU environment](docs/study-gpu-environment.md). CPU diagnostics
+alone cannot establish GPU behavior or scientific posterior accuracy.
+
+Before production training, the study must qualify consistent full-tail scoring and
+sampling for the pretrained baseline and LoRA/full-fine-tuning variants (I07). The legacy
+finite-v3 path remains an isolated regression control, and the historical benchmark and
+its failed scientific result below remain unchanged. See [CPU-first study
+instructions](docs/hierarchical-ft-v1.md).
 
 Reproducible frozen-transformer inference engineering on a 21-parameter,
 33-observation analytical hierarchy with six inferred noise scales.
 
-PosteriorForge evaluates an unmodified, pinned NPE-PFN/TabPFN baseline before
+The original frozen-inference study evaluates an unmodified, pinned NPE-PFN/TabPFN baseline before
 attempting performance optimization. The same frozen regression checkpoint is
-reused through 21 autoregressive parameter stages. This project studies posterior
-sampling, memory, synchronization, and same-node independent sampling. It does
-not study text generation or distributed training.
+reused through 21 autoregressive parameter stages. That study covers posterior sampling, memory, synchronization and same-node
+independent sampling. The new study adds transformer fine-tuning; text generation
+remains outside the project.
 
-## Current accuracy phase
+## Historical benchmark accuracy phase
 
 The reviewed FP16 approximation provides the execution path for controlled accuracy work. Every end-to-end posterior request still returns **50,000 complete accepted physical vectors**. Further retained-context timing, compilation and multi-GPU scaling are deferred.
 
@@ -84,9 +112,11 @@ For frozen inference and reference environments, use the complete hashed locks
 and preparation scripts described in [environment instructions](docs/environment.md).
 Model weights are cached externally and never committed.
 
-Karolina runs use account `eu-26-17` and `qgpu` A100 allocations. Every GPU job,
-including reference work and failed jobs, must be reserved and reconciled in a
-single ledger against the hard cumulative **200 allocated GPU-hour** cap.
+The original frozen-inference study uses account `eu-26-17` and `qgpu` A100 allocations. Its GPU jobs,
+including reference work and failures, are reserved and reconciled against the immutable
+**200 allocated GPU-hour** ledger. The new hierarchical study has a separate
+**10,000 allocated GPU-hour** ceiling; the separate qualification entrypoint is authorized,
+while production campaigns remain gated.
 See [budget policy](docs/budget.md).
 
 ## Original scientific stopping rule

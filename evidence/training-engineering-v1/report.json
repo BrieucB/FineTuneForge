@@ -1,0 +1,1333 @@
+{
+  "audits": {
+    "cpu": {
+      "artifact": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/integration-final-cpu.xml",
+        "sha256": "d4b8588aac4153ea738e907caf0788993f9da6a2a79127fe56b98281a3c6c69e"
+      },
+      "errors": 0,
+      "failures": 0,
+      "passed": true,
+      "skipped": 0,
+      "tests": 22
+    },
+    "rejected_cache": {
+      "artifact": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-optimization-20261117/numerics-cpu-01/real-checkpoint-parity-junit.xml",
+        "sha256": "486498a308a20cd316519a02d8f686e8996b1b9399fb432ba9241e986ee85ba0"
+      },
+      "errors": 0,
+      "failures": 2,
+      "passed": false,
+      "skipped": 0,
+      "tests": 2
+    }
+  },
+  "evidence": {
+    "audits": {
+      "cpu": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/integration-final-cpu.xml",
+        "sha256": "d4b8588aac4153ea738e907caf0788993f9da6a2a79127fe56b98281a3c6c69e"
+      },
+      "rejected_cache": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-optimization-20261117/numerics-cpu-01/real-checkpoint-parity-junit.xml",
+        "sha256": "486498a308a20cd316519a02d8f686e8996b1b9399fb432ba9241e986ee85ba0"
+      }
+    },
+    "baseline": {
+      "profile": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/baseline-01/profile/result.json",
+        "sha256": "8af98853bc665614e10e9f7ae48ed5d49901899b16aafab8cd8f3b5afc673e15"
+      },
+      "profile_categories": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/baseline-profile-categories.json",
+        "sha256": "708d085fb2744f8f9cc28eaa8d4af18799399d499c6cab46c39170ac8d64af65"
+      },
+      "result": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/baseline-01/baseline/result.json",
+        "sha256": "fc268f03e02a6d002caa3b3a60d07d4f14b5f1df1f7e9a9a335364d271ecdb1f"
+      },
+      "trace": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/baseline-01/profile/first-conditional-trace.json",
+        "sha256": "99146b6b231081f101c2d8439261c85e7a6e9fab2a9a003359e9733229db56a6"
+      }
+    },
+    "final_state_comparison": {
+      "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/final-state-comparisons.json",
+      "sha256": "36f55f04f5ef65ab4ed9c7201b97712944b2d2413f74130c9056a65d01416adb"
+    },
+    "posterior": {
+      "allocation": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/allocation.json",
+        "sha256": "9ebab341f05dd30a7a2774b1ac0ea2de9980c963252a119da874e45dde3371ec"
+      },
+      "inputs": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-inputs-01/manifest.json",
+        "sha256": "f30862acafda90128f77145df4708326a0a0c75c7a1aa4c708d2325ab42cd8c0"
+      },
+      "lanes": {
+        "cached": {
+          "container": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/cached/posterior-result.json",
+            "sha256": "69389d39dfb0dade837780fe10751c06cf65033d598880614cbee9461a9717b6"
+          },
+          "metrics": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/cached/repetition-0/metrics.json",
+            "sha256": "79edb86912e082e984bffde5b2039d1f0a6ea25ada8f7d88b72dfebdb7fc776f"
+          },
+          "result": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/cached/result.json",
+            "sha256": "2b7f9be00f2eee0305512c308c2788c10e6646b2e21cb1c57f422927f4892455"
+          }
+        },
+        "stock": {
+          "container": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/stock/posterior-result.json",
+            "sha256": "4b63e8069333eaf5304d0a94dd0cf929593507bc16c8590a545a6a184bfb6302"
+          },
+          "metrics": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/stock/repetition-0/metrics.json",
+            "sha256": "266fbfb9898b684aa0a92728a53daf3de34d5b9d7cea1277d82f6fe431a96846"
+          },
+          "result": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/stock/result.json",
+            "sha256": "f816dfc1da66dc8d668d26aae4b63e6661e2805218caaca2c320fc02fd41032b"
+          }
+        }
+      }
+    },
+    "qualification": {
+      "allocation": {
+        "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/allocation.json",
+        "sha256": "7c132256370bc15eb1ec685eeea2043802b40c0bc87c8fb4e70e1a8df796660b"
+      },
+      "lanes": {
+        "cache_r16": {
+          "checkpoint_manifest": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r16/after-two-update/manifest.json",
+            "sha256": "155b8a0a150a2d8a3c0e1b0a80b81b827ac1c180a4f5812f8c63a8cc52cb3acc"
+          },
+          "result": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r16/result.json",
+            "sha256": "6acb1d260acb51277801c76df3b507b2ba9f1e9418d5ede49b6c989b2fad007d"
+          }
+        },
+        "cache_r4": {
+          "checkpoint_manifest": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r4/after-two-update/manifest.json",
+            "sha256": "02bcb10453919cfe12a2b763493039706e7ccd5271f5854daec736c14b3f22d4"
+          },
+          "result": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r4/result.json",
+            "sha256": "824b2464a5861726743dfc0f614df6f8568ae6c7632fa6a188fa96d0017264a5"
+          },
+          "trace": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r4/first-conditional-trace.json",
+            "sha256": "c8ed5b09584c77b351f675583151c107da07e8ed161f190d46bd86eb72b35504"
+          }
+        },
+        "full_finetune": {
+          "checkpoint_manifest": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/full_finetune/after-two-update/manifest.json",
+            "sha256": "8e42d8c9cec73a19ed76ae61bacef2f221c06654caff5f519d7f4308ad857b6f"
+          },
+          "result": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/full_finetune/result.json",
+            "sha256": "6178fad30ed089f665b1aa98789dd81ca1f07a60372a1f57b168d0ddb915f81b"
+          }
+        },
+        "stock_r4": {
+          "checkpoint_manifest": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/stock_r4/after-two-update/manifest.json",
+            "sha256": "28938207fd85bf0cf2ba4efc67d9a061bfb32944f335c849557d4d2c3bd7ecb1"
+          },
+          "result": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/stock_r4/result.json",
+            "sha256": "03f078d9953dd068d99104b8c173764b2df99546e760f52b907449984f7d401e"
+          },
+          "trace": {
+            "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/stock_r4/first-conditional-trace.json",
+            "sha256": "86eaea56dc607ae2af181c9b42bc2b5431d462d38ffe0d03ef67ff1d6675fe46"
+          }
+        }
+      }
+    },
+    "schema": "finetuneforge.training_engineering_report_inputs.v1",
+    "training_inputs": {
+      "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-01/manifest.json",
+      "sha256": "1fc2ad8891ded13a3b7e47398706b71782068fa0f4e9799d8acf04707eb05293"
+    }
+  },
+  "figures": {
+    "training-latency.png": "19e4032066a34b992b8cef970324d7e7116e251f07db3d536218c5e1a1b101fc",
+    "training-posteriors.png": "e4a8634ae03c731118285a870e0b36e9ea8de6bb47d85d55e6761cf0a8b97d36",
+    "training-profile.png": "3d6e5900c95dd3330061c0e8dd4af1c60df3bb809a0c34adbd368ae29892bfba"
+  },
+  "final_state_comparison": {
+    "artifact": {
+      "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/final-state-comparisons.json",
+      "sha256": "36f55f04f5ef65ab4ed9c7201b97712944b2d2413f74130c9056a65d01416adb"
+    },
+    "atol": 2e-07,
+    "cases": {
+      "cache_r16": {
+        "candidate_checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r16/after-two-update",
+          "campaign_metadata_sha256": "0eaf30868fcfe70dde4255d425c421d8d583429c01dda4a2354042dabd62e4c9",
+          "checkpoint_manifest_sha256": "155b8a0a150a2d8a3c0e1b0a80b81b827ac1c180a4f5812f8c63a8cc52cb3acc",
+          "model_sha256": "c5cbb002d784c88d69f0597b5a1bf5567bd237bb9d6c9bf6aa7356a3b74e0dae"
+        },
+        "model": {
+          "bitwise_equal": false,
+          "failed_tensors": [
+            "backbone.base_model.model.transformer_encoder.layers.0.mlp.linear1.lora_A.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.1.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_A.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear1.lora_A.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.2.mlp.linear1.lora_B.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.2.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear1.lora_A.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.3.mlp.linear1.lora_B.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_features.parametrizations._w_qkv.0.branches.2.lora_A.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_out.0.branches.0.lora_A.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.3.self_attn_between_items.parametrizations._w_qkv.0.branches.0.lora_B.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.4.mlp.linear1.lora_B.default.weight",
+            "backbone.base_model.model.transformer_encoder.layers.5.self_attn_between_features.parametrizations._w_qkv.0.branches.0.lora_B.default.weight"
+          ],
+          "max_absolute_error": 2.734363079071045e-06,
+          "passed": false,
+          "tensor_count": 422
+        },
+        "optimizer": {
+          "bitwise_equal": false,
+          "failed_tensors": [],
+          "max_absolute_error": 7.007565727690235e-08,
+          "passed": true,
+          "tensor_count": 732
+        },
+        "passed": false,
+        "reference_checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/allocation-02/lora_r16/after-two-updates",
+          "campaign_metadata_sha256": "43cf80c1f289fc5c831705088148cb0fca3201c41d1e63a16373b9fe4e952cd7",
+          "checkpoint_manifest_sha256": "7f96baf2ccaf7ff184e0ab09c0032986d804859a36a4713fb4f0a3485ab57cad",
+          "model_sha256": "3d86872e478fbca09bd8ff7e7e8f3eac60aaba624257f91648654f22ba3a666f"
+        },
+        "reference_kind": "authenticated_historical_stock_same_data"
+      },
+      "cache_r4": {
+        "candidate_checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r4/after-two-update",
+          "campaign_metadata_sha256": "60b4bb9148cda666c3b5c25ab5d8fb227a584e55f0f2faee1ee8fb92f1de713f",
+          "checkpoint_manifest_sha256": "02bcb10453919cfe12a2b763493039706e7ccd5271f5854daec736c14b3f22d4",
+          "model_sha256": "3a33c3fddad9eb66c3eedc9ee4829ca8e5921c927b90888983c7bc241a619d0d"
+        },
+        "model": {
+          "bitwise_equal": false,
+          "failed_tensors": [],
+          "max_absolute_error": 4.023313522338867e-07,
+          "passed": true,
+          "tensor_count": 422
+        },
+        "optimizer": {
+          "bitwise_equal": false,
+          "failed_tensors": [],
+          "max_absolute_error": 4.353933036327362e-08,
+          "passed": true,
+          "tensor_count": 732
+        },
+        "passed": true,
+        "reference_checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/stock_r4/after-two-update",
+          "campaign_metadata_sha256": "87ec01617db2cf526416645e5effc1f0f99a801e8a07a95e03c2820988afbe89",
+          "checkpoint_manifest_sha256": "28938207fd85bf0cf2ba4efc67d9a061bfb32944f335c849557d4d2c3bd7ecb1",
+          "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d"
+        },
+        "reference_kind": "same_allocation_current_source"
+      },
+      "full_finetune": {
+        "candidate_checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/full_finetune/after-two-update",
+          "campaign_metadata_sha256": "cbe8b75735fba8b3bfdf5ebd185d6461934fc938de3974953a336f17d29a4aa8",
+          "checkpoint_manifest_sha256": "8e42d8c9cec73a19ed76ae61bacef2f221c06654caff5f519d7f4308ad857b6f",
+          "model_sha256": "b535e47daea16c7df5c5b012dcb060938b2eb8151213a0bebe5294f1e5b2e7c0"
+        },
+        "model": {
+          "bitwise_equal": true,
+          "failed_tensors": [],
+          "max_absolute_error": 0.0,
+          "passed": true,
+          "tensor_count": 82
+        },
+        "optimizer": {
+          "bitwise_equal": true,
+          "failed_tensors": [],
+          "max_absolute_error": 0.0,
+          "passed": true,
+          "tensor_count": 243
+        },
+        "passed": true,
+        "reference_checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/allocation-02/full_finetune/after-two-updates",
+          "campaign_metadata_sha256": "8d82296ccbf7e6bc747be51dec7eb448f85bd32f4f6bd7cfc3e0c9d3a9b168a1",
+          "checkpoint_manifest_sha256": "b8fc579fb1143b1bf25d2145c9b580c0e32869e479de65f8095eb947e944c77b",
+          "model_sha256": "b535e47daea16c7df5c5b012dcb060938b2eb8151213a0bebe5294f1e5b2e7c0"
+        },
+        "reference_kind": "authenticated_historical_stock_same_data"
+      }
+    },
+    "passed": false,
+    "rtol": 2e-05,
+    "scope": "Two-update stock-versus-cached model and optimizer tensors. Cached restart parity is recorded in the training lanes.",
+    "source_commit": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a"
+  },
+  "posterior": {
+    "analytic_control_scope": "The 12 exact-control checks use tight Monte Carlo tolerances for this control. Original study thresholds are shown separately for three exact marginals. The full scientific matrix was outside this experiment.",
+    "analytic_control_source_sha256": "cb8d8a26db9ca618ad27e533d7d497f4d42883b4601271a33f6cfe37ec297ea9",
+    "comparison": {
+      "axis_and32projection_cdf": [
+        6.0000000000004494e-05,
+        0.0007800000000000029,
+        0.00037999999999993594,
+        0.0013000000000000789,
+        0.0008799999999999919,
+        0.0010399999999999854,
+        0.0010200000000000209,
+        0.0008400000000000074,
+        0.0007000000000000339,
+        0.0007800000000000029,
+        0.0014000000000000123,
+        0.0008799999999999919,
+        0.0006400000000000294,
+        0.0007199999999999984,
+        0.0009399999999999964,
+        0.0009399999999999964,
+        0.001080000000000081,
+        0.0009000000000000119,
+        0.0008000000000000229,
+        0.0007400000000000739,
+        0.0011400000000000299,
+        0.0008599999999999997,
+        0.0007800000000000029,
+        0.0010799999999999699,
+        0.0008600000000000829,
+        0.0007599999999999829,
+        0.0014199999999999768,
+        0.001040000000000041,
+        0.0011400000000000299,
+        0.0009399999999999409,
+        0.0011599999999999944,
+        0.0007800000000000029,
+        0.0006000000000000449,
+        0.0006400000000000294,
+        0.0008400000000000629,
+        0.0005800000000000249
+      ],
+      "investigation_flag": false,
+      "limits": {
+        "cdf": 0.01,
+        "mean_reference_sd": 0.05,
+        "relative_sd": 0.05
+      },
+      "max_mean_shift_reference_sd": 4.3161441261861213e-05,
+      "max_pairwise_cdf": 0.0014199999999999768,
+      "max_relative_sd_change": 0.0001482459698275429,
+      "scientifically_qualified": false,
+      "scope": "relative execution preservation; absolute scientific accuracy is assessed separately and remains unqualified"
+    },
+    "comparison_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+    "draws_per_request": 50000,
+    "runs": {
+      "cached": {
+        "analytic_control": {
+          "a_variance": {
+            "absolute_mc_tolerance": 0.035,
+            "analytic": 1.0425,
+            "sample": 0.9178218163585882
+          },
+          "checks": {
+            "a_mean": false,
+            "a_variance": false,
+            "mu_a_covariance": false,
+            "mu_cdf": false,
+            "mu_mean": false,
+            "mu_sd": false,
+            "sigma_cdf": false,
+            "sigma_mean": false,
+            "sigma_sd": false,
+            "tau_cdf": false,
+            "tau_mean": false,
+            "tau_sd": false
+          },
+          "complete_vectors": true,
+          "control_checks_passed": false,
+          "dimension": 4,
+          "marginals": {
+            "mu": {
+              "analytic_mean": 0.0,
+              "analytic_sd": 1.0,
+              "cdf_sup_error": 0.03372469076190188,
+              "mean_error_in_analytic_sd": 0.06737667852737408,
+              "sample_mean": -0.06737667852737408,
+              "sample_sd": 0.9369696309711731,
+              "sd_ratio": 0.9369696309711731
+            },
+            "sigma": {
+              "analytic_mean": 0.04224108068956894,
+              "analytic_sd": 0.012672324206870686,
+              "cdf_sup_error": 0.7324395330971953,
+              "mean_error_in_analytic_sd": 2.0421364457661597,
+              "sample_mean": 0.06811969580498431,
+              "sample_sd": 0.012358792222778667,
+              "sd_ratio": 0.9752585256679254
+            },
+            "tau": {
+              "analytic_mean": 0.2,
+              "analytic_sd": 0.05,
+              "cdf_sup_error": 0.019444483167471018,
+              "mean_error_in_analytic_sd": 0.03253573822041722,
+              "sample_mean": 0.20162678691102087,
+              "sample_sd": 0.048584872980593614,
+              "sd_ratio": 0.9716974596118723
+            }
+          },
+          "monte_carlo_tolerances": {
+            "cdf_sup_error": 0.012,
+            "mean_error_in_analytic_sd": 0.02,
+            "sd_ratio": [
+              0.98,
+              1.02
+            ]
+          },
+          "mu_a_covariance": {
+            "absolute_mc_tolerance": 0.035,
+            "analytic": 1.0,
+            "sample": 0.8768347399501336
+          },
+          "parameter_order": [
+            "mu",
+            "tau",
+            "a",
+            "sigma"
+          ],
+          "sample_count": 50000,
+          "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+        },
+        "exact_marginal_study_thresholds": {
+          "full_study_matrix_run": false,
+          "limits": {
+            "absolute_bias_reference_sd": 0.2,
+            "cdf": 0.1,
+            "sd_ratio": [
+              0.8,
+              1.2
+            ]
+          },
+          "marginals": {
+            "mu": {
+              "checks": {
+                "cdf": true,
+                "mean": true,
+                "sd": true
+              },
+              "passed": true
+            },
+            "sigma": {
+              "checks": {
+                "cdf": false,
+                "mean": false,
+                "sd": true
+              },
+              "passed": false
+            },
+            "tau": {
+              "checks": {
+                "cdf": true,
+                "mean": true,
+                "sd": true
+              },
+              "passed": true
+            }
+          },
+          "scope": "Original study thresholds applied to the exact mu, tau, and sigma marginal diagnostics for this single control."
+        },
+        "job_id": "5449666",
+        "request": {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9178218163585882
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": false,
+              "tau_mean": false,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.03372469076190188,
+                "mean_error_in_analytic_sd": 0.06737667852737408,
+                "sample_mean": -0.06737667852737408,
+                "sample_sd": 0.9369696309711731,
+                "sd_ratio": 0.9369696309711731
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.7324395330971953,
+                "mean_error_in_analytic_sd": 2.0421364457661597,
+                "sample_mean": 0.06811969580498431,
+                "sample_sd": 0.012358792222778667,
+                "sd_ratio": 0.9752585256679254
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.019444483167471018,
+                "mean_error_in_analytic_sd": 0.03253573822041722,
+                "sample_mean": 0.20162678691102087,
+                "sample_sd": 0.048584872980593614,
+                "sd_ratio": 0.9716974596118723
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.8768347399501336
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "02bcb10453919cfe12a2b763493039706e7ccd5271f5854daec736c14b3f22d4",
+                "deployment_mode": "merged_lora",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "peft_fp32_linear_and_packed_merge.v1",
+                "model_sha256": "5ae3d34194bebc1e67cf28cc917ca0b37749676863b317b01b59617ae82f0c06",
+                "origin_model_sha256": "3a33c3fddad9eb66c3eedc9ee4829ca8e5921c927b90888983c7bc241a619d0d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "bc9fa8b6-d5f7-4b37-0517-0091946fefab",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "5ae3d34194bebc1e67cf28cc917ca0b37749676863b317b01b59617ae82f0c06",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "5ae3d34194bebc1e67cf28cc917ca0b37749676863b317b01b59617ae82f0c06",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "02bcb10453919cfe12a2b763493039706e7ccd5271f5854daec736c14b3f22d4",
+          "context_preparation_seconds": 0.8547350999979244,
+          "context_worlds": 256,
+          "deployment_mode": "merged_lora",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/cached/repetition-0",
+          "metrics_sha256": "79edb86912e082e984bffde5b2039d1f0a6ea25ada8f7d88b72dfebdb7fc776f",
+          "model_sha256": "5ae3d34194bebc1e67cf28cc917ca0b37749676863b317b01b59617ae82f0c06",
+          "observations": 10,
+          "origin_model_sha256": "3a33c3fddad9eb66c3eedc9ee4829ca8e5921c927b90888983c7bc241a619d0d",
+          "peak_allocated_bytes": 1088056320,
+          "peak_reserved_bytes": 1595932672,
+          "posterior_draws": 50000,
+          "samples_sha256": "818c63e1dcdb7ac9ace26046ec1ed1f46419be5e6357e5f041eadb849ad01b59",
+          "sampling_seconds": 114.90601018799862,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 114.05101938100051
+        },
+        "sample_moments": {
+          "mean": [
+            -0.06737667852737443,
+            0.20162678691101935,
+            -0.07366773858190834,
+            0.06811969580498518
+          ],
+          "parameter_order": [
+            "mu",
+            "tau",
+            "a",
+            "sigma"
+          ],
+          "sd": [
+            0.9369696309711691,
+            0.04858487298059355,
+            0.9580301750772717,
+            0.012358792222778752
+          ]
+        }
+      },
+      "stock": {
+        "analytic_control": {
+          "a_variance": {
+            "absolute_mc_tolerance": 0.035,
+            "analytic": 1.0425,
+            "sample": 0.9178080207640487
+          },
+          "checks": {
+            "a_mean": false,
+            "a_variance": false,
+            "mu_a_covariance": false,
+            "mu_cdf": false,
+            "mu_mean": false,
+            "mu_sd": false,
+            "sigma_cdf": false,
+            "sigma_mean": false,
+            "sigma_sd": false,
+            "tau_cdf": false,
+            "tau_mean": false,
+            "tau_sd": false
+          },
+          "complete_vectors": true,
+          "control_checks_passed": false,
+          "dimension": 4,
+          "marginals": {
+            "mu": {
+              "analytic_mean": 0.0,
+              "analytic_sd": 1.0,
+              "cdf_sup_error": 0.033724684546831196,
+              "mean_error_in_analytic_sd": 0.06737658315809789,
+              "sample_mean": -0.06737658315809789,
+              "sample_sd": 0.9369696328489463,
+              "sd_ratio": 0.9369696328489463
+            },
+            "sigma": {
+              "analytic_mean": 0.04224108068956894,
+              "analytic_sd": 0.012672324206870686,
+              "cdf_sup_error": 0.7323755253236272,
+              "mean_error_in_analytic_sd": 2.042179607207532,
+              "sample_mean": 0.06812024276076262,
+              "sample_sd": 0.012360624635565554,
+              "sd_ratio": 0.9754031252502099
+            },
+            "tau": {
+              "analytic_mean": 0.2,
+              "analytic_sd": 0.05,
+              "cdf_sup_error": 0.019488145489571746,
+              "mean_error_in_analytic_sd": 0.03254979151474324,
+              "sample_mean": 0.20162748957573717,
+              "sample_sd": 0.04858596509230701,
+              "sd_ratio": 0.9717193018461402
+            }
+          },
+          "monte_carlo_tolerances": {
+            "cdf_sup_error": 0.012,
+            "mean_error_in_analytic_sd": 0.02,
+            "sd_ratio": [
+              0.98,
+              1.02
+            ]
+          },
+          "mu_a_covariance": {
+            "absolute_mc_tolerance": 0.035,
+            "analytic": 1.0,
+            "sample": 0.8768280391399387
+          },
+          "parameter_order": [
+            "mu",
+            "tau",
+            "a",
+            "sigma"
+          ],
+          "sample_count": 50000,
+          "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+        },
+        "exact_marginal_study_thresholds": {
+          "full_study_matrix_run": false,
+          "limits": {
+            "absolute_bias_reference_sd": 0.2,
+            "cdf": 0.1,
+            "sd_ratio": [
+              0.8,
+              1.2
+            ]
+          },
+          "marginals": {
+            "mu": {
+              "checks": {
+                "cdf": true,
+                "mean": true,
+                "sd": true
+              },
+              "passed": true
+            },
+            "sigma": {
+              "checks": {
+                "cdf": false,
+                "mean": false,
+                "sd": true
+              },
+              "passed": false
+            },
+            "tau": {
+              "checks": {
+                "cdf": true,
+                "mean": true,
+                "sd": true
+              },
+              "passed": true
+            }
+          },
+          "scope": "Original study thresholds applied to the exact mu, tau, and sigma marginal diagnostics for this single control."
+        },
+        "job_id": "5449666",
+        "request": {
+          "analytical_diagnostics": {
+            "a_variance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0425,
+              "sample": 0.9178080207640487
+            },
+            "checks": {
+              "a_mean": false,
+              "a_variance": false,
+              "mu_a_covariance": false,
+              "mu_cdf": false,
+              "mu_mean": false,
+              "mu_sd": false,
+              "sigma_cdf": false,
+              "sigma_mean": false,
+              "sigma_sd": false,
+              "tau_cdf": false,
+              "tau_mean": false,
+              "tau_sd": false
+            },
+            "complete_vectors": true,
+            "control_checks_passed": false,
+            "dimension": 4,
+            "marginals": {
+              "mu": {
+                "analytic_mean": 0.0,
+                "analytic_sd": 1.0,
+                "cdf_sup_error": 0.033724684546831196,
+                "mean_error_in_analytic_sd": 0.06737658315809789,
+                "sample_mean": -0.06737658315809789,
+                "sample_sd": 0.9369696328489463,
+                "sd_ratio": 0.9369696328489463
+              },
+              "sigma": {
+                "analytic_mean": 0.04224108068956894,
+                "analytic_sd": 0.012672324206870686,
+                "cdf_sup_error": 0.7323755253236272,
+                "mean_error_in_analytic_sd": 2.042179607207532,
+                "sample_mean": 0.06812024276076262,
+                "sample_sd": 0.012360624635565554,
+                "sd_ratio": 0.9754031252502099
+              },
+              "tau": {
+                "analytic_mean": 0.2,
+                "analytic_sd": 0.05,
+                "cdf_sup_error": 0.019488145489571746,
+                "mean_error_in_analytic_sd": 0.03254979151474324,
+                "sample_mean": 0.20162748957573717,
+                "sample_sd": 0.04858596509230701,
+                "sd_ratio": 0.9717193018461402
+              }
+            },
+            "monte_carlo_tolerances": {
+              "cdf_sup_error": 0.012,
+              "mean_error_in_analytic_sd": 0.02,
+              "sd_ratio": [
+                0.98,
+                1.02
+              ]
+            },
+            "mu_a_covariance": {
+              "absolute_mc_tolerance": 0.035,
+              "analytic": 1.0,
+              "sample": 0.8768280391399387
+            },
+            "parameter_order": [
+              "mu",
+              "tau",
+              "a",
+              "sigma"
+            ],
+            "sample_count": 50000,
+            "scope": "fixed-seed mathematical control, not global calibration or numerical-reference qualification"
+          },
+          "attention": {
+            "policy": "stock"
+          },
+          "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+          "binding": {
+            "backend": {
+              "attention": {
+                "policy": "stock"
+              },
+              "backend_kind": "stock_tabpfn_cuda_qualification",
+              "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+              "deployment": {
+                "checkpoint_manifest_sha256": "28938207fd85bf0cf2ba4efc67d9a061bfb32944f335c849557d4d2c3bd7ecb1",
+                "deployment_mode": "merged_lora",
+                "feature_embedding_policy": "cpu_seeded_subspace.v1",
+                "merge_policy": "peft_fp32_linear_and_packed_merge.v1",
+                "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+                "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+                "source_files": {
+                  "inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+                  "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                  "model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+                  "training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5"
+                }
+              },
+              "engineering_source_sha256": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+              "execution": {
+                "capability": [
+                  8,
+                  0
+                ],
+                "cuda_runtime": "12.4",
+                "cudnn_tf32": false,
+                "deterministic_algorithms": true,
+                "device": "cuda:0",
+                "device_name": "NVIDIA A100-SXM4-40GB",
+                "device_uuid": "5b20a1ab-b0e7-a1bf-efe1-379da845348c",
+                "matmul_tf32": false
+              },
+              "feature_embedding_policy": "cpu_seeded_subspace.v1",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "numpy_version": "1.26.4",
+              "sampling_law": "canonical_half_normal_full_support.v1",
+              "source_policy": "cancelled_zero_width",
+              "source_sha256": {
+                "model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+                "sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103"
+              },
+              "tabpfn_version": "2.0.9",
+              "torch_version": "2.6.0",
+              "type": "TabPFNConditionalBackend"
+            },
+            "count": 50000,
+            "identities": {
+              "bank_manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+              "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+              "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7"
+            },
+            "invalid_policy": "fail",
+            "law": "canonical_half_normal_full_support.v1",
+            "microbatch_size": 1024,
+            "observations": {
+              "dtype": "<f8",
+              "sha256": "cea2f712002a57c8ce4a237de681bddc49f861d550aa285afc8e9dd2d5c95e56",
+              "shape": [
+                256,
+                10
+              ]
+            },
+            "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+            "query": {
+              "dtype": "<f8",
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "requested_sampling_law": "canonical_half_normal_full_support.v1",
+            "seed": 20265117,
+            "source_policy": "cancelled_zero_width",
+            "source_sha256": {
+              "banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+              "config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+              "sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+              "science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+              "spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3"
+            },
+            "theta": {
+              "dtype": "<f8",
+              "sha256": "010b7d78f862ba914ebbc501397c8b180f667d4a15edffa6a23d20ed3f724498",
+              "shape": [
+                256,
+                4
+              ]
+            },
+            "uniform_law": "uint53-open.v1"
+          },
+          "checkpoint_manifest_sha256": "28938207fd85bf0cf2ba4efc67d9a061bfb32944f335c849557d4d2c3bd7ecb1",
+          "context_preparation_seconds": 0.8419571759986866,
+          "context_worlds": 256,
+          "deployment_mode": "merged_lora",
+          "dimension": 4,
+          "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-01/stock/repetition-0",
+          "metrics_sha256": "266fbfb9898b684aa0a92728a53daf3de34d5b9d7cea1277d82f6fe431a96846",
+          "model_sha256": "3bac02d7f8e9b6d3770d37d10e976ba98f6b85f1b673aa8a1b220d5eabb5c41a",
+          "observations": 10,
+          "origin_model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d",
+          "peak_allocated_bytes": 1088056320,
+          "peak_reserved_bytes": 1595932672,
+          "posterior_draws": 50000,
+          "samples_sha256": "0736c63f20a1e02b6a4f720a3b4b680feeb06e98b5750530886597c44315334f",
+          "sampling_seconds": 114.67900038800144,
+          "scientifically_qualified": false,
+          "warm_sampling_seconds": 113.83678392699949
+        },
+        "sample_moments": {
+          "mean": [
+            -0.0673765831580975,
+            0.20162748957573767,
+            -0.07366391459751447,
+            0.06812024276076209
+          ],
+          "parameter_order": [
+            "mu",
+            "tau",
+            "a",
+            "sigma"
+          ],
+          "sd": [
+            0.9369696328489497,
+            0.04858596509230687,
+            0.9580229750710796,
+            0.012360624635565526
+          ]
+        }
+      }
+    },
+    "source_commit": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a"
+  },
+  "report_inputs": {
+    "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/report-inputs-01.json",
+    "sha256": "bf9c9553150c5de4ca99526a8b1e4fd7c1b9b340355db2868276930f98542ea3"
+  },
+  "schema": "finetuneforge.training_engineering_report.v1",
+  "scientifically_qualified": false,
+  "scope": "Two bounded training updates and one complete posterior request per rank-four variant. These results do not establish fine-tuning gains, cross-problem transfer, or campaign-scale resource savings.",
+  "training": {
+    "earlier_stock_baseline": {
+      "job_id": "5449480",
+      "profile": {
+        "cpu_scope_seconds": {
+          "conditional_backward": 3.320821931,
+          "density_including_network": 2.484688094,
+          "density_log_prob": 0.004193049,
+          "network_forward": 2.398765307,
+          "preprocess_and_h2d": 0.7845939120000001
+        },
+        "cuda_kernel_count": 76748,
+        "native_operator_counts": {
+          "aten::bmm": 6360,
+          "aten::mm": 13368,
+          "cudaLaunchKernel": 76732
+        },
+        "scope": "Episode 0, stage 0 (mu). Sum of CUDA kernel event durations can include overlap. CPU scopes can nest.",
+        "sum_cuda_kernel_elapsed_seconds": 0.3050228869999733,
+        "trace_sha256": "99146b6b231081f101c2d8439261c85e7a6e9fab2a9a003359e9733229db56a6",
+        "traced_wall_seconds": 11.624456011999428
+      },
+      "source_commit": "490e60b15d226d2985a99db279b5a309983f93e4",
+      "updates": [
+        {
+          "batch": 1,
+          "gradient_norm_before_clip": 0.8914197683334351,
+          "loss": -0.9748934416880902,
+          "other_wall_seconds": 0.0025733589973242488,
+          "preparation_and_h2d_seconds": 11.143357476001256,
+          "update_compute_seconds": 240.37480538700038,
+          "wall_seconds": 251.52073622199896
+        },
+        {
+          "batch": 2,
+          "gradient_norm_before_clip": 0.6269701719284058,
+          "loss": -1.0790852503655464,
+          "other_wall_seconds": 0.003504235002765199,
+          "preparation_and_h2d_seconds": 10.725629340999149,
+          "update_compute_seconds": 238.8196116580002,
+          "wall_seconds": 249.54874523400213
+        }
+      ]
+    },
+    "execution_policy": "per_layer_forward_and_checkpoint_recompute.v1",
+    "hostname": "acn30.karolina.it4i.cz",
+    "job_id": "5449591",
+    "lanes": {
+      "cache_r16": {
+        "checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r16/after-two-update",
+          "campaign_metadata_sha256": "0eaf30868fcfe70dde4255d425c421d8d583429c01dda4a2354042dabd62e4c9",
+          "checkpoint_manifest_sha256": "155b8a0a150a2d8a3c0e1b0a80b81b827ac1c180a4f5812f8c63a8cc52cb3acc",
+          "model_sha256": "c5cbb002d784c88d69f0597b5a1bf5567bd237bb9d6c9bf6aa7356a3b74e0dae"
+        },
+        "hardware": {
+          "cuda_runtime": "12.4",
+          "memory_bytes": 42430300160,
+          "name": "NVIDIA A100-SXM4-40GB",
+          "uuid": "9f515ac2-472b-a22d-550d-b0fbe977d29c"
+        },
+        "peak_allocated_bytes": 208978944,
+        "peak_reserved_bytes": 213909504,
+        "restart": {
+          "deployment_bitwise_equal": true,
+          "future_all_rngs_equal": true,
+          "optimizer_bitwise_equal": true,
+          "passed": true,
+          "state_equal": true,
+          "weights_bitwise_equal": true
+        },
+        "same_weight_parity": [
+          {
+            "atol": 2e-07,
+            "logits_density_loss_bitwise_equal": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "members": 8,
+            "phase": "initial",
+            "rtol": 2e-05,
+            "tensors": 244
+          },
+          {
+            "atol": 2e-07,
+            "logits_density_loss_bitwise_equal": true,
+            "max_absolute_error": 2.2351741790771484e-08,
+            "members": 8,
+            "phase": "after_update_1",
+            "rtol": 2e-05,
+            "tensors": 244
+          }
+        ],
+        "updates": [
+          {
+            "batch": 1,
+            "gradient_norm_before_clip": 1.8818418979644775,
+            "loss": -0.9748934416880902,
+            "other_wall_seconds": 0.0030019270052434877,
+            "preparation_and_h2d_seconds": 10.63574831900769,
+            "update_compute_seconds": 150.57071131998964,
+            "wall_seconds": 161.20946156600257
+          },
+          {
+            "batch": 2,
+            "gradient_norm_before_clip": 1.3481566905975342,
+            "loss": -1.0892143441898654,
+            "other_wall_seconds": 0.003694752012961544,
+            "preparation_and_h2d_seconds": 10.700932255989756,
+            "update_compute_seconds": 150.42766017800022,
+            "wall_seconds": 161.13228718600294
+          }
+        ]
+      },
+      "cache_r4": {
+        "checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/cache_r4/after-two-update",
+          "campaign_metadata_sha256": "60b4bb9148cda666c3b5c25ab5d8fb227a584e55f0f2faee1ee8fb92f1de713f",
+          "checkpoint_manifest_sha256": "02bcb10453919cfe12a2b763493039706e7ccd5271f5854daec736c14b3f22d4",
+          "model_sha256": "3a33c3fddad9eb66c3eedc9ee4829ca8e5921c927b90888983c7bc241a619d0d"
+        },
+        "hardware": {
+          "cuda_runtime": "12.4",
+          "memory_bytes": 42430300160,
+          "name": "NVIDIA A100-SXM4-40GB",
+          "uuid": "c2afae9c-4fd8-b842-816e-542eb559f835"
+        },
+        "peak_allocated_bytes": 192989184,
+        "peak_reserved_bytes": 199229440,
+        "profile": {
+          "cpu_scope_seconds": {
+            "conditional_backward": 2.174097082,
+            "density_including_network": 1.3656799,
+            "density_log_prob": 0.002325217,
+            "network_forward": 1.307448743,
+            "preprocess_and_h2d": 0.761332573
+          },
+          "cuda_kernel_count": 48180,
+          "native_operator_counts": {
+            "aten::bmm": 6360,
+            "aten::mm": 5192,
+            "cudaLaunchKernel": 48164
+          },
+          "scope": "Episode 0, stage 0 (mu). Sum of CUDA kernel event durations can include overlap. CPU scopes can nest.",
+          "sum_cuda_kernel_elapsed_seconds": 0.19508811700000228,
+          "trace_sha256": "c8ed5b09584c77b351f675583151c107da07e8ed161f190d46bd86eb72b35504",
+          "traced_wall_seconds": 8.20440286899975
+        },
+        "restart": {
+          "deployment_bitwise_equal": true,
+          "future_all_rngs_equal": true,
+          "optimizer_bitwise_equal": true,
+          "passed": true,
+          "state_equal": true,
+          "weights_bitwise_equal": true
+        },
+        "same_weight_parity": [
+          {
+            "atol": 2e-07,
+            "logits_density_loss_bitwise_equal": true,
+            "max_absolute_error": 2.9802322387695312e-08,
+            "members": 8,
+            "phase": "initial",
+            "rtol": 2e-05,
+            "tensors": 244
+          },
+          {
+            "atol": 2e-07,
+            "logits_density_loss_bitwise_equal": true,
+            "max_absolute_error": 2.2351741790771484e-08,
+            "members": 8,
+            "phase": "after_update_1",
+            "rtol": 2e-05,
+            "tensors": 244
+          }
+        ],
+        "updates": [
+          {
+            "batch": 1,
+            "gradient_norm_before_clip": 0.8914197087287903,
+            "loss": -0.9748934416880902,
+            "other_wall_seconds": 0.0056812149996403605,
+            "preparation_and_h2d_seconds": 11.05714108000393,
+            "update_compute_seconds": 172.4812113099906,
+            "wall_seconds": 183.54403360499418
+          },
+          {
+            "batch": 2,
+            "gradient_norm_before_clip": 0.6269707679748535,
+            "loss": -1.0790851915388073,
+            "other_wall_seconds": 0.004494781998801045,
+            "preparation_and_h2d_seconds": 10.881746019003913,
+            "update_compute_seconds": 165.68819167499896,
+            "wall_seconds": 176.57443247600168
+          }
+        ]
+      },
+      "full_finetune": {
+        "checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/full_finetune/after-two-update",
+          "campaign_metadata_sha256": "cbe8b75735fba8b3bfdf5ebd185d6461934fc938de3974953a336f17d29a4aa8",
+          "checkpoint_manifest_sha256": "8e42d8c9cec73a19ed76ae61bacef2f221c06654caff5f519d7f4308ad857b6f",
+          "model_sha256": "b535e47daea16c7df5c5b012dcb060938b2eb8151213a0bebe5294f1e5b2e7c0"
+        },
+        "hardware": {
+          "cuda_runtime": "12.4",
+          "memory_bytes": 42430300160,
+          "name": "NVIDIA A100-SXM4-40GB",
+          "uuid": "33c91821-e84c-bb4a-1e19-fc6e89a98b06"
+        },
+        "peak_allocated_bytes": 340947968,
+        "peak_reserved_bytes": 362807296,
+        "restart": {
+          "deployment_bitwise_equal": true,
+          "future_all_rngs_equal": true,
+          "optimizer_bitwise_equal": true,
+          "passed": true,
+          "state_equal": true,
+          "weights_bitwise_equal": true
+        },
+        "same_weight_parity": [
+          {
+            "atol": 2e-07,
+            "logits_density_loss_bitwise_equal": true,
+            "max_absolute_error": 0.0,
+            "members": 8,
+            "phase": "initial",
+            "rtol": 2e-05,
+            "tensors": 81
+          },
+          {
+            "atol": 2e-07,
+            "logits_density_loss_bitwise_equal": true,
+            "max_absolute_error": 0.0,
+            "members": 8,
+            "phase": "after_update_1",
+            "rtol": 2e-05,
+            "tensors": 81
+          }
+        ],
+        "updates": [
+          {
+            "batch": 1,
+            "gradient_norm_before_clip": 5.463388442993164,
+            "loss": -0.9748934416880902,
+            "other_wall_seconds": 0.0032548210001550615,
+            "preparation_and_h2d_seconds": 10.789385669995681,
+            "update_compute_seconds": 100.07024743901275,
+            "wall_seconds": 110.86288793000858
+          },
+          {
+            "batch": 2,
+            "gradient_norm_before_clip": 3.9168760776519775,
+            "loss": -1.0847438530949076,
+            "other_wall_seconds": 0.0033622299961280078,
+            "preparation_and_h2d_seconds": 10.656651373006753,
+            "update_compute_seconds": 100.06620838299568,
+            "wall_seconds": 110.72622198599856
+          }
+        ]
+      },
+      "stock_r4": {
+        "checkpoint": {
+          "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/qualification-01/stock_r4/after-two-update",
+          "campaign_metadata_sha256": "87ec01617db2cf526416645e5effc1f0f99a801e8a07a95e03c2820988afbe89",
+          "checkpoint_manifest_sha256": "28938207fd85bf0cf2ba4efc67d9a061bfb32944f335c849557d4d2c3bd7ecb1",
+          "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d"
+        },
+        "hardware": {
+          "cuda_runtime": "12.4",
+          "memory_bytes": 42430300160,
+          "name": "NVIDIA A100-SXM4-40GB",
+          "uuid": "3a033880-09eb-d115-39b6-24efefb65695"
+        },
+        "peak_allocated_bytes": 186033152,
+        "peak_reserved_bytes": 190840832,
+        "profile": {
+          "cpu_scope_seconds": {
+            "conditional_backward": 3.270290389,
+            "density_including_network": 2.152212044,
+            "density_log_prob": 0.0023392739999999997,
+            "network_forward": 2.102385953,
+            "preprocess_and_h2d": 0.754838311
+          },
+          "cuda_kernel_count": 76748,
+          "native_operator_counts": {
+            "aten::bmm": 6360,
+            "aten::mm": 13368,
+            "cudaLaunchKernel": 76732
+          },
+          "scope": "Episode 0, stage 0 (mu). Sum of CUDA kernel event durations can include overlap. CPU scopes can nest.",
+          "sum_cuda_kernel_elapsed_seconds": 0.31521826399996106,
+          "trace_sha256": "86eaea56dc607ae2af181c9b42bc2b5431d462d38ffe0d03ef67ff1d6675fe46",
+          "traced_wall_seconds": 11.182008477000636
+        },
+        "updates": [
+          {
+            "batch": 1,
+            "gradient_norm_before_clip": 0.8914197683334351,
+            "loss": -0.9748934416880902,
+            "other_wall_seconds": 0.005489799994393252,
+            "preparation_and_h2d_seconds": 10.904423109997879,
+            "update_compute_seconds": 273.19249046201,
+            "wall_seconds": 284.1024033720023
+          },
+          {
+            "batch": 2,
+            "gradient_norm_before_clip": 0.6269701719284058,
+            "loss": -1.0790852503655464,
+            "other_wall_seconds": 0.004118116004974581,
+            "preparation_and_h2d_seconds": 10.953291057987371,
+            "update_compute_seconds": 266.4981997249997,
+            "wall_seconds": 277.45560889899207
+          }
+        ]
+      }
+    },
+    "scope": "Two different fixed episode batches per lane, timed without profiler instrumentation. The same-node rank-four comparison uses the same initial model, data and settings. The cached lane also ran separate conditional parity checks before its timed regions.",
+    "source_commit": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a",
+    "stock_cached_r4_comparison_by_batch": [
+      {
+        "batch": 1,
+        "compute_ratio_stock_over_cached": 1.5838971003689022,
+        "gradient_norm_delta_cached_minus_stock": -5.960464477539063e-08,
+        "loss_delta_cached_minus_stock": 0.0,
+        "wall_ratio_stock_over_cached": 1.5478705452415857
+      },
+      {
+        "batch": 2,
+        "compute_ratio_stock_over_cached": 1.608432061638658,
+        "gradient_norm_delta_cached_minus_stock": 5.960464477539062e-07,
+        "loss_delta_cached_minus_stock": 5.882673903556679e-08,
+        "wall_ratio_stock_over_cached": 1.571323803839501
+      }
+    ]
+  }
+}

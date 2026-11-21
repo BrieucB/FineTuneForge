@@ -1,0 +1,226 @@
+{
+  "accepted_design_clarifications": [
+    "P<=6 per local experiment/model; a shared specimen may have a larger union; global D<=96 and M+D<=450 remain.",
+    "Common canonical shared-grid full-tail density for original pretrained weights, LoRA and full fine-tuning; no exact nonlinear-mixture claim.",
+    "Compare simulator-call ratios within matching bank seeds, geometrically combine within case/across cases, cluster by setup or matched pair.",
+    "Full bank-generation cost and retrospective passing-prefix budget remain separate; shared generation is not charged per posterior."
+  ],
+  "base_git_revision": "06fec2b8bdea5322b081d1116e293c0ca5cf4b31",
+  "environment_locks": {
+    "environments/study-public-cpu.lock": "a1ec2b63f0ae29ebe242a948e2946fb86993a29d7f3f549c838fc2bfa2ba6688",
+    "environments/study-reference-cpu.lock": "3a3abc27b9e2630aff60b85a8fc38ed39cc24ba0c7ebafc61497d5dc478984da",
+    "environments/study-training-cpu.lock": "ce7c1becab8cf5c14d2f30c8e6b339b13587635e0df9148303bacaeb9f36cd72"
+  },
+  "failure_history": [
+    {
+      "errors": 0,
+      "failures": 9,
+      "resolution": "Introduced CLI byte-seal mismatch fixed by additive entrypoint; pre-existing import-order test confirmed on untouched base and fixed through fresh-process isolation.",
+      "retained_external_receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/legacy-inference.xml",
+      "sha256": "057642bd6f59c76706a33464a48a36a5d1657767dd2c770d7910816a008127be",
+      "skipped": 3,
+      "tests": 2247
+    },
+    {
+      "errors": 0,
+      "failures": 1,
+      "resolution": "Untouched base confirms pre-existing Torch import-order assertion; recorded diagnostic reproduction, not new-code failure.",
+      "retained_external_receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/baseline-import-order.xml",
+      "sha256": "1a33a18fd7a8e5c6beb94aaef893e3d190a4f1b32d00f5e71f453a1df8111c34",
+      "skipped": 0,
+      "tests": 15
+    },
+    {
+      "errors": 3,
+      "failures": 0,
+      "resolution": "Unrelated /tmp/torch namespace shadowed absent optional Torch; final installed tests run from a newly-created empty working directory.",
+      "retained_external_receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/public-wheel.xml",
+      "sha256": "cc241383015ddeeafda41db7350f459b194a2a9b0afac6dd48487722ac6d59dc",
+      "skipped": 0,
+      "tests": 3
+    }
+  ],
+  "implementation_git_revision": "d6fbe6100eccc2b00d926c4fbef937bc1961d405",
+  "implemented": [
+    "Problem/prior/specimen/batch/noise schema and six-training/two-held-out physics catalogue",
+    "Complete paired banks, prefix accounting and reversible no-call order augmentation",
+    "Independent SMC/NUTS CPU reference APIs and inconclusive-aware scientific gates",
+    "Hugging Face PEFT packed attention, calculation/output projections; ranks4/16; serialization/merge checks",
+    "Differentiable all-D physical-density scoring, one-stage-at-a-time CPU backward and one update per effective batch",
+    "Checksum-bound50k sample artifacts with retained bank/cost receipts",
+    "CPU-only CLI/locks/CI and separate10k-hour budget ledger with submission disabled"
+  ],
+  "interpretation": "Component checks and toy/real-checkpoint CPU fixtures are not production training,50k neural posterior validation, global calibration, simulation savings or measured GPU performance. Internal probability/unit and tiny-reference samples are not NPE-PFN posterior evaluation requests.",
+  "remaining": [
+    "Retained I07 full scientific/numerical qualification for selected law and independent reference precision",
+    "GPU gradient/precision/runtime/memory qualification and conservative full-study cost forecast",
+    "Matched-stream production campaign driver, GPU restart/scaler state and sampling/evaluation orchestration",
+    "Real50k neural posterior runs, final validation selection locks and sealed transfer comparisons",
+    "CPU/CUDA profiling, new-law optimization/multi-GPU measurements, offline GPU container qualification and public model release"
+  ],
+  "sampling_law": "canonical_half_normal_full_support.v1",
+  "sampling_law_production_qualified": false,
+  "schema": "finetuneforge.hierarchical_ft_v1.cpu_stage.v1",
+  "scope": {
+    "cpu_code_and_tests_authorized": true,
+    "posterior_vectors_per_evaluation": 50000,
+    "study_allocated_gpu_hours": 0,
+    "study_gpu_jobs_submitted": 0,
+    "study_production_neural_posterior_requests": 0,
+    "study_production_references_qualified": 0,
+    "study_production_training_campaigns": 0,
+    "test_truth_generated_for_final_study": false
+  },
+  "source_grid_policy": "cancelled_zero_width",
+  "source_sha256": {
+    ".github/workflows/ci.yml": "f29c92d288340010370e3e07b6f1e92c458225199c05bec9bf589526222c28a8",
+    "README.md": "c3ea4f8025f0ff8d3c70799b997755a3ce03284689fbfcf847f148deafed217d",
+    "configs/studies/hierarchical-ft-v1.json": "3d2df12efeff05af8874681b481bb873f4192b35b786bd5decf6756e82dd9d5b",
+    "docs/hierarchical-ft-v1.md": "e79cbd9ff46e504fe3d332055febdf6fe6daf271cb74f9749cd2c7efcd727c20",
+    "environments/study-public-cpu.in": "26b12477a79a452d087b366f19faf350ef64aa43131bf92e74fef89209b5250e",
+    "environments/study-public-cpu.lock": "a1ec2b63f0ae29ebe242a948e2946fb86993a29d7f3f549c838fc2bfa2ba6688",
+    "environments/study-reference-cpu.in": "dd2587779072342e2537794e0b534b6e86e55d296f31765514e4305652a6b48d",
+    "environments/study-reference-cpu.lock": "3a3abc27b9e2630aff60b85a8fc38ed39cc24ba0c7ebafc61497d5dc478984da",
+    "environments/study-training-cpu.in": "5b1449ba164a7ed6c6af46989fcb82c24c84e65fddd1257f0f2eee660ea55554",
+    "environments/study-training-cpu.lock": "ce7c1becab8cf5c14d2f30c8e6b339b13587635e0df9148303bacaeb9f36cd72",
+    "pyproject.toml": "bcf9594b58f8bb871e43a450b6810be0dc956c19325dc0152cd8c010820ff9b1",
+    "scripts/test-study-cpu.sh": "a88a555ff1530f1ab65b0ad260668362bbaffea5e6338d45c18b599002c57b20",
+    "src/posteriorforge/study/__init__.py": "5c3750803f9b052da055bb4a42f66a1d4c46c4182e1f1d4e416985eb28329430",
+    "src/posteriorforge/study/__main__.py": "4f430f53903ff8cf31a441a3b39ab4b28380061bad6fa050f73d717dfe5338c0",
+    "src/posteriorforge/study/artifacts.py": "a1ab690422a0cb56a76b8e3021915067c1120231e078a09400d575ccf7c500f8",
+    "src/posteriorforge/study/banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+    "src/posteriorforge/study/budget.py": "eacb890d7ba210334793c3ff3331475b15ef1e8e43a6cb8a5a53d6f818ff77ea",
+    "src/posteriorforge/study/catalogue.py": "0e7b2016ed5696f9cae4c6efcc19027f151a29f1c777a5f3fdfeb91394db30e9",
+    "src/posteriorforge/study/cli.py": "a9dd404f74d8a061ab1a42d6276832e5cd8edcaa2106f1a22bf721096963865e",
+    "src/posteriorforge/study/config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+    "src/posteriorforge/study/entrypoint.py": "ec660b66e49df0bb9d2edbe8e78e2a8a25d1b80f5a4bfcb3dfd1ad6888a830cb",
+    "src/posteriorforge/study/evaluation.py": "90fd38dbf4a155f0c477a62fb0ae7f8e758fa0d0380ca1f00aa612eecfd7072b",
+    "src/posteriorforge/study/metrics.py": "9b92e98e2325710ef69b66eeb3cef85081188c6ea14ec93e8684c22437c373e1",
+    "src/posteriorforge/study/model.py": "366323f30008f6e2967563a1de7008fcb215f4bec8cd692f849f66106aeb3194",
+    "src/posteriorforge/study/ordering.py": "6599e9d29be32a14434cad30df37ac154d554d44267875886c4e32d0b72a4d7e",
+    "src/posteriorforge/study/reference.py": "35b0ab2536fcc214468f929361d36eae0927be8b34ff5a80cc027d7634bd24d4",
+    "src/posteriorforge/study/science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+    "src/posteriorforge/study/seeds.py": "d7cb20aaab77cb0dae433b86377ab253d7e667c94706634c4be32a51516fcf01",
+    "src/posteriorforge/study/spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3",
+    "src/posteriorforge/study/training.py": "c1e7ede58d3019ae2a2308018ff8b2db2d065c6da5c11070b6d944d47dd9156d",
+    "src/posteriorforge/study/updates.py": "937e66d3c90e743da2415b3ab8679307d886bfecd5c7503e29a150d710a6c30e",
+    "tests/test_ss15_sigma_native_policy.py": "3457134499eacbda611d19affd44efc7823dad386426f23c64cb3d4da4eba700",
+    "tests/test_study_artifacts.py": "488803b080451c81571ff41272951a25c1624e110d60af40fba09b0a4e1b011a",
+    "tests/test_study_banks.py": "1471a2a0aaee76ab1ed672c4004d59cba949508e7083812bd5670ed1bb8b7c73",
+    "tests/test_study_budget.py": "5203792f544568252b1660e6f8bed1388261965c0659adaaf44a7380478b24c2",
+    "tests/test_study_catalogue.py": "9675b83e9002d6f5d45a13d6f16194b34d99ff28b6eaf179b90d01031aea9370",
+    "tests/test_study_cli.py": "cf1dad98778e800028688b88b5d1aa85d1fcbc6bfbd4cbcab797177e2fb00a75",
+    "tests/test_study_contract.py": "ec37a663375bd593bbcfa28ce1fc0a79ba94e7703941483945c6c197e8139f55",
+    "tests/test_study_evaluation.py": "f95e60e95e2f55e3d144e12c7a014e3fae078a2138873afb461b037b49c9dbba",
+    "tests/test_study_metrics.py": "434f719e8800aad4fd11c269da8344ae571830e0cb5a8de174c394d60e53848c",
+    "tests/test_study_model.py": "03c923b6fb1aef654c798970c2dd3d7bba48aca12fb5ea76843bc37692ac4c1b",
+    "tests/test_study_ordering.py": "f1fe03402209fde28fea5d3013bfba5bac1b12912ec2774413e765101c5ec508",
+    "tests/test_study_reference.py": "85aa5077a1072b93644a1b4115dcb4ccfbc0f9670e5566a1fb8f4ca92d6a80be",
+    "tests/test_study_science.py": "2e6a3c5cd3f88e7d864b3e47d6ff815d2661d42ea76de2f769809cf4d122fed3",
+    "tests/test_study_training.py": "39a159888af152d7da3b7b9bde9690d3d0c99e5d2004eb13eea232fb14d6b88f",
+    "tests/test_study_updates.py": "c6940d6bd37a8a981abfdb5c367764dc5ad338724a8bd52d49f88c5a57ea94ed"
+  },
+  "status": "cpu_software_verified_production_unqualified",
+  "study_id": "hierarchical-ft-v1",
+  "tests": [
+    {
+      "cpu_test_wall_seconds": 365.703,
+      "errors": 0,
+      "failures": 0,
+      "passed": 2244,
+      "receipt": "junit/legacy-inference-final.xml",
+      "sha256": "2b5ce56ba90661350ea3e75e218457d020b9e412b5f4df1f188ff130f2e5a2b5",
+      "skipped": 3,
+      "test_names": null,
+      "tests": 2247
+    },
+    {
+      "cpu_test_wall_seconds": 20.28,
+      "errors": 0,
+      "failures": 0,
+      "passed": 168,
+      "receipt": "junit/study-training-integrated.xml",
+      "sha256": "ae6cb9dcbe43abcb0968820740630719eaf88f6098ab46f0ba966d3ad99f85c0",
+      "skipped": 7,
+      "test_names": null,
+      "tests": 175
+    },
+    {
+      "cpu_test_wall_seconds": 16.023,
+      "errors": 0,
+      "failures": 0,
+      "passed": 131,
+      "receipt": "junit/study-reference-integrated.xml",
+      "sha256": "3f9d426f9dc624c78f15463f4b0a52715f2de65d893f24ad7554dcb25e1390e8",
+      "skipped": 4,
+      "test_names": null,
+      "tests": 135
+    },
+    {
+      "cpu_test_wall_seconds": 6.17,
+      "errors": 0,
+      "failures": 0,
+      "passed": 131,
+      "receipt": "junit/public-wheel-final.xml",
+      "sha256": "fac1b506a15fbae8468f7ab9c54e05693df988e5d1514b74bc52f13a7023934d",
+      "skipped": 4,
+      "test_names": null,
+      "tests": 135
+    },
+    {
+      "cpu_test_wall_seconds": 14.55,
+      "errors": 0,
+      "failures": 0,
+      "passed": 7,
+      "receipt": "junit/model_training_canonical_math_cpu.xml",
+      "sha256": "7c0627991699a80e71644b5f2a854e4bd933be9b6f09093c28abb561b5fe47e8",
+      "skipped": 1,
+      "test_names": [
+        "test_corrected_canonical_mixture_preserves_all_members_and_gradients",
+        "test_full_tail_grid_preserves_exactly_cancelled_collapsed_source_bins",
+        "test_canonical_full_tail_preserves_all_eight_projected_masses_and_gradients",
+        "test_canonical_full_tail_identity_affine_and_native_criterion_parity",
+        "test_canonical_projection_retains_direct_upper_survival_below_cdf_resolution",
+        "test_canonical_full_tail_cancelled_source_sampling_is_coherent_and_unclipped",
+        "test_real_teacher_forced_episode_uses_all_parameters_and_stock_preprocessors[canonical_half_normal_full_support.v1-16]",
+        "test_selected_full_tail_default_retains_guard_and_pending_cannot_fallback"
+      ],
+      "tests": 8
+    },
+    {
+      "cpu_test_wall_seconds": 76.378,
+      "errors": 0,
+      "failures": 0,
+      "passed": 3,
+      "receipt": "junit/model_training_canonical_real_cpu.xml",
+      "sha256": "29fefe9eb2d60c1552e32b25fa2930caa5bbf1b87c26b88d5798466f6c7beee6",
+      "skipped": 0,
+      "test_names": [
+        "test_real_teacher_forced_episode_uses_all_parameters_and_stock_preprocessors[legacy_finite_v3-64]",
+        "test_real_teacher_forced_episode_uses_all_parameters_and_stock_preprocessors[canonical_half_normal_full_support.v1-16]",
+        "test_real_b16_default_source_failure_is_retained_and_zero_mass_primitive_preserves_heads"
+      ],
+      "tests": 3
+    },
+    {
+      "cpu_test_wall_seconds": 7.048,
+      "errors": 0,
+      "failures": 0,
+      "passed": 8,
+      "receipt": "junit/model_training_stagewise_cpu.xml",
+      "sha256": "85d9d5c162753a15b5d14e54afb88082e64be226e90c965a758f9baca63cda7a",
+      "skipped": 0,
+      "test_names": [
+        "test_stagewise_matches_existing_full_graph_loss_gradients_optimizer_and_unequal_queries[legacy_finite_v3]",
+        "test_stagewise_matches_existing_full_graph_loss_gradients_optimizer_and_unequal_queries[canonical_half_normal_full_support.v1]",
+        "test_preflight_rejects_any_validation_test_before_forward_and_clears_stale_gradients[validation]",
+        "test_preflight_rejects_any_validation_test_before_forward_and_clears_stale_gradients[test]",
+        "test_failed_conditionals_clear_accumulation_without_step_or_counter_change[forward]",
+        "test_failed_conditionals_clear_accumulation_without_step_or_counter_change[gradient]",
+        "test_failed_conditionals_clear_accumulation_without_step_or_counter_change[disconnected]",
+        "test_opt_in_and_cpu_device_are_mandatory_without_production_fallback"
+      ],
+      "tests": 8
+    }
+  ]
+}

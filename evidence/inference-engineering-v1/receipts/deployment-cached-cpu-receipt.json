@@ -1,0 +1,39 @@
+{
+  "checks": [
+    "Fresh authenticated loading for both representations",
+    "Actual trained rank4/rank16 all-eight-member raw predictions within atol2e-5/rtol2e-5",
+    "Canonical full-tail CDF values within atol1e-6/rtol1e-6",
+    "Original base and full campaign trees unchanged",
+    "Frozen FP32 neural state, FP64 borders and canonical feature-basis hook retained",
+    "Adapter/packed parametrization inventory zero aftermerge",
+    "Train-mode, unsupported rank/method, wrong origin, multiple and disabled adapters rejected"
+  ],
+  "counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 6
+  },
+  "full_posterior_requests": 0,
+  "gpu_jobs_submitted": 0,
+  "gpu_merge_qualification": "pending parent matched50k runs",
+  "junit_sha256": "717aa0c572093b35ae1eee0781606af3547e76e36ff88722e7ba1713c55ddeae",
+  "log_sha256": "f14c9bba0a0975ab3a4da8d1cd1589160a08a018b0d25084c63220eee2d006c8",
+  "optimizer_steps": 0,
+  "profile_evidence": {
+    "frozen_aten_bmm_calls": 1928,
+    "frozen_aten_mm_calls": 200,
+    "frozen_aten_mm_self_cpu_ms": 19.377,
+    "scope": "prior matched conditional GPU tables; inference slowdown diagnosis, not new GPU qualification",
+    "unmerged_rank4_aten_bmm_calls": 1936,
+    "unmerged_rank4_aten_mm_calls": 4640,
+    "unmerged_rank4_aten_mm_self_cpu_ms": 430.672
+  },
+  "schema": "finetuneforge.inference_deployment.cpu_proof.v1",
+  "scientifically_qualified": false,
+  "scope": "CPU guards and actual cached already-trained rank4/rank16 composition; no optimizer update, GPU or full posterior request",
+  "source_files": {
+    "src/posteriorforge/study/inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+    "tests/test_study_inference_deployment.py": "797cc9dea16b4d5a746029d0b4fdb633efaf03d6b5a292c5784d3fb94f2adfcf"
+  }
+}

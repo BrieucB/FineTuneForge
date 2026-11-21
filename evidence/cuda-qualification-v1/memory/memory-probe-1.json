@@ -1,0 +1,31 @@
+{
+  "finite": true,
+  "mode": "last_parameter_conditional_q1",
+  "peak_allocated_bytes": 20418493952,
+  "peak_reserved_bytes": 38877003776,
+  "probe": {
+    "band": "large",
+    "context": {
+      "dimension": 75,
+      "directory": "probes/large-1024/context",
+      "forward_evaluations": 20480,
+      "manifest_sha256": "a0ee5ddbe51690224dfb2f07774dbb65c2334fea5d9820f78647fc376572d802",
+      "observations": 200,
+      "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+      "seed": 20264643,
+      "worlds": 1024
+    },
+    "query": {
+      "dimension": 75,
+      "directory": "probes/large-1024/query",
+      "forward_evaluations": 20,
+      "manifest_sha256": "2e86584cf153497f3ef1c33b1934e5d312faf3f762703666a50d871ccded7a35",
+      "observations": 200,
+      "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+      "seed": 20265643,
+      "worlds": 1
+    }
+  },
+  "status": "completed",
+  "wall_seconds": 12.424190056990483
+}

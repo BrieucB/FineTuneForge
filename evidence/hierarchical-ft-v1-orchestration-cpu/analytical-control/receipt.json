@@ -1,0 +1,76 @@
+{
+  "control_checks_passed": true,
+  "files": {
+    "bank/bank.npz": {
+      "bytes": 2312,
+      "sha256": "7aed1a4bff5dd1a3ea412eed472367a7c88d768cf91935809e569860689b212b"
+    },
+    "bank/manifest.json": {
+      "bytes": 1979,
+      "sha256": "34758320a0c1fd7b7a69169a5c1ecf9061ab4c85c17cad7d97da76d8c2c9140d"
+    },
+    "bank/spec.json": {
+      "bytes": 1657,
+      "sha256": "86d67b3acc246b3ccde6575077ac6ded209c152c53ef85219e978bd5dbc02c08"
+    },
+    "metrics.json": {
+      "bytes": 6156,
+      "sha256": "cf33071544318c2301122abf0b2c6359ac5b03f82b0324ecddd7056215ec8a15"
+    },
+    "observation.npy": {
+      "bytes": 208,
+      "sha256": "13d75dcf284910dce64b25aae78e3a7a4e62391a5f47fb945fce62e34f3429b5"
+    },
+    "posterior-control.png": {
+      "bytes": 330949,
+      "sha256": "b4bccc69937c016ea41f2728fdb8b303a6e7e61065560434350197878efc8db9"
+    },
+    "posterior-run/attempts/47d2e86653554c898540609cd9c2cba6.json": {
+      "bytes": 5246,
+      "sha256": "596ace3bc12a59a6c9aacd730a06ab6ba584dc4db9bdd69099320a7a4fdaf44d"
+    },
+    "posterior-run/posterior/bank_manifest.json": {
+      "bytes": 1979,
+      "sha256": "34758320a0c1fd7b7a69169a5c1ecf9061ab4c85c17cad7d97da76d8c2c9140d"
+    },
+    "posterior-run/posterior/manifest.json": {
+      "bytes": 4429,
+      "sha256": "b9241d10a842858a3f9d8cc1aa16888194e13f6e79bee3a2736cc2461e1aca30"
+    },
+    "posterior-run/posterior/observation.npy": {
+      "bytes": 208,
+      "sha256": "13d75dcf284910dce64b25aae78e3a7a4e62391a5f47fb945fce62e34f3429b5"
+    },
+    "posterior-run/posterior/samples.npz": {
+      "bytes": 1600268,
+      "sha256": "a44d64c7e38fbbd124936f76b2b6c0862e4b59baf5c54542a2f34e381bfbd7cf"
+    },
+    "posterior-run/posterior/spec.json": {
+      "bytes": 1657,
+      "sha256": "86d67b3acc246b3ccde6575077ac6ded209c152c53ef85219e978bd5dbc02c08"
+    },
+    "posterior-run/recovery.npz": {
+      "bytes": 1612558,
+      "sha256": "9d65f885eedda65a2a1b15fe8185dcd483a37ab95046dc64d5e9daa1c07ae753"
+    },
+    "posterior-run/run.json": {
+      "bytes": 5246,
+      "sha256": "596ace3bc12a59a6c9aacd730a06ab6ba584dc4db9bdd69099320a7a4fdaf44d"
+    },
+    "prior-plot-samples.npz": {
+      "bytes": 400264,
+      "sha256": "fb98b7f08dc3a93639e47d20d55bb8715f56c1515f639f936e75f4118ae72fe4"
+    },
+    "request.json": {
+      "bytes": 682,
+      "sha256": "f7bda60f1aba45c34d4af76a42195523709896d55b7c84631b79c80ab31e35a2"
+    }
+  },
+  "gpu_jobs_submitted": 0,
+  "metrics_sha256": "cf33071544318c2301122abf0b2c6359ac5b03f82b0324ecddd7056215ec8a15",
+  "output": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-orchestration-cpu-20261117/analytic-control-final",
+  "posterior_draws": 50000,
+  "schema": "finetuneforge.analytic_orchestration_receipt.v1",
+  "scientifically_qualified": false,
+  "script_sha256": "cb8d8a26db9ca618ad27e533d7d497f4d42883b4601271a33f6cfe37ec297ea9"
+}

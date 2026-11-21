@@ -1,0 +1,17 @@
+........................................................................ [ 33%]
+..................................................................ss.... [ 66%]
+..s...................s................................................. [ 99%]
+..                                                                       [100%]
+- generated xml file: /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-orchestration-cpu-20261117/public-wheel-final.xml -
+=========================== short test summary info ============================
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_campaign.py:9: could not import 'torch': No module named 'torch'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_model.py:9: could not import 'torch': No module named 'torch'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_sampling_backend.py:2: could not import 'torch': No module named 'torch'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_training.py:6: could not import 'torch': No module named 'torch'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_updates.py:6: could not import 'torch': No module named 'torch'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_workflows_training.py:4: could not import 'torch': No module named 'torch'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_model_loading.py:52: could not import 'torch': No module named 'torch'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_model_loading.py:84: real checkpoint is opt-in and never downloaded
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_orchestration_analytic.py:129: could not import 'matplotlib': No module named 'matplotlib'
+SKIPPED [1] ../../home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_reference.py:129: could not import 'numpyro': No module named 'numpyro'
+214 passed, 10 skipped in 15.73s

@@ -1,0 +1,19 @@
+{
+  "attention_stats": {
+    "max_batch_tile": 1157,
+    "max_estimated_score_bytes": 138512695296,
+    "max_query_tile": 4096,
+    "max_tile_score_bytes": 536772096,
+    "stock_fast_path": 96,
+    "stock_gradient_path": 0,
+    "tiled_inference": 192
+  },
+  "conditional_seconds": 103.66124729100557,
+  "finite": true,
+  "peak_allocated_bytes": 12062746112,
+  "peak_reserved_bytes": 18943574016,
+  "preparation_seconds": 8.814536217993009,
+  "queries": 1,
+  "stage": 74,
+  "status": "completed"
+}

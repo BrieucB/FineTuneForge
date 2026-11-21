@@ -85,12 +85,21 @@ def test_private_policy_tampering_fails_without_touching_originals():
 
 
 def test_factory_does_not_consume_default_rng_or_import_torch():
- import pickle,sys
- before=pickle.dumps((np.random.get_state(),random.getstate()),protocol=5)
- n.adapter_class((14,16));n.clone_descriptors((14,16))
- after=pickle.dumps((np.random.get_state(),random.getstate()),protocol=5)
- assert before==after
- assert "torch" not in sys.modules
+ # A fresh process tests import behavior even when earlier tests loaded Torch.
+ import subprocess,sys
+ code = """
+import pickle, random, sys
+import numpy as np
+from posteriorforge import execution_ss15_sigma_native_policy as policy
+assert "torch" not in sys.modules
+before = pickle.dumps((np.random.get_state(), random.getstate()), protocol=5)
+policy.adapter_class((14,16)); policy.clone_descriptors((14,16))
+after = pickle.dumps((np.random.get_state(), random.getstate()), protocol=5)
+assert before == after
+assert "torch" not in sys.modules
+"""
+ result=subprocess.run([sys.executable,"-c",code],capture_output=True,text=True)
+ assert result.returncode==0,result.stderr
 
 
 def test_real_constructor_metadata_labels_active_and_ancestral_policies():

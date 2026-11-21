@@ -1,0 +1,17 @@
+{
+  "cli_module_plan_equivalent": true,
+  "dependencies": "minimal hashed public CPU environment; no Torch/JAX/model/private package",
+  "diagnostic_bank_local_forward_calls": 128,
+  "diagnostic_bank_worlds": 16,
+  "empty_working_directory": true,
+  "gpu_jobs_submitted": 0,
+  "import_origin": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/fresh-install/lib64/python3.11/site-packages/posteriorforge/__init__.py",
+  "initial_public_test_failure": "cwd /tmp contained an unrelated torch namespace; retained as public-wheel.xml; rerun from a newly-created empty directory",
+  "installed_import_verified": true,
+  "posterior_requests": 0,
+  "production_references_qualified": 0,
+  "schema": "finetuneforge.public_wheel_cpu.v1",
+  "source_pythonpath_unset": true,
+  "wheel": "posteriorforge-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "f8f6a60f653849655180dfc8a97b559209d178824a4ad86bb57602fdef52b772"
+}

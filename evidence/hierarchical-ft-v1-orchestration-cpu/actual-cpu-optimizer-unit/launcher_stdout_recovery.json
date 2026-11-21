@@ -1,0 +1,34 @@
+{
+  "optimizer_units_executed": 1,
+  "pipeline_exit_code": 1,
+  "pytest_summary": "1 passed, 21 deselected in31.03s",
+  "reason": "tee target misspelled posteriorforge as posterforge; tee forwarded stdout but could not create its file",
+  "recovery_source": "captured tool-session52054 output; this is a recovered transcript, not an original tee log",
+  "schema": "finetuneforge.unit_launcher_log_recovery.v1",
+  "stderr": "tee: /scratch/project/eu-26-17/eubrieucb/posterforge/results/hierarchical-ft-v1-cpu-20261117/orchestration/actual-one-update/unit_cpu.log: No such file or directory",
+  "stdout_events": [
+    {
+      "context": 16,
+      "event": "real_unit_update_started",
+      "posterior_draws": 0,
+      "query_cases": 1,
+      "rank": 4,
+      "unknowns": 4
+    },
+    {
+      "event": "real_unit_update_complete",
+      "expected_loss": -1.3390451987661034,
+      "loss": -1.3390451987661034,
+      "seconds": 13.209915474057198,
+      "updated_trainable_tensors": 122
+    },
+    {
+      "event": "real_unit_fixture_complete",
+      "max_cdf_delta": 0.0,
+      "max_logit_delta": 0.0,
+      "receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cpu-20261117/orchestration/actual-one-update/unit-a65c26f546644b3f9fcba1d125ceab0a/receipt.json",
+      "seconds": 29.435820365324616
+    }
+  ],
+  "unit_reexecuted": false
+}

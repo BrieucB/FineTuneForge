@@ -1,0 +1,141 @@
+{
+  "attention_score_budget_bytes": 536870912,
+  "base_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/model/tabpfn-v2-regressor.ckpt",
+  "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+  "control_4096": {
+    "dimension": 4,
+    "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/inputs-01/control-4096",
+    "manifest_sha256": "8bd12fbc2e31a79952445ac160ec20c0dbacf4cbd29b29753fee6e1387879f4a",
+    "observations": 10,
+    "worlds": 4096
+  },
+  "fitting_probe": {
+    "context": {
+      "dimension": 75,
+      "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-01/probes/large-1024/context",
+      "forward_evaluations": 20480,
+      "manifest_sha256": "a0ee5ddbe51690224dfb2f07774dbb65c2334fea5d9820f78647fc376572d802",
+      "observations": 200,
+      "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+      "seed": 20264643,
+      "worlds": 1024
+    },
+    "query": {
+      "dimension": 75,
+      "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-01/probes/large-1024/query",
+      "forward_evaluations": 20,
+      "manifest_sha256": "2e86584cf153497f3ef1c33b1934e5d312faf3f762703666a50d871ccded7a35",
+      "observations": 200,
+      "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+      "seed": 20265643,
+      "worlds": 1
+    }
+  },
+  "frozen_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+  "large_probe": {
+    "context": {
+      "dimension": 75,
+      "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-01/probes/large-4096/context",
+      "forward_evaluations": 81920,
+      "manifest_sha256": "a9de031c4f7114244fbe83403e6890845b786d8f9281c4ebf8181dd3f177bdac",
+      "observations": 200,
+      "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+      "seed": 20267715,
+      "worlds": 4096
+    },
+    "query": {
+      "dimension": 75,
+      "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-01/probes/large-4096/query",
+      "forward_evaluations": 20,
+      "manifest_sha256": "5096afe55f4639797abe9b66cb7b1a28262267ea783e82fe2934e3d8aeb14898",
+      "observations": 200,
+      "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+      "seed": 20268715,
+      "worlds": 1
+    }
+  },
+  "microbatch_size": 1024,
+  "models": {
+    "full_finetune": {
+      "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/allocation-02/full_finetune/after-two-updates",
+      "checkpoint_manifest_sha256": "b8fc579fb1143b1bf25d2145c9b580c0e32869e479de65f8095eb947e944c77b",
+      "model_sha256": "b535e47daea16c7df5c5b012dcb060938b2eb8151213a0bebe5294f1e5b2e7c0"
+    },
+    "lora_r16": {
+      "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/allocation-02/lora_r16/after-two-updates",
+      "checkpoint_manifest_sha256": "7f96baf2ccaf7ff184e0ab09c0032986d804859a36a4713fb4f0a3485ab57cad",
+      "model_sha256": "3d86872e478fbca09bd8ff7e7e8f3eac60aaba624257f91648654f22ba3a666f"
+    },
+    "lora_r4": {
+      "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/allocation-02/lora_r4/after-two-updates",
+      "checkpoint_manifest_sha256": "36fc6348d1cdfd8b78eaf190f519777118cee3667234869304c9322c9cc7795e",
+      "model_sha256": "635c4857ee618fe2f5a5b19de457e575289e706a16d56186f5ea76d53f66c88d"
+    }
+  },
+  "new_analytical_forward_evaluations": 4097,
+  "observation": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-01/observation.npy",
+  "observation_sha256": "13d75dcf284910dce64b25aae78e3a7a4e62391a5f47fb945fce62e34f3429b5",
+  "parity_query": {
+    "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/inputs-01/parity-query",
+    "manifest_sha256": "1b5aa6cf38a12a341db6822e6297d6fbbd581d234277e8d69cd3dbc779afa3be"
+  },
+  "posterior_draws": 50000,
+  "precision": "FP32 neural / FP64 density and decoding; math SDPA only",
+  "previous_evidence": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117",
+  "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+  "schema": "finetuneforge.inference_engineering.v1",
+  "scope": "exact failed75D conditional plus50k small controls; full75D posterior needs measured forecast and scope decision",
+  "small_bank": {
+    "dimension": 4,
+    "directory": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-01/posterior-bank",
+    "forward_evaluations": 256,
+    "manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+    "observations": 10,
+    "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+    "seed": 20262117,
+    "worlds": 256
+  },
+  "source_commit": "07f8909f0b862d68862ab46cf753b356879d4120",
+  "source_files": {
+    "environments/study-training-gpu.lock": "14dd5133971bf8f670117111efa67927d7fc8462695f6b1d65a24f7411aa743f",
+    "scripts/check-study-orchestration-cpu.py": "cb8d8a26db9ca618ad27e533d7d497f4d42883b4601271a33f6cfe37ec297ea9",
+    "scripts/engineer-study-inference.py": "a06abe5a9fef15c6a73c43144c85a4bd5554be2a05b918a88543eef220148f7a",
+    "scripts/qualify-study-cuda.py": "17ba993d1f40ad2fa03a3dbe35fc248a26071b95ccb02560153a648d0ce13726",
+    "slurm/run-study-inference.sh": "5d258a340acd0e1918a271ee34509e7240d22c30ec7a1b1b56e8a757f93be2e5",
+    "slurm/run-study-probes.sh": "96212e7682d631b2384e459998e0ace53be471f5d4c1e55906899ac8cf9d22aa",
+    "slurm/run-study-qualification.sh": "1ad24d1a914aa1a34ca496bb4a8eb1950f6afbf1b52004d1a2c049a98635d70e",
+    "src/posteriorforge/study/__init__.py": "5c3750803f9b052da055bb4a42f66a1d4c46c4182e1f1d4e416985eb28329430",
+    "src/posteriorforge/study/__main__.py": "4f430f53903ff8cf31a441a3b39ab4b28380061bad6fa050f73d717dfe5338c0",
+    "src/posteriorforge/study/artifacts.py": "a1ab690422a0cb56a76b8e3021915067c1120231e078a09400d575ccf7c500f8",
+    "src/posteriorforge/study/banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+    "src/posteriorforge/study/budget.py": "eacb890d7ba210334793c3ff3331475b15ef1e8e43a6cb8a5a53d6f818ff77ea",
+    "src/posteriorforge/study/campaign.py": "a5d208ded49f2e2f7a48a7f37e82ef7f3d1e7d7fcd902f9382fe7911574a4d73",
+    "src/posteriorforge/study/catalogue.py": "0e7b2016ed5696f9cae4c6efcc19027f151a29f1c777a5f3fdfeb91394db30e9",
+    "src/posteriorforge/study/cli.py": "91be3754abfcdf323d05962ab8e20004031635968989cf2b2441acc79f6996c0",
+    "src/posteriorforge/study/config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+    "src/posteriorforge/study/cuda_attention.py": "11790982864192c29dabd53b9443d0075b281197fd1cae129af2eb4411a4bf7a",
+    "src/posteriorforge/study/cuda_qualification.py": "57bba443861f8a296b3bf1900c9a9118916e53d1e12e7a4f94a5f0891b0be669",
+    "src/posteriorforge/study/cuda_training.py": "95a3288a44da3c193ef37b1f4d00fa0cd0372313b59baabe34fae00222c20049",
+    "src/posteriorforge/study/entrypoint.py": "ec660b66e49df0bb9d2edbe8e78e2a8a25d1b80f5a4bfcb3dfd1ad6888a830cb",
+    "src/posteriorforge/study/episodes.py": "f6b5f49edcc0575b419bfc8bc5d4d745319c9c57bdb7f8a95aa03e3748ba43a6",
+    "src/posteriorforge/study/evaluation.py": "90fd38dbf4a155f0c477a62fb0ae7f8e758fa0d0380ca1f00aa612eecfd7072b",
+    "src/posteriorforge/study/evaluation_campaign.py": "15a9263ad1891762b8e1fc132ae0a81cba390d623664c1a4526f172ddda7b906",
+    "src/posteriorforge/study/inference_deployment.py": "67581b4dc0e0d845ede5a199c68477a16599133312d971144ae6e9dff4f63273",
+    "src/posteriorforge/study/inference_engineering.py": "3827c1ecb21df84e98a7e608945260d745abd3da95697e4d9fbf9decb46052f0",
+    "src/posteriorforge/study/metrics.py": "9b92e98e2325710ef69b66eeb3cef85081188c6ea14ec93e8684c22437c373e1",
+    "src/posteriorforge/study/model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+    "src/posteriorforge/study/model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+    "src/posteriorforge/study/ordering.py": "6599e9d29be32a14434cad30df37ac154d554d44267875886c4e32d0b72a4d7e",
+    "src/posteriorforge/study/reference.py": "35b0ab2536fcc214468f929361d36eae0927be8b34ff5a80cc027d7634bd24d4",
+    "src/posteriorforge/study/sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+    "src/posteriorforge/study/sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103",
+    "src/posteriorforge/study/science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+    "src/posteriorforge/study/seeds.py": "d7cb20aaab77cb0dae433b86377ab253d7e667c94706634c4be32a51516fcf01",
+    "src/posteriorforge/study/spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3",
+    "src/posteriorforge/study/training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5",
+    "src/posteriorforge/study/updates.py": "1081d88b7935036fd3bd351f80ec6e40583cb559754d0cd5c490a63794099246",
+    "src/posteriorforge/study/workflows.py": "b4e7c83c66e9333c77195079b9f7b1e80985248ff1e40bd6a2600a6e9f002dd0"
+  },
+  "timing_repetitions": 3,
+  "training_pilots_enabled": false
+}

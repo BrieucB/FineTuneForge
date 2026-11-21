@@ -1,0 +1,33 @@
+{
+  "cuda_visible_devices": "0",
+  "failure": {
+    "message": "CPU/CUDA numerical parity failed",
+    "type": "RuntimeError"
+  },
+  "hardware": {
+    "capability": [
+      8,
+      0
+    ],
+    "cuda_runtime": "12.4",
+    "memory_bytes": 42430300160,
+    "name": "NVIDIA A100-SXM4-40GB",
+    "uuid": "29e2450f-0c14-50c5-723f-e5948bbd1740"
+  },
+  "input_manifest_sha256": "1fc2ad8891ded13a3b7e47398706b71782068fa0f4e9799d8acf04707eb05293",
+  "job_id": "5448960",
+  "lane": "frozen",
+  "posterior_draws_contract": 50000,
+  "scientifically_qualified": false,
+  "source_commit": "f13f8d37135c358daef10820b4bcb9a327d8ded8",
+  "status": "failed",
+  "versions": {
+    "numpy": "1.26.4",
+    "peft": "0.21.3",
+    "scipy": "1.12.0",
+    "tabpfn": "2.0.9",
+    "torch": "2.6.0",
+    "transformers": "4.57.6"
+  },
+  "wall_seconds": 13.667124095998588
+}

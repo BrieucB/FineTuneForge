@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="2" tests="14" time="0.312" timestamp="2026-11-17T22:34:08.324447+01:00" hostname="login4.karolina.it4i.cz"><testcase classname="tests.test_study_training_engineering" name="test_scoped_call_restores_instance_even_on_exception" time="0.000" /><testcase classname="tests.test_study_training_engineering" name="test_binding_rejects_bad_input_checksum" time="0.009" /><testcase classname="tests.test_study_training_engineering" name="test_worker_rejects_unaccounted_slurm" time="0.001" /><testcase classname="tests.test_study_training_engineering" name="test_launch_requires_distinct_devices" time="0.001" /><testcase classname="tests.test_study_training_engineering" name="test_qualification_launch_requires_four_unique_devices" time="0.001" /><testcase classname="tests.test_study_training_engineering" name="test_qualification_worker_rejects_wrong_lane_before_cuda" time="0.001" /><testcase classname="tests.test_study_training_engineering" name="test_qualification_cli_routes_worker" time="0.002" /><testcase classname="tests.test_study_training_engineering" name="test_conditional_parity_exercises_cache_and_restores" time="0.001"><skipped type="pytest.skip" message="could not import 'torch': No module named 'torch'">/home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_training_engineering.py:63: could not import 'torch': No module named 'torch'</skipped></testcase><testcase classname="tests.test_study_training_engineering" name="test_fusion_checkpoint_rejects_manifest_before_loading" time="0.007" /><testcase classname="tests.test_study_training_engineering" name="test_fusion_comparison_gates_outputs_and_gradients" time="0.000"><skipped type="pytest.skip" message="could not import 'torch': No module named 'torch'">/home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu/tests/test_study_training_engineering.py:103: could not import 'torch': No module named 'torch'</skipped></testcase><testcase classname="tests.test_study_training_engineering" name="test_fusion_cli_routes_arguments" time="0.002" /><testcase classname="tests.test_study_training_engineering" name="test_triton_fp_fusion_policy_default_and_explicit" time="0.000" /><testcase classname="tests.test_study_training_engineering" name="test_fusion_invalid_policy_fails_before_import_and_auth" time="0.001" /><testcase classname="tests.test_study_training_engineering" name="test_fusion_failure_receipt_records_effective_policy" time="0.002"><failure message="ModuleNotFoundError: No module named 'torch'">monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x14fba2213f50&gt;
+tmp_path = PosixPath('/tmp/pytest-of-it4i-bbenvegnen/pytest-1065/test_fusion_failure_receipt_re0')
+
+    def test_fusion_failure_receipt_records_effective_policy(monkeypatch,tmp_path):
+&gt;       from posteriorforge.study import cuda_training
+
+tests/test_study_training_engineering.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Explicit CUDA engineering qualification; no production campaign activation.
+    
+    All posterior evaluations remain50,000 complete vectors in the separate sampler.
+    This module performs probability scoring and bounded optimizer qualification only.
+    Built with PriorLabs-TabPFN.
+    """
+    from __future__ import annotations
+    from hashlib import sha256
+    import os
+    from pathlib import Path
+    import time
+&gt;   import torch
+E   ModuleNotFoundError: No module named 'torch'
+
+src/posteriorforge/study/cuda_training.py:12: ModuleNotFoundError</failure></testcase></testsuite></testsuites>

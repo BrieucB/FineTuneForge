@@ -1,0 +1,637 @@
+{
+  "accounting": {
+    "allocated_gpu_hours": 171.84305555555557,
+    "allocation_state_counts": {
+      "COMPLETED": 269,
+      "FAILED": 25
+    },
+    "open_jobs": {},
+    "retained_failed_job_ids": [
+      "5471310",
+      "5471321",
+      "5471322",
+      "5471323",
+      "5471324",
+      "5471325",
+      "5471326",
+      "5471327",
+      "5471328",
+      "5471329",
+      "5471330",
+      "5471331",
+      "5471332",
+      "5471344",
+      "5471346",
+      "5471348",
+      "5471350",
+      "5471352",
+      "5471354",
+      "5471407",
+      "5471410",
+      "5471413",
+      "5471416",
+      "5471419",
+      "5471422"
+    ]
+  },
+  "backend_qualification": {
+    "analytical_control_max_cdf": 0.0037344446996382397,
+    "cpu_gpu_math": {
+      "anchor": {
+        "cpu_gpu_gradient_max_abs": 1.7763568394002505e-15,
+        "cpu_gpu_log_density_max_abs": 1.7763568394002505e-15,
+        "dimension": 4,
+        "evaluations": 16,
+        "numpy_gpu_log_density_max_abs": 3.552713678800501e-15,
+        "seconds": 1.1592187730129808,
+        "setup_id": "cuda-zero-sensor-control"
+      },
+      "large": {
+        "cpu_gpu_gradient_max_abs": 2.9103830456733704e-11,
+        "cpu_gpu_log_density_max_abs": 2.9103830456733704e-11,
+        "dimension": 88,
+        "evaluations": 16,
+        "numpy_gpu_log_density_max_abs": 2.1827872842550278e-11,
+        "seconds": 26.309184740006458,
+        "setup_id": "validation-00017"
+      },
+      "medium": {
+        "cpu_gpu_gradient_max_abs": 2.9103830456733704e-11,
+        "cpu_gpu_log_density_max_abs": 1.4551915228366852e-11,
+        "dimension": 49,
+        "evaluations": 16,
+        "numpy_gpu_log_density_max_abs": 5.820766091346741e-11,
+        "seconds": 10.451340840023477,
+        "setup_id": "validation-00019"
+      },
+      "small": {
+        "cpu_gpu_gradient_max_abs": 4.547473508864641e-13,
+        "cpu_gpu_log_density_max_abs": 2.2737367544323206e-13,
+        "dimension": 7,
+        "evaluations": 16,
+        "numpy_gpu_log_density_max_abs": 1.1368683772161603e-13,
+        "seconds": 1.6060959619935602,
+        "setup_id": "validation-00018"
+      }
+    },
+    "independent_analytical_control_max_cdf": 0.004790967470628682,
+    "large_independent_pilot_retained_paths": 3853,
+    "literature": "https://arxiv.org/abs/1808.07730"
+  },
+  "cases": {
+    "large": {
+      "dimension": 88,
+      "observation_columns": 300,
+      "posteriors": {
+        "1024": {
+          "frozen": {
+            "allocated_gpu_hours": 34.943888888888885,
+            "draws": 50000,
+            "job_ids": [
+              "5471463",
+              "5471408",
+              "5471409"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.16796933454417218,
+              "max_upper": 0.18024811292860243
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.4867241299099392,
+              "max_upper": 0.49900290829436955
+            },
+            "max_worker_seconds": 2565.662155963015,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "moments_passed": false,
+            "peak_allocated_bytes": 7801982976,
+            "peak_reserved_bytes": 41842376704,
+            "ranks": 49,
+            "sample_sha256": "e74846d3fdaf2143dad14b945a08b4feddc59405d1cca680fd149c9a19ad8176",
+            "status": "complete",
+            "uniform_sha256": "5fc7c843bed228343336f63ed020b7b8f07588f58e21b4c7ed98c62ec3127b7f"
+          },
+          "lora": {
+            "allocated_gpu_hours": 36.47222222222222,
+            "draws": 50000,
+            "job_ids": [
+              "5471462",
+              "5471411",
+              "5471412"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.1735531793891059,
+              "max_upper": 0.18583195777353617
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.5142120902259903,
+              "max_upper": 0.526491330997968
+            },
+            "max_worker_seconds": 2686.8941941589583,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "be075645dd4c7c72951b0b24ed23d24124f46db558232a21fcffc0157c7f4ffa",
+            "moments_passed": false,
+            "peak_allocated_bytes": 10585445888,
+            "peak_reserved_bytes": 41833988096,
+            "ranks": 49,
+            "sample_sha256": "655d2bd475d67d91d23eb20c92471759559dec978ca576fe92c4103b1c9f149a",
+            "status": "complete",
+            "uniform_sha256": "5fc7c843bed228343336f63ed020b7b8f07588f58e21b4c7ed98c62ec3127b7f"
+          }
+        },
+        "256": {
+          "frozen": {
+            "allocated_gpu_hours": 12.585555555555555,
+            "draws": 50000,
+            "job_ids": [
+              "5471467",
+              "5471420",
+              "5471421"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.2877765437948824,
+              "max_upper": 0.30005578456686
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.4396139732160472,
+              "max_upper": 0.4518927516004775
+            },
+            "max_worker_seconds": 922.580008828023,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "moments_passed": false,
+            "peak_allocated_bytes": 4516090880,
+            "peak_reserved_bytes": 41848668160,
+            "ranks": 49,
+            "sample_sha256": "a207689990d60d1d5f5cc548049f3fb149e331fdfebc1324c171e557c0ac60ec",
+            "status": "complete",
+            "uniform_sha256": "2a00a32b900c285488edccaa3eb130174e1e5d80e5ffdee88918c2fe3e583dfb"
+          },
+          "lora": {
+            "allocated_gpu_hours": 13.538055555555555,
+            "draws": 50000,
+            "job_ids": [
+              "5471466",
+              "5471423",
+              "5471424"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.21477706699563992,
+              "max_upper": 0.22705630776761754
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.4842400324904316,
+              "max_upper": 0.49651927326240924
+            },
+            "max_worker_seconds": 993.3210185229545,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "be075645dd4c7c72951b0b24ed23d24124f46db558232a21fcffc0157c7f4ffa",
+            "moments_passed": false,
+            "peak_allocated_bytes": 6112565760,
+            "peak_reserved_bytes": 41645244416,
+            "ranks": 49,
+            "sample_sha256": "d3cb42ed37143dadb5c557090eacdb545e1f10ed0e48e52a28d9dd1dc8abb76e",
+            "status": "complete",
+            "uniform_sha256": "2a00a32b900c285488edccaa3eb130174e1e5d80e5ffdee88918c2fe3e583dfb"
+          }
+        }
+      },
+      "reference": {
+        "completed_runs": true,
+        "moment_gate_passed": true,
+        "precision": 0.005159358785610024,
+        "reference_receipt_sha256": "df78556260a8adb0285330d340edb2346f1e464c5bed1e053ab17603d49d5b8d",
+        "state": "inconclusive",
+        "witnesses": [
+          {
+            "effective_count": 272617.9658704052,
+            "max_chain_disagreement": 1.0023696994541733,
+            "method": "numpyro_nuts",
+            "numerical_errors": 0,
+            "rows": 1769472,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          },
+          {
+            "effective_count": 336432.86215429497,
+            "max_chain_disagreement": 1.0018552763903181,
+            "method": "numpyro_nuts",
+            "numerical_errors": 0,
+            "rows": 2162688,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          },
+          {
+            "effective_count": 279584,
+            "max_chain_disagreement": null,
+            "method": "tempered_smc",
+            "numerical_errors": 0,
+            "rows": 2359296,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          }
+        ]
+      },
+      "setup_id": "validation-00017"
+    },
+    "medium": {
+      "dimension": 49,
+      "observation_columns": 224,
+      "posteriors": {
+        "1024": {
+          "frozen": {
+            "allocated_gpu_hours": 14.156944444444445,
+            "draws": 50000,
+            "job_ids": [
+              "5471465",
+              "5471414",
+              "5471415"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.22873440844367532,
+              "max_upper": 0.255452604190602
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.4871103898889878,
+              "max_upper": 0.5138295393102309
+            },
+            "max_worker_seconds": 1036.8310449449928,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "moments_passed": false,
+            "peak_allocated_bytes": 5799668224,
+            "peak_reserved_bytes": 41668313088,
+            "ranks": 49,
+            "sample_sha256": "66bfbf91b193a6a29c113add5a71d45903908c593c4f809cf6d67807c33ebc53",
+            "status": "complete",
+            "uniform_sha256": "0350223dc4f23e13e3740dd89ac09b461ad136e8f58b2ea4a07915f3dad33f14"
+          },
+          "lora": {
+            "allocated_gpu_hours": 14.908055555555556,
+            "draws": 50000,
+            "job_ids": [
+              "5471464",
+              "5471417",
+              "5471418"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.23747138933967143,
+              "max_upper": 0.2641895850865981
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.4474158287317613,
+              "max_upper": 0.47413497815300437
+            },
+            "max_worker_seconds": 1091.3588564149686,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "be075645dd4c7c72951b0b24ed23d24124f46db558232a21fcffc0157c7f4ffa",
+            "moments_passed": false,
+            "peak_allocated_bytes": 7859613696,
+            "peak_reserved_bytes": 41823502336,
+            "ranks": 49,
+            "sample_sha256": "8aecb067bd7a3dfd057cec2571b6284ed85cf9787aa8407ae84cfe6aed4b04bc",
+            "status": "complete",
+            "uniform_sha256": "0350223dc4f23e13e3740dd89ac09b461ad136e8f58b2ea4a07915f3dad33f14"
+          }
+        },
+        "256": {
+          "frozen": {
+            "allocated_gpu_hours": 5.097777777777778,
+            "draws": 50000,
+            "job_ids": [
+              "5471373"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.4058838865930894,
+              "max_upper": 0.4326030360143325
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.5954122545130113,
+              "max_upper": 0.6221314039342544
+            },
+            "max_worker_seconds": 1141.6143213029718,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "moments_passed": false,
+            "peak_allocated_bytes": 3263549440,
+            "peak_reserved_bytes": 41269854208,
+            "ranks": 16,
+            "sample_sha256": "3d76261c8c8e626a63f51f1642722e49a156ac088a6320d2d49213fde7593ccb",
+            "status": "complete",
+            "uniform_sha256": "122889c85a9e5e706827766965ea8f4242432bfedf75dbdd9b351bb6a3e35b55"
+          },
+          "lora": {
+            "allocated_gpu_hours": 5.671111111111111,
+            "draws": 50000,
+            "job_ids": [
+              "5471374"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.40877078997443705,
+              "max_upper": 0.43548993939568015
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.6277124537927964,
+              "max_upper": 0.6544306495397231
+            },
+            "max_worker_seconds": 1272.1207032309612,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": false,
+              "status": "reference_inconclusive"
+            },
+            "model_sha256": "be075645dd4c7c72951b0b24ed23d24124f46db558232a21fcffc0157c7f4ffa",
+            "moments_passed": false,
+            "peak_allocated_bytes": 4407301632,
+            "peak_reserved_bytes": 41364226048,
+            "ranks": 16,
+            "sample_sha256": "ad53b13ab32b01cd6baeb0fc3711cc69f0933e9f0260f6f2c67c6156ffabaa3d",
+            "status": "complete",
+            "uniform_sha256": "122889c85a9e5e706827766965ea8f4242432bfedf75dbdd9b351bb6a3e35b55"
+          }
+        }
+      },
+      "reference": {
+        "completed_runs": true,
+        "moment_gate_passed": false,
+        "precision": 0.012379197513355922,
+        "reference_receipt_sha256": "7527454752ce807e9bc9c38ecb5debf59fa2c1287e18dcbc0284f800a60d7b0d",
+        "state": "inconclusive",
+        "witnesses": [
+          {
+            "effective_count": 236747.87530851006,
+            "max_chain_disagreement": 1.0006470679877257,
+            "method": "numpyro_nuts",
+            "numerical_errors": 0,
+            "rows": 786432,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          },
+          {
+            "effective_count": 316370.9472540387,
+            "max_chain_disagreement": 1.0009498858714534,
+            "method": "numpyro_nuts",
+            "numerical_errors": 0,
+            "rows": 1048576,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          },
+          {
+            "effective_count": 241978,
+            "max_chain_disagreement": null,
+            "method": "tempered_smc",
+            "numerical_errors": 0,
+            "rows": 2228224,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          }
+        ]
+      },
+      "setup_id": "validation-00019"
+    },
+    "small": {
+      "dimension": 7,
+      "observation_columns": 66,
+      "posteriors": {
+        "1024": {
+          "frozen": {
+            "allocated_gpu_hours": 0.5422222222222223,
+            "draws": 50000,
+            "job_ids": [
+              "5471370"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.16934695951638123,
+              "max_upper": 0.17991506013693903
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.32768993284401793,
+              "max_upper": 0.3382570797902593
+            },
+            "max_worker_seconds": 240.8660026579746,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": true,
+              "status": "model_failure"
+            },
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "moments_passed": false,
+            "peak_allocated_bytes": 2151762944,
+            "peak_reserved_bytes": 9655287808,
+            "ranks": 8,
+            "sample_sha256": "b23072b63c60ea42a0d99768d681a6696897b30c84837bd7e7f18efb13814c27",
+            "status": "complete",
+            "uniform_sha256": "ba5d5b4207ee8ac332f98b9ef9314591e30261cc640dcc6410da1b9f54b83156"
+          },
+          "lora": {
+            "allocated_gpu_hours": 0.6,
+            "draws": 50000,
+            "job_ids": [
+              "5471372"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.15871723631081486,
+              "max_upper": 0.16928513765158748
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.39886167570290465,
+              "max_upper": 0.40942977632346245
+            },
+            "max_worker_seconds": 266.5629124729894,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": true,
+              "status": "model_failure"
+            },
+            "model_sha256": "be075645dd4c7c72951b0b24ed23d24124f46db558232a21fcffc0157c7f4ffa",
+            "moments_passed": false,
+            "peak_allocated_bytes": 2335184896,
+            "peak_reserved_bytes": 13541310464,
+            "ranks": 8,
+            "sample_sha256": "26ac345c1f2cb12c798a784f40e007e50f06362e8782a6689931a6f429972285",
+            "status": "complete",
+            "uniform_sha256": "ba5d5b4207ee8ac332f98b9ef9314591e30261cc640dcc6410da1b9f54b83156"
+          }
+        },
+        "256": {
+          "frozen": {
+            "allocated_gpu_hours": 0.1811111111111111,
+            "draws": 50000,
+            "job_ids": [
+              "5471369"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.46613492735085393,
+              "max_upper": 0.47670302797141173
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.44190258512673286,
+              "max_upper": 0.45247068574729066
+            },
+            "max_worker_seconds": 159.4039629990002,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": true,
+              "status": "model_failure"
+            },
+            "model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+            "moments_passed": false,
+            "peak_allocated_bytes": 1816651776,
+            "peak_reserved_bytes": 6396313600,
+            "ranks": 4,
+            "sample_sha256": "504726ae4250cc0536ce26aa41b2c4cb6ae5dc2bce5a482f160e764e93ba5e5c",
+            "status": "complete",
+            "uniform_sha256": "1b34dd4853096097a67376677df605c25bc3929d15da665f3c53fe4b4fdd6b26"
+          },
+          "lora": {
+            "allocated_gpu_hours": 0.21888888888888888,
+            "draws": 50000,
+            "job_ids": [
+              "5471371"
+            ],
+            "largest_joint_probability_gap": {
+              "max_lower": 0.39315679197487735,
+              "max_upper": 0.40372489259543515
+            },
+            "largest_marginal_probability_gap": {
+              "max_lower": 0.4140167919748774,
+              "max_upper": 0.4245848925954352
+            },
+            "max_worker_seconds": 194.13181685603922,
+            "metrics": {
+              "passed": false,
+              "reference_qualified": true,
+              "status": "model_failure"
+            },
+            "model_sha256": "be075645dd4c7c72951b0b24ed23d24124f46db558232a21fcffc0157c7f4ffa",
+            "moments_passed": false,
+            "peak_allocated_bytes": 1830399488,
+            "peak_reserved_bytes": 6729760768,
+            "ranks": 4,
+            "sample_sha256": "feefd59ec6b4a243183b5ce9207f881a9f22b772b21a966fc7cab5546d66c548",
+            "status": "complete",
+            "uniform_sha256": "1b34dd4853096097a67376677df605c25bc3929d15da665f3c53fe4b4fdd6b26"
+          }
+        }
+      },
+      "reference": {
+        "completed_runs": true,
+        "moment_gate_passed": true,
+        "precision": 0.004303673113013278,
+        "reference_receipt_sha256": "7900202f94ac5874e0eca2efd9971f5aa58e41eedb90bd588f19e7694a45ac3f",
+        "state": "qualified",
+        "witnesses": [
+          {
+            "effective_count": 241930.44654281088,
+            "max_chain_disagreement": 1.0000468186023332,
+            "method": "numpyro_nuts",
+            "numerical_errors": 0,
+            "rows": 768000,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          },
+          {
+            "effective_count": 318869.04283779,
+            "max_chain_disagreement": 1.0000257838872986,
+            "method": "numpyro_nuts",
+            "numerical_errors": 0,
+            "rows": 1048576,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          },
+          {
+            "effective_count": 341974,
+            "max_chain_disagreement": null,
+            "method": "tempered_smc",
+            "numerical_errors": 0,
+            "rows": 2000000,
+            "source_sha256": "8279cf0b6b325a7cbd43822fcb614f91e5d293f3ce86b776a774dca0aba4e9a6"
+          }
+        ]
+      },
+      "setup_id": "validation-00018"
+    }
+  },
+  "evaluation_cost": {
+    "additional_contexts_without_matched_timings": [
+      16,
+      64,
+      4096
+    ],
+    "complete_model_posterior_requests": 12,
+    "evaluation_and_reference_budget_gpu_hours": 4500,
+    "example_panel_mean_by_context": {
+      "1024": 16.93722222222222,
+      "256": 6.215416666666667
+    },
+    "illustrative_two_context_gpu_hours_if_panel_mean_held": 50009.7,
+    "max_planned_model_requests": 10800,
+    "maximum_requests_per_context": 2160,
+    "note": "The three qualification cases are selected dimensions, not workload frequency weights.",
+    "qualification_panel_gpu_hours_range": [
+      0.1811111111111111,
+      36.47222222222222
+    ],
+    "required_average_gpu_hours_per_model_request_before_any_reference_cost": 0.4166666666666667,
+    "successful_model_request_gpu_hours": 138.91583333333332
+  },
+  "frozen_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+  "fusion_enabled": false,
+  "lora_deployment_view_sha256": "84a1cb6905917dcae9e56c77dd0b033a7ecf12ced0226b667983d1e8963bc30d",
+  "lora_model_sha256": "be075645dd4c7c72951b0b24ed23d24124f46db558232a21fcffc0157c7f4ffa",
+  "lora_original_checkpoint_sha256": "f3b3cd82f31b50f19a331abf8ed5dc318db619e86861a5fa900e1994a9825425",
+  "panel_sha256": "3d7d3037122825a9bb469993c582b7330e0f78f03b41bb9a03fc18ce28a317c9",
+  "posterior_draws_per_request": 50000,
+  "production_forecast": [
+    {
+      "budget_ratio": 3.4502118210883865,
+      "case_visits_across_campaigns": 96000,
+      "sampled_rank4_two_replicas_gpu_hours_at_measured_rate": 3450.2118210883864,
+      "six_campaign_equal_cost_gpu_hours": 10350.63546326516,
+      "target_mean_gpu_hours_per_update": 0.4,
+      "updates_per_campaign": 1000
+    },
+    {
+      "budget_ratio": 10.350635463265158,
+      "case_visits_across_campaigns": 288000,
+      "sampled_rank4_two_replicas_gpu_hours_at_measured_rate": 10350.63546326516,
+      "six_campaign_equal_cost_gpu_hours": 31051.906389795477,
+      "target_mean_gpu_hours_per_update": 0.13333333333333333,
+      "updates_per_campaign": 3000
+    },
+    {
+      "budget_ratio": 34.50211821088387,
+      "case_visits_across_campaigns": 960000,
+      "sampled_rank4_two_replicas_gpu_hours_at_measured_rate": 34502.11821088386,
+      "six_campaign_equal_cost_gpu_hours": 103506.35463265161,
+      "target_mean_gpu_hours_per_update": 0.04,
+      "updates_per_campaign": 10000
+    }
+  ],
+  "qualification_budget_decision": "User authorized required I07 GPU-hours on 2026-11-21",
+  "schema": "finetuneforge.i07_paired_qualification_results.v1",
+  "selection": "minimum, upper median and maximum dimension from the previously fixed fresh validation panel",
+  "source_commit": "99a32caef4895a381ea1379c5344b5db029ea257",
+  "tested_cuda_reference_patch_sha256": "e0a8b56e21a6960fa69c4cfc78d0f2b68a60eee6b4009fffc019c644cc7b3118",
+  "tested_cuda_reference_source_commit": "9bee218ebdc4b930f09751ce5613328ae0637bf7"
+}

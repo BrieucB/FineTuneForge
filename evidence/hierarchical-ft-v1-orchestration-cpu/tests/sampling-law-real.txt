@@ -1,0 +1,5 @@
+..CPU model fingerprint seconds=0.039768
+original=[0.14930778902306327, 0.11077171826400045] updated=[0.1479221157304205, 0.10731420603605099] max_difference=0.00345751223
+..
+- generated xml file: /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-orchestration-cpu-20261117/sampling-law-real.xml -
+4 passed in 12.66s

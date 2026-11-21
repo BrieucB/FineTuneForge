@@ -1,0 +1,40 @@
+{
+  "archive_path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/cpython-3.11.13-compile-20251007-cpython-3.11.13-20251007.tar.gz",
+  "archive_sha256": "43bfc42529843ecd1d9c08c4a239ede348f96ff0acaef2ec24b28dc059f4f0c3",
+  "archive_url": "https://github.com/astral-sh/python-build-standalone/releases/download/20251007/cpython-3.11.13%2B20251007-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
+  "environment": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-gpu-compile",
+  "gpu_jobs_submitted": 0,
+  "gpu_lock_receipt": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/study-training-gpu-compile-receipt.json.gpu-lock.json",
+  "gpu_lock_receipt_sha256": "f0a1947a404dab877bc6b43ce0bb2d3743e1ee236995eed25a8f1ec7a691311e",
+  "interpreter_install": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/cpython-3.11.13-compile-20251007",
+  "lock_sha256": "14dd5133971bf8f670117111efa67927d7fc8462695f6b1d65a24f7411aa743f",
+  "offline_locked_packages": true,
+  "probe": {
+    "base_prefix": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/cpython-3.11.13-compile-20251007/python",
+    "compile_command": [
+      "gcc",
+      "-shared",
+      "-fPIC",
+      "-O2",
+      "-I/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/cpython-3.11.13-compile-20251007/python/include/python3.11",
+      "/tmp/ftf-c-extension-a0h5mwoc/probe.c",
+      "-o",
+      "/tmp/ftf-c-extension-a0h5mwoc/ftf_compile_probe.cpython-311-x86_64-linux-gnu.so"
+    ],
+    "compiler": "gcc (GCC) 14.3.0",
+    "compiler_path": "/apps/all/GCCcore/14.3.0/bin/gcc",
+    "compiler_sha256": "d10831aebef94e019bbde38bc69a6bc53bb36c98214c8b0daa98027a880e933d",
+    "cuda_initialized": false,
+    "executable": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-gpu-compile/bin/python",
+    "extension_import_value": 42,
+    "extension_sha256": "d4a06adbfc4fd2f3be0e0b01a6ef4d1cbeb184de9a34eec7e8a24fa82900219f",
+    "include": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/cpython-3.11.13-compile-20251007/python/include/python3.11",
+    "platform": "Linux-4.18.0-553.146.1.el8_10.x86_64-x86_64-with-glibc2.28",
+    "pyconfig_h_sha256": "86bb3d6c7b2771e5bd4c8afd3c056881813f6d86c1b46e77abfa10ee942b1671",
+    "python": "3.11.13 (main, Oct  7 2025, 15:34:32) [Clang 20.1.4 ]",
+    "python_h_sha256": "0996602e0860a811d9a526c410e5acf04c1ec91c0a27bc5edef3ea077ad46a27",
+    "source_sha256": "6aadfa8df90534efe4cc776c53df4cebb919f91d42248481fec0c105d7429207"
+  },
+  "schema": "finetuneforge.compile_environment.v1",
+  "scientifically_qualified": false
+}

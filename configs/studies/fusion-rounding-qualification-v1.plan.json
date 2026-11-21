@@ -1,0 +1,143 @@
+{
+  "compiler": {
+    "backend": "inductor",
+    "cuda_graphs": false,
+    "dynamic": false,
+    "fullgraph": true,
+    "mlps": 12,
+    "mode": "default",
+    "triton_default_fp_fusion": "1"
+  },
+  "diagnostic_model": {
+    "dimension": 4,
+    "measurement_noise": "independent Normal(0,sigma^2)",
+    "mu_prior": {
+      "distribution": "normal",
+      "mean": 0,
+      "sd": 0.6
+    },
+    "parameter_order": [
+      "mu",
+      "tau",
+      "a",
+      "sigma"
+    ],
+    "readings": 10,
+    "sigma_prior": {
+      "central_90_factor": 2,
+      "distribution": "lognormal",
+      "median": 0.1
+    },
+    "specimen": "a|mu,tau ~ Normal(mu,tau^2)",
+    "strong_coefficients": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "tau_prior": {
+      "central_90_factor": 2,
+      "distribution": "lognormal",
+      "median": 0.2
+    },
+    "weak_coefficients": [
+      0.03,
+      -0.03,
+      0.03,
+      -0.03,
+      0.03,
+      -0.03,
+      0.03,
+      -0.03,
+      0.03,
+      -0.03
+    ]
+  },
+  "document": "docs/fusion-rounding-qualification-v1.md",
+  "execution_authorized": false,
+  "extension_requires_separate_qualification_per_configuration": {
+    "initialization_replicas": 2,
+    "learning_rates": [
+      0.0001,
+      0.0003
+    ],
+    "methods": [
+      "lora_r4",
+      "lora_r16"
+    ]
+  },
+  "first_block": {
+    "additional_strong_case_seed_pairs": 1,
+    "confirmation_cases": 2,
+    "draws_per_request": 50000,
+    "effective_batch": 16,
+    "learning_rate": 0.0003,
+    "matched_learning_updates_per_arm": 3,
+    "method": "lora_r4",
+    "numerical_policy_status": "requires_independent_calibration_and_freeze_before_gpu_confirmation",
+    "posterior_context_worlds": 256,
+    "posterior_requests": 6,
+    "restart_after_update": 1,
+    "training_context_worlds": 16,
+    "warm_timing_repetitions": 3
+  },
+  "fusion_enabled": false,
+  "historical_evidence_commit": "287c022b4fb1d31167c7f9bbbe569a6da5bfbf05",
+  "jobs_submitted": 0,
+  "master_seed": 20261118,
+  "planning_reservations_only": [
+    {
+      "gpus": 1,
+      "phase": "preflight",
+      "walltime_seconds": 900
+    },
+    {
+      "gpus": 2,
+      "phase": "training_restart_timing",
+      "walltime_seconds": 2700
+    },
+    {
+      "gpus": 2,
+      "phase": "posterior",
+      "walltime_seconds": 1200
+    }
+  ],
+  "reference": {
+    "absolute_gate_requires": "conforming qualified empirical ReferenceRun witnesses; quadrature is independent oracle",
+    "case_specific_comparator_required": true,
+    "method": "Gaussian conditional integration plus refined log-spread/log-noise quadrature and independent witnesses",
+    "precision_cdf_max": 0.005,
+    "precision_mean_reference_sd_max": 0.02,
+    "precision_relative_sd_max": 0.02
+  },
+  "reservations_created": 0,
+  "schema": "finetuneforge.fusion_rounding_qualification_plan.v1",
+  "seed_domain": "fusion-rounding-v1",
+  "status": "proposal_only",
+  "training_pilots_enabled": false,
+  "uncertainty": {
+    "cases_seeds_projections": "all predeclared maxima; no pooling to hide failures",
+    "coverage_claim": "approximate diagnostics only",
+    "one_sided_simultaneous_confidence": 0.95,
+    "paired_whole_vector_bootstrap_replicates": 1000,
+    "threshold_straddling": "inconclusive"
+  },
+  "unchanged_absolute_gates": {
+    "cdf": 0.1,
+    "joint_projections": 32,
+    "mean_reference_sd": 0.2,
+    "sd_ratio_max": 1.2,
+    "sd_ratio_min": 0.8
+  },
+  "unchanged_relative_margins": {
+    "cdf": 0.01,
+    "mean_reference_sd": 0.05,
+    "relative_sd": 0.05
+  }
+}

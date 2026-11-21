@@ -1,0 +1,16 @@
+{
+  "all_worker_checks_passed": false,
+  "input_manifest_sha256": "7f6894051fadadfe1e5fba980b5183bd0499d363cfdd316f7d6c21ee9a1d541e",
+  "job_id": "5448973",
+  "parallelism": "four independent complete-model qualification workers; no distributed training or tensor parallelism",
+  "posterior_draws_per_request": 50000,
+  "remaining": "I07 full scientific/reference and LR pilots remain unrun",
+  "schema": "finetuneforge.cuda_qualification_allocation.v1",
+  "scientifically_qualified": false,
+  "worker_returncodes": {
+    "frozen": 0,
+    "full_finetune": 1,
+    "lora_r16": 1,
+    "lora_r4": 0
+  }
+}

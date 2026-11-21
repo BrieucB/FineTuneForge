@@ -1,0 +1,887 @@
+{
+  "actual_additional_data_forward_evaluations": 0,
+  "base_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/model/tabpfn-v2-regressor.ckpt",
+  "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+  "data_forward_evaluations": 110415,
+  "data_reuse": "exact original banks and query, no regeneration; full from-scratch counts retained",
+  "engineering_updates": 2,
+  "episodes": [
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/000/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "d4e40c353ce25d588d74f377c31d57204aacbf831a960e7db16e5f34c5b91759",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261217,
+        "worlds": 16
+      },
+      "position": 0,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/000/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "4a24009ad5b6d6cd0a089552645169191ad70154099bbc478917dde66011ef2a",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261218,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/001/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "afee9bad50562fbdd542828428771115693651c8c6dc5e349c52f2c4423b8d12",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261219,
+        "worlds": 16
+      },
+      "position": 1,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/001/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "aa1c37150feb23e4aa5e5d92897051e5604c236ca6b829a8ddff3d748376fbe6",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261220,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/002/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "bbe73fcb115f84444b28ebe97570b5d5cbef53517b23af1661900ba701b36635",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261221,
+        "worlds": 16
+      },
+      "position": 2,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/002/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "0ca30fe6034faf91edc8d05a00af4cb5aefc09f6d156652fdb8a1814afda74be",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261222,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/003/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "87b4cf87fb116c0dfaa34e6855d7993772206eb23dbd7e3c4228f9ec7d86d83a",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261223,
+        "worlds": 16
+      },
+      "position": 3,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/003/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "208c53aafcc40a68b472819b67556621ae234a21de15a4a046575d1d077be755",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261224,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/004/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "7bfbc80904f03cda65f590785c7a412d3deef75141215a828bbf116ec52c7e87",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261225,
+        "worlds": 16
+      },
+      "position": 4,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/004/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "4304c38c9fddb40ea0985a5f8eeb643d94d2ef6f236cad9e7d005a99964218c8",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261226,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/005/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "3a741385cc22e18a2000bd5ea271dc1250c943e24099fd253611f506833845d5",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261227,
+        "worlds": 16
+      },
+      "position": 5,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/005/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "138130420300df3b07b1abd222d7758300476868c68a82da36bfbde56eccb1da",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261228,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/006/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "4d5f91de17341ab636412cf8e207ce24ae6141c59fee31e4501f9b781c82e55a",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261229,
+        "worlds": 16
+      },
+      "position": 6,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/006/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "36298703fcc97d820dc5692979805cd640158a1f5a34c3f9be396ba296bef83d",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261230,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/007/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "151e252d7d0dc42fc60529f3d8e76cd451a8769b6dfc6753b309a8a584676f85",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261231,
+        "worlds": 16
+      },
+      "position": 7,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/007/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "d64fd0d5200ca3448ede9ae5ca8fa6d38d893386960fa59a6108125d99f25d39",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261232,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/008/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "437d04f6cc58cbc65f862518804a0986c58b0dce121886bab2945fc1ca2eeca2",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261233,
+        "worlds": 16
+      },
+      "position": 8,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/008/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "ecb2b218df6d0c74f957ca117009394030f8a7e3c07f4aca0e628f30ae618acb",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261234,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/009/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "826e2d74052a6e792cd2a3bc98374fa9f420fa4500d38b4757b1a33c1e334cdc",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261235,
+        "worlds": 16
+      },
+      "position": 9,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/009/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "cc4f5254b30693e627654e9eb9afe19cb31d3cfa2dc600664b468b5a3220407f",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261236,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/010/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "88c4267da6d48ece2da0417b68983557dce0f594ebf29e4ef45b0444a664bb75",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261237,
+        "worlds": 16
+      },
+      "position": 10,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/010/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "2844414ec729d78711b099afe8e2d2eccfdc830153b8fdaf424788d5ccde5528",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261238,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/011/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "f4fd124360297a6396e74a3c31c47cae143dc0f4298e3060fc278dbf348aa723",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261239,
+        "worlds": 16
+      },
+      "position": 11,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/011/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "8aa4389ede6e18ac4e9a7ff404a0225aee279d53e5e4e15e54cee7dd799da865",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261240,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/012/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "3b94b04c2989b529a7aef2bcc899e515a73d0f341b95dca47ecb222726e33ff9",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261241,
+        "worlds": 16
+      },
+      "position": 12,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/012/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "62e68305d4d883423c6a626a3a199941d6b8f6ae4392ef070ee8d0e1ea0db4a5",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261242,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/013/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "427ce79c1a451fc046bd66c98135e7e1e655db12373b22bad5e11a7a2756e26f",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261243,
+        "worlds": 16
+      },
+      "position": 13,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/013/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "f3e9374d89401fbd6950aaeb6b85deffb0b4336e3f3a7655ce69991c07846690",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261244,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/014/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "8e07ad20c98a3f8a216fc6ad2c4a7f00e04e76a48e8c1ac44bedb2b1a64c1ab1",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261245,
+        "worlds": 16
+      },
+      "position": 14,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/014/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "056ccb34e087012eb4b304ccd066ebf552528ecd730d5f8f93ce04655278a955",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261246,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/015/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "b170cc78e498880c39d26dc5d0e7c4e30b378fdefa15dad34a28bcfe2bba9804",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261247,
+        "worlds": 16
+      },
+      "position": 15,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/015/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "c45017f04f0925244a657961dbaab72a92eb3efd7bcdf308f8fce3a4495f9310",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261248,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/016/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "2196bae485245f8790e755167faffd50e87799245a64399d1cc2f86404a01629",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261249,
+        "worlds": 16
+      },
+      "position": 16,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/016/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "12e8cde82a9d66c27a3ea947930e6789cc91730a820ef6e6b168a5de232d8261",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261250,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/017/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "2b3f91783a8b523d8cf9068ddd71170c148a296e6f4033117e5d454561e99f51",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261251,
+        "worlds": 16
+      },
+      "position": 17,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/017/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "399c58f78e94c2274bd25cb8d7088850d19bbc318e15eb1c0e5407bad6611ba6",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261252,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/018/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "7d996040d4a581bfcbff95d7d8a7fa064f0399d8e2d9183b2b403a73adb8fcff",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261253,
+        "worlds": 16
+      },
+      "position": 18,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/018/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "581bc86b98c40c1f371a7216c65b364910afa55838934c2bb5ddb2ae5710a66b",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261254,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/019/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "91773d128def6e89631dfdf33f8c717d74ff18d6fdd6968efb2903fd5e498577",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261255,
+        "worlds": 16
+      },
+      "position": 19,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/019/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "76e6fcf2b823776be2173315267f1f8c48e344b2b0960a79f6190af37895a50a",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261256,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/020/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "525b352f71ad73008616304ae856884caebdadacaf46c4a9cb50d041d737e897",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261257,
+        "worlds": 16
+      },
+      "position": 20,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/020/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "cbce2a31eca63a8022bec7cbf4174ff2a11f76e80e2888d8eb6a4512653533d7",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261258,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/021/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "891e6791060ab25798b17ee1f815a36e9fbea88219d2646cbd6baab4cf6edf3b",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261259,
+        "worlds": 16
+      },
+      "position": 21,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/021/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "f8a95d8288cfe52e7b0eb0103fd0b8f178e416a69b4328e81e5d69e6894feae6",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261260,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/022/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "c5117e9dcc2dbb55b8e1f39560eca122e314a7b5a96d7b076a0a5d277cb639f9",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261261,
+        "worlds": 16
+      },
+      "position": 22,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/022/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "ea4426f86aa84472a2668643c264c5b8679520e48a087f636bf65a22737432ba",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261262,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/023/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "e50449a7c48aaa1614d6be5ba83076e735b36487ef962a7e044933279a95e040",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261263,
+        "worlds": 16
+      },
+      "position": 23,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/023/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "9cb1a534c09efbae56195d074edea54c6345c85368f41f8cfe3fced4bc30ceb7",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261264,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/024/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "7a21b7ca8e9f9f3ece564bae21799909295642acf3fe2e7bbc74cfaf9cad2aa2",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261265,
+        "worlds": 16
+      },
+      "position": 24,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/024/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "8a1153334d878f9652ec6fc3a449865ff3c8623d35db5c0258ffea78caddf929",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261266,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/025/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "d6f3031c9abbcc841cd9d3f71a0af09b44377044fe87c3b9cea3548fd52e5889",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261267,
+        "worlds": 16
+      },
+      "position": 25,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/025/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "5fee9978871c9d36a3cb1d1c4888aa5a372b54f5eb776ec42f1da3c3ee2eea8c",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261268,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/026/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "93393ee647fa0c0d6ff740b6c2eb203f60f653737a77de9c1a4b5690c58c4e6d",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261269,
+        "worlds": 16
+      },
+      "position": 26,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/026/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "b00deaf3cb36d77245601239452449ac487af181ec7fd1cc91b2e2993c67ea77",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261270,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/027/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "e50481cea6cfb91e19917e642bb71b3880dc7881f8c6aab2b065f0f77d728090",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261271,
+        "worlds": 16
+      },
+      "position": 27,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/027/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "b1143a4ac58a52ebebb0c1e786e2b6b30caab9e6ca6b89c9b72294c478c9298c",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261272,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/028/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "415731153a4b9d256c571d408e9e39693083719201d59cb1152a54b68a3d45db",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261273,
+        "worlds": 16
+      },
+      "position": 28,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/028/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "2c3606acfb9fe18dba4bb16dec377e405e05e93fe35bc2eb3d4f2ff0c97887e4",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261274,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/029/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "30b7fbf03da532733e7493ec64d6aa9d88e169f5d260869a3cc1bd613c3ea6a3",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261275,
+        "worlds": 16
+      },
+      "position": 29,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/029/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "32154bd44a534233ff6f0d617d585bf086cf8457361b01ec96eecce1e707d30e",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261276,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/030/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "1ff8001fa59ba1a1c1b62f93540de822c6e2453b4d01bc4e2cb9def3a862618d",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261277,
+        "worlds": 16
+      },
+      "position": 30,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/030/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "5a7d67a12e4295c4f577458bf5a7d0b7ec93597746ad95585cfc539a5cddd366",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261278,
+        "worlds": 1
+      }
+    },
+    {
+      "context": {
+        "dimension": 4,
+        "directory": "episodes/031/context",
+        "forward_evaluations": 16,
+        "manifest_sha256": "b8b3d2865dd4c5cfd1eaad94a8a651698b7bc324e4103b004d8644066e6824a8",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261279,
+        "worlds": 16
+      },
+      "position": 31,
+      "query": {
+        "dimension": 4,
+        "directory": "episodes/031/query",
+        "forward_evaluations": 1,
+        "manifest_sha256": "e25b3e64cb3c87e06e1f83cc28f0242e6b6b054269550b1d5dc3559dcd90b31d",
+        "observations": 1,
+        "problem": "1611b4a6a0ef43f0610ca351c8e13afef9eae45879b66881ec1e182c403827f4",
+        "seed": 20261280,
+        "worlds": 1
+      }
+    }
+  ],
+  "fp32_policy": {
+    "deterministic_algorithms": true,
+    "sdpa": "math",
+    "tf32": false
+  },
+  "frozen_model_sha256": "1dc04e048070e21b4df2d674439f463ec5dbcfb802017b5800310ce45e709f91",
+  "lanes": [
+    "frozen",
+    "lora_r4",
+    "lora_r16",
+    "full_finetune"
+  ],
+  "main_campaign_enabled": false,
+  "master_seed": 20261117,
+  "observation_sha256": "13d75dcf284910dce64b25aae78e3a7a4e62391a5f47fb945fce62e34f3429b5",
+  "pilot_learning_rate_selection": false,
+  "posterior_bank": {
+    "dimension": 4,
+    "directory": "posterior-bank",
+    "forward_evaluations": 256,
+    "manifest_sha256": "1b82428a6d2a5c76a26ac03deee1d52808feebc23c568223cc4de8a70378fc16",
+    "observations": 10,
+    "problem": "633039b2ae82153295f905ea6995f962f81c72b96e771025c7675f8b134ebee5",
+    "seed": 20262117,
+    "worlds": 256
+  },
+  "posterior_context_worlds": 256,
+  "posterior_draws": 50000,
+  "posterior_microbatch_size": 1024,
+  "predecessor_manifest_sha256": "1fc2ad8891ded13a3b7e47398706b71782068fa0f4e9799d8acf04707eb05293",
+  "probes": [
+    {
+      "band": "medium",
+      "context": {
+        "dimension": 35,
+        "directory": "probes/medium-1024/context",
+        "forward_evaluations": 7168,
+        "manifest_sha256": "a4f4c3dc3a53ae25886154ba4a2e760e44fa4d963b03e364d0bd2fbd77c4eae6",
+        "observations": 70,
+        "problem": "fbe00edc4e2bcd4133ec75503acca9db108c72902fbfd6111b4b103fe393c9a5",
+        "seed": 20264642,
+        "worlds": 1024
+      },
+      "query": {
+        "dimension": 35,
+        "directory": "probes/medium-1024/query",
+        "forward_evaluations": 7,
+        "manifest_sha256": "01b1beb19980889eb50c090fda73289497f96775fe9d8635120089862828f9c8",
+        "observations": 70,
+        "problem": "fbe00edc4e2bcd4133ec75503acca9db108c72902fbfd6111b4b103fe393c9a5",
+        "seed": 20265642,
+        "worlds": 1
+      }
+    },
+    {
+      "band": "large",
+      "context": {
+        "dimension": 75,
+        "directory": "probes/large-1024/context",
+        "forward_evaluations": 20480,
+        "manifest_sha256": "a0ee5ddbe51690224dfb2f07774dbb65c2334fea5d9820f78647fc376572d802",
+        "observations": 200,
+        "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+        "seed": 20264643,
+        "worlds": 1024
+      },
+      "query": {
+        "dimension": 75,
+        "directory": "probes/large-1024/query",
+        "forward_evaluations": 20,
+        "manifest_sha256": "2e86584cf153497f3ef1c33b1934e5d312faf3f762703666a50d871ccded7a35",
+        "observations": 200,
+        "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+        "seed": 20265643,
+        "worlds": 1
+      }
+    },
+    {
+      "band": "large",
+      "context": {
+        "dimension": 75,
+        "directory": "probes/large-4096/context",
+        "forward_evaluations": 81920,
+        "manifest_sha256": "a9de031c4f7114244fbe83403e6890845b786d8f9281c4ebf8181dd3f177bdac",
+        "observations": 200,
+        "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+        "seed": 20267715,
+        "worlds": 4096
+      },
+      "query": {
+        "dimension": 75,
+        "directory": "probes/large-4096/query",
+        "forward_evaluations": 20,
+        "manifest_sha256": "5096afe55f4639797abe9b66cb7b1a28262267ea783e82fe2934e3d8aeb14898",
+        "observations": 200,
+        "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+        "seed": 20268715,
+        "worlds": 1
+      }
+    }
+  ],
+  "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+  "reference_scope": "analytical zero-sensor marginals only, not full study gate",
+  "schema": "finetuneforge.cuda_qualification_inputs.v1",
+  "scientifically_qualified": false,
+  "source_commit": "18ef126d1c890fa77c123ae14bf7b1bc46a1136d",
+  "source_files": {
+    "environments/study-training-gpu.lock": "14dd5133971bf8f670117111efa67927d7fc8462695f6b1d65a24f7411aa743f",
+    "scripts/check-study-orchestration-cpu.py": "cb8d8a26db9ca618ad27e533d7d497f4d42883b4601271a33f6cfe37ec297ea9",
+    "scripts/qualify-study-cuda.py": "17ba993d1f40ad2fa03a3dbe35fc248a26071b95ccb02560153a648d0ce13726",
+    "slurm/run-study-qualification.sh": "87733ba84eb0c7e9fd9417af6ec6f23a7928258db0c948358cde783528232fcd",
+    "src/posteriorforge/study/__init__.py": "5c3750803f9b052da055bb4a42f66a1d4c46c4182e1f1d4e416985eb28329430",
+    "src/posteriorforge/study/__main__.py": "4f430f53903ff8cf31a441a3b39ab4b28380061bad6fa050f73d717dfe5338c0",
+    "src/posteriorforge/study/artifacts.py": "a1ab690422a0cb56a76b8e3021915067c1120231e078a09400d575ccf7c500f8",
+    "src/posteriorforge/study/banks.py": "0a4aaf039ab85e423c409e99f984a94eceacc365c268b1fcd5b0b8d313d788db",
+    "src/posteriorforge/study/budget.py": "eacb890d7ba210334793c3ff3331475b15ef1e8e43a6cb8a5a53d6f818ff77ea",
+    "src/posteriorforge/study/campaign.py": "a5d208ded49f2e2f7a48a7f37e82ef7f3d1e7d7fcd902f9382fe7911574a4d73",
+    "src/posteriorforge/study/catalogue.py": "0e7b2016ed5696f9cae4c6efcc19027f151a29f1c777a5f3fdfeb91394db30e9",
+    "src/posteriorforge/study/cli.py": "91be3754abfcdf323d05962ab8e20004031635968989cf2b2441acc79f6996c0",
+    "src/posteriorforge/study/config.py": "d2e7249c48c93dfa30a189a568240df714f7ef25b461fecc9b56cab82bcd26fa",
+    "src/posteriorforge/study/cuda_qualification.py": "f0b4eb1f689924d243034ec9161c099c4d121da076dbacfa05c049ca30604b5a",
+    "src/posteriorforge/study/cuda_training.py": "95a3288a44da3c193ef37b1f4d00fa0cd0372313b59baabe34fae00222c20049",
+    "src/posteriorforge/study/entrypoint.py": "ec660b66e49df0bb9d2edbe8e78e2a8a25d1b80f5a4bfcb3dfd1ad6888a830cb",
+    "src/posteriorforge/study/episodes.py": "f6b5f49edcc0575b419bfc8bc5d4d745319c9c57bdb7f8a95aa03e3748ba43a6",
+    "src/posteriorforge/study/evaluation.py": "90fd38dbf4a155f0c477a62fb0ae7f8e758fa0d0380ca1f00aa612eecfd7072b",
+    "src/posteriorforge/study/evaluation_campaign.py": "15a9263ad1891762b8e1fc132ae0a81cba390d623664c1a4526f172ddda7b906",
+    "src/posteriorforge/study/metrics.py": "9b92e98e2325710ef69b66eeb3cef85081188c6ea14ec93e8684c22437c373e1",
+    "src/posteriorforge/study/model.py": "598cec9258295efa57885c184e7e17c2067af1e576d3d478c263856c515813c3",
+    "src/posteriorforge/study/model_loading.py": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+    "src/posteriorforge/study/ordering.py": "6599e9d29be32a14434cad30df37ac154d554d44267875886c4e32d0b72a4d7e",
+    "src/posteriorforge/study/reference.py": "35b0ab2536fcc214468f929361d36eae0927be8b34ff5a80cc027d7634bd24d4",
+    "src/posteriorforge/study/sampling.py": "17a076e36d9db123abece8d80de80cd1be43ef135f161ba282820afc80e1a3fb",
+    "src/posteriorforge/study/sampling_backend.py": "2e80bb4afaa0ec57d0c3745bd463a4ac5f42989fc2ed91e24ba24f1c7c14b103",
+    "src/posteriorforge/study/science.py": "65aaa5790ec730d46eaaf2f7204a8d5fc6879aba04363f37680407f34dad1e5e",
+    "src/posteriorforge/study/seeds.py": "d7cb20aaab77cb0dae433b86377ab253d7e667c94706634c4be32a51516fcf01",
+    "src/posteriorforge/study/spec.py": "de5a438ed4e1576afdfc4a142a75a1a6c352085c63b749c6965bd776914c02a3",
+    "src/posteriorforge/study/training.py": "7d84b0631d02ff7ab3ccdf40fdee556467a681a2b08966d4697e669668646fe5",
+    "src/posteriorforge/study/updates.py": "1081d88b7935036fd3bd351f80ec6e40583cb559754d0cd5c490a63794099246",
+    "src/posteriorforge/study/workflows.py": "b4e7c83c66e9333c77195079b9f7b1e80985248ff1e40bd6a2600a6e9f002dd0"
+  },
+  "training_effective_batch": 16
+}

@@ -1,0 +1,62 @@
+{
+  "submission": {
+    "actual_gpu_seconds": 0,
+    "created_at": "2026-11-17T18:59:45.310607+00:00",
+    "gpus": 4,
+    "job_id": "5449261",
+    "metadata": {
+      "input_manifest_sha256": "0b2e98555d425d2f857a16d9bd0c938e5f41108c9b2aa79b3e82167bbde1d922",
+      "new_forward_evaluations": 4097,
+      "posterior_draws_per_request": 50000,
+      "precision": "FP32 math / FP64 probability",
+      "scope": "failed75D conditional +50k smaller controls; full75D posterior not authorized inthisstep",
+      "separate_pilot_cap": null,
+      "source_commit": "07f8909f0b862d68862ab46cf753b356879d4120",
+      "timing_repetitions": 3,
+      "training_pilots_enabled": false
+    },
+    "purpose": "Exact attention OOM repair and paired merged/unmerged inference qualification; no training",
+    "reservation_id": "45f691133762409c80ad270ad6d3a3d2",
+    "reserved_gpu_seconds": 691200,
+    "state": "submitted",
+    "submission_returncode": 0,
+    "submission_started_at": "2026-11-17T18:59:45.317934+00:00",
+    "submission_stderr": "",
+    "submission_stdout": "5449261",
+    "submitted_argv": [
+      "sbatch",
+      "--parsable",
+      "--no-requeue",
+      "--account=eu-26-17",
+      "--partition=qgpu",
+      "--nodes=1",
+      "--ntasks=1",
+      "--gpus-per-node=4",
+      "--cpus-per-task=64",
+      "--time=48:00:00",
+      "--job-name=pf-ftf-infer-engineer-01",
+      "--output=/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/slurm-profile/%x-%j.out",
+      "--error=/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/slurm-profile/%x-%j.err",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/source-07f8909f0b862d68862ab46cf753b356879d4120/slurm/run-study-inference.sh",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-gpu/bin/python",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/source-07f8909f0b862d68862ab46cf753b356879d4120",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/inputs-01/manifest.json",
+      "0b2e98555d425d2f857a16d9bd0c938e5f41108c9b2aa79b3e82167bbde1d922",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-engineering-20261117/profile-01",
+      "profile"
+    ],
+    "submitted_at": "2026-11-17T18:59:45.336661+00:00",
+    "walltime_seconds": 172800
+  },
+  "summary": {
+    "actual_gpu_hours": 2.3666666666666667,
+    "actual_gpu_seconds": 8520,
+    "cap_exceeded": false,
+    "cap_gpu_hours": 10000,
+    "remaining_gpu_hours": 9805.633333333333,
+    "remaining_gpu_seconds": 35300280,
+    "reservation_count": 4,
+    "reserved_gpu_hours": 192.0,
+    "reserved_gpu_seconds": 691200
+  }
+}

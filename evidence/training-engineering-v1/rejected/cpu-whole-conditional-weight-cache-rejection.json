@@ -1,0 +1,211 @@
+{
+  "artifact_provenance": "Structured transcription of the completed read-only Karolina CPU probe run from a shell heredoc.",
+  "by_rank": {
+    "16": {
+      "candidate_loss": 1.3712371901999942,
+      "candidate_seconds": 1.8324005492031574,
+      "checkpoint_forward_and_backward_completed": true,
+      "metrics": {
+        "canonical_density_weights": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "gradient_norm": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "gradients": {
+          "max_absolute_delta": 1.341104507446289e-07,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "loss": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "optimizer_state": {
+          "max_absolute_delta": 1.862645149230957e-09,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "raw_logits": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "updated_adapters": {
+          "max_absolute_delta": 4.0983286453410983e-07,
+          "outside_tolerance": 4,
+          "passed": false
+        }
+      },
+      "passed": false,
+      "reference_loss": 1.3712371901999942,
+      "reference_seconds": 2.4666082859039307
+    },
+    "4": {
+      "candidate_loss": 1.373272557241445,
+      "candidate_seconds": 1.7835100274533033,
+      "checkpoint_forward_and_backward_completed": true,
+      "metrics": {
+        "canonical_density_weights": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "gradient_norm": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "gradients": {
+          "max_absolute_delta": 8.940696716308594e-08,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "loss": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "optimizer_state": {
+          "max_absolute_delta": 2.7939677238464355e-09,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "raw_logits": {
+          "max_absolute_delta": 0.0,
+          "outside_tolerance": 0,
+          "passed": true
+        },
+        "updated_adapters": {
+          "max_absolute_delta": 1.3559474609792233e-07,
+          "outside_tolerance": 0,
+          "passed": true
+        }
+      },
+      "passed": true,
+      "reference_loss": 1.373272557241445,
+      "reference_seconds": 2.252954663708806
+    }
+  },
+  "candidate": "Read all declared packed projections from the pinned LoRA model inside torch.nn.utils.parametrize.cached() before TabPFN forward. Use that same public cache scope for all eight serial member forwards, FP64 density, and backward. Leave it before clipping or stepping. Effective weights retained an attached autograd graph. No checkpoint flags or methods were modified.",
+  "candidate_retention": {
+    "effective_parametrized_tensors": 48,
+    "mebibytes": 13.5,
+    "overhead_excluded": "Autograd graph bookkeeping, allocator overhead, save-for-backward tensors and all model/context activations.",
+    "tensor_bytes": 14155776
+  },
+  "checkpoint": {
+    "download_permitted": false,
+    "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/model/tabpfn-v2-regressor.ckpt",
+    "sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736"
+  },
+  "checks": {
+    "canonical_density_weights": {
+      "atol": 0,
+      "rtol": 0
+    },
+    "gradients_and_state": {
+      "atol": 2e-07,
+      "rtol": 2e-05
+    },
+    "loss": {
+      "atol": 0,
+      "rtol": 0
+    },
+    "raw_logits": {
+      "atol": 0,
+      "rtol": 0
+    }
+  },
+  "density_law": "canonical_half_normal_full_support.v1",
+  "fixture": {
+    "canonical_grid": "Pinned checkpoint borders were used for all source grids and the canonical grid.",
+    "context_rows": 16,
+    "gradient_clip": 1.0,
+    "input_generation": "Standard normal context features [16,3], context targets [16], then query [1,3] drawn from one CPU generator. Roll the three feature columns right by member_index modulo 3 in context and query. The context target stays fixed.",
+    "input_seed": 2026111725,
+    "log_abs_det_decode": 0.17,
+    "lora_B_initialization": {
+      "mean": 0,
+      "std": 0.001
+    },
+    "member_count": 8,
+    "query_rows": 1,
+    "raw_features": 3,
+    "score_target": 0.25,
+    "start_weights": "Both lanes restore the same trainable tensors and create a fresh AdamW optimizer.",
+    "torch_parameter_seed_by_rank": {
+      "16": 2026111716,
+      "4": 2026111704
+    },
+    "training_configuration": {
+      "16": {
+        "density_law": "canonical_half_normal_full_support.v1",
+        "effective_batch": 16,
+        "gradient_clip": 1.0,
+        "learning_rate": 0.0001,
+        "max_updates": 1000,
+        "method": "lora",
+        "rank": 16,
+        "sampler_law_qualified": false,
+        "seed": 0
+      },
+      "4": {
+        "density_law": "canonical_half_normal_full_support.v1",
+        "effective_batch": 16,
+        "gradient_clip": 1.0,
+        "learning_rate": 0.0001,
+        "max_updates": 1000,
+        "method": "lora",
+        "rank": 4,
+        "sampler_law_qualified": false,
+        "seed": 0
+      }
+    },
+    "update_count": 1
+  },
+  "followup_probes_run": {
+    "checkpoint_resume": false,
+    "full_finetune": false,
+    "two_updates": false
+  },
+  "gpu_jobs_executed": 0,
+  "neural_dtype": "float32",
+  "platform": {
+    "cuda_visible_devices": "",
+    "device": "cpu",
+    "host": "login4.karolina.it4i.cz",
+    "packages": {
+      "numpy": "1.26.4",
+      "peft": "0.21.3",
+      "scipy": "1.12.0",
+      "tabpfn": "2.0.9",
+      "torch": "2.6.0+cpu",
+      "transformers": "4.57.6"
+    },
+    "python": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/bin/python",
+    "site": "Karolina",
+    "torch_threads": 2
+  },
+  "posterior": {
+    "requests_executed": 0,
+    "required_draws_per_request": 50000
+  },
+  "probability_dtype": "float64",
+  "reference": "Existing per-layer parametrization cache enabled through the conditional backward.",
+  "schema": "finetuneforge.cpu_whole_conditional_weight_cache_rejection.v1",
+  "source": {
+    "git_sha": "b2bca2771adbe84ce4e9f2dc9678d0f3076c8f7a",
+    "prototype_implemented_in_repository": false,
+    "repository": "/home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu"
+  },
+  "status": "rejected_rank16_updated_adapter_parity",
+  "stopped_on_first_numerical_gate_failure": true,
+  "timing_scope": "One CPU conditional forward, density and backward in each lane. Excludes clipping, optimizer step and checkpoint loading.",
+  "written_utc": "2026-11-17T20:45:28.366329+00:00"
+}

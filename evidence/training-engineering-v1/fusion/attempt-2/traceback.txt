@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/source-768e6d9ad6693e606e11aa045b2937d16f866520/src/posteriorforge/study/training_engineering.py", line 566, in fusion_preflight
+    if not all(x['passed'] for x in rows):raise RuntimeError(name+' compiled numerical parity failed')
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: initial compiled numerical parity failed

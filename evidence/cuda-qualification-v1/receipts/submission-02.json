@@ -1,0 +1,80 @@
+{
+  "before": {
+    "actual_gpu_hours": 0.5944444444444444,
+    "actual_gpu_seconds": 2140,
+    "cap_exceeded": false,
+    "cap_gpu_hours": 10000,
+    "remaining_gpu_hours": 9999.405555555555,
+    "remaining_gpu_seconds": 35997860,
+    "reservation_count": 1,
+    "reserved_gpu_hours": 0.0,
+    "reserved_gpu_seconds": 0
+  },
+  "input_manifest_sha256": "7f6894051fadadfe1e5fba980b5183bd0499d363cfdd316f7d6c21ee9a1d541e",
+  "submission": {
+    "actual_gpu_seconds": 0,
+    "created_at": "2026-11-17T17:47:15.668452+00:00",
+    "gpus": 4,
+    "job_id": "5448973",
+    "metadata": {
+      "additional_forward_evaluations": 0,
+      "automatic_retry": false,
+      "fixes": [
+        "CPU-seeded subspace embeddings on CUDA",
+        "required restart stream_id",
+        "frozen deployment comparison flags",
+        "parity prerequisite before training"
+      ],
+      "independent_gpu_workers": 4,
+      "input_manifest_sha256": "7f6894051fadadfe1e5fba980b5183bd0499d363cfdd316f7d6c21ee9a1d541e",
+      "posterior_draws_per_request": 50000,
+      "previous_failed_job": "5448960",
+      "scientifically_qualified": false,
+      "separate_pilot_gpu_hour_cap": null,
+      "source_commit": "18ef126d1c890fa77c123ae14bf7b1bc46a1136d",
+      "user_authorization": "CUDA implementation and qualification launch including multiple GPUs and debugging; no separate pilot usage ceiling"
+    },
+    "purpose": "I07 corrected CUDA engineering qualification after preserved failed allocation01",
+    "reservation_id": "c353c7c2fc744ae6b384369170d61234",
+    "reserved_gpu_seconds": 691200,
+    "state": "submitted",
+    "submission_returncode": 0,
+    "submission_started_at": "2026-11-17T17:47:15.673944+00:00",
+    "submission_stderr": "",
+    "submission_stdout": "5448973",
+    "submitted_argv": [
+      "sbatch",
+      "--parsable",
+      "--no-requeue",
+      "--account=eu-26-17",
+      "--partition=qgpu",
+      "--nodes=1",
+      "--ntasks=1",
+      "--gpus-per-node=4",
+      "--cpus-per-task=64",
+      "--time=48:00:00",
+      "--job-name=pf-ftf-cuda-qual-02",
+      "--output=/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/slurm-02/%x-%j.out",
+      "--error=/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/slurm-02/%x-%j.err",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/source-18ef126d1c890fa77c123ae14bf7b1bc46a1136d/slurm/run-study-qualification.sh",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-gpu/bin/python",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/source-18ef126d1c890fa77c123ae14bf7b1bc46a1136d",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/inputs-03/manifest.json",
+      "7f6894051fadadfe1e5fba980b5183bd0499d363cfdd316f7d6c21ee9a1d541e",
+      "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/allocation-02"
+    ],
+    "submitted_at": "2026-11-17T17:47:15.692571+00:00",
+    "walltime_seconds": 172800
+  },
+  "summary": {
+    "actual_gpu_hours": 0.5944444444444444,
+    "actual_gpu_seconds": 2140,
+    "cap_exceeded": false,
+    "cap_gpu_hours": 10000,
+    "remaining_gpu_hours": 9807.405555555555,
+    "remaining_gpu_seconds": 35306660,
+    "reservation_count": 2,
+    "reserved_gpu_hours": 192.0,
+    "reserved_gpu_seconds": 691200
+  }
+}

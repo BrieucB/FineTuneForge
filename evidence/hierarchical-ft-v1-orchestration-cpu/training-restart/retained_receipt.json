@@ -1,0 +1,90 @@
+{
+  "apis": {
+    "campaign": [
+      "CampaignSpec",
+      "plan_six_campaigns",
+      "plan_pilot_campaigns",
+      "select_method_learning_rates",
+      "select_main_allowance",
+      "quick_milestones",
+      "shortlist_checkpoints",
+      "StockTrainingBackend.from_checkpoint_factory",
+      "run_cpu_diagnostic",
+      "save_campaign_checkpoint",
+      "read_campaign_checkpoint",
+      "restore_campaign_checkpoint",
+      "summarize_attempt_costs",
+      "run_production_campaign"
+    ],
+    "episodes": [
+      "EpisodeStream",
+      "EpisodeRequest",
+      "QuickValidationStream",
+      "BankStore",
+      "MaterializedEpisode",
+      "materialize_episode"
+    ]
+  },
+  "checkpoint_contract": {
+    "deployment": "deployment/adapter forLoRA; deployment/full_model.safetensors forfullFT",
+    "identity": "source/protocol/stream/validation/model/optimizer-config/initialization-seed",
+    "internal_restart": "training/{training.pt,rng.json,manifest.json}",
+    "metadata": "campaign.json",
+    "outer_inventory": "manifest.json",
+    "weights_fingerprint": "TabPFNBackbone wrapper; deployment.weights_sha256 and top-levelweights_sha256"
+  },
+  "command": "FTF_CPU_PYTHON=/scratch/project/eu-26-17/eubrieucb/posteriorforge/envs/study-training-cpu/bin/python HF_HUB_OFFLINE=1 FTF_CPU_CHECKPOINT=/scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/model/tabpfn-v2-regressor.ckpt scripts/test-study-cpu.sh -q tests/test_study_episodes.py tests/test_study_campaign.py",
+  "costs": "bank receipts preserve incurredcalls and deduplicatedfrom-scratchaccessibledata costs; partialfailedproviderwork remains unknown withupperbound, neverzero",
+  "evidence_scope": {
+    "cpu_loop": "deterministic injectedtinyTorchbackend; exactmodel/AdamW/TorchCPU/NumPy/Python/episodeRNG/data-cursor restart; fixeddata, failedattempt retention/costs and successful exactretry",
+    "no_torch_subprocess": "Torch/PEFT/TabPFN imports activelyblocked; planning andauthenticatedmetadata reads succeed",
+    "quick_validation_schedule": "320 entriesenumerated; CPUdiagnosticloop usesone validation setup with16probabilityscores/check, explicitlydiagnostic",
+    "real_model": "all3 actualcachedTabPFN+PEFT constructor/deployment exports, withouttrainingcampaign or neuralposteriorrequests"
+  },
+  "gpu_jobs_submitted": 0,
+  "junit": {
+    "errors": "0",
+    "failures": "0",
+    "hostname": "login4.karolina.it4i.cz",
+    "name": "pytest",
+    "skipped": "0",
+    "tests": "13",
+    "time": "23.480",
+    "timestamp": "2026-11-17T16:28:33.301549+01:00"
+  },
+  "junit_sha256": "5bbca10cca662f77c7132fbde8acad9bcb71758014632d2e578e72478763663e",
+  "locked_policy": {
+    "checkpoints": "10equallyspacedquick milestones; shortlist max2 lowestscore tiesearlier; authenticated recovery checkpoint atupdate0",
+    "lr_selection": "fixed200-update endpoint meanover bothpilotreplicas; oneLR permethod; tie lowerLR",
+    "main_allowance": "largest1000/3000/10000 with measuredcosts including10checks, allpilotcostsand25percentmargin within3000GPUh",
+    "main_vs_pilot": "disjoint data streams; original pretrained restart and fresh adapter initialization; pilotupdates excludedfrom main allowance but pilotcostscharged",
+    "quick_validation": "40fixedcases x2banks x4nestedcontexts =320 probabilityscores/check; no posterior draws; canonical listing fixed",
+    "training_data": "fresh context bank and independent Q=1 query per setup visit; deterministic matched stream shared allmethods per phase/replica"
+  },
+  "log_sha256": "ca0e3e35b295e47217e2a3335be6e3c9c278f7f0a1c2a832e8099785a6ed2eeb",
+  "neural_posterior_requests_run": 0,
+  "posteriordrawpolicy": "all posteriorrequestselsewhere muststay50000; training/quickvalidationproducezero posterior draws",
+  "production_status": "run_production_campaign alwaysfails pendingI07; CPUdriver requiresexplicitopt-in anddiagnosticspec atmost10updates",
+  "production_training_run": false,
+  "schema": "finetuneforge.training_orchestration.cpu_receipt.v1",
+  "scientifically_qualified": false,
+  "source": {
+    "src/posteriorforge/study/campaign.py": {
+      "lines": 281,
+      "sha256": "02400e21e40ddcb67c2e4a4b73dcf5efcb84ab531e041bec808e186b8dc84447"
+    },
+    "src/posteriorforge/study/episodes.py": {
+      "lines": 152,
+      "sha256": "f4fc6e5b4b2fdb4e5a6f29cadc64a020396598cc93c468d3ca059657690df044"
+    },
+    "tests/test_study_campaign.py": {
+      "lines": 185,
+      "sha256": "c302f15abc9c21c5a56348ea4354dda0789eb0f6149c84388708794368c985ec"
+    },
+    "tests/test_study_episodes.py": {
+      "lines": 71,
+      "sha256": "d59414abdacd42a573f87e7648a23752881b0b859aee34afc9775bf0f38db138"
+    }
+  },
+  "test_result": "13 passed in23.48s; zero skips with cached model flag"
+}

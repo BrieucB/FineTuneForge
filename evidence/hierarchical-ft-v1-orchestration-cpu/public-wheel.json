@@ -1,0 +1,10 @@
+{
+  "gpu_jobs_submitted": 0,
+  "installed_import_origin": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-orchestration-cpu-20261117/public-install/lib64/python3.11/site-packages/posteriorforge/__init__.py",
+  "main_plan_count": 6,
+  "minimal_public_dependencies_only": true,
+  "pilot_plan_count": 12,
+  "schema": "finetuneforge.public_orchestration_cpu.v1",
+  "torch_installed": false,
+  "wheel_sha256": "224409bfb7e7f15714e3e197ddc3d90fd3347c9cae23a01d5ef0d506dc37476e"
+}

@@ -1,0 +1,131 @@
+{
+  "all_shapes_supported": false,
+  "hardware": {
+    "memory_bytes": 42430300160,
+    "name": "NVIDIA A100-SXM4-40GB",
+    "uuid": "c2afae9c-4fd8-b842-816e-542eb559f835"
+  },
+  "input_manifest_sha256": "7724cc1a95acd426a00d417e39ad36d65f2a01e98729741e471d13a5c982e3ba",
+  "job_id": "5448997",
+  "large_cpu_preprocessing_allowed": true,
+  "model": {
+    "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+    "checkpoint_identity_format": "campaign_manifest_sha256",
+    "checkpoint_manifest_sha256": "b8fc579fb1143b1bf25d2145c9b580c0e32869e479de65f8095eb947e944c77b",
+    "completed_updates": 2,
+    "device": "cuda:0",
+    "kind": "campaign_checkpoint",
+    "load_seconds": 9.362525581003865,
+    "loader_source_sha256": "6f384a15f99e07823dca2da746504735a788cb54e49e8257c524d440aee69103",
+    "method": "full_finetune",
+    "model_sha256": "b535e47daea16c7df5c5b012dcb060938b2eb8151213a0bebe5294f1e5b2e7c0",
+    "rank": null,
+    "scientifically_qualified": false,
+    "training_diagnostic": true,
+    "training_phase": "pilot",
+    "training_protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+    "training_replica": 0
+  },
+  "neural_device": "cuda:0",
+  "posterior_draws_contract": 50000,
+  "posterior_requests": 0,
+  "preprocessing_device": "cpu",
+  "probes": [
+    {
+      "finite": true,
+      "mode": "last_parameter_conditional_q1",
+      "peak_allocated_bytes": 8292719616,
+      "peak_reserved_bytes": 12132024320,
+      "probe": {
+        "band": "medium",
+        "context": {
+          "dimension": 35,
+          "directory": "probes/medium-1024/context",
+          "forward_evaluations": 7168,
+          "manifest_sha256": "a4f4c3dc3a53ae25886154ba4a2e760e44fa4d963b03e364d0bd2fbd77c4eae6",
+          "observations": 70,
+          "problem": "fbe00edc4e2bcd4133ec75503acca9db108c72902fbfd6111b4b103fe393c9a5",
+          "seed": 20264642,
+          "worlds": 1024
+        },
+        "query": {
+          "dimension": 35,
+          "directory": "probes/medium-1024/query",
+          "forward_evaluations": 7,
+          "manifest_sha256": "01b1beb19980889eb50c090fda73289497f96775fe9d8635120089862828f9c8",
+          "observations": 70,
+          "problem": "fbe00edc4e2bcd4133ec75503acca9db108c72902fbfd6111b4b103fe393c9a5",
+          "seed": 20265642,
+          "worlds": 1
+        }
+      },
+      "status": "completed",
+      "wall_seconds": 8.796694247997948
+    },
+    {
+      "finite": true,
+      "mode": "last_parameter_conditional_q1",
+      "peak_allocated_bytes": 20418493952,
+      "peak_reserved_bytes": 38877003776,
+      "probe": {
+        "band": "large",
+        "context": {
+          "dimension": 75,
+          "directory": "probes/large-1024/context",
+          "forward_evaluations": 20480,
+          "manifest_sha256": "a0ee5ddbe51690224dfb2f07774dbb65c2334fea5d9820f78647fc376572d802",
+          "observations": 200,
+          "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+          "seed": 20264643,
+          "worlds": 1024
+        },
+        "query": {
+          "dimension": 75,
+          "directory": "probes/large-1024/query",
+          "forward_evaluations": 20,
+          "manifest_sha256": "2e86584cf153497f3ef1c33b1934e5d312faf3f762703666a50d871ccded7a35",
+          "observations": 200,
+          "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+          "seed": 20265643,
+          "worlds": 1
+        }
+      },
+      "status": "completed",
+      "wall_seconds": 12.424190056990483
+    },
+    {
+      "error": "CUDA out of memory. Tried to allocate 129.00 GiB. GPU 0 has a total capacity of 39.52 GiB of which 29.75 GiB is free. Including non-PyTorch memory, this process has 9.76 GiB memory in use. Of the allocated memory 9.22 GiB is allocated by PyTorch, and 19.62 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)",
+      "mode": "last_parameter_conditional_q1",
+      "peak_allocated_bytes": 31763671552,
+      "peak_reserved_bytes": 41154510848,
+      "probe": {
+        "band": "large",
+        "context": {
+          "dimension": 75,
+          "directory": "probes/large-4096/context",
+          "forward_evaluations": 81920,
+          "manifest_sha256": "a9de031c4f7114244fbe83403e6890845b786d8f9281c4ebf8181dd3f177bdac",
+          "observations": 200,
+          "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+          "seed": 20267715,
+          "worlds": 4096
+        },
+        "query": {
+          "dimension": 75,
+          "directory": "probes/large-4096/query",
+          "forward_evaluations": 20,
+          "manifest_sha256": "5096afe55f4639797abe9b66cb7b1a28262267ea783e82fe2934e3d8aeb14898",
+          "observations": 200,
+          "problem": "8ca761c4f3001c139c7af1a9f61b621a6cfd9989a579e94f179fa49e7ea8ba30",
+          "seed": 20268715,
+          "worlds": 1
+        }
+      },
+      "status": "out_of_memory"
+    }
+  ],
+  "scientifically_qualified": false,
+  "scope": "three inference-memory probes, Q1 last parameter, trained full model",
+  "status": "probes_complete_with_unsupported_shapes",
+  "wall_seconds": 40.97027772200818
+}

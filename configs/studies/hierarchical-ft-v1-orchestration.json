@@ -1,0 +1,70 @@
+{
+  "orchestration": {
+    "effective_batch_cases": 16,
+    "execution": "cpu_diagnostic_only_no_slurm",
+    "invalid_decoded_vectors": "fail_request_preserve_evidence",
+    "learning_rate_policy": "one_per_method_tie_smaller",
+    "main_initialization": "restart_pretrained_fresh_adapter",
+    "main_update_candidates": [
+      1000,
+      3000,
+      10000
+    ],
+    "matched_streams": "same_replica_and_phase_across_all_methods",
+    "phase_streams": "pilot_and_main_disjoint",
+    "pilot_score": "mean_endpoint_score_across_both_replicas",
+    "pilot_updates": 200,
+    "pilot_updates_in_main_allowance": false,
+    "posterior_draws": 50000,
+    "quick_validation_bank_seeds": 2,
+    "quick_validation_cases": 40,
+    "quick_validation_contexts": [
+      16,
+      64,
+      256,
+      1024
+    ],
+    "quick_validation_data": "fixed_across_milestones_and_methods",
+    "quick_validation_milestones": 10,
+    "quick_validation_scores_per_check": 320,
+    "schema": "finetuneforge.orchestration_policy.v1",
+    "selection_with_no_qualified_primary": "freeze_diagnostic_inputs_without_claims",
+    "training_bank_policy": "fresh_per_visit",
+    "training_query_policy": "fresh_independent_one_case_per_episode"
+  },
+  "protocol_sha256": "fe66ec329ae262cc37c384a6cb08dd0b71ea8b76e8e019c8a705113adb2107f7",
+  "study": {
+    "bank_seeds": 2,
+    "cap_gpu_hours": 10000,
+    "cases_per_setup": 2,
+    "checkpoint_shortlist": 2,
+    "engineering_gpu_hours": 1000,
+    "evaluation_contexts": [
+      16,
+      64,
+      256,
+      1024,
+      4096
+    ],
+    "evaluation_gpu_hours": 4500,
+    "execution_mode": "cpu-only",
+    "master_seed": 20261117,
+    "posterior_draws": 50000,
+    "qualification_gpu_hours": 500,
+    "reserve_gpu_hours": 1000,
+    "sampling_law": "canonical_half_normal_full_support.v1",
+    "source_grid_policy": "cancelled_zero_width",
+    "study_id": "hierarchical-ft-v1",
+    "test_setups": 40,
+    "training_contexts": [
+      16,
+      64,
+      256,
+      1024
+    ],
+    "training_gpu_hours": 3000,
+    "training_replicas": 2,
+    "training_setups": 10000,
+    "validation_setups": 20
+  }
+}

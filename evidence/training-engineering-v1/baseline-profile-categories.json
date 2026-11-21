@@ -1,0 +1,47 @@
+{
+  "categories": {
+    "Trace": {
+      "count": 1,
+      "sum_duration_us": 6598149.84
+    },
+    "cpu_op": {
+      "count": 415753,
+      "sum_duration_us": 15247664.778000306
+    },
+    "cuda_driver": {
+      "count": 16,
+      "sum_duration_us": 75.07
+    },
+    "cuda_runtime": {
+      "count": 91229,
+      "sum_duration_us": 956991.0119999979
+    },
+    "gpu_memcpy": {
+      "count": 1536,
+      "sum_duration_us": 3662.410999999977
+    },
+    "gpu_memset": {
+      "count": 48,
+      "sum_duration_us": 96.547
+    },
+    "gpu_user_annotation": {
+      "count": 5,
+      "sum_duration_us": 3129533.8720000004
+    },
+    "kernel": {
+      "count": 76748,
+      "sum_duration_us": 305022.8869999733
+    },
+    "overhead": {
+      "count": 276,
+      "sum_duration_us": 345956.8469999998
+    },
+    "user_annotation": {
+      "count": 5,
+      "sum_duration_us": 8993062.293
+    }
+  },
+  "scope": "Single fixed conditional with tracing overhead; summed CUDA kernel durations are not wall latency or device utilization.",
+  "source_commit": "490e60b15d226d2985a99db279b5a309983f93e4",
+  "trace_sha256": "99146b6b231081f101c2d8439261c85e7a6e9fab2a9a003359e9733229db56a6"
+}

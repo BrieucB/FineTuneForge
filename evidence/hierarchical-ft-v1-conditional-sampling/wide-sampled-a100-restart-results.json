@@ -1,0 +1,128 @@
+{
+  "accounting_sha256": "d025babbb13fcd5328e86b9e62b29c9d006c31afa739afa0102d65393e7be543",
+  "cases": [
+    {
+      "available_wide_conditionals": 42,
+      "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+      "case": "train-09424",
+      "final_weights_sha256": "0e33093375c59b0970a5fcc61453a11f986e167b167a29c03b0d740d14135a39",
+      "fixture_sha256": "1f6bc256556b40d96a1b4db8cd26cc9f6b34b272657e662f698482c51dc71e85",
+      "gradient_norm_delta": 0.0,
+      "loss_delta": 0.0,
+      "model_tensors_bitwise_equal": 422,
+      "observation_columns": 100,
+      "optimizer_tensors_bitwise_equal": 732,
+      "prefix_sha256": "121ccfdba01857e55873a2cf04ad5963c67b52b2a2ed59d2a877340116b73fd1",
+      "rng_state": {
+        "python_numpy_bitwise": true,
+        "torch_cpu_bitwise": true,
+        "torch_cuda_bitwise": true
+      },
+      "runs": [
+        {
+          "allocated_gpu_seconds": 830,
+          "allocator_peak_reserved_headroom_bytes": 16257843200,
+          "device_total_bytes": 42430300160,
+          "driver_elapsed_seconds": 822.7496834350168,
+          "forward_backward_optimizer_seconds": 606.4097831899999,
+          "gradient_norm_before_clip": 0.7849678993225098,
+          "job_id": "5469634",
+          "loss": -0.9328954037103776,
+          "measured_update_seconds": 645.477263214998,
+          "mode": "continuous",
+          "peak_allocated_bytes": 10322900992,
+          "peak_reserved_bytes": 26172456960,
+          "preprocessing_seconds": 39.067480024998076
+        },
+        {
+          "allocated_gpu_seconds": 662,
+          "allocator_peak_reserved_headroom_bytes": 16255746048,
+          "device_total_bytes": 42430300160,
+          "driver_elapsed_seconds": 654.6772826009546,
+          "forward_backward_optimizer_seconds": 604.6674675719696,
+          "gradient_norm_before_clip": 0.7849678993225098,
+          "job_id": "5469637",
+          "loss": -0.9328954037103776,
+          "measured_update_seconds": 644.2110750359716,
+          "mode": "resumed",
+          "peak_allocated_bytes": 10322900992,
+          "peak_reserved_bytes": 26174554112,
+          "preprocessing_seconds": 39.54360746400198
+        }
+      ],
+      "selected_conditionals_in_update": 66,
+      "selected_wide_conditionals": 21,
+      "selection_exact": true,
+      "source_commit": "2f218d366f4cffe02836cfe40b49b6acaa4aa450",
+      "total_conditionals_in_update": 117,
+      "widest_member_features": 351
+    },
+    {
+      "available_wide_conditionals": 69,
+      "base_checkpoint_sha256": "2ab5a07d5c41dfe6db9aa7ae106fc6de898326c2765be66505a07e2868c10736",
+      "case": "train-08858",
+      "final_weights_sha256": "66f8040bf054bf201cb430c4ae9cdbabc9821e1b7b5577f361389ee9215c31d8",
+      "fixture_sha256": "568f3b38a7f87e09f56b37c22571b64dce628a838e0666c6e215f49830e2ba60",
+      "gradient_norm_delta": 0.0,
+      "loss_delta": 0.0,
+      "model_tensors_bitwise_equal": 422,
+      "observation_columns": 240,
+      "optimizer_tensors_bitwise_equal": 732,
+      "prefix_sha256": "d261f36b8c08b493b4f6907c3356fef83ac6b33bd00cf294343e7b4995f174ad",
+      "rng_state": {
+        "python_numpy_bitwise": true,
+        "torch_cpu_bitwise": true,
+        "torch_cuda_bitwise": true
+      },
+      "runs": [
+        {
+          "allocated_gpu_seconds": 2196,
+          "allocator_peak_reserved_headroom_bytes": 659226624,
+          "device_total_bytes": 42430300160,
+          "driver_elapsed_seconds": 2187.350314743002,
+          "forward_backward_optimizer_seconds": 1893.2907168800011,
+          "gradient_norm_before_clip": 0.8626833558082581,
+          "job_id": "5469633",
+          "loss": -0.9240291768954924,
+          "measured_update_seconds": 2008.8889745480265,
+          "mode": "continuous",
+          "peak_allocated_bytes": 20022704640,
+          "peak_reserved_bytes": 41771073536,
+          "preprocessing_seconds": 115.59825766802533
+        },
+        {
+          "allocated_gpu_seconds": 2020,
+          "allocator_peak_reserved_headroom_bytes": 659226624,
+          "device_total_bytes": 42430300160,
+          "driver_elapsed_seconds": 2015.9599819960422,
+          "forward_backward_optimizer_seconds": 1893.8049042259809,
+          "gradient_norm_before_clip": 0.8626833558082581,
+          "job_id": "5469636",
+          "loss": -0.9240291768954924,
+          "measured_update_seconds": 2008.9988638229552,
+          "mode": "resumed",
+          "peak_allocated_bytes": 20022704640,
+          "peak_reserved_bytes": 41771073536,
+          "preprocessing_seconds": 115.19395959697431
+        }
+      ],
+      "selected_conditionals_in_update": 80,
+      "selected_wide_conditionals": 35,
+      "selection_exact": true,
+      "source_commit": "2f218d366f4cffe02836cfe40b49b6acaa4aa450",
+      "total_conditionals_in_update": 144,
+      "widest_member_features": 718
+    }
+  ],
+  "context_rows": 1024,
+  "effective_batch_cases": 16,
+  "fixture_composition": "one retained wide case and fifteen 16-row controls in the compared update",
+  "fusion_enabled": false,
+  "posterior_draws_per_request": 50000,
+  "posterior_requests": 0,
+  "sampling_percent": 50,
+  "status": "passed",
+  "total_allocated_gpu_hours": 1.5855555555555556,
+  "total_allocated_gpu_seconds": 5708,
+  "verification_sha256": "ad1723f0bae7e0121d87bd5377590e7973dfc928c690aee52239dcaf23704092"
+}

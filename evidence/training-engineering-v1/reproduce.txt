@@ -1,0 +1,17 @@
+FineTuneForge bounded training-engineering evidence
+
+The public source and complete hashed locks are in the existing draft PR23.
+Start with docs/cuda-qualification-v1.md for checkpoint, environment and offline preparation.
+Large raw artifacts remain on project SCRATCH, not public artifact hosting.
+raw-artifacts.json gives byte counts and SHA256 values; access needs the project account.
+Report input manifests bind the original absolute artifact paths and immutable sources.
+
+Once the indexed raw artifacts are available at the declared paths, regenerate figures on CPU:
+<qualified CPU Python> scripts/report-training-engineering.py --inputs <RAW>/report-inputs-01.json --input-sha256 bf9c9553150c5de4ca99526a8b1e4fd7c1b9b340355db2868276930f98542ea3 --output <fresh rank4 output>
+<qualified CPU Python> scripts/report-training-engineering.py --rank16 --inputs <RAW>/report-inputs-r16-01.json --input-sha256 34d9705fd1579fc38c65dfdd039cb560b83a343c3633b59e08ec20fa70b77db3 --output <fresh rank16 output>
+
+RAW is the raw_root value in raw-artifacts.json.
+Use the explicitly verified CPU interpreter and set PYTHONPATH=src; do not initialize CUDA for reporting.
+The final rank16 report authenticates the earlier unchanged rank4 report.
+Each actual posterior request produces exactly 50,000 complete rows, including engineering controls.
+No learning-rate/main training campaign, full scientific qualification, multi-GPU training or public model release is asserted.

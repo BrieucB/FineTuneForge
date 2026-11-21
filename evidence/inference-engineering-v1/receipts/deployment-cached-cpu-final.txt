@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.13, pytest-8.4.2, pluggy-1.7.0
+rootdir: /home/it4i-bbenvegnen/workspace/FineTuneForge-hierarchical-cpu
+configfile: pyproject.toml
+plugins: anyio-4.16.0, platformdirs-4.14.5
+collected 6 items
+
+tests/test_study_inference_deployment.py ......                          [100%]
+
+- generated xml file: /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-inference-optimization-20261117/lora-deployment-cpu/final.xml -
+============================== 6 passed in 13.80s ==============================

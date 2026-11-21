@@ -1,0 +1,47 @@
+{
+  "posterior": {
+    "allocation": {
+      "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-r16-01/allocation.json",
+      "sha256": "4ae4c2492779907a3d6c97461a0de538f9886c53bcd8f1e9fdd568be47c2abed"
+    },
+    "inputs": {
+      "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-inputs-r16-01/manifest.json",
+      "sha256": "d7688a363f9d5baae127625c0ed29a15cbe54f857a9ed12407458ede91178f28"
+    },
+    "lanes": {
+      "cached": {
+        "container": {
+          "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-r16-01/cached/posterior-result.json",
+          "sha256": "f9f08278a4e22eab1639a31c84aa4c90bab811b0629561058f820a517cb3aa02"
+        },
+        "metrics": {
+          "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-r16-01/cached/repetition-0/metrics.json",
+          "sha256": "836850146c5065d6f75a1b2cfe60bd0cb1e8d5911cb2733c02c36174aa6fa252"
+        },
+        "result": {
+          "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-r16-01/cached/result.json",
+          "sha256": "75110975f649f3b3c88c9a862601b153aa7e96a6178cb0e3c859c8e30f430794"
+        }
+      },
+      "stock": {
+        "container": {
+          "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-r16-01/stock/posterior-result.json",
+          "sha256": "9cca26245ac47b8dbb498a851e1256146e86883029a8e0b9823dd515199596a3"
+        },
+        "metrics": {
+          "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-r16-01/stock/repetition-0/metrics.json",
+          "sha256": "5ae3d1109807a1ab504ab06acbe42f11e305c5a78e2e22e65dfbd5e0bc8b2ad8"
+        },
+        "result": {
+          "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/posterior-r16-01/stock/result.json",
+          "sha256": "4bb09617f2df174cf8f0e10cc6b5d9d9b7c1218f11255ba513a784815b28c230"
+        }
+      }
+    }
+  },
+  "rank4_report": {
+    "path": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/report-final-01/report.json",
+    "sha256": "117f775420db083db266a95ee3d0b85fc6552ddb6a343e86e173f79d2a41656d"
+  },
+  "schema": "finetuneforge.training_rank16_posterior_report_inputs.v1"
+}

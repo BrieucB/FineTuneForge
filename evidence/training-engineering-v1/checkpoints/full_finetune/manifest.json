@@ -1,0 +1,10 @@
+{
+  "files": {
+    "campaign.json": "cbe8b75735fba8b3bfdf5ebd185d6461934fc938de3974953a336f17d29a4aa8",
+    "deployment/full_model.safetensors": "4082347cde2841b6bbfd7ce17222e48455106829a66b89b3f5f2bc7b10c846a1",
+    "training/manifest.json": "8ea2801644aeb94c88df8fdffc4e331c841fa7849eb051765e93a5529e062bff",
+    "training/rng.json": "ac3cce52f7c1000918309000e87dcd696ca95f2c4e00b8cb467a21fb1aa10493",
+    "training/training.pt": "9f1a6e0cf238e200d2f51b3d05517e5c0e310d791ebe378ddca7ca51a4742220"
+  },
+  "schema": "finetuneforge.campaign_checkpoint.files.v1"
+}

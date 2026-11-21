@@ -1,0 +1,123 @@
+{
+  "cdf_grid": "257 equally spaced values in [-8,8] plus all shared output borders",
+  "passed": true,
+  "rows": [
+    {
+      "cdf_grid_points": 5258,
+      "eight_raw_member_max_abs_logits": [
+        7.152557373046875e-06,
+        1.33514404296875e-05,
+        7.62939453125e-06,
+        1.7642974853515625e-05,
+        8.58306884765625e-06,
+        1.52587890625e-05,
+        1.0013580322265625e-05,
+        1.1920928955078125e-05
+      ],
+      "max_abs_cdf_over_grid": 2.903846483270911e-07,
+      "max_abs_log_prob_at_truth": 1.8389578748667645e-08,
+      "max_abs_quantile": 0.00020357520509151072,
+      "passed": true,
+      "quantile_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ],
+      "stage": 0
+    },
+    {
+      "cdf_grid_points": 5258,
+      "eight_raw_member_max_abs_logits": [
+        6.67572021484375e-06,
+        1.049041748046875e-05,
+        1.0013580322265625e-05,
+        1.049041748046875e-05,
+        1.33514404296875e-05,
+        6.67572021484375e-06,
+        1.430511474609375e-05,
+        9.5367431640625e-06
+      ],
+      "max_abs_cdf_over_grid": 1.7612129521449305e-07,
+      "max_abs_log_prob_at_truth": 7.299649684711085e-08,
+      "max_abs_quantile": 1.8314367707716883e-05,
+      "passed": true,
+      "quantile_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ],
+      "stage": 1
+    },
+    {
+      "cdf_grid_points": 5258,
+      "eight_raw_member_max_abs_logits": [
+        5.7220458984375e-06,
+        2.1457672119140625e-05,
+        9.059906005859375e-06,
+        1.33514404296875e-05,
+        1.52587890625e-05,
+        6.198883056640625e-06,
+        9.5367431640625e-06,
+        7.62939453125e-06
+      ],
+      "max_abs_cdf_over_grid": 2.965369684804209e-07,
+      "max_abs_log_prob_at_truth": 1.0406853681033112e-06,
+      "max_abs_quantile": 4.8394111104244075e-05,
+      "passed": true,
+      "quantile_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ],
+      "stage": 2
+    },
+    {
+      "cdf_grid_points": 5258,
+      "eight_raw_member_max_abs_logits": [
+        6.67572021484375e-06,
+        7.62939453125e-06,
+        7.62939453125e-06,
+        9.298324584960938e-06,
+        7.62939453125e-06,
+        4.76837158203125e-06,
+        6.67572021484375e-06,
+        5.7220458984375e-06
+      ],
+      "max_abs_cdf_over_grid": 8.157023001498231e-08,
+      "max_abs_log_prob_at_truth": 1.1095101104530158e-07,
+      "max_abs_quantile": 4.09729508419332e-05,
+      "passed": true,
+      "quantile_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ],
+      "stage": 3
+    }
+  ],
+  "scope": "same fixed inputs, all eight pristine member predictions, FP32 neural/FP64 law",
+  "tolerances": {
+    "cdf_atol": 0.0001,
+    "log_prob_atol": 0.001,
+    "member_logits_atol": 0.0001,
+    "member_logits_rtol": 0.001,
+    "quantile_atol": 0.001,
+    "quantile_rtol": 0.001
+  }
+}

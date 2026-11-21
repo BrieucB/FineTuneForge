@@ -1,0 +1,138 @@
+{
+  "checks": {
+    "fitting_parity": {
+      "cdf_full_grid_points": 5258,
+      "cdf_max_abs": 0.0,
+      "limits": {
+        "cdf_atol": 0.0001,
+        "logits_atol": 0.0001,
+        "logits_rtol": 0.001,
+        "quantile_atol": 0.001,
+        "quantile_rtol": 0.001
+      },
+      "passed": true,
+      "quantile_max_abs": 0.0,
+      "queries": 1,
+      "raw_member_max_abs_logits": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tail_levels": [
+        1e-09,
+        1e-05,
+        0.01,
+        0.5,
+        0.99,
+        0.99999,
+        0.999999999
+      ]
+    },
+    "forecast": {
+      "assumptions": "representative repeated-conditional costs; excludes extra initial preprocessing/IO; no context KV cache",
+      "estimated_sampler_seconds_range": [
+        344938.8608058733,
+        483078.81638884573
+      ],
+      "full_75d_run_enabled": false,
+      "measured_stages": [
+        0,
+        37,
+        74
+      ],
+      "microbatches": 49,
+      "posterior_draws": 50000,
+      "stages": 75
+    },
+    "rows": [
+      {
+        "attention_stats": {
+          "max_batch_tile": 1157,
+          "max_estimated_score_bytes": 138512695296,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536772096,
+          "stock_fast_path": 96,
+          "stock_gradient_path": 0,
+          "tiled_inference": 192
+        },
+        "conditional_seconds": 103.66124729100557,
+        "finite": true,
+        "peak_allocated_bytes": 12062746112,
+        "peak_reserved_bytes": 18943574016,
+        "preparation_seconds": 8.814536217993009,
+        "queries": 1,
+        "stage": 74,
+        "status": "completed"
+      },
+      {
+        "attention_stats": {
+          "max_batch_tile": 2150,
+          "max_estimated_score_bytes": 101468602368,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536846400,
+          "stock_fast_path": 0,
+          "stock_gradient_path": 0,
+          "tiled_inference": 288
+        },
+        "conditional_seconds": 93.86091450499953,
+        "finite": true,
+        "peak_allocated_bytes": 11112943104,
+        "peak_reserved_bytes": 17670602752,
+        "preparation_seconds": 6.575027993996628,
+        "queries": 1024,
+        "stage": 0,
+        "status": "completed"
+      },
+      {
+        "attention_stats": {
+          "max_batch_tile": 1553,
+          "max_estimated_score_bytes": 119990648832,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536716800,
+          "stock_fast_path": 0,
+          "stock_gradient_path": 0,
+          "tiled_inference": 288
+        },
+        "conditional_seconds": 112.74297618700075,
+        "finite": true,
+        "peak_allocated_bytes": 13113033728,
+        "peak_reserved_bytes": 19314769920,
+        "preparation_seconds": 7.8251114250015235,
+        "queries": 1024,
+        "stage": 37,
+        "status": "completed"
+      },
+      {
+        "attention_stats": {
+          "max_batch_tile": 1157,
+          "max_estimated_score_bytes": 138512695296,
+          "max_query_tile": 4096,
+          "max_tile_score_bytes": 536772096,
+          "stock_fast_path": 0,
+          "stock_gradient_path": 0,
+          "tiled_inference": 288
+        },
+        "conditional_seconds": 131.45001806499204,
+        "finite": true,
+        "peak_allocated_bytes": 15114488320,
+        "peak_reserved_bytes": 22309502976,
+        "preparation_seconds": 9.086154574004468,
+        "queries": 1024,
+        "stage": 74,
+        "status": "completed"
+      }
+    ]
+  },
+  "input_manifest_sha256": "0b2e98555d425d2f857a16d9bd0c938e5f41108c9b2aa79b3e82167bbde1d922",
+  "lane": "probes",
+  "scientifically_qualified": false,
+  "source_commit": "07f8909f0b862d68862ab46cf753b356879d4120",
+  "status": "completed",
+  "training_pilots_started": false,
+  "wall_seconds": 521.2120781409903
+}

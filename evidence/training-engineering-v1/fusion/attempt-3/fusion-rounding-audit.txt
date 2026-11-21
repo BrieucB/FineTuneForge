@@ -1,0 +1,19 @@
+Fusion retry 5449754: floating-point contraction audit
+
+Evidence files (SHA256):
+84ebfee8c056e13f9880b30eeb33ae855edd1f8054bd7477a3aaf56c0c873703  /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/fusion-02/result.json
+be74146c8c14c67935475d5601c0e07e9666645425538aed4e99eabc8f574483  /scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-training-engineering-20261117/fusion-03/result.json
+175769bdb85602c0d84129d8e0cc7ed2f0d7b173fe46ec433d8a765e8890a4e8  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449744/triton/0/af9fe-84pv3Z--G4cIQKbR1zxuUhV_smW0T-PMGwrVQ/triton_poi_fused_add_gelu_gelu_backward_mul_0.json
+c172de732332e2aaaebbf4ee4a657da6040cbac08fc398783d9e64580a4bfe69  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449744/triton/0/af9fe-84pv3Z--G4cIQKbR1zxuUhV_smW0T-PMGwrVQ/triton_poi_fused_add_gelu_gelu_backward_mul_0.ptx
+1bc56a39be774cf3aad36541c059c6a251a6e10bc3ce4e89f554063c860dc276  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449754/triton/0/uZNPMUGHCwO3PxFLsDa3VEY29S5J7xuVM9HdYwK-TDQ/triton_poi_fused_add_gelu_gelu_backward_mul_0.json
+8aa1a47b1c5cae28d8c24c1121b57d032ec8c2f60454c8924c9ce8957d8c10df  /scratch/project/eu-26-17/eubrieucb/posteriorforge/cache/inductor-fusion-5449754/triton/0/uZNPMUGHCwO3PxFLsDa3VEY29S5J7xuVM9HdYwK-TDQ/triton_poi_fused_add_gelu_gelu_backward_mul_0.ptx
+
+The sampled GELU kernel metadata records enable_fp_fusion=true in 5449744 and false in 5449754. The sampled PTX changes from 18 to 14 fma.rn instructions; 14 fma.rn.ftz instructions remain in both, in the libdevice path. Lines 69–70 of the former use fma.rn.f32 for base plus twice the adapter; lines 69–73 of the latter use separate add.rn.f32 instructions.
+All four initial-stage full named-gradient comparison dictionaries and the CDF and loss error values exactly match between jobs. The unchanged tolerances are gradient atol 2e-7 and rtol 2e-5. The nonzero checkpoint was not reached.
+stage 0: gradient max abs 4.917383193969727e-07, failed tensors 1, CDF max abs 1.494085817288493e-07, loss max abs 6.736656832373455e-08
+stage 1: gradient max abs 7.739290595054626e-07, failed tensors 5, CDF max abs 2.0342273510109976e-07, loss max abs 5.419307669285445e-08
+stage 2: gradient max abs 1.5683472156524658e-06, failed tensors 25, CDF max abs 3.8309971683858635e-07, loss max abs 4.193679572495057e-07
+stage 3: gradient max abs 3.855675458908081e-07, failed tensors 3, CDF max abs 2.6884412585026496e-08, loss max abs 2.79195262464782e-07
+
+Conclusion: the setting reached the Triton compiler and changed generated PTX but did not change these measured comparison errors. The remaining library FMAs, special-function approximations and external matrix operations are possible sources, not proven causes; these results do not localize the numerical difference.
+This is a read-only evidence audit; no GPU job, compiler modification or source change was made.

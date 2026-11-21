@@ -1,0 +1,33 @@
+{
+  "cdf_full_grid_points": 5258,
+  "cdf_max_abs": 0.0,
+  "limits": {
+    "cdf_atol": 0.0001,
+    "logits_atol": 0.0001,
+    "logits_rtol": 0.001,
+    "quantile_atol": 0.001,
+    "quantile_rtol": 0.001
+  },
+  "passed": true,
+  "quantile_max_abs": 0.0,
+  "queries": 1,
+  "raw_member_max_abs_logits": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "tail_levels": [
+    1e-09,
+    1e-05,
+    0.01,
+    0.5,
+    0.99,
+    0.99999,
+    0.999999999
+  ]
+}

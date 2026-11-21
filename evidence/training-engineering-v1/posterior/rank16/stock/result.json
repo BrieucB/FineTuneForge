@@ -1,0 +1,17 @@
+{
+  "checkpoint": {
+    "campaign_checkpoint": "/scratch/project/eu-26-17/eubrieucb/posteriorforge/results/hierarchical-ft-v1-cuda-qualification-20261117/allocation-02/lora_r16/after-two-updates",
+    "campaign_metadata_sha256": "43cf80c1f289fc5c831705088148cb0fca3201c41d1e63a16373b9fe4e952cd7",
+    "checkpoint_manifest_sha256": "7f96baf2ccaf7ff184e0ab09c0032986d804859a36a4713fb4f0a3485ab57cad",
+    "model_sha256": "3d86872e478fbca09bd8ff7e7e8f3eac60aaba624257f91648654f22ba3a666f"
+  },
+  "input_manifest_sha256": "d7688a363f9d5baae127625c0ed29a15cbe54f857a9ed12407458ede91178f28",
+  "job_id": "5449714",
+  "posterior_draws": 50000,
+  "posterior_result_sha256": "9cca26245ac47b8dbb498a851e1256146e86883029a8e0b9823dd515199596a3",
+  "schema": "finetuneforge.training_posterior_qualification.v1",
+  "scientifically_qualified": false,
+  "source_commit": "87f47eec28305c9601e94df81934a19d20811367",
+  "status": "completed",
+  "variant": "stock"
+}
